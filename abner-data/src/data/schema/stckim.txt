@@ -1,0 +1,69 @@
+=====================================================================================================================================================
+T	STCKIM
+S
+L	Stock Item
+C	库存项信息
+Y	StockItem
+@	保存系统中的单件库存，每件库存绑定RFID标签
+====1===========2===========3===============4=======================5===================6=======================7====================================
+N	STIMID,		ID,			NOT NULL,		,						id,					ID,						主键
+*****************************************************************************************************************************************************
+N	STCKID,		BIGINT,		NOT NULL,       ,               		stockId,			Stock ID,				库存
+K 	STCKMS	                - MTRLID
+K 	STCKMS:MTRLMS 			- SKUNO, SKUNAM, MODEL
+K 	STCKMS:MTRLMS:MTRTYP 	- MTTYP1
+K 	STCKMS:MTRLMS:UNITMS 	- UNITCD, UNITNM
+*****************************************************************************************************************************************************
+N	WRHSID,		BIGINT,		NOT NULL,		,						warehouseId,		Warehouse ID,			仓库
+K 	WRHSMS 		- WRHSNM, WRHSCD, CMPNID
+*****************************************************************************************************************************************************
+N	STIMNO,		VC(64),		NOT NULL,		,						stockItemNo,		Stock Item No,			物料唯一码
+	# 是每卷，盒，箱的物料在仓库中的唯一码，一般用来打印条码. 此唯一码由系统根据序列号生成表生成.
+N	RFIDCD,		VC(64),		NOT NULL,		'',						rfidCode,		    RFID Code,			    RFID
+    # 收货时如果采用RFID则将绑定的RFID卡号写入此字段用来记录
+N	NFCCDE,		VC(64),		NOT NULL,		'',						nfcCode,		    NFC Code,			    NFC
+    # 收货时如果采用NFC则将绑定的NFC卡号写入此字段用来记录
+N   NFCID,      VC(64),     NOT NULL,       '',                     nfcID,              NFC ID,                 NFC ID
+*****************************************************************************************************************************************************
+N   AESCDE,     VC(64),     NOT NULL,       '',                     aesCode,            aesCode,                NFC加密验证码
+*****************************************************************************************************************************************************
+N	RVODNO,		VC(32),		NOT NULL,		'',						roHeadNo,			RO Head NO,				收货单号
+    # 关联了收货单，以便于快速查询收货单收到的物料。
+	#
+	# 注意：表模型中并没有关联收货单的主键，主要原因是防止外键关联引起的维护困难。
+N 	ROLNNO,		INT,		NOT NULL,		-1,						roLineNo,			RO Line NO,				收货单行号
+N	RCVDAT,		DATE,			,		        ,					receivedDate,		Received Date,			收货日期
+*****************************************************************************************************************************************************
+N	BATHNO,		VC(32),		NOT NULL,		'',						batchNo,			Batch No,				库存批次
+	# 收货的批次号, 一个收货任务的批次号应该是一致的, 并且和收货单(RTHEAD)是一样的.
+*****************************************************************************************************************************************************
+N 	SUPLID,		BIGINT,		,				,						supplierId,			Supplier ID,			供应商
+K 	STCKIM03 	- SUPLCD, SUPLNM
+N 	PRDDAT,		DATE,		,				,						productionDate,		Production Date,		生产日期
+*****************************************************************************************************************************************************
+N 	BUYRID,		BIGINT,		,				,						buyerId,			Buyer ID,			    采购商
+K 	STCKIM04 	- SUPLNM as BUYRNM alias buyerName
+N   RDCTIT,     VC(32),     NOT NULL,       '',                     refDocTitle,        Ref Doc Title,          销售单
+N   SALARA,     VC(32),     NOT NULL,       '',                     salesArea,          Sales Area,             销售区域
+N 	SALDAT,		DATE,		,				,						salesDate,		    Sales Date,		        销售日期
+*****************************************************************************************************************************************************
+N	STKSTS,		VC(1),		NOT NULL,		'O',					stockStatus,		Stock Status,			库存状态
+	B	O		Onhand		在库
+	B   D       Deliver     已出库
+    B   L       Loss        丢失
+    B   K       Lock        锁定
+*****************************************************************************************************************************************************
+N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			操作时间
+====1===========2===========3===============4=======================5===============6=======================7========================================
+P 	STIMID
+U	01 getByStockItemNo WRHSID, STIMNO
+I	01 listByBatchNo WRHSID, BATHNO
+I   02 listByRfid RFIDCD
+I   03 listByNfc NFCCDE
+I   04 listByNfcId NFCID
+F	01 listByWarehouse (WRHSID) WRHSMS (WRHSID)
+F	02 listByStock (STCKID) STCKMS (STCKID)
+F 	03 listBySupplier (SUPLID) SUPLMS (SUPLID)
+F 	04 listByBuyer (BUYRID) SUPLMS (SUPLID)
+=====================================================================================================================================================
