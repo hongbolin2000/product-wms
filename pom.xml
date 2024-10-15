@@ -108,6 +108,12 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.hongyou</groupId>
+            <artifactId>baron-utils</artifactId>
+            <version>${hongyou.baron.version}</version>
+        </dependency>
     </dependencies>
 
     <repositories>

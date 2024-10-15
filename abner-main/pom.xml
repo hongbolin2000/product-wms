@@ -34,5 +34,11 @@
             <artifactId>abner-test</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.hongyou</groupId>
+            <artifactId>baron-web</artifactId>
+            <version>${hongyou.baron.version}</version>
+        </dependency>
     </dependencies>
 </project>
