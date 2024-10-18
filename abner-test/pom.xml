@@ -12,11 +12,11 @@
     <name>abner-test</name>
     <description>后台管理系统测试DEMO模块</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.hongyou</groupId>
-            <artifactId>abner-data</artifactId>
-            <version>${revision}</version>
-        </dependency>
-    </dependencies>
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>com.hongyou</groupId>-->
+<!--            <artifactId>abner-data</artifactId>-->
+<!--            <version>${revision}</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
 </project>
