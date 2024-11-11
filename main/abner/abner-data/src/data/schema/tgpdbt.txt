@@ -1,0 +1,52 @@
+=====================================================================================================================================================
+T	TGPDBT
+S
+L	Tag Product Batch
+C	标签生产批次
+Y	TagProductBatch
+@	唯一码标签（RFID/NFC）生产前在系统中创建生产批次，再将生成的标签唯一号提供给标签供应商进行写入
+====1===========2===========3===============4=======================5===============6=======================7========================================
+N	TGBTID,		ID,			NOT NULL,		,						id,				ID,						主键
+*****************************************************************************************************************************************************
+N	CMPNID,		BIGINT,		NOT NULL,		,						companyId,		Company,				公司
+*****************************************************************************************************************************************************
+N   TAGTYP,     VC(4),      NOT NULL,       'NFC',                  tagType,        Tag Type,               标签类型
+    B  NFC      NFC         NFC
+    B  RFID     RFID        RFID
+*****************************************************************************************************************************************************
+N   BATHNO,     VC(32),     NOT NULL,       '',                     batchNo,        Batch No,               生产批次
+N	MTTYID,		BIGINT,		NOT NULL,       ,               		materialTypeId,	Material Type,		    物料类型
+K 	MTRTYP 		    - MTTYP1
+N   TAGCNT,     INT,        NOT NULL,       0,                      tagCount,       Tag Count,              标签数量
+*****************************************************************************************************************************************************
+N 	SUPLID,		BIGINT,		,				,						supplierId,		Tag Supplier,			标签供应商
+K 	TGPDBT02	- SUPLNM
+# 标签的生产厂家
+N 	PRDUID,		BIGINT,		,				,						producerId,		Product Producer,		产品供应商
+K 	TGPDBT03	- SUPLNM as PRDUNM alias producerName
+# 标签生产完成后发往的产品生产供应商
+*****************************************************************************************************************************************************
+N   STSRNO,     INT,        NOT NULL,       1,                      startSerialNo,  Start Serial No,        起始流水号
+N   EDSRNO,     INT,        NOT NULL,       1,                      endSerialNo,    End Serial No,          终止流水号
+*****************************************************************************************************************************************************
+N   STATUS,     VC(1),      NOT NULL,       'N',                    Status,         Status,                 状态
+    B   N       New         新建
+    B   R       Receive     已收货
+    B   D       Deliver     已发货
+*****************************************************************************************************************************************************
+N   RECVBY,     VC(32),     NOT NULL,       '',                     receiveBy,      ReceiveBy,              收货人
+N   RECVTM,     TS,         ,                 ,                     receiveTime,    ReceiveTime,            收货时间
+N   DELVBY,     VC(32),     NOT NULL,       '',                     deliverBy,      DeliverBy,              发货人
+N   DELVTM,     TS,         ,                 ,                     deliverTime,    DeliverTime,            发货时间
+*****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',			            remark,		    Remark,				    备注
+N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate Time,			操作时间
+====1===========2===========3===============4=======================5===================6=======================7====================================
+P 	TGBTID
+U	01 getByBatchNo CMPNID, BATHNO
+F	01 listByCompany (CMPNID) CMPNMS (CMPNID)
+F	02 listBySupplier (SUPLID) SUPLMS (SUPLID)
+F	03 listByProducer (PRDUID) SUPLMS (SUPLID)
+F	04 (MTTYID) MTRTYP (MTTYID)
+=====================================================================================================================================================
