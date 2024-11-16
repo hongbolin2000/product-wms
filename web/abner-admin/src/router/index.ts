@@ -7,8 +7,8 @@ import { createWebHashHistory, createRouter } from 'vue-router'
  *
  * @author Berlin
  *******************************************************************************/
-import Login from '@/views/Login/index.vue';
-import Main from '@/views/main.vue';
+import Login from '@/views/Login/Login.vue';
+import Main from '@/views/Main.vue';
 
 /**
  * 路由配置
