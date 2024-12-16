@@ -6,22 +6,36 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
-import Components from 'unplugin-vue-components/vite'
+import ViteComponents from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import path from "path";
 /********************************************************************************
  * Vite配置文件 https://vite.dev/config/
  *
  * @author Berlin
- * *******************************************************************************/
+ ********************************************************************************/
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
     vueDevTools(),
-    Components({
+    ViteComponents({
       resolvers: [NaiveUiResolver()]
-    })
+    }),
+    createSvgIconsPlugin({
+      iconDirs: [path.resolve(process.cwd(), 'src/icons')],
+      symbolId: 'icon-[dir]-[name]',
+    }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "@/styles/variables.scss" as *;',
+        api: 'modern'
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

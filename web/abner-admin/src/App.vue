@@ -1,9 +1,15 @@
 <template>
-  <n-config-provider :theme="lightTheme">
-    <router-view/>
-  </n-config-provider>
+  <n-notification-provider>
+    <n-message-provider>
+      <router-view />
+    </n-message-provider>
+  </n-notification-provider>
 </template>
 
 <script setup lang="ts">
-import { lightTheme } from 'naive-ui'
+  /********************************************************************************
+   * APP起始文件
+   *
+   * @author Berlin
+   *******************************************************************************/
 </script>
