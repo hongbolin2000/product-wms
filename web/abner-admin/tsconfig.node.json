@@ -1,3 +1,11 @@
+/*
+ * Copyright 2024, Hongyou Software Development Studio.
+ *
+/********************************************************************************
+ * 配置vite.config.ts文件的编译规则
+ *
+ * @author Berlin
+ ********************************************************************************/
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "include": [

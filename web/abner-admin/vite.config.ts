@@ -24,14 +24,14 @@ export default defineConfig({
       resolvers: [NaiveUiResolver()]
     }),
     createSvgIconsPlugin({
-      iconDirs: [path.resolve(process.cwd(), 'src/icons')],
+      iconDirs: [path.resolve(process.cwd(), 'src/layouts/icons')],
       symbolId: 'icon-[dir]-[name]',
     }),
   ],
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@use "@/styles/variables.scss" as *;',
+        additionalData: '@use "@/layouts/styles/variables.scss" as *;',
         api: 'modern'
       },
     },

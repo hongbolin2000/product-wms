@@ -7,42 +7,39 @@ import {createWebHashHistory, createRouter, type RouteRecordNormalized} from 'vu
  *
  * @author Berlin
  *******************************************************************************/
-import Login from '@/views/Login/Login.vue'
-import Layout from '@/layouts/ThemeLayout.vue'
-import MainControl from "@/views/index/MainControl.vue";
-import WorkSpace from "@/views/index/WorkSpace.vue";
 
 /**
  * 路由配置
  */
-const routes: RouteRecordNormalized = [
+export const routes: RouteRecordNormalized = [
   {
     path: '/index',
-    component: Layout,
-    meta: {
-      title: 'Dashboard'
-    },
+    component: () => import('@/layouts/ThemeLayout.vue'),
     children: [
       {
         path: '/index/home',
-        component: MainControl,
-        meta: {
-          title: '主控台'
-        },
+        component: () => import('@/views/index/main-control.vue'),
       },
       {
         path: '/index/work-place',
-        component: WorkSpace,
-        meta: {
-          title: '工作台'
-        },
+        component: () => import("@/views/index/work-space.vue"),
       },
     ]
   },
-  { path: '/login', component: Login },
+  {
+    path: '/system',
+    component: () => import('@/layouts/ThemeLayout.vue'),
+    children: [
+      {
+        path: '/system/index',
+        component: () => import("@/views/index/work-space.vue"),
+      }
+    ]
+  },
+  { path: '/login', component: () => import('@/views/Login/Login.vue') },
 ]
 
-export const routers = createRouter({
+export const router = createRouter({
   history: createWebHashHistory(),
   routes,
 })

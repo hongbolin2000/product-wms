@@ -99,7 +99,7 @@
   });
 
   /**
-   * 主题样式嘞
+   * 主题样式类
    */
   const mainClass = computed(() => {
     return layoutStore.theme === ThemeMode.DARK ? 'main-base-dark-theme' : 'main-base-light-theme'

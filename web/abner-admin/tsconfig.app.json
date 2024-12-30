@@ -1,3 +1,11 @@
+/*
+ * Copyright 2024, Hongyou Software Development Studio.
+ *
+/********************************************************************************
+ * 配置项目中其他文件的ts编译规则
+ *
+ * @author Berlin
+ ********************************************************************************/
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],

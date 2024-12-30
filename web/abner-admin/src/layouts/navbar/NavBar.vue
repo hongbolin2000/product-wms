@@ -5,11 +5,11 @@
     <div style="flex: 1"></div>
 
     <div class="right-wrapper" v-if="layoutStore.deviceType !== 'mobile'">
-      <NavBarActions />
+      <Actions />
     </div>
 
     <div class="avatar-wrapper">
-      <NavBarAvatar/>
+      <Avatar/>
     </div>
   </div>
 </template>
@@ -22,8 +22,8 @@
    ********************************************************************************/
   import NavBarHumburger from "@/layouts/navbar/humburger/NavBarHumburger.vue";
   import NavBarBreadCrumb from "@/layouts/navbar/breadcrumb/NavBarBreadCrumb.vue"
-  import NavBarActions from "@/layouts/navbar/actions/NavBarActions.vue";
-  import NavBarAvatar from "@/layouts/navbar/avatar/NavBarAvatar.vue";
+  import Actions from "@/layouts/actions/Actions.vue";
+  import Avatar from "@/layouts/avatar/Avatar.vue";
   import {useLayoutStore} from "@/layouts/store/layout-store";
 
   /**

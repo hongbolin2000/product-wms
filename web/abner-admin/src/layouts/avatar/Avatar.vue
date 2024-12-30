@@ -18,10 +18,12 @@
 </template>
 
 <script setup lang="ts">
-import { h } from 'vue'
+  import { h } from 'vue'
   import { NIcon, useDialog } from 'naive-ui'
   import { Menu, LogInOutline, CaretDownSharp } from '@vicons/ionicons5'
   /********************************************************************************
+   * 头像
+   *
    * @author Berlin
    ********************************************************************************/
   import Avatar from './avatar.gif';

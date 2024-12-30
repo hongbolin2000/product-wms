@@ -5,12 +5,12 @@
         mode="vertical"
         :value="currentPath"
         :collapsed="layoutStore.isCollapse"
-        :options="menuOptions"
-        :default-value="currentPath"
+        :options="!menus ? appStore.menus : menus"
         :expanded-keys="expandKeys"
         :collapsed-icon-size="22"
         :collapsed-width="63"
         :indent="15"
+        accordion
         @update:value="onMenuClick"
         @update:expanded-keys="onMenuExpanded"
       />
@@ -19,20 +19,41 @@
 </template>
 
 <script setup lang="ts">
-  import {h, ref, watch} from "vue"
+  import {ref, watch, watchEffect} from "vue"
   import {useRoute, useRouter} from "vue-router"
-  import {type MenuOption, NIcon} from "naive-ui"
-  import MyIcon from '@/icons/SvgIcon.vue';
+  import {type MenuOption} from "naive-ui"
   /********************************************************************************
+   * 竖向布局菜单
+   *
    * @author Berlin
    ********************************************************************************/
   import {useLayoutStore} from "@/layouts/store/layout-store";
+  import {useAppStore} from '@/layouts/store/app-store';
   import {DeviceType} from "@/layouts/types";
+
+  /**
+   * 父组件传入的属性
+   */
+  defineProps({
+
+    /**
+     * 菜单
+     */
+    menus: {
+      type: Array<MenuOption>,
+      required: false
+    }
+  });
 
   /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
+
+  /**
+   * 全局应用状态
+   */
+  const appStore = useAppStore();
 
   /**
    * 当前路由
@@ -47,103 +68,19 @@
   /**
    * 当前路由地址
    */
-  const currentPath = ref('');
-  currentPath.value = currentRoute.fullPath
+  const currentPath = ref(currentRoute.fullPath.split("?")[0]);
 
   /**
    * 展开的菜单
    */
   const expandKeys = ref(['']);
-  handleExpandPath();
 
   /**
-   * 菜单图标
-   *
-   * @param icon
+   * 加载
    */
-  function renderIcon(icon: string) {
-    icon = !icon ? 'menu' : icon;
-    return () => h(NIcon, null, { default: () => h(MyIcon, {name: icon}) })
-  }
-
-  /**
-   * 测试路由
-   */
-  const menuOptions: MenuOption[] = [
-    {
-      label: 'Dashboard',
-      key: '/index',
-      icon: renderIcon("dashboard"),
-      children: [{
-        label: '主控台',
-        key: '/index/home',
-        icon: renderIcon(""),
-      },{
-        label: '工作台',
-        key: '/index/work-place',
-        icon: renderIcon(""),
-      },]
-    },
-    {
-      label: '系统管理',
-      key: '/system',
-      children: [],
-      icon: renderIcon("setting")
-    },
-    {
-      label: '列表页面',
-      key: '/list',
-      children: [],
-      icon: renderIcon("detail")
-    },
-    {
-      label: '表单页面',
-      key: '/form',
-      children: [],
-      icon: renderIcon("file-text")
-    },
-    {
-      label: '功能/组件',
-      key: '/function',
-      children: [],
-      icon: renderIcon("appstore")
-    },
-    {
-      label: '结果页面',
-      key: '/result',
-      children: [],
-      icon: renderIcon("file-unknown")
-    },
-    {
-      label: '编辑器',
-      key: '/editor',
-      children: [],
-      icon: renderIcon("edit")
-    },
-    {
-      label: '拖拽',
-      key: '/tuozhai',
-      children: [],
-      icon: renderIcon("interation")
-    },
-    {
-      label: '多级菜单',
-      key: '/multiply',
-      children: [],
-      icon: renderIcon("Partition")
-    },
-    {
-      label: '地图',
-      key: '/map',
-      children: [],
-      icon: renderIcon("location")
-    },
-    {
-      label: '项目依赖',
-      key: '/dependence',
-      icon: renderIcon("menu")
-    }
-  ]
+  watchEffect(() => {
+    handleExpandPath();
+  });
 
   /**
    * 计算展开的菜单
@@ -151,11 +88,11 @@
   function handleExpandPath() {
 
     // 分隔出每一级路由菜单
-    const keys = currentPath.value.split('/');
-    let expands: string[] = keys.filter((item) => !!item);
+    const paths = currentPath.value.split('/');
+    let expands: string[] = paths.filter((item) => !!item);
 
     // 将每一级路由菜单进行拼接
-    expands = expands.reduce((prev: string, current: string) => {
+    expands = expands.reduce((prev: string[], current: string) => {
       const lastItem = prev[prev.length - 1]
       if (!lastItem) {
         prev.push('/' + current)
@@ -164,7 +101,7 @@
       }
       return prev
     }, [] as string[]);
-    expandKeys.value = Array.from(new Set([...expandKeys.value, ...expands]));
+    expandKeys.value = expands;
   }
 
   /**
@@ -188,7 +125,7 @@
    * 监听路由变化
    */
   watch(() => currentRoute.fullPath, (value) => {
-    currentPath.value = value;
+    currentPath.value = value.split("?")[0];
     handleExpandPath();
   });
 </script>

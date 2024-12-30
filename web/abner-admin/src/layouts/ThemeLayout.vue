@@ -13,15 +13,18 @@
           :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
         >
           <template v-if="layoutStore.layoutMode === 'ttb'">
-
+            <VawHeader/>
+            <MainLayout :show-nav-bar="false"/>
           </template>
           <template v-else-if="layoutStore.layoutMode === 'lcr'">
-
+            <SplitSideBar/>
+            <MainLayout/>
           </template>
           <template v-else>
-            <SideBar :show-logo="layoutStore.navbar.isShowFullScreen"/>
+            <SideBar/>
             <MainLayout />
           </template>
+
           <div
             v-if="layoutStore.deviceType === 'mobile'"
             class="mobile-shadow"
@@ -35,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onBeforeUnmount, onMounted} from "vue"
+  import {computed, onBeforeUnmount, onMounted} from "vue"
   import { darkTheme, zhCN } from 'naive-ui'
   /********************************************************************************
    * 框架布局
@@ -46,6 +49,8 @@ import {computed, onBeforeUnmount, onMounted} from "vue"
   import SideBar from '@/layouts/sidebar/SideBar.vue'
   import MainLayout from "@/layouts/MainLayout.vue";
   import {useLayoutStore} from "@/layouts/store/layout-store";
+  import VawHeader from "@/layouts/header/VawHeader.vue";
+  import SplitSideBar from "@/layouts/sidebar/SplitSideBar.vue";
 
   /**
    * 布局状态
@@ -82,9 +87,9 @@ import {computed, onBeforeUnmount, onMounted} from "vue"
 /**
  * 组件卸载
  */
-onBeforeUnmount(() => {
+  onBeforeUnmount(() => {
     window.removeEventListener('resize', onScreenResize)
-  })
+  });
 
   /**
    * 屏幕大小改变

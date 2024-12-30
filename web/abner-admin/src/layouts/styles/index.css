@@ -1,0 +1,27 @@
+/*
+ * Copyright 2024, Hongyou Software Development Studio.
+ */
+/********************************************************************************
+ * 全局应用CSS样式
+ *
+ * @author Berlin
+ *******************************************************************************/
+:root {
+  --menu-width: 210px;
+}
+html,
+body,
+#app {
+  height: 100vh;
+}
+* {
+  box-sizing: border-box;
+}
+
+td .n-button + .n-button {
+  margin-left: 10px;
+}
+
+.n-card {
+  border-radius: 10px;
+}

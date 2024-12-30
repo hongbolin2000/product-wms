@@ -1,19 +1,19 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
- *
+ */
 /********************************************************************************
- * Typescript编译规则
+ * Store类型定义
  *
  * @author Berlin
  ********************************************************************************/
-{
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ]
+
+/**
+ * 网站信息
+ */
+export type WebsiteOption = {
+
+  /**
+   * 网站标题
+   */
+  title: string
 }

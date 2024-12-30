@@ -51,7 +51,7 @@
     SettingsOutline as SettingIcon,
   } from '@vicons/ionicons5'
   import {ref} from "vue"
-  import {useRouter} from 'vue-router'
+  import {useRoute, useRouter} from 'vue-router'
   import screenfull from 'screenfull'
   import { useMessage } from 'naive-ui'
   /********************************************************************************
@@ -60,8 +60,8 @@
    * @author Berlin
    ********************************************************************************/
   import {useLayoutStore} from "@/layouts/store/layout-store"
-  import NotifyMessage from "@/layouts/navbar/actions/message/NotifyMessage.vue";
-  import LayoutSetting from "@/layouts/navbar/actions/setting/LayoutSetting.vue";
+  import NotifyMessage from "@/layouts/actions/message/NotifyMessage.vue";
+  import LayoutSetting from "@/layouts/actions/setting/LayoutSetting.vue";
 
   /**
    * 布局状态
@@ -69,9 +69,14 @@
   const layoutStore = useLayoutStore();
 
   /**
-   * 路由
+   * 路由对象
    */
   const router = useRouter();
+
+  /**
+   * 当前路由
+   */
+  const route = useRoute();
 
   /**
    * 消息条数
@@ -81,7 +86,7 @@
   /**
    * 提示消息
    */
-  const message = useMessage()
+  const message = useMessage();
 
   /**
    * 布局设置抽屉元素
@@ -92,14 +97,14 @@
    * 刷新路由
    */
   function onRefreshRoute() {
-    router.replace({ path: route.path })
+    router.push({ path: route.path, query: {t: new Date().getTime()} });
   }
 
   /**
    * 全屏
    */
   function onScreenFull() {
-    if (screenfull.isEnabled) {
+    if (!screenfull.isEnabled) {
       message.error('当前浏览器不支持全屏操作')
       return false
     }

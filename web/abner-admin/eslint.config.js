@@ -3,7 +3,6 @@
  */
 import pluginVue from 'eslint-plugin-vue'
 import vueTsEslintConfig from '@vue/eslint-config-typescript'
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 /********************************************************************************
  * Eslint代码检查配置文件
  *
@@ -21,6 +20,5 @@ export default [
   },
 
   ...pluginVue.configs['flat/essential'],
-  ...vueTsEslintConfig(),
-  skipFormatting,
+  ...vueTsEslintConfig()
 ]

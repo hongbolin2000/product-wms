@@ -11,7 +11,7 @@
       ]"
     >
       <transition name="logo">
-        <Logo v-if="showLogo" website-title="Admin Work"/>
+        <Logo v-if="showLogo"/>
       </transition>
       <ScrollerMenu/>
       <div class="mobile-shadow"></div>
@@ -27,8 +27,8 @@
    * @author Berlin
    ********************************************************************************/
   import {ThemeMode, SideTheme} from '@/layouts/types'
-  import Logo from '@/layouts/sidebar/logo/SideBarLogo.vue'
-  import ScrollerMenu from "@/layouts/sidebar/menus/ScrollerMenu.vue";
+  import Logo from '@/layouts/logo/Logo.vue'
+  import ScrollerMenu from "@/layouts/menus/VerticalMenu.vue";
   import {useLayoutStore} from "@/layouts/store/layout-store";
 
   /**

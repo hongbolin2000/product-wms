@@ -8,68 +8,71 @@ import { defineStore } from 'pinia'
  * @author Berlin
  ********************************************************************************/
 import {DeviceType, SideTheme, ThemeMode} from "@/layouts/types";
+import {ref} from "vue";
 
 /**
  * 创建布局状态存储器
  */
 export const useLayoutStore = defineStore('layoutStore', () => {
-  return { ...appConfig }
+  return { ...layoutStore }
+}, {
+  persist: true
 });
 
 /**
  * 初始布局状态
  */
-const appConfig = {
+const layoutStore = {
 
   /**
    * 主题
    */
-  theme: ThemeMode.LIGHT,
+  theme: ref(ThemeMode.LIGHT),
 
   /**
    * 主题颜色
    */
-  themeColor: '#18a058',
+  themeColor: ref('#18a058'),
 
   /**
    * 菜单栏主题
    */
-  sideTheme: SideTheme.WHITE,
+  sideTheme: ref(SideTheme.WHITE),
 
   /**
    * 终端
    */
-  deviceType: DeviceType.PC,
+  deviceType: ref(DeviceType.PC),
 
   /**
    * 布局模式
    */
-  layoutMode: '',
+  layoutMode: ref(''),
 
   /**
    * 菜单宽度
    */
-  sideWidth: 210,
+  sideWidth: ref(210),
 
   /**
    * 是否折叠菜单
    */
-  isCollapse: false,
+  isCollapse: ref(false),
 
   /**
    * 是否固定导航栏
    */
-  isFixedNavBar: true,
+  isFixedNavBar: ref(true),
 
   /**
    * 页面切换效果
    */
-  pageAnimate: 'opacity',
+  pageAnimate: ref('opacity'),
 
   /**
    * 导航栏配置
    */
-  navbar: {
+  navbar: ref({
 
     /**
      * 是否显示搜索栏
@@ -90,5 +93,5 @@ const appConfig = {
      * 是否显示全屏图标
      */
     isShowFullScreen: true,
-  }
+  })
 }

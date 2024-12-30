@@ -7,9 +7,9 @@
           :options="item.children"
           @select="handleSelect"
         >
-          <span>
+          <span class="dropdown-item">
             {{ item.label }}
-            <n-icon>
+            <n-icon class="tip">
               <ChevronDown />
             </n-icon>
           </span>
@@ -21,108 +21,89 @@
 </template>
 
 <script setup lang="ts">
-  import {type RouteRecordNormalized, useRoute, useRouter} from "vue-router";
+  import {useRoute, useRouter} from "vue-router";
   import {onMounted, ref, watch} from "vue";
   import { ChevronDown } from '@vicons/ionicons5'
+  import type {MenuOption} from "naive-ui";
   /********************************************************************************
    * 导航栏当前菜单面包屑
    *
    * @author Berlin
    ********************************************************************************/
+  import {useAppStore} from "@/layouts/store/app-store";
 
   /**
-   * 路由信息
+   * 路由对象
    */
-  const route = useRoute()
-  const router = useRouter()
+  const router = useRouter();
 
   /**
-   * 菜单选项
+   * 当前路由
    */
-  const breadcrumbs= ref([] as DropItem[] );
+  const route = useRoute();
+
+  /**
+   * 应用全局状态
+   */
+  const appStore = useAppStore();
+
+  /**
+   * 面包屑选项
+   */
+  const breadcrumbs = ref([] as MenuOption[] );
 
   /**
    * 组件加载
    */
   onMounted(() => {
-    generatorBreadcrumb();
-  })
+    generateBreadcrumb();
+  });
 
   /**
-   * 计算path的子路径
+   * 生成当前菜单的面包屑
    */
-  function handlePath(path: string): string[] {
-    const keys = path.split('/');
-    const expireKeys: string[] = keys.filter((item) => !!item);
+  function generateBreadcrumb() {
+    const paths = splitPath();
+    const menus = findMenu(paths);
 
-    return expireKeys.reduce((prev: string, current: string) => {
+    if (menus) {
+      breadcrumbs.value = menus;
+    }
+  }
+
+  /**
+   * 分隔出当前路由路径的子路由
+   */
+  function splitPath(): string[] {
+    const paths = route.path.split('/');
+    const expireKeys: string[] = paths.filter((item) => !!item);
+
+    return expireKeys.reduce((prev: string[], current: string) => {
       const lastItem = prev[prev.length - 1]
       if (!lastItem) {
         prev.push('/' + current)
       } else {
         prev.push(lastItem + '/' + current)
       }
-      return prev
+      return prev;
     }, [] as string[]);
   }
 
   /**
-   * 生成下拉菜单
+   * 查找每一级菜单
    */
-  function generatorDropdown(routes: RouteRecordNormalized[], parentPath = '/') {
-    if (!routes) {
-      return
-    }
-    const tempArray: DropItem[] = [];
-    routes.forEach((it) => {
-
-      // 生成菜单选项
-      const tempItem: DropItem = {
-        label: it.meta?.title as string,
-        key: it.path.startsWith('/') ? it.path : parentPath + '/' + it.path,
-        children: [],
-      }
-
-      // 生成子菜单
-      if (it.children && it.children.length > 0) {
-        tempItem.children = generatorDropdown(it.children, tempItem.key);
-      } else {
-        delete tempItem.children;
-      }
-      tempArray.push(tempItem);
-    })
-    return tempArray;
-  }
-
-  /**
-   * 通过菜单路径查询路由
-   */
-  function findRoute(paths: string[]) {
-    const selectRoutes: RouteRecordNormalized[] = [];
-    let routes: RouteRecordNormalized[] = router.getRoutes();
+  function findMenu(paths: string[]) {
+    const selectMenus: MenuOption[] = [];
+    let menus = appStore.expandMenus;
 
     paths.forEach((path) => {
-      const selectRoute = routes.find((item) => item.path === path);
-      if (selectRoute) {
-        routes = selectRoute.children;
-        selectRoutes.push(selectRoute);
+      const selectMenu = menus.find((item: MenuOption) => item.key === path);
+      if (selectMenu) {
+        menus = selectMenu.children;
+        selectMenus.push(selectMenu);
       }
     })
-    return selectRoutes;
-  }
-
-  /**
-   * 生成当前菜单的面包屑
-   */
-  function generatorBreadcrumb() {
-    breadcrumbs.value = [];
-    const paths = handlePath(route.path);
-    const findedRoutes = findRoute(paths);
-
-    const items = generatorDropdown(findedRoutes);
-    if (items) {
-      breadcrumbs.value.push(...items)
-    }
+    return selectMenus;
   }
 
   /**
@@ -139,27 +120,21 @@
     if (route.path.startsWith('/redirect') || ['/login', '/404', '/405', '/403', '/500'].includes(route.path)) {
       return;
     }
-    generatorBreadcrumb();
-  })
-
-  /**
-   * 菜单类型定氮仪
-   */
-  interface DropItem {
-
-    /**
-     * 菜单标签
-     */
-    label: string;
-
-    /**
-     * 菜单的key
-     */
-    key: string
-
-    /**
-     * 子菜单
-     */
-    children?: DropItem[];
-  }
+    generateBreadcrumb();
+  });
 </script>
+
+<style scoped lang="scss">
+.dropdown-item {
+  .tip {
+    transform: rotate(0deg);
+    transition: all $transitionTime;
+  }
+}
+  .dropdown-item:hover {
+    .tip {
+      transform: rotate(180deg);
+      transition: all $transitionTime;
+    }
+  }
+</style>

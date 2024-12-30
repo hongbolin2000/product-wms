@@ -1,0 +1,76 @@
+/*
+ * Copyright 2024, Hongyou Software Development Studio.
+ */
+/********************************************************************************
+ * 全局应用动画效果
+ *
+ * @author Berlin
+ *******************************************************************************/
+
+/* 渐隐渐现页面动画效果 */
+.opacity-transform-leave-active,
+.opacity-transform-enter-active {
+    transition: all 0.5s;
+}
+.opacity-transform-enter-from {
+    opacity: 0;
+}
+.opacity-transform-leave-to {
+    opacity: 0;
+}
+
+/* 左右滑动页面动画效果*/
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    transition: all 0.5s;
+}
+.fade-transform-enter-from {
+    opacity: 0;
+    transform: translateX(-50px);
+}
+.fade-transform-leave-to {
+    opacity: 0;
+    transform: translateX(50px);
+}
+
+/* 上下滑动页面动画效果*/
+.down-transform-leave-active,
+.down-transform-enter-active {
+    transition: all 0.5s;
+}
+.down-transform-enter-from {
+    opacity: 0;
+    transform: translateY(-50px);
+}
+.down-transform-leave-to {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+/* 缩放页面动画效果*/
+.scale-transform-leave-active,
+.scale-transform-enter-active {
+    transition: all 0.5s;
+}
+.scale-transform-enter-from {
+    opacity: 0;
+    transform: scale(2);
+}
+.scale-transform-leave-to {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* logo显示/隐藏动画效果 */
+.logo-enter-active,
+.logo-leave-active {
+    transition: all 0.5s;
+}
+.logo-enter-from,
+.logo-leave-active {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+.logo-move {
+    transition: all 0.5s;
+}

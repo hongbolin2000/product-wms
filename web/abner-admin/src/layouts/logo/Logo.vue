@@ -1,11 +1,11 @@
 <template>
   <div class="logo-wrapper">
-    <img alt="logo" v-if="showLogo" class="logo-img" src="@/layouts/sidebar/logo/logo.png" />
+    <img alt="logo" v-if="showLogo" class="logo-img" src="./logo.png" />
     <div
       v-if="showTitle"
       :class="[!layoutStore.isCollapse || alwaysShow ? 'show-title' : 'close-title']"
     >
-      <span class="logo-title">{{ websiteTitle }}</span>
+      <span class="logo-title">{{ appStore.websiteOption.title }}</span>
     </div>
   </div>
 </template>
@@ -17,11 +17,17 @@
    * @author Berlin
    ********************************************************************************/
   import {useLayoutStore} from "@/layouts/store/layout-store";
+  import {useAppStore} from "@/layouts/store/app-store";
 
   /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
+
+  /**
+   * 全局应用状态
+   */
+  const appStore = useAppStore();
 
   /**
    * 父组件传入的属性
@@ -47,15 +53,7 @@
     /**
      * 总是显示网站标题
      */
-    alwaysShow: Boolean,
-
-    /**
-     * 网站标题
-     */
-    websiteTitle: {
-      type: String,
-      required: true
-    }
+    alwaysShow: Boolean
   });
 </script>
 

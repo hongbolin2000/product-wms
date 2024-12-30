@@ -1,5 +1,0 @@
-import 'vfonts/Lato.css'
-import 'virtual:svg-icons-register'
-import './index.css'
-import '@/icons/iconfont/iconfont.css'
-import './transition.css'

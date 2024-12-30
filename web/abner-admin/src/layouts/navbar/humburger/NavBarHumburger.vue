@@ -14,7 +14,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import MyIcon from "@/icons/SvgIcon.vue";
+  import MyIcon from "@/layouts/icons/SvgIcon.vue";
   import {useLayoutStore} from "@/layouts/store/layout-store";
 
   /**
