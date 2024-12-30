@@ -5,7 +5,11 @@
       v-if="showTitle"
       :class="[!layoutStore.isCollapse || alwaysShow ? 'show-title' : 'close-title']"
     >
-      <span class="logo-title">{{ appStore.websiteOption.title }}</span>
+      <span class="logo-title">
+        <n-ellipsis :style="'max-width:' + maxWidth">
+          {{ appStore.websiteOption.title }}
+        </n-ellipsis>
+      </span>
     </div>
   </div>
 </template>
@@ -18,6 +22,7 @@
    ********************************************************************************/
   import {useLayoutStore} from "@/layouts/store/layout-store";
   import {useAppStore} from "@/layouts/store/app-store";
+  import {computed} from "vue";
 
   /**
    * 布局状态
@@ -55,6 +60,19 @@
      */
     alwaysShow: Boolean
   });
+
+  /**
+   * 计算标题的最大显示宽度
+   */
+  const maxWidth = computed(() => {
+    if (layoutStore.layoutMode === 'ttb') {
+      return 'calc((var(--menu-width)/3*2) - 40px)';
+    } else if ((layoutStore.layoutMode === 'lcr')) {
+      return 'calc(var(--menu-width) - 65px)';
+    } else {
+      return 'calc(var(--menu-width) - 40px)';
+    }
+  })
 </script>
 
 <style scoped lang="scss">

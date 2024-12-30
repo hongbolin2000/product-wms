@@ -90,7 +90,6 @@
       }
     }
     .title {
-      margin-top: -20vh;
       font-size: 20px;
       color: var(--primary-color);
     }

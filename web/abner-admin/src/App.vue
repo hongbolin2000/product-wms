@@ -24,7 +24,7 @@
     // 初始化
     helper.initial({
       menus: menus,
-      websiteTitle: '门店数据采集平台'
+      websiteTitle: '门店数据采集平台台台台台台台'
     });
   });
 </script>

@@ -92,7 +92,6 @@
    */
   function matchTab() {
     const matchedRoutes = route.matched;
-debugger
     if (matchedRoutes && matchedRoutes.length > 0) {
       appStore.menus.forEach((menu) => {
         if (menu.key === matchedRoutes[0].path) {

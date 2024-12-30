@@ -107,6 +107,7 @@
       layoutStore.isCollapse = false;
     } else {
       layoutStore.deviceType = DeviceType.PC;
+      layoutStore.isCollapse = false;
     }
   }
 
