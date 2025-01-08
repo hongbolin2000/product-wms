@@ -6,34 +6,32 @@
     style="height: 100%"
   >
     <n-global-style />
-    <n-loading-bar-provider>
-      <n-dialog-provider>
-        <n-el
-          class="vaw-layout-container"
-          :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
-        >
-          <template v-if="layoutStore.layoutMode === 'ttb'">
-            <VawHeader/>
-            <MainLayout :show-nav-bar="false"/>
-          </template>
-          <template v-else-if="layoutStore.layoutMode === 'lcr'">
-            <SplitSideBar/>
-            <MainLayout/>
-          </template>
-          <template v-else>
-            <SideBar/>
-            <MainLayout />
-          </template>
+    <n-dialog-provider>
+      <n-el
+        class="vaw-layout-container"
+        :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
+      >
+        <template v-if="layoutStore.layoutMode === 'ttb'">
+          <VawHeader/>
+          <MainLayout :show-nav-bar="false"/>
+        </template>
+        <template v-else-if="layoutStore.layoutMode === 'lcr'">
+          <SplitSideBar/>
+          <MainLayout/>
+        </template>
+        <template v-else>
+          <SideBar/>
+          <MainLayout />
+        </template>
 
-          <div
-            v-if="layoutStore.deviceType === 'mobile'"
-            class="mobile-shadow"
-            :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
-            @click="closeMenu"
-          ></div>
-        </n-el>
-      </n-dialog-provider>
-    </n-loading-bar-provider>
+        <div
+          v-if="layoutStore.deviceType === 'mobile'"
+          class="mobile-shadow"
+          :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
+          @click="closeMenu"
+        ></div>
+      </n-el>
+    </n-dialog-provider>
   </n-config-provider>
 </template>
 

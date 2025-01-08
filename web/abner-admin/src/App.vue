@@ -1,7 +1,9 @@
 <template>
   <n-notification-provider>
     <n-message-provider>
-      <router-view />
+      <n-loading-bar-provider>
+        <router-view />
+      </n-loading-bar-provider>
     </n-message-provider>
   </n-notification-provider>
 </template>
@@ -24,7 +26,7 @@
     // 初始化
     helper.initial({
       menus: menus,
-      websiteTitle: '门店数据采集平台台台台台台台'
+      websiteTitle: '门店数据采集平台'
     });
   });
 </script>

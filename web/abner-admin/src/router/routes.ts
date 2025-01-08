@@ -36,7 +36,7 @@ export const routes: RouteRecordNormalized = [
       }
     ]
   },
-  { path: '/login', component: () => import('@/views/Login/Login.vue') },
+  { path: '/login', component: () => import('@/layouts/Login/index.vue') },
 ]
 
 export const router = createRouter({

@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
   import { h } from 'vue'
-  import { NIcon, useDialog } from 'naive-ui'
+  import {NIcon, useDialog, useLoadingBar, useMessage} from 'naive-ui'
   import { Menu, LogInOutline, CaretDownSharp } from '@vicons/ionicons5'
   /********************************************************************************
    * 头像
@@ -27,11 +27,14 @@
    * @author Berlin
    ********************************************************************************/
   import Avatar from './avatar.gif';
+  import {router} from "@/router/routes";
 
   /**
    * 信息弹框
    */
-  const dialog = useDialog()
+  const dialog = useDialog();
+  const message = useMessage();
+  const loadingBar = useLoadingBar();
 
   /**
    * 头像选项
@@ -78,7 +81,21 @@
       positiveText: '退出',
       negativeText: '再想想',
       onPositiveClick: () => {
-        window.location.reload()
+        let tooltip = message.loading("退出登录中...", {duration: 0});
+        setTimeout(() => {
+          tooltip.destroy();
+
+          tooltip = message.success("退出登录成功，即将退出系统");
+          setTimeout(() => {
+            tooltip.destroy();
+
+            loadingBar.start();
+            setTimeout(() => {
+              loadingBar.finish();
+              router.replace("/login");
+            }, 1000);
+          }, 1000);
+        }, 1000);
       },
     })
   }
