@@ -8,12 +8,12 @@ import type {MenuOption} from 'naive-ui';
  *
  * @author Berlin
  ********************************************************************************/
-import type {WebsiteOption} from "@/layouts/store/types";
+import type {WebsiteOption} from "@/layouts/types";
 
 /**
  * 创建APP全局应用状态
  */
-export const useAppStore = defineStore('appStore', () => {
+const useAppStore = defineStore('appStore', () => {
 
   /**
    * 设置菜单
@@ -46,6 +46,7 @@ export const useAppStore = defineStore('appStore', () => {
 
   return { ...appStore, configMenu, configWebsite }
 });
+export default useAppStore;
 
 /**
  * 初始APP全局应用状态
@@ -71,5 +72,20 @@ const appStore = {
      * 网站标题
      */
     title: '',
-  }
+
+    /**
+     * 副标题
+     */
+    subtitle: '',
+
+    /**
+     * 公司名称
+     */
+    companyName: '',
+
+    /**
+     * 应用版本
+     */
+    version: ''
+  },
 }

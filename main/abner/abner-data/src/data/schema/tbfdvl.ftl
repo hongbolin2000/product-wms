@@ -1,0 +1,2 @@
+INSERT INTO TBFDVL (TFVLID, TFDSID, VALCDE, FLDTYP, SORTNG, FLDVAL, REMARK) VALUES (${childId1}, ${id1}, '<#if column.constants.size() gt 0>${child.code}<#else>${child.code}</#if>', '${child.code}' ,'${displayOrder}', '${child.field}', '${child.remark}');
+INSERT INTO TBFDVL (TFVLID, TFDSID, VALCDE, FLDTYP, SORTNG, FLDVAL, REMARK) VALUES (${childId2}, ${id2}, '<#if column.constants.size() gt 0>${child.code}<#else>${child.code}</#if>', '${child.code}' ,'${displayOrder}', '${child.label}', '${child.remark}');

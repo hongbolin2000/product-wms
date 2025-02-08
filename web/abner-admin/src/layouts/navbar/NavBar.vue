@@ -24,7 +24,7 @@
   import NavBarBreadCrumb from "@/layouts/navbar/breadcrumb/NavBarBreadCrumb.vue"
   import Actions from "@/layouts/actions/Actions.vue";
   import Avatar from "@/layouts/avatar/Avatar.vue";
-  import {useLayoutStore} from "@/layouts/store/layout-store";
+  import useLayoutStore from "@/layouts/store/layout-store";
 
   /**
    * 布局状态

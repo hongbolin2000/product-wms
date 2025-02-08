@@ -1,58 +1,40 @@
 =====================================================================================================================================================
 T	MTRLMS
 S
-L	Material
-C	物料主信息
+L	Material Master Table
+C	物料
 Y	Material
-@	物料主表中的（SKUT**，SKUN**，SKUB**）将传导到其子表, 用于界面显示; （TXMT**）不需要传导给子表, 一般仅仅用来做逻辑处理和运算。
-@
-@	物料主表是整个系统中非常重要的表，它控制了物料的操作描述。包括出入库、库存单位、怎么使用等。
 ====1===========2===========3===============4=======================5===============6=======================7========================================
-N	MTRLID,		ID,			NOT NULL,       ,               		id,				ID,                     主键
+N	MTRLID,		ID,			NOT NULL, 		,						id,				ID,						主键
 *****************************************************************************************************************************************************
-N	CMPNID,		BIGINT,		NOT NULL,		,						companyId,		Company,				公司
+N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		Company,				公司
 *****************************************************************************************************************************************************
-N	MTTYID,		BIGINT,		NOT NULL,       ,               		materialTypeId,	Material Type,		    物料类型
-K 	MTRTYP 		    - MTTYP1
-*****************************************************************************************************************************************************
-N	UNITID,		BIGINT,		NOT NULL,       ,               		unitId,			Unit,                   库存单位
-	# 物料在仓库中的缺省库存单位，具体的的库存项可以根据实际改变
-K 	UNITMS 		- UNITCD, UNITNM
+N	PRODID,		BIGINT,		NOT NULL, 		,						productId,		Product,				产品
+K   PRODMS      - PRODNM, SEASON, PRDIMG
 *****************************************************************************************************************************************************
 N	SKUNO,		VC(32),		NOT NULL,		'',						skuNo,			SKU NO,					物料号
 N	SKUNAM,		VC(64),		NOT NULL,		'',						skuName,		SKU Name,				物料名称
-	# 物料的名称全称, 仅仅用来在界面上显示给用户看，快速了解物料信息
-N   MODEL,      VC(32),     NOT NULL,       '',                     model,          Model,                  型号
+N   SIZENO,     VC(16),     NOT NULL,       '',                     sizeNo,         Size No,                尺码
+N   UPCNO,      VC(32),     NOT NULL,       '',                     upcNo,          UPC No,                 UPC码
+N   PRICE,      N(24.5),    NOT NULL,       0,                      price,          Price,                  价格
 *****************************************************************************************************************************************************
-N   MTRIMG,     VC(254),    NOT NULL,       '',                     mateiralImage,  Material Imafe,         物料图片
-*****************************************************************************************************************************************************
-N	SOURCE,		VC(16),		NOT NULL,		'MNU',					source,			Source,					物料来源
-	B 	MNU		MANUAL		手工录入
-	B   DOC     DOC         文件导入
-	# 当前物料的来源，是手工录入，还是从其它系统导入
-*****************************************************************************************************************************************************
-N	TXMT01,		VC(32),		NOT NULL,		'',						define01,		User Define 1,			自定义1
-	# 此组自定义属性是为项目定义的物料特定, 主要用于物料的内部逻辑计算以及业务流程处理.
-	# 此组自定义不需要分布(复制)到需要使用SKU的表中.
-N	TXMT02,		VC(32),		NOT NULL,		'',						define02,		User Define 2,			自定义2
-N	TXMT03,		VC(32),		NOT NULL,		'',						define03,		User Define 3,			自定义3
-N	TXMT04,		VC(32),		NOT NULL,		'',						define04,		User Define 4,			自定义4
-N	TXMT05,		VC(32),		NOT NULL,		'',						define05,		User Define 5,			自定义5
-N	TXMT06,		VC(64),		NOT NULL,		'',						define06,		User Define 6,			自定义6
-N	TXMT07,		VC(64),		NOT NULL,		'',						define07,		User Define 7,			自定义7
-N	TXMT08,		VC(64),		NOT NULL,		'',						define08,		User Define 8,			自定义8
-N	TXMT09,		VC(64),		NOT NULL,		'',						define09,		User Define 9,			自定义9
-*****************************************************************************************************************************************************
-N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					描述
+N	TXDF01,		VC(64),		NOT NULL,		'',						define01,		define 1,				自定义值1
+N	TXDF02,		VC(64),		NOT NULL,		'',						define02,		define 2,				自定义值2
+N	TXDF03,		VC(64),		NOT NULL,		'',						define03,		define 3,				自定义值3
+N	TXDF04,		VC(64),		NOT NULL,		'',						define04,		define 4,				自定义值4
+N	TXDF05,		VC(64),		NOT NULL,		'',						define05,		define 5,				自定义值5
+N	TXDF06,		VC(64),		NOT NULL,		'',						define06,		define 6,				自定义值6
+N	TXDF07,		VC(64),		NOT NULL,		'',						define07,		define 7,				自定义值7
+N	TXDF08,		VC(64),		NOT NULL,		'',						define08,		define 8,				自定义值8
+N	TXDF09,		VC(64),		NOT NULL,		'',						define09,		define 9,				自定义值9
 *****************************************************************************************************************************************************
 N	CRETBY,		VC(32),		NOT NULL,		'',						createBy,		Create By,				创建人
 N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,		Create Time,			创建时间
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate By,				操作人
-N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,	Operate Time,			操作时间
+N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
+N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
-P 	MTRLID
-U	01 getBySKUNO CMPNID, SKUNO
+P	MTRLID
+U	01 getBySkuNo CMPNID, SKUNO
 F	01 listByCompany (CMPNID) CMPNMS (CMPNID)
-F	02 (MTTYID) MTRTYP (MTTYID)
-F 	03 (UNITID) UNITMS (UNITID)
+F	02 listByProduct (PRODID) PRODMS (PRODID)
 =====================================================================================================================================================

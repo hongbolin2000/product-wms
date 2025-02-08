@@ -17,9 +17,9 @@
     <description>后台管理系统父类模块</description>
 
     <modules>
-        <module>abner-main</module>
+        <module>abner-core</module>
         <module>abner-data</module>
-        <module>abner-test</module>
+        <module>abner-main</module>
     </modules>
 
     <properties>
@@ -35,7 +35,7 @@
         <!-- MyBatis Flex -->
         <mybatisflex.version>1.9.7</mybatisflex.version>
 
-        <!-- HikariCP -->
+        <!-- HikariCP，数据库连接池 -->
         <hikaricp.version>5.1.0</hikaricp.version>
 
         <!-- MySQL -->
@@ -46,6 +46,9 @@
 
         <!-- Maven Plugin -->
         <maven.compiler-plugin>3.13.0</maven.compiler-plugin>
+
+        <!-- Sa-Token -->
+        <satoken.version>1.39.0</satoken.version>
     </properties>
 
     <build>
@@ -64,6 +67,12 @@
                             <artifactId>mybatis-flex-processor</artifactId>
                             <version>${mybatisflex.version}</version>
                         </path>
+
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
@@ -75,18 +84,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
             <version>${springboot.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${springboot.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mybatis-flex</groupId>
-            <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
-            <version>${mybatisflex.version}</version>
         </dependency>
 
         <dependency>
@@ -110,9 +107,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.hongyou</groupId>
-            <artifactId>baron-utils</artifactId>
-            <version>${hongyou.baron.version}</version>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot3-starter</artifactId>
+            <version>${satoken.version}</version>
         </dependency>
     </dependencies>
 

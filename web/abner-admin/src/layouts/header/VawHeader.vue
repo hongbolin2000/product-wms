@@ -25,7 +25,7 @@
    * @author Berlin
    ********************************************************************************/
   import Logo from '@/layouts/logo/Logo.vue';
-  import {useLayoutStore} from "@/layouts/store/layout-store";
+  import useLayoutStore from "@/layouts/store/layout-store";
   import Actions from "@/layouts/actions/Actions.vue";
   import Avatar from "@/layouts/avatar/Avatar.vue";
   import HorizontalMenu from "@/layouts/menus/HorizontalMenu.vue";

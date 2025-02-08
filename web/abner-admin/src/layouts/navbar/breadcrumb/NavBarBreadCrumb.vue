@@ -30,7 +30,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {useAppStore} from "@/layouts/store/app-store";
+  import useAppStore from "@/layouts/store/app-store";
 
   /**
    * 路由对象

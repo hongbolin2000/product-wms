@@ -9,10 +9,9 @@ import {createPersistedState} from "pinia-plugin-persistedstate";
  *
  * @author Berlin
  *******************************************************************************/
-import '@/layouts/styles'
 import App from '@/App.vue'
 import {router} from '@/router/routes'
-import {useRouterGuard} from "@/router/guard";
+import {routerHelper} from '@/layouts';
 
 /**
  * 创建应用
@@ -20,10 +19,11 @@ import {useRouterGuard} from "@/router/guard";
 function create() {
 
   /**
-   * 路由防护（在router开始前配置）
+   * 初始化路由（在路由创建前配置）
    */
-  useRouterGuard({
-    rootPath: "/index/home"
+  routerHelper.initRouter({
+    router: router,
+    rootPath: "/index/home",
   });
 
   // 创建pinia

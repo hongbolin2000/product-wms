@@ -4,10 +4,12 @@
 package com.hongyou.abner.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Berlin
  */
+@Component
 public class DataProvider {
 
     /**

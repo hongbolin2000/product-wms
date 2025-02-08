@@ -54,11 +54,11 @@
    * @author Berlin
    ********************************************************************************/
   import Logo from "@/layouts/logo/Logo.vue";
-  import {useLayoutStore} from "@/layouts/store/layout-store";
+  import useLayoutStore from "@/layouts/store/layout-store";
   import {SideTheme, ThemeMode} from "@/layouts/types";
   import MyIcon from "@/layouts/icons/SvgIcon.vue";
   import VerticalMenu from "@/layouts/menus/VerticalMenu.vue";
-  import {useAppStore} from "@/layouts/store/app-store";
+  import useAppStore from "@/layouts/store/app-store";
 
   /**
    * 全局应用状态

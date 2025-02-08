@@ -1,0 +1,63 @@
+=====================================================================================================================================================
+T	WHROHD
+S
+L	Warehouse Receive Order
+C	仓库收货单
+Y	WarehouseReceiveOrder
+====1===========2===========3===============4=======================5===============6=======================7========================================
+N	ROHDID,		ID,			NOT NULL,       ,               		id,				ID,                     主键
+*****************************************************************************************************************************************************
+N	WRHSID,		BIGINT,		NOT NULL,		,						warehouseId,	Warehouse,			    仓库
+K 	WRHSMS 		- WRHSNM, WRHSCD
+*****************************************************************************************************************************************************
+N	RVODNO,		VC(32),		NOT NULL,		,						roHeadNo,		RO Head NO,				收货单号
+	# 仓库唯一的入库单号，一般用来打印条码入库
+*****************************************************************************************************************************************************
+N	RDOCTY,		VC(8),		NOT NULL,		'PO',					refDocType,		Ref Document Type,		单据类型
+    B   PO      PO 		    采购入库
+    B   ST      ST          门店退货
+N   RDCTIT,     VC(32),     NOT NULL,       '',                     refDocTitle,    Ref Doc Title,          参考单据
+*****************************************************************************************************************************************************
+N 	SUPLID,		BIGINT,		        ,		    ,					supplierId,		Supplier,			    供应商
+K 	SUPLMS		- SUPLNM
+*****************************************************************************************************************************************************
+N   STREID,     BIGINT,             ,           ,                   storeID,        Store,                  来源门店
+K   STREMS      - STRENM
+*****************************************************************************************************************************************************
+N	ORDRDT,		DATE,		,				,						orderDate,		Order Date,				订单日期
+*****************************************************************************************************************************************************
+N	STATUS,		VC(2),		NOT NULL,		'10',					status,			Status,					状态
+	B	10		No			未收货
+	B	20		Taking		正在收货
+	B	60		Finished	收货完成
+	B 	99		Cancel 		终止
+*****************************************************************************************************************************************************
+N	BFCLST,		VC(32),		,					,					beforeCloseStatus,Before Close Status,	关闭前状态
+N	CLOSTM,		TS,			,				,						ClosedTime,		Closed Time,			关闭时间
+N	CLOSBY,		VC(32),		NOT NULL,		'',						closeBy,		Close By,				关闭人
+*****************************************************************************************************************************************************
+N	TXRH01,		VC(32),		NOT NULL,		'',						define01,		User Define 1,			自定义1
+N	TXRH02,		VC(32),		NOT NULL,		'',						define02,		User Define 2,			自定义2
+N	TXRH03,		VC(32),		NOT NULL,		'',						define03,		User Define 3,			自定义3
+N	TXRH04,		VC(32),		NOT NULL,		'',						define04,		User Define 4,			自定义4
+N	TXRH05,		VC(32),		NOT NULL,		'',						define05,		User Define 5,			自定义5
+N	TXRH06,		VC(32),		NOT NULL,		'',						define06,		User Define 6,			自定义6
+N	TXRH07,		VC(32),		NOT NULL,		'',						define07,		User Define 7,			自定义7
+N	TXRH08,		VC(32),		NOT NULL,		'',						define08,		User Define 8,			自定义8
+N	TXRH09,		VC(32),		NOT NULL,		'',						define09,		User Define 9,			自定义9
+	# 一般来说，是从源单据中拷贝过来的。比如，如果入库单是从采购单（POHEAD）生成的，则从（POHEAD.TXPH01-09）拷贝过来。
+*****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					描述
+N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,		Create By,				创建人
+N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,		Create Time,			创建时间
+N	OPRTBY,		VC(64),		NOT NULL,		'anonymous',			operateBy,		Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,	Operate Time,			操作时间
+====1===========2===========3===============4=======================5===============6=======================7========================================
+P 	ROHDID
+U	01 getByROHeadNo WRHSID, RVODNO
+I	02 listByRefDocTitle WRHSID, RDOCTY, RDCTIT
+I	03 listByRefDocType WRHSID, RDOCTY, STATUS
+F	01 listByWarehouse (WRHSID) WRHSMS (WRHSID)
+F 	02 listBySupplier (SUPLID) SUPLMS (SUPLID)
+F 	03 listByStore (STREID) STREMS (STREID)
+=====================================================================================================================================================

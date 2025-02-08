@@ -20,8 +20,8 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {useLayoutStore} from "@/layouts/store/layout-store";
-  import {useAppStore} from "@/layouts/store/app-store";
+  import useLayoutStore from "@/layouts/store/layout-store";
+  import useAppStore from "@/layouts/store/app-store";
   import {computed} from "vue";
 
   /**

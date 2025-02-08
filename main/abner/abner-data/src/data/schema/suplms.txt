@@ -18,18 +18,6 @@ N	SOURCE,		VC(3),		NOT NULL,		'MNU',					source,				Source,					来源
 	B   DOC     DOC         文件导入
 	# 供应商数据的来源，从其它系统导入，还是本系统手工维护的
 *****************************************************************************************************************************************************
-N	ISSELR,		VC(1),		NOT NULL,		'Y',					isTagSeller,		Is Tag Seller,		    标签供应商
-	E	Y		Yes			是
-	E	N		No			否
-	# 可以从这个供应商中采购原材料
-N	ISBUYR,		VC(1),		NOT NULL,		'Y',					isBuyer,			Is Buyer,				采购商
-	E	Y		Yes			是
-	E	N		No			否
-N	ISPRDU,		VC(1),		NOT NULL,		'Y',					isProducer,			Is Product Producer,	产品供应商
-	E	Y		Yes			是
-	E	N		No			否
-	# 这个客户有制造工厂
-*****************************************************************************************************************************************************
 N	ENABLD,		VC(1),		NOT NULL,		'Y',					enabled,			Enabled,				可用
 	E	Y		Yes			是
 	E	N		No			否
@@ -70,6 +58,4 @@ P 	SUPLID
 U	01 getByCode CMPNID, SUPLCD
 U	02 getByName CMPNID, SUPLNM
 F	01 listByCompany (CMPNID) CMPNMS (CMPNID)
-I	01 listBySupplier CMPNID, ISSELR, ENABLD
-I	02 listByProducer CMPNID, ISPRDU, ENABLD
 =====================================================================================================================================================

@@ -2,7 +2,7 @@
 T	OPRTKN
 S
 L	Operator Token
-C	用户令牌
+C	用户令牌OPRTKN
 Y	OperatorToken
 @	保存生成的令牌及其状态，并通过令牌生成时间、是否已经使用等，来检查令牌是否过期
 @

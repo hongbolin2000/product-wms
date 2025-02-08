@@ -3,26 +3,21 @@ T	EQPTYP
 S
 L	Equipment Type
 C	设备类型表
-Y	EquipmentType
-@	公司使用的所有设备类型，如平车、印刷机、平板等。
+Y	Equipment Type
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 N	EQTYID,		ID,			NOT NULL,       ,               		id,				    ID,                    	主键
 *****************************************************************************************************************************************************
 N	CMPNID,		BIGINT,		NOT NULL,		,						companyId,		    Company ID,				公司
-K   CMPNMS                  - CMPNCD, CMPNNM
 *****************************************************************************************************************************************************
-N	EQTYCD,		VC(16),		NOT NULL,       ,                 	    eqTypeCode,		    Equipment Type Code,	设备类型编号
+N	EQTYCD,		VC(16),		NOT NULL,       'Sales',                eqTypeCode,		    Equipment Type Code,	设备类型编号
+    B   Sales   Sales       收银设备
+    B   Door    Door        门禁设备
+    B   Fitting Fitting     试衣设备
+    B   List    List        陈列设备
+    B   Show    Show        展示设备
 N	EQTYNM,		VC(32),		NOT NULL,       ,                	    eqTypeName,		    Equipment Type Name,	设备类型名称
 *****************************************************************************************************************************************************
-N	TXET01,		VC(64),		NOT NULL,		'',						define01,		    define 1,				自定义值1
-N	TXET02,		VC(64),		NOT NULL,		'',						define02,		    define 2,				自定义值2
-N	TXET03,		VC(64),		NOT NULL,		'',						define03,		    define 3,				自定义值3
-N	TXET04,		VC(64),		NOT NULL,		'',						define04,		    define 4,				自定义值4
-N	TXET05,		VC(64),		NOT NULL,		'',						define05,		    define 5,				自定义值5
-N	TXET06,		VC(64),		NOT NULL,		'',						define06,		    define 6,				自定义值6
-N	TXET07,		VC(64),		NOT NULL,		'',						define07,		    define 7,				自定义值7
-N	TXET08,		VC(64),		NOT NULL,		'',						define08,		    define 8,				自定义值8
-N	TXET09,		VC(64),		NOT NULL,		'',						define09,		    define 9,				自定义值9
+N   APPVSN,     VC(32),     NOT NULL,       '',                     appVersion,         App Version,            软件版本
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
 *****************************************************************************************************************************************************

@@ -8,6 +8,37 @@
  ********************************************************************************/
 
 /**
+ * token名称
+ */
+export const TOKEN_NAME = "authorization";
+
+/**
+ * 网站信息
+ */
+export type WebsiteOption = {
+
+  /**
+   * 网站标题
+   */
+  title: string;
+
+  /**
+   * 副标题
+   */
+  subtitle: string;
+
+  /**
+   * 公司名称
+   */
+  companyName: string,
+
+  /**
+   * 应用版本
+   */
+  version: string;
+}
+
+/**
  * 框架主题
  */
 export enum ThemeMode {

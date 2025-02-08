@@ -27,8 +27,8 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {useLayoutStore} from "@/layouts/store/layout-store";
-  import {useAppStore} from '@/layouts/store/app-store';
+  import useLayoutStore from "@/layouts/store/layout-store";
+  import useAppStore from '@/layouts/store/app-store';
   import {DeviceType} from "@/layouts/types";
 
   /**
@@ -148,6 +148,11 @@
   }
   :deep(.n-menu .n-menu-item:hover) {
     background-color: var(--item-color-active);
+
+    .n-menu-item-content {
+      transform: scale(1.1);
+      transition: transform $transitionTime;
+    }
   }
   .scrollbar {
     height: calc(100vh - #{$logoHeight}) !important;

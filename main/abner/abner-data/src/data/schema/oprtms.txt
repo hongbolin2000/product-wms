@@ -14,9 +14,6 @@ N	ACCUNT,		VC(32),		NOT NULL,		,						account,				Login Account,			登录账号
 N   OPRTTY,     VC(1),      NOT NULL,       'I',                    operatorType,           Operator Type,          操作员类型
     B   I       Inner       内部用户
     B   S       Supplier    供应商
-N	SUPLCD,		VC(64),		NOT NULL,		'',						supplierCode,		    Supplier Code,			供应商编号
-N	SUPLNM,		VC(64),		NOT NULL,		'',						supplierName,		    Supplier Name,			供应商名称
-# 操作员类型为供应商时所管理的供应商信息
 *************************************************************************************************************************************************************
 N   MOBILE,     VC(32),     NOT NULL,       '',                     mobile,                 Mobile,                 手机号
     # 司机的手机号，可用于登录预约系统
@@ -26,7 +23,7 @@ N	PASWRD,		VC(256),	NOT NULL,		'',						password,				Login Password,			操作员
 N	FULNAM,		VC(64),		NOT NULL,		'',						fullName,				Full Name,				全名
 N	GENDER,		VC(1),		NOT NULL,		'U',					gender,					Gender,					性别
 	E	F		Female		女				女
-	E	L		Male		男				男
+	E	M		Male		男				男
 	E	U		NA			不公开			不公开
 N	POSITN,		VC(64),		NOT NULL,		'',						position,				Position,				职位
 N	PHONNO,		VC(16),		NOT NULL,		'',						phoneNo,				Telephone NO,			联系电话

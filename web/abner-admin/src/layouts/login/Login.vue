@@ -1,59 +1,85 @@
 <template>
-  <n-el>
-    <div class="login-container">
-      <div class="left">
-        <img src="./login-bg.jpg" alt="login"/>
-        <div class="content-wrapper">
-          <div class="logo-wrapper">
-            <img src="./logo.png" alt="logo"/>
+  <n-config-provider :theme-overrides="themeOverrides">
+    <n-el>
+      <div class="login-container">
+        <div class="left" v-if="!isMobile">
+          <img src="./login-bg.jpg" alt="login"/>
+          <div class="content-wrapper">
+            <div class="logo-wrapper">
+              <img src="./logo.png" alt="logo"/>
+            </div>
+
+            <div class="title">{{appStore.websiteOption.title}}</div>
+            <div class="sub-title">{{appStore.websiteOption.subtitle}}</div>
+            <div class="ttppii"> {{appStore.websiteOption.companyName}} </div>
+            <div class="bottom-wrapper">System Version · {{appStore.websiteOption.version}}</div>
+          </div>
+        </div>
+
+        <div class="right" :class="isMobile ? ['is-mobile'] : ''">
+          <div v-if="isMobile" style="margin-bottom: 10px">
+            <div class="title">{{appStore.websiteOption.title}}</div>
+            <div class="sub-title">{{appStore.websiteOption.subtitle}}</div>
           </div>
 
-          <div class="title">门店设备数据采集平台</div>
-          <div class="sub-title">Store equipment data collection platform</div>
-          <div class="ttppii"> 上海丞世物联网技术有限公司 </div>
-          <div class="bottom-wrapper">System Version · v1.0.0</div>
-        </div>
-      </div>
+          <div class="form-wrapper" :style="isMobile ? 'width: 80%;background-color: white' : ''">
+            <div class="form-title">用户登录</div>
+            <n-input
+              v-model:value="username"
+              placeholder="请输入用户名"
+              clearable
+            />
+            <n-input
+              v-model:value="password"
+              placeholder="请输入密码"
+              type="password"
+              show-password-on="mousedown"
+              style="margin-top: 10px"
+            />
+            <span class="error" v-if="errorMessage">{{errorMessage}}</span>
 
-      <div class="right">
-        <div class="form-wrapper">
-          <div class="form-title">用户登录</div>
-          <n-input
-            v-model:value="username"
-            placeholder="请输入用户名"
-            clearable
-          />
-          <n-input
-            v-model:value="password"
-            placeholder="请输入密码"
-            type="password"
-            show-password-on="mousedown"
-            style="margin-top: 10px"
-          />
+            <div style="margin-top: 20px;display: flex;justify-content: space-between">
+              <n-checkbox v-model:checked="userStore.isRememberAccount" color="#fff">记住账号</n-checkbox>
+              <n-checkbox v-model:checked="userStore.isAutoLogin" color="#fff">7天内自动登录</n-checkbox>
+            </div>
 
-          <div style="margin-top: 20px;display: flex;justify-content: space-between">
-            <n-checkbox v-model:checked="isRemember" color="#fff">记住账号</n-checkbox>
-            <n-checkbox v-model:checked="isAutoLogin" color="#fff">自动登录</n-checkbox>
+            <n-button type="primary" class="login" :loading="loading" @click="onLogin">
+              登录
+            </n-button>
           </div>
 
-          <n-button type="primary" class="login" :loading="loading" @click="onLogin">
-            登录
-          </n-button>
+          <div class="ttppii" v-if="isMobile" style="display: block;flex: 0;font-size: 25px;margin-top: 50px">
+            {{appStore.websiteOption.companyName}}
+          </div>
         </div>
       </div>
-    </div>
-  </n-el>
+    </n-el>
+  </n-config-provider>
 </template>
 
 <script setup lang="ts">
-  import {ref} from "vue";
-  import { useMessage, useLoadingBar } from 'naive-ui'
+import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
+import {useMessage, useLoadingBar} from 'naive-ui'
   import {useRouter} from 'vue-router'
+
   /********************************************************************************
-   * 登录组件
+   * 登录界面
    *
    * @author Berlin
    ********************************************************************************/
+  import useAppStore from "@/layouts/store/app-store";
+  import useUserStore from "@/layouts/store/user-store";
+  import useLayoutStore from "@/layouts/store/layout-store";
+  import {CryptoHelper} from "@/layouts/helps/crypto-helper";
+  import http from '@/layouts/axios/http';
+  import {TOKEN_NAME} from "@/layouts/types";
+
+  /**
+   * 全局应用状态
+   */
+  const appStore = useAppStore();
+  const userStore = useUserStore();
+  const layoutStore = useLayoutStore();
 
   /**
    * 用户名/密码
@@ -78,23 +104,108 @@
   const router = useRouter();
 
   /**
-   * 记住账号/自动登录
+   * 异常提示信息
    */
-  const isRemember = ref(false);
-  const isAutoLogin = ref(false);
+  const errorMessage = ref('');
+
+  /**
+   * 是否手机模式
+   */
+  const isMobile = ref(false);
+
+  /**
+   * 重写主题样式
+   */
+  const themeOverrides = computed(() => {
+    return {
+      common: {
+        primaryColor: layoutStore.themeColor,
+        primaryColorHover: layoutStore.themeColor,
+      },
+    }
+  });
+
+  /**
+   * 组件加载
+   */
+  onMounted(() => {
+    // 记住账号
+    if (userStore.isRememberAccount) {
+      username.value = userStore.username;
+    }
+
+    onScreenResize()
+    window.addEventListener('resize', onScreenResize)
+  });
+
+  /**
+   * 组件卸载
+   */
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', onScreenResize)
+  });
+
+  /**
+   * 屏幕大小改变
+   */
+  function onScreenResize() {
+    const width = document.body.clientWidth
+    isMobile.value = width <= 768;
+  }
 
   /**
    * 登录
    */
-  function onLogin() {
-    loading.value = true;
-    let tooltip = message.loading('登录中...', {duration: 0});
+  async function onLogin() {
 
-    setTimeout(() => {
-      loading.value = false;
+    let tooltip = undefined;
+    try {
+      // 校验用户名密码
+      if (!username.value) {
+        errorMessage.value = "请输入用户名";
+        return;
+      }
+      if (!password.value) {
+        errorMessage.value = "请输入密码";
+        return;
+      }
+
+      // 密码加密
+      const key = CryptoHelper.generate256BitKey();
+      const encryptPassword = CryptoHelper.aesEncrypt(key, password.value);
+
+      // 登录提示
+      loading.value = true;
+      tooltip = message.loading('登录中...', {duration: 0});
+
+      // 请求后台进行登录
+      const response = await http.post("/auth/login", {
+        username: username.value,
+        password: encryptPassword,
+        key: key,
+        autoLogin: userStore.isAutoLogin
+      });
+
+      // 检查是否登录成功
+      if (response.data.loginCode != 200) {
+        errorMessage.value = response.data.message;
+        return;
+      }
+
+      // 将token存入localStorage
+      const token = response.headers[TOKEN_NAME];
+      localStorage.setItem(TOKEN_NAME, token);
+
+      // 关闭提示
       tooltip.destroy();
+      tooltip = message.success(
+        '登录成功，即将进入系统', {duration: 0}
+      );
+      // 记住账号
+      if (userStore.isRememberAccount) {
+        userStore.username = username.value;
+      }
 
-      tooltip = message.success('登录成功，即将进入系统', {duration: 0});
       setTimeout(() => {
         tooltip.destroy();
 
@@ -104,8 +215,32 @@
           router.replace("/");
         }, 1000);
       }, 1000);
-    }, 1000);
+    } finally {
+      loading.value = false;
+      if (tooltip) {
+        tooltip.destroy();
+      }
+    }
   }
+
+  /**
+   * 侦听用户名、密码
+   */
+  watch(username, () => {
+    errorMessage.value = '';
+  });
+  watch(password, () => {
+    errorMessage.value = '';
+  });
+
+  /**
+   * 清除用户名
+   */
+  userStore.$subscribe((mutation, state) => {
+    if (!state.isRememberAccount) {
+      userStore.username = '';
+    }
+  });
 </script>
 
 <style scoped lang="scss">
@@ -113,6 +248,35 @@
     display: flex;
     overflow: hidden;
     height: 100vh;
+
+    .title {
+      margin-top: 10px;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 24px;
+      text-align: center;
+    }
+    .sub-title {
+      margin-top: 10px;
+      color: #f5f5f5;
+      font-size: 16px;
+    }
+    .ttppii {
+      display: flex;
+      flex: 1 1 0;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      font-size: 30px;
+      animation: left-to-right 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-shadow: 0 0 5px var(--primary-color), 0 0 15px var(--primary-color),
+      0 0 50px var(--primary-color), 0 0 150px var(--primary-color);
+    }
+    .bottom-wrapper {
+      margin-bottom: 5%;
+      color: #c0c0c0;
+      font-size: 16px;
+    }
 
     .left {
       position: relative;
@@ -150,33 +314,6 @@
             height: auto;
           }
         }
-        .title {
-          margin-top: 10px;
-          color: #ffffff;
-          font-weight: bold;
-          font-size: 24px;
-        }
-        .sub-title {
-          margin-top: 10px;
-          color: #f5f5f5;
-          font-size: 16px;
-        }
-        .ttppii {
-          display: flex;
-          flex: 1 1 0;
-          justify-content: center;
-          align-items: center;
-          color: #ffffff;
-          font-size: 30px;
-          animation: left-to-right 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          text-shadow: 0 0 5px var(--primary-color), 0 0 15px var(--primary-color),
-          0 0 50px var(--primary-color), 0 0 150px var(--primary-color);
-        }
-        .bottom-wrapper {
-          margin-bottom: 5%;
-          color: #c0c0c0;
-          font-size: 16px;
-        }
       }
     }
     .right {
@@ -200,7 +337,16 @@
           margin-top: 20px;
           width: 100%;
         }
+        .error {
+          color: #d6260b;
+          margin-left: 10px;
+          font-size: 12px;
+        }
       }
+    }
+    .is-mobile {
+      background-image: url('./login-bg.jpg');
+      background-size: cover;
     }
   }
   @keyframes left-to-right {

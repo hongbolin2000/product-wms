@@ -25,20 +25,14 @@
     <dependencies>
         <dependency>
             <groupId>com.hongyou</groupId>
+            <artifactId>abner-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hongyou</groupId>
             <artifactId>abner-data</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.hongyou</groupId>
-            <artifactId>abner-test</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.hongyou</groupId>
-            <artifactId>baron-web</artifactId>
-            <version>${hongyou.baron.version}</version>
         </dependency>
     </dependencies>
 </project>

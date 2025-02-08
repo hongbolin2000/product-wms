@@ -59,7 +59,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {useLayoutStore} from "@/layouts/store/layout-store"
+  import useLayoutStore from "@/layouts/store/layout-store"
   import NotifyMessage from "@/layouts/actions/message/NotifyMessage.vue";
   import LayoutSetting from "@/layouts/actions/setting/LayoutSetting.vue";
 

@@ -2,29 +2,27 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 /********************************************************************************
- * 布局框架中的帮助类（提供给功能应用调用）
+ * Layout布局框架中的帮助类（提供给功能应用调用）
  *
  * @author Berlin
  *******************************************************************************/
-import {useAppStore} from "@/layouts/store/app-store";
-import {type Router, useRouter} from "vue-router";
-import {exceptionRoutes} from '@/layouts/exception/exception-routes';
+import useAppStore from "@/layouts/store/app-store";
+import type {WebsiteOption} from "@/layouts/types";
+import type {MenuOption} from "naive-ui";
 
 /**
  * 布局框架中的帮助类（提供给功能应用调用）
  *
  * @param props 传入的属性
  */
-export namespace helper {
+namespace layoutHelper {
 
   /**
-   * 初始化系统配置
+   * 初始化网站信息
    *
    * @param props 传入的属性
    */
-  export function initial(props: {
-    menus: [], websiteTitle: string
-  }) {
+  export function initialWebsite(props: WebsiteOption) {
 
     /**
      * 全局应用状态
@@ -32,28 +30,25 @@ export namespace helper {
     const appStore = useAppStore();
 
     /**
-     * 配置菜单
-     */
-    appStore.configMenu(props.menus);
-
-    /**
      * 设置网站信息
      */
-    appStore.configWebsite({
-      title: props.websiteTitle
-    })
+    appStore.configWebsite(props)
   }
 
   /**
-   * 加载异常路由
+   * 初始化菜单
    */
-  export function useExceptionRoute(router: Router) {
+  export function initialMenu(menus: MenuOption[]) {
 
     /**
-     * 将异常路由加入路由对象中
+     * 全局应用状态
      */
-    exceptionRoutes.forEach(route => {
-      router.addRoute(route);
-    })
+    const appStore = useAppStore();
+
+    /**
+     * 设置菜单
+     */
+    appStore.configMenu(menus);
   }
 }
+export default layoutHelper;

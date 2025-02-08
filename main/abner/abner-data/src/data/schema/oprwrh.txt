@@ -1,7 +1,7 @@
 =====================================================================================================================================================
 T	OPRWRH
 S
-L	Operator and Warehouse Relationship Information
+L	Operator and Warehouse Relationship
 C	操作员和仓库关系表
 Y	OperatorWarehouse
 @	仓库的操作员，维护时需要确保操作员和仓库在同一个公司下。

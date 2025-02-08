@@ -14,7 +14,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {useLayoutStore} from "@/layouts/store/layout-store";
+  import useLayoutStore from "@/layouts/store/layout-store";
 
   /**
    * 布局状态

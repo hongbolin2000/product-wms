@@ -44,7 +44,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {useLayoutStore} from "@/layouts/store/layout-store"
+  import useLayoutStore from "@/layouts/store/layout-store"
   import NavBar from "@/layouts/navbar/NavBar.vue";
   import {ThemeMode} from "@/layouts/types";
   import MainContent from "@/layouts/MainContent.vue";

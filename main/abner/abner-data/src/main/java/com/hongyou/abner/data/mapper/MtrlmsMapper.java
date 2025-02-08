@@ -1,5 +1,5 @@
 /*
- * Copyright 2024, Hongyou Software Development Studio.
+ * Copyright 2025, Hongyou Software Development Studio.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 package com.hongyou.abner.data.mapper;
 
 /**
- * TABLE MAPPER MTRLMS: Material
+ * TABLE MAPPER MTRLMS: Material Master Table
  *
  * @author Hongyou Code Generator
- * @date 2024-09-19
+ * @date 2025-01-13
  * @since 1.0.0
  */
 public interface MtrlmsMapper extends AbstractMtrlmsMapper {

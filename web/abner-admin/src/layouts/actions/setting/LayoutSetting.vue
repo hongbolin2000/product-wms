@@ -119,7 +119,7 @@
    * @author Berlin
    ********************************************************************************/
   import StyleExample from "@/layouts/actions/setting/StyleExample.vue";
-  import {useLayoutStore} from "@/layouts/store/layout-store";
+  import useLayoutStore from "@/layouts/store/layout-store";
   import {themeList, sideExampleList, layoutExampleList, primaryColorList, animateOptions} from './LayoutSetting';
 
   /**

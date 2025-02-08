@@ -13,11 +13,12 @@ import {ref} from "vue";
 /**
  * 创建布局状态存储器
  */
-export const useLayoutStore = defineStore('layoutStore', () => {
+const useLayoutStore = defineStore('layoutStore', () => {
   return { ...layoutStore }
 }, {
   persist: true
 });
+export default useLayoutStore;
 
 /**
  * 初始布局状态

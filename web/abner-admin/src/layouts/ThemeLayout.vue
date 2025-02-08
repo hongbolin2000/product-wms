@@ -6,32 +6,30 @@
     style="height: 100%"
   >
     <n-global-style />
-    <n-dialog-provider>
-      <n-el
-        class="vaw-layout-container"
-        :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
-      >
-        <template v-if="layoutStore.layoutMode === 'ttb'">
-          <VawHeader/>
-          <MainLayout :show-nav-bar="false"/>
-        </template>
-        <template v-else-if="layoutStore.layoutMode === 'lcr'">
-          <SplitSideBar/>
-          <MainLayout/>
-        </template>
-        <template v-else>
-          <SideBar/>
-          <MainLayout />
-        </template>
+    <n-el
+      class="vaw-layout-container"
+      :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
+    >
+      <template v-if="layoutStore.layoutMode === 'ttb'">
+        <VawHeader/>
+        <MainLayout :show-nav-bar="false"/>
+      </template>
+      <template v-else-if="layoutStore.layoutMode === 'lcr'">
+        <SplitSideBar/>
+        <MainLayout/>
+      </template>
+      <template v-else>
+        <SideBar/>
+        <MainLayout />
+      </template>
 
-        <div
-          v-if="layoutStore.deviceType === 'mobile'"
-          class="mobile-shadow"
-          :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
-          @click="closeMenu"
-        ></div>
-      </n-el>
-    </n-dialog-provider>
+      <div
+        v-if="layoutStore.deviceType === 'mobile'"
+        class="mobile-shadow"
+        :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
+        @click="closeMenu"
+      ></div>
+    </n-el>
   </n-config-provider>
 </template>
 
@@ -43,10 +41,11 @@
    *
    * @author Berlin
    ********************************************************************************/
+  import '@/layouts/styles'
   import {DeviceType, ThemeMode} from '@/layouts/types'
   import SideBar from '@/layouts/sidebar/SideBar.vue'
   import MainLayout from "@/layouts/MainLayout.vue";
-  import {useLayoutStore} from "@/layouts/store/layout-store";
+  import useLayoutStore from "@/layouts/store/layout-store";
   import VawHeader from "@/layouts/header/VawHeader.vue";
   import SplitSideBar from "@/layouts/sidebar/SplitSideBar.vue";
 
@@ -100,9 +99,6 @@
     } else if (width < 992 && width > 768) {
       layoutStore.deviceType = DeviceType.PAD;
       layoutStore.isCollapse = true;
-    } else if (width < 1200 && width >= 992) {
-      layoutStore.deviceType = DeviceType.PC;
-      layoutStore.isCollapse = false;
     } else {
       layoutStore.deviceType = DeviceType.PC;
       layoutStore.isCollapse = false;

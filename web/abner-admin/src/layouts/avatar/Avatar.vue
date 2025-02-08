@@ -28,6 +28,8 @@
    ********************************************************************************/
   import Avatar from './avatar.gif';
   import {router} from "@/router/routes";
+  import {http} from "@/layouts/index";
+  import {TOKEN_NAME} from '@/layouts/types';
 
   /**
    * 信息弹框
@@ -81,21 +83,25 @@
       positiveText: '退出',
       negativeText: '再想想',
       onPositiveClick: () => {
-        let tooltip = message.loading("退出登录中...", {duration: 0});
-        setTimeout(() => {
-          tooltip.destroy();
+        (async () => {
+          let tooltip = message.loading("退出登录中...", {duration: 0});
 
+          // 调用后台退出登录
+          await http.post("/auth/logout");
+          tooltip.destroy();
           tooltip = message.success("退出登录成功，即将退出系统");
+
           setTimeout(() => {
             tooltip.destroy();
-
             loadingBar.start();
+
             setTimeout(() => {
               loadingBar.finish();
+              localStorage.removeItem(TOKEN_NAME);
               router.replace("/login");
             }, 1000);
           }, 1000);
-        }, 1000);
+        })();
       },
     })
   }
