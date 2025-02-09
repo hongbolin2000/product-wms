@@ -7,8 +7,9 @@
  * @author Berlin
  *******************************************************************************/
 import type {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
-import {message} from "@/layouts";
+import {message, dialog} from "@/layouts";
 import {TOKEN_NAME} from '@/layouts/types';
+import {useRouter} from "vue-router";
 
 /**
  * token前缀
@@ -32,6 +33,7 @@ export function useRequestInterceptor(client: AxiosInstance) {
  * 响应式拦截器
  */
 export function useResponseInterceptor(client: AxiosInstance) {
+  const router = useRouter();
   client.interceptors.response.use((response: AxiosResponse) => {
 
     // 检查是否有code字段，不为200则提示报错
@@ -48,8 +50,27 @@ export function useResponseInterceptor(client: AxiosInstance) {
       return Promise.reject(error);
     }
 
+    // 服务器请求超时
+    if (error.code == "ECONNABORTED") {
+      message.error('服务器请求超时');
+      return Promise.reject(error);
+    }
+
     // 无响应结果
     if (!error.response) {
+      return Promise.reject(error);
+    }
+
+    // 401
+    if (error.response.status == 401) {
+      dialog.warning({
+        title: '提示',
+        content: '用户认证已失效，需重新登录！',
+        confirmText: '确认',
+        onConfirmClick: async () => {
+          await router.replace("/login");
+        }
+      });
       return Promise.reject(error);
     }
 
@@ -59,7 +80,7 @@ export function useResponseInterceptor(client: AxiosInstance) {
       return Promise.reject(error);
     }
 
-    // 500异常
+    // 500
     if (error.response.status === 500) {
       if (error.response.data) {
         message.error(error.response.data);

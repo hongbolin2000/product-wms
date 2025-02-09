@@ -11,14 +11,13 @@ import cn.hutool.core.util.ObjectUtil;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Oprtms;
 import com.hongyou.abner.utils.AesUtil;
+import com.hongyou.abner.utils.CaptchaUtil;
+import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
-import com.hongyou.baron.exceptions.RestRuntimeException;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 用户登录认证
@@ -35,6 +34,19 @@ public class Login extends DataProvider {
     private static final Log logger = LogFactory.getLog(Login.class);
 
     /**
+     * 生成图形验证码
+     */
+    @GetMapping("/captcha")
+    public void captcha(final HttpServletResponse response) {
+
+        try {
+            CaptchaUtil.createCaptcha(response);
+        } catch (Exception e) {
+            logger.error("验证码生成失败", e);
+        }
+    }
+
+    /**
      * 登录
      */
     @PostMapping("/login")
@@ -48,6 +60,15 @@ public class Login extends DataProvider {
             }
             if (CharSequenceUtil.isBlank(param.getPassword())) {
                 return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("密码不能为空").build();
+            }
+
+            // 检查验证码
+            String verify = CaptchaUtil.verify(param.getCaptchaId(), param.getCaptchaValue());
+            if (CaptchaUtil.EXPIRE.equals(verify)) {
+                return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("验证码已失效").build();
+            }
+            if (CaptchaUtil.ERROR.equals(verify)) {
+                return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("验证码错误").build();
             }
 
             // 检查用户名是否存在

@@ -51,8 +51,8 @@ namespace http {
   /**
    * GET请求
    */
-  export function get(url: string) {
-    return client.get(url);
+  export function get(url: string, config?: axios.AxiosRequestConfig) {
+    return client.get(url, config);
   }
 
   /**

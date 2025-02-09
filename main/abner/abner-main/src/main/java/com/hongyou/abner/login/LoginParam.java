@@ -30,4 +30,14 @@ public class LoginParam {
      * 7天内自动登录
      */
     private boolean autoLogin;
+
+    /**
+     * 验证码ID
+     */
+    private String captchaId;
+
+    /**
+     * 输入的验证码
+     */
+    private String captchaValue;
 }

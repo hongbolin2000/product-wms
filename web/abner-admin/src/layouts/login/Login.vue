@@ -36,6 +36,16 @@
               show-password-on="mousedown"
               style="margin-top: 10px"
             />
+            <n-input
+              v-model:value="captchaValue"
+              placeholder="请输入验证码"
+              style="margin-top: 10px"
+              clearable
+            >
+              <template #suffix>
+                <img :src="captchaObject" alt="验证码" @click="generateCaptcha" style="cursor: pointer">
+              </template>
+            </n-input>
             <span class="error" v-if="errorMessage">{{errorMessage}}</span>
 
             <div style="margin-top: 20px;display: flex;justify-content: space-between">
@@ -58,8 +68,8 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
-import {useMessage, useLoadingBar} from 'naive-ui'
+  import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
+  import {useMessage, useLoadingBar} from 'naive-ui'
   import {useRouter} from 'vue-router'
 
   /********************************************************************************
@@ -86,6 +96,13 @@ import {useMessage, useLoadingBar} from 'naive-ui'
    */
   const username = ref('');
   const password = ref('');
+
+  /**
+   * 验证码
+   */
+  const captchaValue = ref('');
+  const captchaObject = ref('');
+  const captchaId = ref('');
 
   /**
    * 是否登录中
@@ -128,15 +145,29 @@ import {useMessage, useLoadingBar} from 'naive-ui'
   /**
    * 组件加载
    */
-  onMounted(() => {
+  onMounted( () => {
     // 记住账号
     if (userStore.isRememberAccount) {
       username.value = userStore.username;
     }
 
-    onScreenResize()
-    window.addEventListener('resize', onScreenResize)
+    // 生成验证码
+    generateCaptcha();
+
+    onScreenResize();
+    window.addEventListener('resize', onScreenResize);
   });
+
+  /**
+   * 生成验证码
+   */
+  async function generateCaptcha() {
+    const response = await http.get("/auth/captcha", {
+      responseType: 'blob'
+    });
+    captchaObject.value = window.URL.createObjectURL(new Blob([response.data]));
+    captchaId.value =  response.headers['captcha-id'];
+  }
 
   /**
    * 组件卸载
@@ -169,6 +200,10 @@ import {useMessage, useLoadingBar} from 'naive-ui'
         errorMessage.value = "请输入密码";
         return;
       }
+      if (!captchaValue.value) {
+        errorMessage.value = "请输入验证码";
+        return;
+      }
 
       // 密码加密
       const key = CryptoHelper.generate256BitKey();
@@ -183,18 +218,23 @@ import {useMessage, useLoadingBar} from 'naive-ui'
         username: username.value,
         password: encryptPassword,
         key: key,
-        autoLogin: userStore.isAutoLogin
+        autoLogin: userStore.isAutoLogin,
+        captchaId: captchaId.value,
+        captchaValue: captchaValue.value
       });
 
       // 检查是否登录成功
       if (response.data.loginCode != 200) {
         errorMessage.value = response.data.message;
+        await generateCaptcha();
         return;
       }
 
       // 将token存入localStorage
       const token = response.headers[TOKEN_NAME];
-      localStorage.setItem(TOKEN_NAME, token);
+      if (token) {
+        localStorage.setItem(TOKEN_NAME, token);
+      }
 
       // 关闭提示
       tooltip.destroy();
@@ -230,6 +270,9 @@ import {useMessage, useLoadingBar} from 'naive-ui'
     errorMessage.value = '';
   });
   watch(password, () => {
+    errorMessage.value = '';
+  });
+  watch(captchaValue, () => {
     errorMessage.value = '';
   });
 

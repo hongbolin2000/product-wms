@@ -8,9 +8,10 @@
  ********************************************************************************/
 import routerHelper from "@/layouts/helps/router-helper";
 import layoutHelper from "@/layouts/helps/layout-helper";
-import {Message} from "@/layouts/feedback/message";
+import message from "@/layouts/feedback/message";
+import dialog from "@/layouts/feedback/dialog";
 import http from '@/layouts/axios/http';
 
 export {
-  routerHelper, layoutHelper, Message as message, http
+  routerHelper, layoutHelper, message, dialog, http
 };

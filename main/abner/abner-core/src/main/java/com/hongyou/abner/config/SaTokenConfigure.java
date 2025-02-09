@@ -4,15 +4,23 @@
 package com.hongyou.abner.config;
 
 import cn.dev33.satoken.config.SaTokenConfig;
+import cn.dev33.satoken.context.SaHolder;
+import cn.dev33.satoken.context.model.SaResponse;
+import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Sa-Token配置类
  */
 @Configuration
-public class SaTokenConfigure {
+public class SaTokenConfigure implements WebMvcConfigurer {
 
     /**
      * 初始化Sa-Token配置
@@ -46,5 +54,22 @@ public class SaTokenConfigure {
         // 是否从cookie中读取token
         config.setIsReadCookie(false);
         return config;
+    }
+
+    /**
+     * 注册认证拦截器
+     */
+    @Override
+    public void addInterceptors(final InterceptorRegistry registry) {
+        // 注册Sa-Token拦截器，拦截需要登录的请求。
+        InterceptorRegistration interceptor = registry.addInterceptor(new SaInterceptor(handle -> {
+            try {
+                StpUtil.checkLogin();
+            } catch (Exception e) {
+                SaHolder.getResponse().setStatus(HttpStatus.UNAUTHORIZED.value());
+            }
+        }));
+        interceptor.addPathPatterns("/**");
+        interceptor.excludePathPatterns("/auth/**");
     }
 }
