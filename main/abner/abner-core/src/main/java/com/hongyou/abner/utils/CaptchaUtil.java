@@ -3,6 +3,8 @@
  */
 package com.hongyou.abner.utils;
 
+import cn.hutool.cache.Cache;
+import cn.hutool.cache.CacheUtil;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -20,11 +22,12 @@ import java.util.Map;
  */
 public class CaptchaUtil {
 
+    private CaptchaUtil() {}
+
     /**
      * 缓存服务器端生成的验证码
      */
-    private static final Map<String, LineCaptcha> captchaCaches = new HashMap<>();
-    private static final Map<String, Long> captchaExpires = new HashMap<>();
+    private static final Cache<String, LineCaptcha> captchaCaches = CacheUtil.newTimedCache(60 * 1000L);
 
     /**
      * 验证码失效
@@ -47,15 +50,6 @@ public class CaptchaUtil {
         // 将验证码存入内存中
         String captchaAgentId = IdUtil.simpleUUID();
         captchaCaches.put(captchaAgentId, lineCaptcha);
-        captchaExpires.put(captchaAgentId, System.currentTimeMillis() + (60 * 1000));
-
-        // 清除过期的验证码
-        for (Map.Entry<String, Long> entry: captchaExpires.entrySet()) {
-            if (entry.getValue() < System.currentTimeMillis()) {
-                captchaCaches.remove(entry.getKey());
-            }
-        }
-        captchaExpires.entrySet().removeIf(entry -> entry.getValue() < System.currentTimeMillis());
 
         // 将验证码ID放入headers中
         response.setContentType("image/jpeg");
@@ -67,12 +61,8 @@ public class CaptchaUtil {
      * 检验验证码
      */
     public static String verify(final String captchaId, final String captchaValue) {
-        LineCaptcha lineCaptcha = captchaCaches.get(captchaId);
+        LineCaptcha lineCaptcha = captchaCaches.get(captchaId, false);
         if (ObjectUtil.isNull(lineCaptcha)) {
-            return EXPIRE;
-        }
-        Long expireTime = captchaExpires.get(captchaId);
-        if (expireTime < DateUtil.date().getTime()) {
             return EXPIRE;
         }
         boolean verified = lineCaptcha.verify(captchaValue);
@@ -80,7 +70,6 @@ public class CaptchaUtil {
             return ERROR;
         }
         captchaCaches.remove(captchaId);
-        captchaExpires.remove(captchaId);
         return "Success";
     }
 }

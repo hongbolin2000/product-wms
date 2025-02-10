@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menus>
-    <category>
-
-    </category>
+    <menu path="/index" label="Dashboard" icon="dashboard">
+        <menu path="/index/home" label="主控台"/>
+        <menu path="/index/work-place" label="工作台"/>
+    </menu>
+    <menu path="/system" label="系统管理" icon="setting">
+        <menu path="/system/index" label="系统管理1"/>
+        <menu path="/system/index2" label="系统管理2">
+            <menu path="/system/index2/index" label="系统管理2.2"/>
+        </menu>
+    </menu>
+    <menu path="/list" label="列表页面" icon="detail"/>
+    <menu path="/form" label="表单页面" icon="file-text"/>
+    <menu path="/function" label="功能/组件" icon="appstore"/>
+    <menu path="/result" label="结果页面" icon="file-unknown"/>
+    <menu path="/editor" label="编辑器" icon="edit"/>
+    <menu path="/tuozhai" label="拖拽" icon="interation"/>
+    <menu path="/multiply" label="多级菜单" icon="Partition"/>
+    <menu path="/map" label="地图" icon="location"/>
+    <menu path="/dependence" label="项目依赖" icon="menu"/>
 </menus>

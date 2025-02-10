@@ -18,7 +18,6 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {menus} from '@/router/menus';
   import {layoutHelper} from '@/layouts';
   import packages from '../package.json';
 
@@ -39,9 +38,6 @@
       companyName: '上海丞世物联网技术有限公司',
       version: packages.version
     });
-
-    // 设置菜单
-    layoutHelper.initialMenu(menus);
 
     // 进入开屏页面
     router.replace("/splash?redirect=" + router.options.history.location);

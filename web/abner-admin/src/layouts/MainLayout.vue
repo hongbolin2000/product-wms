@@ -37,8 +37,8 @@
 
 <script setup lang="ts">
   import {useRouter} from "vue-router";
-  import {useLoadingBar} from 'naive-ui';
-  import {computed} from "vue";
+  import {type MenuOption, useLoadingBar, NIcon} from 'naive-ui';
+  import {computed, onBeforeMount, h} from "vue";
   /********************************************************************************
    * 主界面布局
    *
@@ -48,6 +48,9 @@
   import NavBar from "@/layouts/navbar/NavBar.vue";
   import {ThemeMode} from "@/layouts/types";
   import MainContent from "@/layouts/MainContent.vue";
+  import http from "@/layouts/axios/http";
+  import {layoutHelper} from "@/layouts/index";
+  import MyIcon from "@/layouts/icons/SvgIcon.vue";
 
   /**
    * 父组件传入的属性
@@ -83,6 +86,38 @@
    */
   const listenTo1 = document.querySelector('.main-base-style')
   const listenTo2 = document.querySelector('.vaw-main-layout-container')
+
+  /**
+   * 加载菜单
+   */
+  onBeforeMount(async () => {
+    const response = await http.get("/menu/load");
+    const menus: MenuOption[] = response.data;
+    renderMenu(menus);
+    layoutHelper.initialMenu(menus);
+  });
+
+  /**
+   * 生成菜单icon
+   */
+  function renderMenu(menus: MenuOption[]) {
+    menus.forEach(menu => {
+      menu.icon = renderIcon(menu.icon);
+      if (menu.children) {
+        renderMenu(menu.children);
+      }
+    });
+  }
+
+  /**
+   * 菜单图标
+   *
+   * @param icon
+   */
+  function renderIcon(icon: string) {
+    icon = !icon ? 'menu' : icon;
+    return () => h(NIcon, null, { default: () => h(MyIcon, {name: icon}) })
+  }
 
   /**
    * 路由进入前

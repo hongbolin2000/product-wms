@@ -6,8 +6,8 @@ package com.hongyou.abner.login;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Oprtms;
 import com.hongyou.abner.utils.AesUtil;
@@ -55,10 +55,10 @@ public class Login extends DataProvider {
 
         try {
             // 校验传入参数
-            if (CharSequenceUtil.isBlank(param.getUsername())) {
+            if (StrUtil.isBlank(param.getUsername())) {
                 return LoginResult.builder().loginCode(LoginCode.LG001.getValue()).message("用户名不能为空").build();
             }
-            if (CharSequenceUtil.isBlank(param.getPassword())) {
+            if (StrUtil.isBlank(param.getPassword())) {
                 return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("密码不能为空").build();
             }
 
