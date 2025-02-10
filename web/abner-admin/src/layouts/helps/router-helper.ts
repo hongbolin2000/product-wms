@@ -3,7 +3,6 @@
  */
 import {type Router} from "vue-router";
 import {index} from '@/layouts/routes';
-import {router} from "@/router/routes";
 /********************************************************************************
  * Router帮助类（提供给功能应用调用）
  *
@@ -25,7 +24,7 @@ namespace routerHelper {
 
     // 配置'/'路由的默认访问地址
     if (props.rootPath) {
-      router.addRoute({
+      props.router.addRoute({
         path: '/',
         redirect: props.rootPath,
         meta: {
@@ -36,7 +35,7 @@ namespace routerHelper {
 
     // 加入框架路由
     index.forEach(route => {
-      router.addRoute(route);
+      props.router.addRoute(route);
     });
   }
 }

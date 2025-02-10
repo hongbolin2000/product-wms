@@ -21,13 +21,13 @@
   import { h } from 'vue'
   import {NIcon, useDialog, useLoadingBar, useMessage} from 'naive-ui'
   import { Menu, LogInOutline, CaretDownSharp } from '@vicons/ionicons5'
+  import {useRouter} from "vue-router";
   /********************************************************************************
    * 头像
    *
    * @author Berlin
    ********************************************************************************/
   import Avatar from './avatar.gif';
-  import {router} from "@/router/routes";
   import {http} from "@/layouts/index";
   import {TOKEN_NAME} from '@/layouts/types';
 
@@ -37,6 +37,11 @@
   const dialog = useDialog();
   const message = useMessage();
   const loadingBar = useLoadingBar();
+
+  /**
+   * 路由
+   */
+  const router = useRouter();
 
   /**
    * 头像选项

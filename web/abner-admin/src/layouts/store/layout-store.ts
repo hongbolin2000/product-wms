@@ -83,7 +83,7 @@ const layoutStore = {
     /**
      * 是否显示消息通知
      */
-    isShowMessage: true,
+    isShowMessage: false,
 
     /**
      * 是否显示刷新图标

@@ -95,10 +95,10 @@
         <span>搜索</span>
         <n-switch v-model:value="layoutStore.navbar.isShowSearch" />
       </div>
-      <div class="setting-item-wrapper">
-        <span>消息</span>
-        <n-switch v-model:value="layoutStore.navbar.isShowMessage" />
-      </div>
+<!--      <div class="setting-item-wrapper">-->
+<!--        <span>消息</span>-->
+<!--        <n-switch v-model:value="layoutStore.navbar.isShowMessage" />-->
+<!--      </div>-->
       <div class="setting-item-wrapper">
         <span>刷新</span>
         <n-switch v-model:value="layoutStore.navbar.isShowRefresh" />
