@@ -13,7 +13,7 @@
 <script setup lang="ts">
   import {onMounted} from 'vue';
   import {useRouter} from 'vue-router';
-  import {layoutHelper} from '@/index';
+  import {layoutHelper} from '@/ploutos';
   /********************************************************************************
    * APP启动页
    *

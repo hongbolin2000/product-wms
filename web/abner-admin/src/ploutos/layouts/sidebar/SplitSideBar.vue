@@ -1,0 +1,331 @@
+<template>
+  <n-config-provider :theme-overrides="themeOverThemes">
+    <n-card
+      :bordered="false"
+      class="vaw-tab-split-side-bar-wrapper"
+      :content-style="{ padding: 0 }"
+      style="border-radius: 0"
+      :class="[
+        !layoutStore.isCollapse ? 'open-status' : 'close-status',
+        layoutStore.sideTheme === 'image' ? 'sidebar-bg-img' : '',
+      ]"
+    >
+      <div class="tab-split-tab-wrapper" :style="{ backgroundColor: bgColor }">
+        <Logo class="tab-split-logo-wrapper" :show-title="false"/>
+
+        <div style="height: calc(100% - 48px)">
+          <n-scrollbar>
+            <div
+              id="tabSplitContentWrapper"
+              class="tab-split-content-wrapper"
+              :style="contentWrapperStyle"
+            >
+              <div
+                v-for="item of appStore.menus"
+                :key="item.key"
+                class="label-item-wrapper"
+                :class="{ 'vaw-tab-split-item-is-active': item.checked }"
+                @click="onTabChange(item)"
+              >
+                <MyIcon :name="item.icon1" />
+                <span>{{ item.label }}</span>
+              </div>
+            </div>
+          </n-scrollbar>
+        </div>
+      </div>
+
+      <div class="tab-split-menu-wrapper">
+        <Logo class="tab-split-logo-wrapper" :show-logo="false"/>
+        <VerticalMenu :menus="childMenus" />
+      </div>
+      <div class="mobile-shadow"></div>
+    </n-card>
+  </n-config-provider>
+</template>
+
+<script setup lang="ts">
+  import {computed, ref, onMounted} from "vue";
+  import {type MenuOption} from "naive-ui";
+  import {useRoute} from "vue-router";
+  /********************************************************************************
+   * 分栏菜单
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import Logo from "@/ploutos/layouts/logo/Logo.vue";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import {SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
+  import useAppStore from "@/ploutos/layouts/store/app-store";
+
+  /**
+   * 全局应用状态
+   */
+  const appStore = useAppStore();
+
+  /**
+   * 布局状态
+   */
+  const layoutStore = useLayoutStore();
+
+  /**
+   * 当前路由
+   */
+  const route = useRoute();
+
+  /**
+   * 选项卡子菜单
+   */
+  const childMenus: MenuOption[] = ref([]);
+
+  /**
+   * 组件加载
+   */
+  onMounted(() => {
+    matchTab();
+  });
+
+  /**
+   * 根据路由匹配选项卡
+   */
+  function matchTab() {
+    const matchedRoutes = route.matched;
+    if (matchedRoutes && matchedRoutes.length > 0) {
+      appStore.menus.forEach((menu) => {
+        if (menu.key === matchedRoutes[0].path) {
+          menu.checked = true
+          if (menu.children) {
+            childMenus.value.push(...menu.children);
+          }
+        } else {
+          menu.checked = false
+        }
+      })
+    }
+  }
+
+  /**
+   * 主题样式
+   */
+  const themeOverThemes = computed(() => {
+    // 暗黑主题
+    if (layoutStore.theme === ThemeMode.DARK) {
+      return {}
+    }
+
+    // 菜单栏暗黑主题
+    if (layoutStore.sideTheme === SideTheme.DARK) {
+      return {
+        common: {
+          cardColor: '#001428',
+          textColor1: '#bbbbbb',
+          textColor2: '#bbbbbb',
+        },
+        Menu: {
+          itemColorActive: 'rgba(24, 160, 88, 0.4)',
+        },
+      }
+    }
+
+    // 菜单栏白色主题
+    if (layoutStore.sideTheme === SideTheme.WHITE) {
+      return {
+        common: {
+          cardColor: '#ffffff',
+        },
+      }
+    }
+
+    // 菜单栏背景图
+    if (layoutStore.sideTheme === SideTheme.IMAGE) {
+      return {
+        common: {
+          textColor1: '#bbbbbb',
+          textColor2: '#bbbbbb',
+          primaryColor: '#fff',
+        },
+        Menu: {
+          itemColorActive: 'rgba(24, 160, 88, 0.8)',
+          itemTextColorHover: '#f5f5f5',
+          itemIconColorHover: '#f5f5f5',
+        },
+      }
+    }
+    return {}
+  });
+
+  /**
+   * 文本颜色
+   */
+  const contentWrapperStyle = computed(() => {
+    return `--select-text-color: ${
+      layoutStore.theme === 'light' || layoutStore.sideTheme === 'white'
+        ? '#fff'
+        : 'var(--text-color)'
+    }`
+  });
+
+  /**
+   * 选项卡背景色
+   */
+  const bgColor = computed(() => {
+    // 暗黑
+    if (layoutStore.theme === ThemeMode.DARK) {
+      return '#000000'
+    }
+
+    // 菜单栏暗黑
+    if (layoutStore.sideTheme === SideTheme.DARK)  {
+      return '#000000'
+    }
+
+    // 菜单栏明亮
+    if (layoutStore.sideTheme === SideTheme.WHITE) {
+      return '#f5f5f5'
+    }
+
+    // 菜单栏背景图
+    if (layoutStore.sideTheme === SideTheme.IMAGE) {
+      return 'rgba(255,255,255, 0.1)'
+    }
+    return '#ffffff';
+  });
+
+  /**
+   * 切换一级菜单
+   */
+  function onTabChange(item: SplitTab) {
+    appStore.menus.forEach((it) => {
+      const checked = it.key === item.key;
+      it.checked = checked;
+
+      if (checked) {
+        childMenus.value = item.children;
+      }
+    });
+  }
+</script>
+
+<style scoped lang="scss">
+  .sidebar-bg-img {
+    background-image: url('./menu-bg.webp') !important;
+    background-size: cover;
+  }
+  .open-status {
+    width: $menuWidth;
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.12);
+    transition: all $transitionTime;
+  }
+  .close-status {
+    width: $minMenuWidth;
+    box-shadow: none;
+    transition: all $transitionTime;
+  }
+  .vaw-tab-split-side-bar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    height: 100vh;
+    box-sizing: border-box;
+    z-index: 999;
+    .tab-split-tab-wrapper {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: $tabSplitMenuWidth;
+      min-width: $tabSplitMenuWidth;
+      max-width: $tabSplitMenuWidth;
+      overflow: hidden;
+      height: 100vh;
+      box-sizing: border-box;
+      .tab-split-logo-wrapper {
+        max-width: $tabSplitMenuWidth;
+        min-width: $tabSplitMenuWidth;
+      }
+      .tab-split-content-wrapper {
+        position: relative;
+        height: 100%;
+        @mixin after {
+          content: '';
+          position: absolute;
+          left: 5px;
+          top: 5px;
+          right: 5px;
+          bottom: 5px;
+          border-radius: 3px;
+          z-index: -1;
+        }
+        .label-item-wrapper {
+          position: relative;
+          min-height: $logoHeight * 1.2;
+          padding: 10px 0;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          color: var(--text-color);
+          z-index: 1;
+          & > i {
+            font-size: 16px;
+          }
+          & > span {
+            font-size: 12px;
+            line-height: 14px;
+            margin-top: 5px;
+          }
+          &:hover {
+            cursor: pointer;
+            color: var(--select-text-color);
+          }
+          &::after {
+            @include after;
+          }
+          & svg {
+            width: 26px;
+            height: 26px;
+          }
+        }
+        .label-item-wrapper:hover::after {
+          background-color: var(--primary-color);
+        }
+        .vaw-tab-split-item-is-active {
+          color: var(--select-text-color);
+        }
+        .vaw-tab-split-item-is-active::after {
+          background-color: var(--primary-color);
+          @include after;
+        }
+      }
+    }
+    .tab-split-menu-wrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: $tabSplitMenuWidth;
+      overflow-x: hidden;
+    }
+    .vaw-menu-wrapper {
+      overflow-x: hidden;
+      color: white;
+    }
+  }
+  .is-mobile {
+    .open-status {
+      width: $menuWidth;
+      transform: translateX(0);
+      transition: transform $transitionTime;
+    }
+    .close-status {
+      width: $menuWidth;
+      transform: translateX(-$menuWidth);
+      transition: transform $transitionTime;
+      box-shadow: none;
+    }
+  }
+</style>

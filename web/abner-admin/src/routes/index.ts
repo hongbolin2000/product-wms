@@ -2,7 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {createWebHashHistory, createRouter, type Router, type RouteRecordNormalized} from 'vue-router'
-import {ThemeLayout} from '@/index';
+import {ThemeLayout} from '@/ploutos';
 /********************************************************************************
  * 应用路由配置
  *

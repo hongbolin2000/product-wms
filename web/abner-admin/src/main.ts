@@ -4,7 +4,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import {createPersistedState} from "pinia-plugin-persistedstate";
-import {routerHelper} from '@/index';
+import {routerHelper} from '@/ploutos';
 /********************************************************************************
  * Vue起始文件
  *
