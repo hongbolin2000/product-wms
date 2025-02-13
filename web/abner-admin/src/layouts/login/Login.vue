@@ -41,6 +41,7 @@
               placeholder="请输入验证码"
               style="margin-top: 10px"
               clearable
+              v-if="authProps.captchaVerify"
             >
               <template #suffix>
                 <img :src="captchaObject" alt="验证码" @click="generateCaptcha" style="cursor: pointer">
@@ -49,8 +50,15 @@
             <span class="error" v-if="errorMessage">{{errorMessage}}</span>
 
             <div style="margin-top: 20px;display: flex;justify-content: space-between">
-              <n-checkbox v-model:checked="userStore.isRememberAccount" color="#fff">记住账号</n-checkbox>
-              <n-checkbox v-model:checked="userStore.isAutoLogin" color="#fff">7天内自动登录</n-checkbox>
+              <n-checkbox v-model:checked="userStore.isRememberAccount" color="#fff" v-if="authProps.allowRememberAccount">
+                记住账号
+              </n-checkbox>
+              <n-checkbox v-model:checked="userStore.isRememberPassword" color="#fff" v-if="authProps.allowRememberAccount">
+                记住密码
+              </n-checkbox>
+              <n-checkbox v-model:checked="userStore.isAutoLogin" color="#fff" v-if="authProps.allowAutoLogin">
+                7天内自动登录
+              </n-checkbox>
             </div>
 
             <n-button type="primary" class="login" :loading="loading" @click="onLogin">
@@ -71,7 +79,6 @@
   import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
   import {useMessage, useLoadingBar} from 'naive-ui'
   import {useRouter} from 'vue-router'
-
   /********************************************************************************
    * 登录界面
    *
@@ -103,6 +110,16 @@
   const captchaValue = ref('');
   const captchaObject = ref('');
   const captchaId = ref('');
+
+  /**
+   * 登录配置
+   */
+  const authProps = ref({
+    captchaVerify: true,
+    allowAutoLogin: true,
+    allowRememberAccount: true,
+    allowRememberPassword: true
+  });
 
   /**
    * 是否登录中
@@ -145,14 +162,26 @@
   /**
    * 组件加载
    */
-  onMounted( () => {
-    // 记住账号
-    if (userStore.isRememberAccount) {
+  onMounted(async () => {
+    // 认证配置
+    const response = await http.get("/auth/properties");
+    authProps.value = response.data;
+
+    // 记住账号/密码
+    if (userStore.isRememberAccount && authProps.value.allowRememberAccount) {
       username.value = userStore.username;
+    }
+    if (userStore.isRememberPassword && authProps.value.allowRememberPassword) {
+      password.value = CryptoHelper.decrypt(userStore.key, userStore.password);
+    }
+    if (!authProps.value.allowAutoLogin) {
+      userStore.isAutoLogin = false;
     }
 
     // 生成验证码
-    generateCaptcha();
+    if (authProps.value.captchaVerify) {
+      await generateCaptcha();
+    }
 
     onScreenResize();
     window.addEventListener('resize', onScreenResize);
@@ -200,7 +229,7 @@
         errorMessage.value = "请输入密码";
         return;
       }
-      if (!captchaValue.value) {
+      if (authProps.captchaVerify && !captchaValue.value) {
         errorMessage.value = "请输入验证码";
         return;
       }
@@ -241,9 +270,14 @@
       tooltip = message.success(
         '登录成功，即将进入系统', {duration: 0}
       );
-      // 记住账号
+
+      // 记住账号/密码
       if (userStore.isRememberAccount) {
         userStore.username = username.value;
+      }
+      if (userStore.isRememberPassword) {
+        userStore.key = key;
+        userStore.password = encryptPassword;
       }
 
       setTimeout(() => {

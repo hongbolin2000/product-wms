@@ -21,10 +21,23 @@ export namespace CryptoHelper {
    * AES加密
    */
   export function aesEncrypt(key: string, content: string) {
-    const encrypted = CryptoJS.AES.encrypt(content, CryptoJS.enc.Base64.parse(key), {
+    const secretKey = CryptoJS.enc.Base64.parse(key);
+    const encrypted = CryptoJS.AES.encrypt(content, secretKey, {
       mode: CryptoJS.mode.ECB,
       padding: CryptoJS.pad.Pkcs7,
     });
     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  }
+
+  /**
+   * AES解密
+   */
+  export function decrypt(key: string, content: string) {
+    const secretKey = CryptoJS.enc.Base64.parse(key);
+    const decrypted = CryptoJS.AES.decrypt(content, secretKey, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7
+    });
+    return decrypted.toString(CryptoJS.enc.Utf8);
   }
 }

@@ -25,14 +25,21 @@ export default useUserStore;
 const userStore = {
 
   /**
-   * 记住用户名
+   * 记住用户名/密码
    */
   username: ref(''),
+  password: ref(''),
 
   /**
-   * 是否记住账号
+   * 记住密码时加密的key
+   */
+  key: ref(''),
+
+  /**
+   * 是否记住账号/密码
    */
   isRememberAccount: ref(false),
+  isRememberPassword: ref(false),
 
   /**
    * 是否自动登录

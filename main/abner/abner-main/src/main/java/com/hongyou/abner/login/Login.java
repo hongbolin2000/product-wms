@@ -34,6 +34,18 @@ public class Login extends DataProvider {
     private static final Log logger = LogFactory.getLog(Login.class);
 
     /**
+     * 认证配置参数
+     */
+    private final LoginProperties properties;
+
+    /**
+     * 构造函数
+     */
+    public Login(final LoginProperties properties) {
+        this.properties = properties;
+    }
+
+    /**
      * 生成图形验证码
      */
     @GetMapping("/captcha")
@@ -44,6 +56,14 @@ public class Login extends DataProvider {
         } catch (Exception e) {
             logger.error("验证码生成失败", e);
         }
+    }
+
+    /**
+     * 认证参数
+     */
+    @GetMapping("/properties")
+    public LoginProperties getProperties() {
+        return properties;
     }
 
     /**
@@ -63,12 +83,14 @@ public class Login extends DataProvider {
             }
 
             // 检查验证码
-            String verify = CaptchaUtil.verify(param.getCaptchaId(), param.getCaptchaValue());
-            if (CaptchaUtil.EXPIRE.equals(verify)) {
-                return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("验证码已失效").build();
-            }
-            if (CaptchaUtil.ERROR.equals(verify)) {
-                return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("验证码错误").build();
+            if (properties.isCaptchaVerify()) {
+                String verify = CaptchaUtil.verify(param.getCaptchaId(), param.getCaptchaValue());
+                if (CaptchaUtil.EXPIRE.equals(verify)) {
+                    return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("验证码已失效").build();
+                }
+                if (CaptchaUtil.ERROR.equals(verify)) {
+                    return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("验证码错误").build();
+                }
             }
 
             // 检查用户名是否存在
