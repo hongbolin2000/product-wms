@@ -12,7 +12,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {http, message, dialog} from "@/layouts";
+  import {http, message, dialog} from "@/index";
 
   /**
    * 路由

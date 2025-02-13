@@ -4,14 +4,14 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import {createPersistedState} from "pinia-plugin-persistedstate";
+import {routerHelper} from '@/index';
 /********************************************************************************
  * Vue起始文件
  *
  * @author Berlin
  *******************************************************************************/
 import App from '@/App.vue'
-import {router} from '@/router/routes'
-import {routerHelper} from '@/layouts';
+import {router} from '@/routes'
 
 /**
  * 创建应用

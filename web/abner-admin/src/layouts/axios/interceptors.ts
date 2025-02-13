@@ -7,7 +7,7 @@
  * @author Berlin
  *******************************************************************************/
 import type {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
-import {message, dialog} from "@/layouts";
+import {message, dialog} from "@/index";
 import {TOKEN_NAME} from '@/layouts/types';
 import {useRouter} from "vue-router";
 

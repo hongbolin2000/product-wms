@@ -13,12 +13,12 @@
 <script setup lang="ts">
   import {onMounted} from 'vue';
   import {useRouter} from 'vue-router';
+  import {layoutHelper} from '@/index';
   /********************************************************************************
    * APP启动页
    *
    * @author Berlin
    ********************************************************************************/
-  import {layoutHelper} from '@/layouts';
   import packages from '../package.json';
 
   /**

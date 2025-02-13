@@ -1,7 +1,8 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-import {createWebHashHistory, createRouter, type RouteRecordNormalized} from 'vue-router'
+import {createWebHashHistory, createRouter, type Router, type RouteRecordNormalized} from 'vue-router'
+import {ThemeLayout} from '@/index';
 /********************************************************************************
  * 应用路由配置
  *
@@ -11,10 +12,10 @@ import {createWebHashHistory, createRouter, type RouteRecordNormalized} from 'vu
 /**
  * 路由配置
  */
-export const routes: RouteRecordNormalized = [
+const routes: RouteRecordNormalized = [
   {
     path: '/index',
-    component: () => import('@/layouts/ThemeLayout.vue'),
+    component: () => ThemeLayout,
     children: [
       {
         path: '/index/home',
@@ -28,7 +29,7 @@ export const routes: RouteRecordNormalized = [
   },
   {
     path: '/system',
-    component: () => import('@/layouts/ThemeLayout.vue'),
+    component: () => ThemeLayout,
     children: [
       {
         path: '/system/index',
@@ -38,7 +39,10 @@ export const routes: RouteRecordNormalized = [
   },
 ]
 
-export const router = createRouter({
+/**
+ * 创建路由对象
+ */
+export const router: Router = createRouter({
   history: createWebHashHistory(),
-  routes,
-})
+  routes: routes,
+});

@@ -2,12 +2,13 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {type Router} from "vue-router";
-import {index} from '@/layouts/routes';
 /********************************************************************************
  * Router帮助类（提供给功能应用调用）
  *
  * @author Berlin
  *******************************************************************************/
+import {layoutRoutes} from '@/layouts/routes';
+
 /**
  * Router帮助类（提供给功能应用调用）
  *
@@ -19,7 +20,7 @@ namespace routerHelper {
    * 初始化路由
    */
   export function initRouter(props: {
-      router: Router, rootPath: string
+    router: Router, rootPath: string
   }) {
 
     // 配置'/'路由的默认访问地址
@@ -34,7 +35,7 @@ namespace routerHelper {
     }
 
     // 加入框架路由
-    index.forEach(route => {
+    layoutRoutes.forEach(route => {
       props.router.addRoute(route);
     });
   }

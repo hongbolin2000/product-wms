@@ -49,7 +49,7 @@
   import {ThemeMode} from "@/layouts/types";
   import MainContent from "@/layouts/MainContent.vue";
   import http from "@/layouts/axios/http";
-  import {layoutHelper} from "@/layouts/index";
+  import {layoutHelper} from "@/index";
   import MyIcon from "@/layouts/icons/SvgIcon.vue";
 
   /**

@@ -28,7 +28,7 @@
    * @author Berlin
    ********************************************************************************/
   import Avatar from './avatar.gif';
-  import {http} from "@/layouts/index";
+  import {http} from "@/index";
   import {TOKEN_NAME} from '@/layouts/types';
 
   /**
