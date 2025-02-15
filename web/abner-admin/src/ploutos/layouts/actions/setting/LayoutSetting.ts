@@ -1,24 +1,25 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-import {ref} from "vue";
+import {type Ref, ref} from "vue";
 /********************************************************************************
  * 布局静态配置信息
  *
  * @author Berlin
  *******************************************************************************/
 import LeftBg from '@/ploutos/layouts/sidebar/menu-bg.webp'
+import {SideTheme, ThemeMode} from "@/ploutos/layouts/types";
 
 /**
  * 主题列表
  */
-export const themeList = ref([
+export const themeList: Ref<LayoutStyleOption[]> = ref([
   {
     leftBg: '#ffffff',
     rightTopBg: '#ffffff',
     rightBottomBg: '#f5f5f5',
     checked: true,
-    themeId: 'light',
+    themeId: ThemeMode.LIGHT,
     tipText: '明亮',
   },
   {
@@ -26,7 +27,7 @@ export const themeList = ref([
     rightTopBg: '#000000',
     rightBottomBg: '#333333',
     checked: false,
-    themeId: 'dark',
+    themeId: ThemeMode.DARK,
     tipText: '暗黑',
   },
 ]);
@@ -34,13 +35,13 @@ export const themeList = ref([
 /**
  * 菜单栏布局样式
  */
-export const sideExampleList = ref([
+export const sideExampleList: Ref<LayoutStyleOption[]> = ref([
   {
     leftBg: '#000000',
     rightTopBg: '#ffffff',
     rightBottomBg: '#f5f5f5',
     checked: false,
-    themeId: 'dark',
+    sideThemeId: SideTheme.DARK,
     tipText: '暗黑',
   },
   {
@@ -48,7 +49,7 @@ export const sideExampleList = ref([
     rightTopBg: '#ffffff',
     rightBottomBg: '#f5f5f5',
     checked: true,
-    themeId: 'white',
+    sideThemeId: SideTheme.WHITE,
     tipText: '明亮',
   },
   {
@@ -56,7 +57,7 @@ export const sideExampleList = ref([
     rightTopBg: '#ffffff',
     rightBottomBg: '#f5f5f5',
     checked: false,
-    themeId: 'image',
+    sideThemeId: SideTheme.IMAGE,
     tipText: '背景图',
   },
 ]);
@@ -64,7 +65,7 @@ export const sideExampleList = ref([
 /**
  * 布局模式
  */
-export const layoutExampleList = ref([
+export const layoutExampleList: Ref<LayoutStyleOption[]> = ref([
   {
     leftBg: '#000000',
     rightTopBg: '#d4d4d4',
@@ -96,94 +97,94 @@ export const layoutExampleList = ref([
 /**
  * 主题颜色
  */
-export const primaryColorList = ref([
+export const primaryColorList: Ref<LayoutSelectOption[]> = ref([
   {
-    name: 'cyan',
+    label: 'cyan',
     value: '#18a058',
     checked: false,
   },
   {
-    name: 'blue',
+    label: 'blue',
     value: '#409eff',
     checked: true,
   },
   {
-    name: 'red',
+    label: 'red',
     value: '#F5222D',
     checked: false,
   },
   {
-    name: 'purple',
+    label: 'purple',
     value: '#722ED1',
     checked: false,
   },
   {
-    name: 'ee4f12',
+    label: 'ee4f12',
     value: '#ee4f12',
     checked: false,
   },
   {
-    name: '0096c7',
+    label: '0096c7',
     value: '#0096c7',
     checked: false,
   },
   {
-    name: 'ff9801',
+    label: 'ff9801',
     value: '#ff9801',
     checked: false,
   },
   {
-    name: 'ff3d68',
+    label: 'ff3d68',
     value: '#ff3d68',
     checked: false,
   },
   {
-    name: '01c1d4',
+    label: '01c1d4',
     value: '#01c1d4',
     checked: false,
   },
   {
-    name: '71efa3',
+    label: '71efa3',
     value: '#71efa3',
     checked: false,
   },
   {
-    name: '171010',
+    label: '171010',
     value: '#171010',
     checked: false,
   },
   {
-    name: '78dec7',
+    label: '78dec7',
     value: '#78dec7',
     checked: false,
   },
   {
-    name: '1768ac',
+    label: '1768ac',
     value: '#1768ac',
     checked: false,
   },
   {
-    name: '1427df',
+    label: '1427df',
     value: '#1427df',
     checked: false,
   },
   {
-    name: '43c628',
+    label: '43c628',
     value: '#43c628',
     checked: false,
   },
   {
-    name: 'ead41e',
+    label: 'ead41e',
     value: '#ead41e',
     checked: false,
   },
   {
-    name: '22bd7c',
+    label: '22bd7c',
     value: '#22bd7c',
     checked: false,
   },
   {
-    name: '9727bf',
+    label: '9727bf',
     value: '#9727bf',
     checked: false,
   },
@@ -192,7 +193,7 @@ export const primaryColorList = ref([
 /**
  * 页面切换效果
  */
-export const animateOptions = [
+export const animateOptions: LayoutSelectOption[] = [
   {
     label: '渐隐渐现',
     value: 'opacity',
@@ -210,3 +211,75 @@ export const animateOptions = [
     value: 'scale',
   },
 ]
+
+/**
+ * 主题属性
+ */
+export type LayoutStyleOption = {
+
+  /**
+   * 左背景
+   */
+  leftBg: string,
+
+  /**
+   * 右上背景
+   */
+  rightTopBg: string,
+
+  /**
+   * 右下背景
+   */
+  rightBottomBg: string,
+
+  /**
+   * 是否选中
+   */
+  checked: boolean,
+
+  /**
+   * 提示文本
+   */
+  tipText: string,
+
+  /**
+   * 主题id
+   */
+  themeId?: ThemeMode,
+
+  /**
+   * 侧边栏主题样式
+   */
+  sideThemeId?: SideTheme,
+
+  /**
+   * 追加样式类
+   */
+  class?: string,
+
+  /**
+   * 布局ID
+   */
+  layoutId?: string
+}
+
+/**
+ * 选项属性
+ */
+export type LayoutSelectOption = {
+
+  /**
+   * 标签
+   */
+  label: string,
+
+  /**
+   * 值
+   */
+  value: string,
+
+  /**
+   * 是否选中
+   */
+  checked?: boolean
+}

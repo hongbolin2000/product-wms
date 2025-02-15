@@ -1,7 +1,7 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-import {createWebHashHistory, createRouter, type Router, type RouteRecordNormalized} from 'vue-router'
+import {createWebHashHistory, createRouter, type Router, type RouteRecordRaw} from 'vue-router'
 import {ThemeLayout} from '@/ploutos';
 /********************************************************************************
  * 应用路由配置
@@ -12,7 +12,7 @@ import {ThemeLayout} from '@/ploutos';
 /**
  * 路由配置
  */
-const routes: RouteRecordNormalized = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/index',
     component: () => ThemeLayout,

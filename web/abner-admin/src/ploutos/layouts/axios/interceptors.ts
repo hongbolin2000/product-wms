@@ -6,7 +6,7 @@
  *
  * @author Berlin
  *******************************************************************************/
-import type {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+import type {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from "axios";
 import {message, dialog} from "@/ploutos";
 import {TOKEN_NAME} from '@/ploutos/layouts/types';
 import {useRouter} from "vue-router";
@@ -20,7 +20,7 @@ const tokenPrefix = "Hongyou ";
  * 请求式拦截下
  */
 export function useRequestInterceptor(client: AxiosInstance) {
-  client.interceptors.request.use((config: AxiosRequestConfig) => {
+  client.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem(TOKEN_NAME)
     if (token) {
       config.headers[TOKEN_NAME] = tokenPrefix + token;
@@ -83,7 +83,7 @@ export function useResponseInterceptor(client: AxiosInstance) {
     // 500
     if (error.response.status === 500) {
       if (error.response.data) {
-        message.error(error.response.data);
+        message.error(error.response.data.toString());
       } else {
         message.error('服务器出错了');
       }

@@ -92,7 +92,7 @@ public class MenuPage {
             String icon = XmlUtil.getAttribute(menu, "icon");
             menuOption.key(path).
                     label(label).
-                    icon(icon);
+                    icons(icon);
             menuOptions.add(menuOption.build());
         }
         return menuOptions;

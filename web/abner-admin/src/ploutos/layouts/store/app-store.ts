@@ -2,13 +2,12 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {defineStore} from "pinia";
-import type {MenuOption} from 'naive-ui';
 /********************************************************************************
  * APP全局应用状态
  *
  * @author Berlin
  ********************************************************************************/
-import type {WebsiteOption} from "@/ploutos/layouts/types";
+import type {WebsiteOption, MenuOption} from "@/ploutos/layouts/types";
 
 /**
  * 创建APP全局应用状态
@@ -51,41 +50,34 @@ export default useAppStore;
 /**
  * 初始APP全局应用状态
  */
-const appStore = {
+const appStore: AppStoreOption = {
+  menus: [],
+  expandMenus: [],
+  websiteOption: {
+    title: '',
+    subtitle: '',
+    companyName: '',
+    version: ''
+  },
+}
+
+/**
+ * APP应用状态类型定义
+ */
+type AppStoreOption = {
 
   /**
    * 菜单
    */
-  menus: [],
+  menus: MenuOption[],
 
   /**
    * 展开的菜单
    */
-  expandMenus: [],
+  expandMenus: MenuOption[],
 
   /**
    * 网站信息
    */
-  websiteOption: {
-
-    /**
-     * 网站标题
-     */
-    title: '',
-
-    /**
-     * 副标题
-     */
-    subtitle: '',
-
-    /**
-     * 公司名称
-     */
-    companyName: '',
-
-    /**
-     * 应用版本
-     */
-    version: ''
-  },
+  websiteOption: WebsiteOption,
 }

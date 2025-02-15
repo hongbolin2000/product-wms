@@ -34,7 +34,7 @@
     dialog.init();
 
     // 检查用户是否已登录
-    const response: boolean = await http.post("/auth/isLogin");
+    const response = await http.post("/auth/isLogin");
     if (!response.data.login) {
       if (response.data.frozen) {
         dialog.warning({
@@ -53,7 +53,7 @@
 
     // 跳转页面
     setTimeout(() => {
-      const redirect: string[] = route.query.redirect.split("redirect=");
+      const redirect: string[] = route.query.redirect!.toString().split("redirect=");
       router.replace(redirect[redirect.length - 1]);
     }, 1000);
   });

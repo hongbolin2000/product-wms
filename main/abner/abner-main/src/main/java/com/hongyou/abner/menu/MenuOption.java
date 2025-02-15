@@ -29,7 +29,7 @@ public class MenuOption {
     /**
      * 菜单图标
      */
-    private String icon;
+    private String icons;
 
     /**
      * 子菜单

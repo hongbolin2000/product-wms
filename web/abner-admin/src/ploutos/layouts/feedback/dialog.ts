@@ -3,7 +3,6 @@
  */
 import {useDialog} from "naive-ui";
 import type {DialogApiInjection} from "naive-ui/es/dialog/src/DialogProvider";
-import type {PropType} from "vue";
 /********************************************************************************
  * 对话框组件
  *
@@ -14,32 +13,32 @@ type DialogOption = {
   /**
    * 标题
    */
-  title: PropType<string | (() => import("vue").VNodeChild)>;
+  title: string | (() => import("vue").VNodeChild);
 
   /**
    * 内容
    */
-  content: PropType<string | (() => import("vue").VNodeChild)>;
+  content: string | (() => import("vue").VNodeChild);
 
   /**
    * 确认文件
    */
-  confirmText: StringConstructor,
+  confirmText: string,
 
   /**
    * 取消文件
    */
-  cancelText: StringConstructor,
+  cancelText?: string,
 
   /**
    * 点击确认
    */
-  onConfirmClick: PropType<(e: MouseEvent) => Promise<unknown> | unknown>;
+  onConfirmClick: () => Promise<unknown> | unknown;
 
   /**
    * 点击取消
    */
-  onNegativeClick: PropType<(e: MouseEvent) => Promise<unknown> | unknown>;
+  onNegativeClick?: () => Promise<unknown> | unknown;
 };
 
 namespace Dialog {

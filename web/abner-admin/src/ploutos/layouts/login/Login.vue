@@ -90,6 +90,7 @@
   import {CryptoHelper} from "@/ploutos/layouts/helps/crypto-helper";
   import http from '@/ploutos/layouts/axios/http';
   import {TOKEN_NAME} from "@/ploutos/layouts/types";
+  import type {MessageReactive} from "naive-ui/es/message/src/MessageProvider";
 
   /**
    * 全局应用状态
@@ -218,7 +219,9 @@
    */
   async function onLogin() {
 
-    let tooltip = undefined;
+    let tooltip: MessageReactive = {
+      destroy(): void {}, type: 'success'
+    };
     try {
       // 校验用户名密码
       if (!username.value) {
@@ -229,7 +232,7 @@
         errorMessage.value = "请输入密码";
         return;
       }
-      if (authProps.captchaVerify && !captchaValue.value) {
+      if (authProps.value.captchaVerify && !captchaValue.value) {
         errorMessage.value = "请输入验证码";
         return;
       }

@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
   import {useRouter} from "vue-router";
-  import {type MenuOption, useLoadingBar, NIcon} from 'naive-ui';
+  import {useLoadingBar, NIcon} from 'naive-ui';
   import {computed, onBeforeMount, h} from "vue";
   /********************************************************************************
    * 主界面布局
@@ -51,6 +51,7 @@
   import http from "@/ploutos/layouts/axios/http";
   import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
   import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import type {MenuOption} from "@/ploutos/layouts/types";
 
   /**
    * 父组件传入的属性
@@ -102,7 +103,7 @@
    */
   function renderMenu(menus: MenuOption[]) {
     menus.forEach(menu => {
-      menu.icon = renderIcon(menu.icon);
+      menu.icon = renderIcon(menu.icons);
       if (menu.children) {
         renderMenu(menu.children);
       }

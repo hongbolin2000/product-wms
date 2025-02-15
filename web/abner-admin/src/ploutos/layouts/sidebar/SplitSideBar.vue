@@ -27,7 +27,7 @@
                 :class="{ 'vaw-tab-split-item-is-active': item.checked }"
                 @click="onTabChange(item)"
               >
-                <MyIcon :name="item.icon1" />
+                <MyIcon :name="item.icon1 + ''" />
                 <span>{{ item.label }}</span>
               </div>
             </div>
@@ -45,8 +45,7 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, ref, onMounted} from "vue";
-  import {type MenuOption} from "naive-ui";
+import {computed, ref, onMounted, type Ref} from "vue";
   import {useRoute} from "vue-router";
   /********************************************************************************
    * 分栏菜单
@@ -59,6 +58,7 @@
   import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
   import useAppStore from "@/ploutos/layouts/store/app-store";
+  import type {MenuOption} from "@/ploutos/layouts/types";
 
   /**
    * 全局应用状态
@@ -78,7 +78,7 @@
   /**
    * 选项卡子菜单
    */
-  const childMenus: MenuOption[] = ref([]);
+  const childMenus: Ref<MenuOption[]> = ref([]);
 
   /**
    * 组件加载
@@ -91,19 +91,21 @@
    * 根据路由匹配选项卡
    */
   function matchTab() {
+    const menus: any[] = [];
     const matchedRoutes = route.matched;
     if (matchedRoutes && matchedRoutes.length > 0) {
       appStore.menus.forEach((menu) => {
         if (menu.key === matchedRoutes[0].path) {
           menu.checked = true
           if (menu.children) {
-            childMenus.value.push(...menu.children);
+            menus.push(...menu.children);
           }
         } else {
           menu.checked = false
         }
       })
     }
+    childMenus.value.push(...menus);
   }
 
   /**
@@ -196,15 +198,19 @@
   /**
    * 切换一级菜单
    */
-  function onTabChange(item: SplitTab) {
-    appStore.menus.forEach((it) => {
+  function onTabChange(item: MenuOption) {
+    let menus: any = [];
+    for (let i = 0; i < appStore.menus.length; i++) {
+      const it = appStore.menus[i];
       const checked = it.key === item.key;
       it.checked = checked;
 
       if (checked) {
-        childMenus.value = item.children;
+        menus = item.children;
+        break;
       }
-    });
+    }
+    childMenus.value = menus;
   }
 </script>
 

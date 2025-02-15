@@ -1,7 +1,7 @@
 <template>
   <div class="exception-container">
     <div class="img-wrapper">
-      <img :src="statusImage" :alt="status"/>
+      <img :src="statusImage" :alt="status.toString()"/>
     </div>
 
     <div class="title">

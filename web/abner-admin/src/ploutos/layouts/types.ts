@@ -1,6 +1,8 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
+import type {MenuOptionSharedPart} from "naive-ui/es/menu/src/interface";
+import type {VNode} from "vue";
 /********************************************************************************
  * 布局框架中的类型定义
  *
@@ -11,6 +13,22 @@
  * token名称
  */
 export const TOKEN_NAME = "authorization";
+
+/**
+ * 菜单属性
+ */
+export type MenuOption = (MenuOptionSharedPart & {
+
+  /**
+   * 菜单图标
+   */
+  icons: string,
+
+  /**
+   * 子菜单
+   */
+  children: MenuOption[]
+});
 
 /**
  * 网站信息

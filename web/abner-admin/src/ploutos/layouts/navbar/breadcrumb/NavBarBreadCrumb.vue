@@ -24,13 +24,13 @@
   import {useRoute, useRouter} from "vue-router";
   import {onMounted, ref, watch} from "vue";
   import { ChevronDown } from '@vicons/ionicons5'
-  import type {MenuOption} from "naive-ui";
   /********************************************************************************
    * 导航栏当前菜单面包屑
    *
    * @author Berlin
    ********************************************************************************/
   import useAppStore from "@/ploutos/layouts/store/app-store";
+  import type {MenuOption} from "@/ploutos/layouts/types.ts";
 
   /**
    * 路由对象

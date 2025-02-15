@@ -91,7 +91,7 @@
   /**
    * 布局设置抽屉元素
    */
-  const layoutSetting = ref(null);
+  const layoutSetting = ref();
 
   /**
    * 刷新路由

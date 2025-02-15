@@ -1,7 +1,7 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-import {type RouteRecordNormalized} from 'vue-router'
+import {type RouteRecordRaw} from 'vue-router'
 /********************************************************************************
  * 布局框架固定路由配置
  *
@@ -11,7 +11,7 @@ import {type RouteRecordNormalized} from 'vue-router'
 /**
  * 布局框架固定路由配置
  */
-export const layoutRoutes: RouteRecordNormalized[] = [
+export const layoutRoutes: RouteRecordRaw[] = [
   { path: '/403', name: 'Unauthorized', component: () => import('@/ploutos/layouts/exception/component/403.vue') },
   { path: '/404', name: 'NotFound', component: () => import('@/ploutos/layouts/exception/component/404.vue') },
   { path: '/500', name: 'InnerError', component: () => import('@/ploutos/layouts/exception/component/500.vue') },

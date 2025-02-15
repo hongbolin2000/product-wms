@@ -1,6 +1,6 @@
 <template>
   <n-drawer v-model:show="opened" placement="right" :auto-focus="false" :width="300">
-    <n-drawer-content title="布局设置" closable class="wrapper">
+    <n-drawer-content title="布局设置" closable class="wrapper" show-mask="true" placement="right" display-directive="if">
       <n-divider dashed>主题设置</n-divider>
       <n-grid>
         <n-grid-item
@@ -120,7 +120,14 @@
    ********************************************************************************/
   import StyleExample from "@/ploutos/layouts/actions/setting/StyleExample.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import {themeList, sideExampleList, layoutExampleList, primaryColorList, animateOptions} from './LayoutSetting';
+  import {
+    themeList,
+    sideExampleList,
+    layoutExampleList,
+    primaryColorList,
+    animateOptions,
+    type LayoutStyleOption, type LayoutSelectOption
+  } from './LayoutSetting';
 
   /**
    * 布局状态
@@ -143,7 +150,7 @@
     });
     // 菜单栏主题
     sideExampleList.value.forEach((it) => {
-      it.checked = layoutStore.sideTheme === it.themeId
+      it.checked = layoutStore.sideTheme === it.sideThemeId
     });
     // 布局模式
     layoutExampleList.value.forEach((it) => {
@@ -158,7 +165,7 @@
   /**
    * 切换主题
    */
-  async function themeClick(item: never) {
+  async function themeClick(item: LayoutStyleOption) {
     themeList.value.forEach((it) => {
       it.checked = it === item;
     });
@@ -174,17 +181,17 @@
   /**
    * 切换菜单栏布局样式
    */
-  function exampleClick(item: never) {
+  function exampleClick(item: LayoutStyleOption) {
     sideExampleList.value.forEach((it) => {
       it.checked = it === item;
     });
-    layoutStore.sideTheme = item.themeId;
+    layoutStore.sideTheme = item.sideThemeId;
   }
 
   /**
    * 切换菜单布局模式
    */
-  function layoutExampleClick(item: never) {
+  function layoutExampleClick(item: LayoutStyleOption) {
     layoutExampleList.value.forEach((it) => {
       it.checked = it === item;
     });
@@ -194,7 +201,7 @@
   /**
    * 切换主题颜色
    */
-  function colorClick(item: never) {
+  function colorClick(item: LayoutSelectOption) {
     primaryColorList.value.forEach((it) => {
       it.checked = it === item;
     })

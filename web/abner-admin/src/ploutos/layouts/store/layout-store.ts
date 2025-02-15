@@ -8,7 +8,7 @@ import { defineStore } from 'pinia'
  * @author Berlin
  ********************************************************************************/
 import {DeviceType, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
-import {ref} from "vue";
+import {type Ref, ref} from "vue";
 
 /**
  * 创建布局状态存储器
@@ -23,76 +23,102 @@ export default useLayoutStore;
 /**
  * 初始布局状态
  */
-const layoutStore = {
+const layoutStore: LayoutStoreOption = {
+  theme: ref(ThemeMode.LIGHT),
+  themeColor: ref('#18a058'),
+  sideTheme: ref(SideTheme.WHITE),
+  deviceType: ref(DeviceType.PC),
+  layoutMode: ref(''),
+  sideWidth: ref(210),
+  isCollapse: ref(false),
+  isFixedNavBar: ref(true),
+  pageAnimate: ref('opacity'),
+  navbar: ref({
+    isShowSearch: true,
+    isShowMessage: false,
+    isShowRefresh: true,
+    isShowFullScreen: true,
+  })
+};
+
+/**
+ * 布局状态类型定义
+ */
+type LayoutStoreOption = {
 
   /**
    * 主题
    */
-  theme: ref(ThemeMode.LIGHT),
+  theme: Ref<ThemeMode | undefined>;
 
   /**
    * 主题颜色
    */
-  themeColor: ref('#18a058'),
+  themeColor: Ref<string>,
 
   /**
    * 菜单栏主题
    */
-  sideTheme: ref(SideTheme.WHITE),
+  sideTheme: Ref<SideTheme | undefined>,
 
   /**
    * 终端
    */
-  deviceType: ref(DeviceType.PC),
+  deviceType: Ref<DeviceType>,
 
   /**
    * 布局模式
    */
-  layoutMode: ref(''),
+  layoutMode: Ref<string | undefined>,
 
   /**
    * 菜单宽度
    */
-  sideWidth: ref(210),
+  sideWidth: Ref<number>,
 
   /**
    * 是否折叠菜单
    */
-  isCollapse: ref(false),
+  isCollapse: Ref<boolean>,
 
   /**
    * 是否固定导航栏
    */
-  isFixedNavBar: ref(true),
+  isFixedNavBar: Ref<boolean>,
 
   /**
    * 页面切换效果
    */
-  pageAnimate: ref('opacity'),
+  pageAnimate: Ref<string>,
 
   /**
-   * 导航栏配置
+   * 导航栏属性
    */
-  navbar: ref({
+  navbar: Ref<LayoutNavbarOption>
+}
 
-    /**
-     * 是否显示搜索栏
-     */
-    isShowSearch: true,
+/**
+ * 导航栏属性定义
+ */
+type LayoutNavbarOption = {
 
-    /**
-     * 是否显示消息通知
-     */
-    isShowMessage: false,
+  /**
+   * 是否显示搜索栏
+   */
+  isShowSearch: boolean,
 
-    /**
-     * 是否显示刷新图标
-     */
-    isShowRefresh: true,
+  /**
+   * 是否显示消息通知
+   */
+  isShowMessage: boolean,
 
-    /**
-     * 是否显示全屏图标
-     */
-    isShowFullScreen: true,
-  })
+  /**
+   * 是否显示刷新图标
+   */
+  isShowRefresh: boolean,
+
+  /**
+   * 是否显示全屏图标
+   */
+  isShowFullScreen: boolean,
 }

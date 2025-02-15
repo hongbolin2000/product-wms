@@ -1,7 +1,7 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-import axios, {type AxiosInstance} from 'axios';
+import axios, {type AxiosInstance, type AxiosRequestConfig} from 'axios';
 /********************************************************************************
  * HTTP请求客户端
  *
@@ -22,7 +22,7 @@ type AxiosConfig = {
   /**
    * 超时时间（毫秒）缺省30秒
    */
-  timeout: string;
+  timeout?: number;
 }
 
 namespace http {
@@ -51,14 +51,14 @@ namespace http {
   /**
    * GET请求
    */
-  export function get(url: string, config?: axios.AxiosRequestConfig) {
+  export function get(url: string, config?: AxiosRequestConfig) {
     return client.get(url, config);
   }
 
   /**
    * POST请求
    */
-  export function post(url: string, data: any) {
+  export function post(url: string, data?: any) {
     return client.post(url, data);
   }
 }

@@ -7,8 +7,7 @@
  * @author Berlin
  *******************************************************************************/
 import useAppStore from "@/ploutos/layouts/store/app-store";
-import type {WebsiteOption} from "@/ploutos/layouts/types";
-import type {MenuOption} from "naive-ui";
+import type {WebsiteOption, MenuOption} from "@/ploutos/layouts/types";
 
 /**
  * 布局框架中的帮助类（提供给功能应用调用）

@@ -21,7 +21,6 @@
 <script setup lang="ts">
   import {ref, watch, watchEffect} from "vue"
   import {useRoute, useRouter} from "vue-router"
-  import {type MenuOption} from "naive-ui"
   /********************************************************************************
    * 竖向布局菜单
    *
@@ -29,7 +28,7 @@
    ********************************************************************************/
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import useAppStore from '@/ploutos/layouts/store/app-store';
-  import {DeviceType} from "@/ploutos/layouts/types";
+  import {DeviceType, MenuOption} from "@/ploutos/layouts/types";
 
   /**
    * 父组件传入的属性
