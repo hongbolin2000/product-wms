@@ -20,9 +20,19 @@ export const TOKEN_NAME = "authorization";
 export type MenuOption = (MenuOptionSharedPart & {
 
   /**
+   * 菜单Key
+   */
+  key: string,
+
+  /**
    * 菜单图标
    */
   icons: string,
+
+  /**
+   * 标签
+   */
+  label: string,
 
   /**
    * 子菜单

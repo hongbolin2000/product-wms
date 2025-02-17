@@ -22,6 +22,7 @@
       ]"
     >
       <NavBar v-if="showNavBar" />
+      <TabBar/>
     </section>
 
     <div class="main-base-style scrollbar" :class="[mainClass]">
@@ -44,7 +45,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store"
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import NavBar from "@/ploutos/layouts/navbar/NavBar.vue";
   import {ThemeMode} from "@/ploutos/layouts/types";
   import MainContent from "@/ploutos/layouts/MainContent.vue";
@@ -52,6 +53,7 @@
   import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
   import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import type {MenuOption} from "@/ploutos/layouts/types";
+  import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
 
   /**
    * 父组件传入的属性

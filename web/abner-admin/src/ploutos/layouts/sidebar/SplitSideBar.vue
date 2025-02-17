@@ -27,7 +27,7 @@
                 :class="{ 'vaw-tab-split-item-is-active': item.checked }"
                 @click="onTabChange(item)"
               >
-                <MyIcon :name="item.icon1 + ''" />
+                <MyIcon :name="item.icons" />
                 <span>{{ item.label }}</span>
               </div>
             </div>

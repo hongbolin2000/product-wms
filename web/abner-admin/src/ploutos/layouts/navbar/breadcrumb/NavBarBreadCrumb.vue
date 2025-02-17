@@ -56,7 +56,9 @@
    * 组件加载
    */
   onMounted(() => {
-    generateBreadcrumb();
+    setTimeout(() => {
+      generateBreadcrumb();
+    }, 100);
   });
 
   /**
@@ -117,7 +119,7 @@
    * 侦听菜单变化
    */
   watch(() => route.path, () => {
-    if (route.path.startsWith('/redirect') || ['/login', '/404', '/405', '/403', '/500'].includes(route.path)) {
+    if (['/403', '/404'].includes(route.path)) {
       return;
     }
     generateBreadcrumb();

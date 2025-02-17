@@ -149,8 +149,8 @@ export const primaryColorList: Ref<LayoutSelectOption[]> = ref([
     checked: false,
   },
   {
-    label: '171010',
-    value: '#171010',
+    label: '009688',
+    value: '#009688',
     checked: false,
   },
   {

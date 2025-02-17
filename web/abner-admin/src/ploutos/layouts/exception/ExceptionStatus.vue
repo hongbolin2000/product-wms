@@ -23,7 +23,6 @@
    ********************************************************************************/
   import i_404 from '@/ploutos/layouts/exception/images/404.png';
   import i_403 from '@/ploutos/layouts/exception/images/403.png';
-  import i_500 from '@/ploutos/layouts/exception/images/500.png';
 
   /**
    * 路由对象
@@ -52,8 +51,6 @@
       return i_404;
     } else if (props.status.toString() === '403') {
       return i_403
-    } else {
-      return i_500
     }
   });
 
