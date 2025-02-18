@@ -42,6 +42,7 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
+    background-color: white;
     .avatar-wrapper {
       padding-right: 15px;
     }

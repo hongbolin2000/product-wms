@@ -34,6 +34,15 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/system/index',
         component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index2',
+        children: [
+          {
+            path: '/system/index2/index',
+            component: () => import("@/views/index/work-space.vue"),
+          }
+        ]
       }
     ]
   },

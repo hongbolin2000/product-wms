@@ -108,6 +108,8 @@
       menu.icon = renderIcon(menu.icons);
       if (menu.children) {
         renderMenu(menu.children);
+      } else {
+        delete menu.children;
       }
     });
   }
@@ -184,13 +186,11 @@
     height: 100%;
     box-sizing: border-box;
     transition: margin-left $transitionTime;
+    background-color: #f0f2f5;
     .main-base-style {
       height: 100%;
       box-sizing: border-box;
       padding: 5px;
-    }
-    .main-base-light-theme {
-      background-color: #f0f2f5;
     }
     .main-base-dark-theme {
       background-color: #333333;

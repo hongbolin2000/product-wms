@@ -7,9 +7,9 @@
         :collapsed="layoutStore.isCollapse"
         :options="!menus ? appStore.menus : menus"
         :expanded-keys="expandKeys"
-        :collapsed-icon-size="22"
+        :collapsed-icon-size="16"
         :collapsed-width="63"
-        :indent="15"
+        :indent="21"
         accordion
         @update:value="onMenuClick"
         @update:expanded-keys="onMenuExpanded"
@@ -147,11 +147,6 @@
   }
   :deep(.n-menu .n-menu-item:hover) {
     background-color: var(--item-color-active);
-
-    .n-menu-item-content {
-      transform: scale(1.1);
-      transition: transform $transitionTime;
-    }
   }
   .scrollbar {
     height: calc(100vh - #{$logoHeight}) !important;

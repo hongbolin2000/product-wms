@@ -127,7 +127,6 @@
   }
   .open-status {
     width: $menuWidth;
-    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.12);
     transition: all $transitionTime;
   }
   .close-status {

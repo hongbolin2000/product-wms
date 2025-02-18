@@ -33,7 +33,7 @@
 
     // 初始化网站信息
     layoutHelper.initialWebsite({
-      title: '门店设备数据采集平台',
+      title: 'Admin Plus',
       subtitle: 'Store equipment data collection platform',
       companyName: '上海丞世物联网技术有限公司',
       version: packages.version

@@ -90,9 +90,11 @@ public class MenuPage {
             String path = XmlUtil.getAttribute(menu, "path");
             String label = XmlUtil.getAttribute(menu, "label");
             String icon = XmlUtil.getAttribute(menu, "icon");
+            boolean fixed = XmlUtil.getBooleanAttribute(menu, "fixed");
             menuOption.key(path).
                     label(label).
-                    icons(icon);
+                    icons(icon).
+                    fixed(fixed);
             menuOptions.add(menuOption.build());
         }
         return menuOptions;

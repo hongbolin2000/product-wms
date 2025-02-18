@@ -437,4 +437,12 @@
       transform: translateX(0);
     }
   }
+  @keyframes show {
+    from {
+      transform: translateY(-50px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
 </style>

@@ -7,8 +7,7 @@ import {defineStore} from "pinia";
  *
  * @author Berlin
  ********************************************************************************/
-import type {WebsiteOption, MenuOption} from "@/ploutos/layouts/types";
-import type {RouteRecordRaw} from "vue-router";
+import type {MenuOption, WebsiteOption} from "@/ploutos/layouts/types";
 import {ref, type Ref} from "vue";
 
 /**
@@ -26,6 +25,17 @@ const useAppStore = defineStore('appStore', () => {
     // 展开菜单为平层
     // @ts-ignore
     expandMenu(this.menus, this.expandMenus);
+
+    // 固定的菜单选项卡
+    // @ts-ignore
+    const fixedMenus: MenuOption[] = this.expandMenus.filter(i => i.fixed);
+    fixedMenus.forEach(menu => {
+      // @ts-ignore
+      const tabMenu = this.visitedMenus.find(i => i.key === menu.key);
+      if (tabMenu) {
+        tabMenu.fixed = true;
+      }
+    });
   }
 
   /**
@@ -66,7 +76,7 @@ const appStore: AppStoreOption = {
     companyName: '',
     version: ''
   },
-  visitedRoutes: ref([])
+  visitedMenus: ref([])
 }
 
 /**
@@ -92,5 +102,5 @@ type AppStoreOption = {
   /**
    * 选项卡路由
    */
-  visitedRoutes: Ref<RouteRecordRaw[]>
+  visitedMenus: Ref<MenuOption[]>
 }

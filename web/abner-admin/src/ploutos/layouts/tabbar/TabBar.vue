@@ -1,6 +1,6 @@
 <template>
-  <div class="vaw-tab-bar-container" ref="tabBarContainer" v-if="appStore.visitedRoutes.length > 0">
-    <div style="display: flex; align-items: center">
+  <div class="vaw-tab-bar-container" ref="tabBarContainer">
+    <div style="display: flex; align-items: center;padding: 6px;min-height: 49px">
       <n-icon
           class="arrow-wrapper"
           :class="{ 'arrow-wrapper__disabled': leftArrowDisabled }"
@@ -11,22 +11,22 @@
 
       <n-scrollbar ref="scrollbar" id="tab-bar-scrollbar" :x-scrollable="true" :size="0" :on-scroll="onScroll">
         <n-button
-            v-for="item of appStore.visitedRoutes"
-            :key="item.path"
-            :type="currentPath === item.path ? 'primary' : 'default'"
+            v-for="item of appStore.visitedMenus"
+            :key="item.key"
+            :type="currentPath === item.key ? 'primary' : 'default'"
             class="tab-item"
-            strong
             secondary
-            style="--n-height: 24px; --n-font-weight: 200"
-            :data="item.path"
+            style="--n-color: #fff;--n-color-focus: #fff;--n-color-hover: #fff;--n-color-pressed: #fff;--n-ripple-duration: none;"
+            :data="item.key"
             @click.self="itemClick(item)"
             @contextmenu="onContextMenu(item, $event)"
         >
-          <span style="font-size: 12px; margin-top: 2px" class="text-item" @click.self="itemClick(item)">
-            {{ item.name }}
+          <span @click.self="itemClick(item)">
+            <component :is="renderMenuIcon(item.icons)" style="vertical-align: -0.1rem;" @click="itemClick(item)"/>
+            {{ item.label }}
           </span>
-          <n-icon class="icon-item" @click="removeTab(item)">
-            <Close />
+          <n-icon class="icon-item" @click="removeTab(item)" v-if="!item.fixed">
+            <CloseOutline />
           </n-icon>
         </n-button>
       </n-scrollbar>
@@ -82,7 +82,7 @@
         <n-button icon="el-icon-close" type="text" @click="closeAll">
           <template #icon>
             <n-icon>
-              <Close />
+              <CloseOutline />
             </n-icon>
           </template>
           关闭所有
@@ -93,11 +93,13 @@
 </template>
 
 <script setup lang="ts">
-  import {ArrowBack, ArrowForward, ChevronBack, Close, Menu, Refresh} from '@vicons/ionicons5'
+  import {ArrowBack, ArrowForward, ChevronBack, CloseOutline, Menu, Refresh} from '@vicons/ionicons5'
   import {h, ref, watch, onMounted, type Ref} from "vue";
-  import {type RouteLocationNormalized, type RouteRecordRaw, useRoute, useRouter} from "vue-router";
+  import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
   import {NIcon, NScrollbar} from "naive-ui";
   import useAppStore from "@/ploutos/layouts/store/app-store.ts";
+  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import type {MenuOption} from "@/ploutos/layouts/types.ts";
   /********************************************************************************
    * 路由选项卡组件
    *
@@ -124,7 +126,7 @@
    * 容器元素
    */
   const scrollbar = ref();
-  const tabBarContainer: Ref<Element> = ref({});
+  const tabBarContainer: Ref<Element | undefined> = ref();
 
   /**
    * 左右滚动图标是否可用
@@ -162,9 +164,9 @@
   });
 
   /**
-   * 右键选项所选中的选项卡路由
+   * 右键选项所选中的菜单
    */
-  const contextSelectRoute = ref();
+  const contextSelectMenu: Ref<MenuOption> = ref(undefined);
 
   /**
    * 右键选项关闭左侧/右侧选项是否显示
@@ -196,9 +198,14 @@
           clientWidth: clientWidth
         }
       }
-      // 将当前路由加入选项卡
-      addVisitedRouter({...route});
     }, 100);
+
+    const interval = setInterval(() => {
+      if (appStore.menus.length > 0) {
+        clearInterval(interval);
+        addVisitedRouter({...route});
+      }
+    }, 50);
   });
 
   /**
@@ -219,7 +226,7 @@
       key: 'close',
       icon() {
         return h(NIcon, null, {
-          default: () => h(Close),
+          default: () => h(CloseOutline),
         })
       },
     },
@@ -232,18 +239,23 @@
     addVisitedRouter(to);
   });
   function addVisitedRouter(to: RouteLocationNormalized) {
-    if (["/login", '/403', '/404'].includes(to.path)) {
+    if (["/login", "/splash", '/403', '/404'].includes(to.path)) {
       return;
     }
-    if (appStore.visitedRoutes.findIndex(i => i.path === to.path) != -1) {
+    if (appStore.visitedMenus.findIndex(i => i.key === to.path) != -1) {
       isDisabledArrow();
       return;
     }
-    const menuIndex = appStore.expandMenus.findIndex(i => i.key === to.path);
-    if (menuIndex != -1) {
-      to.name = appStore.expandMenus[menuIndex].label;
+    const menu = appStore.expandMenus.findLast(i => i.key === to.path);
+    if (menu) {
+      // 拿第一层菜单的标签
+      if (!menu.icons) {
+        const paths = to.path.split("/");
+        const firstMenu = appStore.expandMenus.findLast(i => i.key === "/" + paths[1]);
+        menu.icons = firstMenu && firstMenu.icons;
+      }
     }
-    appStore.visitedRoutes.push(to as RouteRecordRaw);
+    appStore.visitedMenus.push(menu);
     isDisabledArrow();
   }
 
@@ -276,7 +288,7 @@
   /**
    * 滚动事件
    */
-  function onScroll(e) {
+  function onScroll(e: any) {
     scrollbarProps.value = {
       scrollLeft: e.target.scrollLeft,
       scrollWidth: e.target.scrollWidth,
@@ -313,12 +325,12 @@
   /**
    * 右键菜单
    */
-  function onContextMenu(item: RouteRecordRaw, e: any) {
+  function onContextMenu(item: MenuOption, e: any) {
     e.preventDefault();
-    contextSelectRoute.value = item;
+    contextSelectMenu.value = item;
 
-    showLeftMenu.value = isLeftLast(item.path);
-    showRightMenu.value = isRightLast(item.path);
+    showLeftMenu.value = isLeftLast(item.key);
+    showRightMenu.value = isRightLast(item.key);
     const { top, left } = e.target.getBoundingClientRect();
 
     contextMenuStyle.value.left = left +'px'
@@ -361,28 +373,49 @@
   /**
    * 关闭左侧
    */
-  function closeLeft() {
-    const selectIndex = appStore.visitedRoutes.findIndex(i => i.path === contextSelectRoute.value.path);
-    appStore.visitedRoutes = appStore.visitedRoutes.filter((item, index) => {
-      return index >= selectIndex;
+  function closeLeft(item: MenuOption) {
+    const selectIndex = appStore.visitedMenus.findIndex(i => i.key === contextSelectMenu.value.key);
+    appStore.visitedMenus = appStore.visitedMenus.filter((item, index) => {
+      if (!item.fixed) {
+        return index >= selectIndex;
+      }
+      return item;
     });
+    toLastTabMenu();
   }
 
   /**
    * 关闭右侧
    */
-  function closeRight() {
-    const selectIndex = appStore.visitedRoutes.findIndex(i => i.path === contextSelectRoute.value.path);
-    appStore.visitedRoutes = appStore.visitedRoutes.filter((item, index) => {
-      return index <= selectIndex;
+  function closeRight(item: MenuOption) {
+    const selectIndex = appStore.visitedMenus.findIndex(i => i.key === contextSelectMenu.value.key);
+    appStore.visitedMenus = appStore.visitedMenus.filter((item, index) => {
+      if (!item.fixed) {
+        return index <= selectIndex;
+      }
+      return item;
     });
+    toLastTabMenu();
   }
 
   /**
    * 关闭全部
    */
   function closeAll() {
-    appStore.visitedRoutes = [];
+    appStore.visitedMenus = appStore.visitedMenus.filter(i => i.fixed);
+    toLastTabMenu(true);
+  }
+
+  /**
+   *
+   */
+  function toLastTabMenu(closeAll?: boolean) {
+    if (!closeAll && contextSelectMenu.value.key === currentPath.value) {
+      return;
+    }
+    if (appStore.visitedMenus.length > 0) {
+      router.push({ path: appStore.visitedMenus[appStore.visitedMenus.length -1].key });
+    }
   }
 
   /**
@@ -396,34 +429,44 @@
    * 检测左侧是否还有选项卡
    */
   function isLeftLast(currentPath: string) {
-    const currentIndex = appStore.visitedRoutes.findIndex((it) => it.path === currentPath);
-    return currentIndex === 0
+    const currentIndex = appStore.visitedMenus.findIndex((it) => it.key === currentPath);
+    return currentIndex === 0;
   }
 
   /**
    * 检测右侧是否还有选项卡
    */
   function isRightLast(currentPath: string) {
-    const currentIndex = appStore.visitedRoutes.findIndex((it) => it.path === currentPath);
-    return currentIndex === appStore.visitedRoutes.length - 1
+    const currentIndex = appStore.visitedMenus.findIndex((it) => it.key === currentPath);
+    return currentIndex === appStore.visitedMenus.length - 1
   }
 
   /**
    * 点击选项卡
    */
-  function itemClick(item: RouteRecordRaw) {
-    router.push(item.path);
+  function itemClick(item: MenuOption) {
+    router.push(item.key);
   }
 
   /**
    * 移除选项卡
    */
-  function removeTab(item: RouteRecordRaw) {
-    const index = appStore.visitedRoutes.findIndex(i => i.path == item.path);
-    appStore.visitedRoutes.splice(index, 1);
-    if (item.path == currentPath.value) {
-      router.push(appStore.visitedRoutes[appStore.visitedRoutes.length - 1].path);
+  function removeTab(item: MenuOption) {
+    const index = appStore.visitedMenus.findIndex(i => i.key == item.key);
+    appStore.visitedMenus.splice(index, 1);
+    if (item.key == currentPath.value) {
+      router.push(appStore.visitedMenus[appStore.visitedMenus.length - 1].key);
     }
+  }
+
+  /**
+   * 菜单图标
+   *
+   * @param icon
+   */
+  function renderMenuIcon(icon: string | unknown) {
+    icon = !icon ? 'menu' : icon;
+    return () => h(NIcon, null, { default: () => h(MyIcon, {name: icon}) })
   }
 </script>
 
@@ -434,9 +477,8 @@
     line-height: calc(#{$tabHeight} - 3px);
     box-sizing: border-box;
     white-space: nowrap;
-    box-shadow: 10px 5px 10px rgb(0 0 0 / 10%);
     .context-menu-wrapper {
-      position: absolute;
+      position: fixed;
       width: 130px;
       z-index: 999;
       list-style: none;
@@ -454,47 +496,12 @@
         color: var(--primary-color);
       }
     }
-    .humburger-wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-    }
-    .tab-humburger-wrapper {
-      margin-left: 40px;
-      transition: margin-left $transitionTime;
-    }
-    .tab-no-humburger-wrapper {
-      margin-left: 0;
-      transition: margin-left $transitionTime;
-    }
-
     .tab-item {
-      padding: 7px 10px;
+      padding: 6px 16px 4px;
       cursor: pointer;
       .icon-item {
-        margin-left: 0;
-        width: 0;
-        height: 0;
-        transition: all 0.2s ease-in-out;
-        overflow: hidden;
-      }
-      &:hover {
-        .icon-item {
-          display: inline;
-          width: 14px;
-          height: 14px;
-          margin-left: 5px;
-          font-size: 12px;
-          background-color: rgba(0, 0, 0, 0.12);
-          border-radius: 50%;
-          padding: 1px;
-          transition: all 0.2s ease-in-out;
-        }
+        margin-left: 3px;
+        font-size: 16px;
       }
     }
     .tab-item + .tab-item {

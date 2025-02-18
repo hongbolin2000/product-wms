@@ -66,11 +66,11 @@
    */
   const maxWidth = computed(() => {
     if (layoutStore.layoutMode === 'ttb') {
-      return 'calc((var(--menu-width)/3*2) - 40px)';
+      return 'calc((var(--menu-width)/3*2) - 80px)';
     } else if ((layoutStore.layoutMode === 'lcr')) {
-      return 'calc(var(--menu-width) - 65px)';
+      return 'calc(var(--menu-width) - 105px)';
     } else {
-      return 'calc(var(--menu-width) - 40px)';
+      return 'calc(var(--menu-width) - 80px)';
     }
   })
 </script>
@@ -83,10 +83,13 @@
     align-items: center;
     border-bottom: 1px dashed var(--border-color);
     .logo-img {
-      width: 30px;
+      height: 32px;
     }
     .logo-title {
       font-weight: bold;
+      color: #2d8cf0;
+      margin-left: 12px;
+      font-size: 18px;
     }
     .show-title {
       transform: scale(1);

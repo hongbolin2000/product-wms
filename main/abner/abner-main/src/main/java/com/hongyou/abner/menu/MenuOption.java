@@ -32,6 +32,11 @@ public class MenuOption {
     private String icons;
 
     /**
+     * 是否固定菜单在选项卡中
+     */
+    private boolean fixed;
+
+    /**
      * 子菜单
      */
     private List<MenuOption> children;

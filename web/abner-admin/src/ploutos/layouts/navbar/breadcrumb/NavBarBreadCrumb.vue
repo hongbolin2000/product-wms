@@ -8,13 +8,17 @@
           @select="handleSelect"
         >
           <span class="dropdown-item">
+            <component :is="item.icon" style="vertical-align: -0.1rem"/>
             {{ item.label }}
             <n-icon class="tip">
               <ChevronDown />
             </n-icon>
           </span>
         </n-dropdown>
-        <span v-else>{{ item.label }}</span>
+        <span v-else>
+          <component :is="item.icon" style="vertical-align: -0.1rem"/>
+          {{ item.label }}
+        </span>
       </n-breadcrumb-item>
     </transition-group>
   </n-breadcrumb>
@@ -56,15 +60,20 @@
    * 组件加载
    */
   onMounted(() => {
-    setTimeout(() => {
-      generateBreadcrumb();
-    }, 100);
+    // 因为需向后台请求菜单，这个时候菜单可能未请求到
+    const interval = setInterval(() => {
+      if (appStore.menus.length > 0) {
+        clearInterval(interval);
+        generateBreadcrumb();
+      }
+    }, 50);
   });
 
   /**
    * 生成当前菜单的面包屑
    */
   function generateBreadcrumb() {
+    breadcrumbs.value = [];
     const paths = splitPath();
     const menus = findMenu(paths);
 
@@ -74,7 +83,7 @@
   }
 
   /**
-   * 分隔出当前路由路径的子路由
+   * 解析每层路由路径
    */
   function splitPath(): string[] {
     const paths = route.path.split('/');
