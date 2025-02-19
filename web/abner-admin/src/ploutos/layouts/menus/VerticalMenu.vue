@@ -67,7 +67,7 @@
   /**
    * 当前路由地址
    */
-  const currentPath = ref(currentRoute.fullPath.split("?")[0]);
+  const currentPath = ref(currentRoute.path);
 
   /**
    * 展开的菜单
@@ -123,7 +123,7 @@
   /**
    * 监听路由变化
    */
-  watch(() => currentRoute.fullPath, (value) => {
+  watch(() => currentRoute.path, (value) => {
     currentPath.value = value.split("?")[0];
     handleExpandPath();
   });

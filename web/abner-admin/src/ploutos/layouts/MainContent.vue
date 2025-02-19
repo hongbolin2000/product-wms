@@ -2,7 +2,7 @@
   <router-view v-slot="{ Component, route }">
     <transition :name="layoutStore.pageAnimate + '-transform'" mode="out-in" appear>
       <keep-alive>
-        <component :is="Component" :key="route.fullPath" />
+        <component :is="Component" :key="route.path" />
       </keep-alive>
     </transition>
   </router-view>

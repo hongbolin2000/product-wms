@@ -38,7 +38,7 @@
    * 当前路由地址
    */
   const currentPath = ref('');
-  currentPath.value = currentRoute.fullPath.split("?")[0];
+  currentPath.value = currentRoute.path;
 
   /**
    * 点击菜单
@@ -50,7 +50,7 @@
   /**
    * 监听路由变化
    */
-  watch(() => currentRoute.fullPath, (value) => {
+  watch(() => currentRoute.path, (value) => {
     currentPath.value = value.split("?")[0];
   });
 </script>

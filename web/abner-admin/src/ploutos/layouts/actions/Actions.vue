@@ -1,69 +1,42 @@
 <template>
   <div class="action-items-wrapper">
-    <span v-if="layoutStore.navbar.isShowSearch" class="action-item">
-      <n-icon size="18">
-        <SearchIcon />
-      </n-icon>
-    </span>
-
-    <n-popover placement="bottom" trigger="click" :width="300">
-      <template #trigger>
-        <n-badge
-          v-if="layoutStore.navbar.isShowMessage"
-          :value="badgeValue"
-          class="badge-action-item"
-        >
-          <n-icon size="18">
-            <NotificationsIcon />
-          </n-icon>
-        </n-badge>
-        <div v-else></div>
-      </template>
-      <NotifyMessage @clear="badgeValue = 0" />
-    </n-popover>
-
-    <span v-if="layoutStore.navbar.isShowRefresh" class="action-item" @click="onRefreshRoute">
+    <n-button secondary v-if="layoutStore.navbar.isShowRefresh" @click="onRefreshRoute" class="action-item">
       <n-icon size="18">
         <RefreshIcon />
       </n-icon>
-    </span>
+    </n-button>
 
-    <span v-if="layoutStore.navbar.isShowFullScreen" class="action-item" @click="onScreenFull">
+    <n-button secondary v-if="layoutStore.navbar.isShowFullScreen" @click="onScreenFull" class="action-item">
       <n-icon size="18">
         <ExpandIcon />
       </n-icon>
-    </span>
+    </n-button>
 
-    <span class="action-item" @click="onShowSetting">
+    <n-button secondary  @click="onShowSetting" class="action-item">
       <n-icon size="18">
         <SettingIcon />
       </n-icon>
-    </span>
+    </n-button>
 
     <LayoutSetting ref="layoutSetting" />
   </div>
 </template>
 
 <script setup lang="ts">
-  import {
-    SearchOutline as SearchIcon, NotificationsOutline as NotificationsIcon,
-    RefreshOutline as RefreshIcon, Expand as ExpandIcon,
-    SettingsOutline as SettingIcon,
-  } from '@vicons/ionicons5'
-  import {ref} from "vue"
-  import {useRoute, useRouter} from 'vue-router'
-  import screenfull from 'screenfull'
-  import { useMessage } from 'naive-ui'
-  /********************************************************************************
-   * 导航栏工具
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store"
-  import NotifyMessage from "@/ploutos/layouts/actions/message/NotifyMessage.vue";
-  import LayoutSetting from "@/ploutos/layouts/actions/setting/LayoutSetting.vue";
+import {Expand as ExpandIcon, RefreshOutline as RefreshIcon, SettingsOutline as SettingIcon,} from '@vicons/ionicons5'
+import {ref} from "vue"
+import {useRoute, useRouter} from 'vue-router'
+import screenfull from 'screenfull'
+import {useMessage} from 'naive-ui'
+/********************************************************************************
+ * 导航栏工具
+ *
+ * @author Berlin
+ ********************************************************************************/
+import useLayoutStore from "@/ploutos/layouts/store/layout-store"
+import LayoutSetting from "@/ploutos/layouts/actions/setting/LayoutSetting.vue";
 
-  /**
+/**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
@@ -121,15 +94,11 @@
 
 <style scoped lang="scss">
   .action-items-wrapper {
-    position: relative;
     height: 100%;
     display: flex;
     align-items: center;
-    z-index: 1;
     .action-item {
-      min-width: 40px;
-      display: flex;
-      align-items: center;
+      margin-right: 10px;
       &:hover {
         cursor: pointer;
         color: var(--primary-color-hover);

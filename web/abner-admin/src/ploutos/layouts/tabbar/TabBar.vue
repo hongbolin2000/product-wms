@@ -25,7 +25,7 @@
             <component :is="renderMenuIcon(item.icons)" style="vertical-align: -0.1rem;" @click="itemClick(item)"/>
             {{ item.label }}
           </span>
-          <n-icon class="icon-item" @click="removeTab(item)" v-if="!item.fixed">
+          <n-icon class="icon-item" @click="removeTab(item.key)" v-if="!item.fixed">
             <CloseOutline />
           </n-icon>
         </n-button>
@@ -47,64 +47,27 @@
       </n-dropdown>
     </div>
 
-    <ul v-show="showContextMenu" class="context-menu-wrapper" :style="contextMenuStyle">
-      <li>
-        <n-button :underline="false" type="text" @click="refreshRoute">
-          <template #icon>
-            <n-icon>
-              <Refresh />
-            </n-icon>
-          </template>
-          刷新页面
-        </n-button>
-      </li>
-      <li :disabled="showLeftMenu">
-        <n-button :disabled="showLeftMenu" type="text" @click="closeLeft">
-          <template #icon>
-            <n-icon>
-              <ArrowBack />
-            </n-icon>
-          </template>
-          关闭左侧
-        </n-button>
-      </li>
-      <li :disabled="showRightMenu">
-        <n-button :disabled="showRightMenu" type="text" @click="closeRight">
-          <template #icon>
-            <n-icon>
-              <ArrowForward />
-            </n-icon>
-          </template>
-          关闭右侧
-        </n-button>
-      </li>
-      <li>
-        <n-button icon="el-icon-close" type="text" @click="closeAll">
-          <template #icon>
-            <n-icon>
-              <CloseOutline />
-            </n-icon>
-          </template>
-          关闭所有
-        </n-button>
-      </li>
-    </ul>
+    <Teleport to="body">
+      <n-dropdown id="tabContextMenu" :show="showContextMenu" :options="contextMenuOptions" @select="onDropDownSelect">
+        <span/>
+      </n-dropdown>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
-  import {ArrowBack, ArrowForward, ChevronBack, CloseOutline, Menu, Refresh} from '@vicons/ionicons5'
+  import {ArrowBack, ArrowForward, ChevronBack, CloseOutline, Menu, Refresh, Expand, Unlink, Repeat} from '@vicons/ionicons5';
   import {h, ref, watch, onMounted, type Ref} from "vue";
   import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
   import {NIcon, NScrollbar} from "naive-ui";
-  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-  import type {MenuOption} from "@/ploutos/layouts/types.ts";
   /********************************************************************************
    * 路由选项卡组件
    *
    * @author Berlin
    ********************************************************************************/
+  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
+  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import type {MenuOption} from "@/ploutos/layouts/types.ts";
 
   /**
    * 全局应用状态
@@ -120,7 +83,7 @@
   /**
    * 当前路由路径
    */
-  const currentPath = ref(route.fullPath);
+  const currentPath = ref(route.path);
 
   /**
    * 容器元素
@@ -156,29 +119,25 @@
   });
 
   /**
-   * 右键选项左右偏移位
-   */
-  const contextMenuStyle = ref({
-    left: '0',
-    top: '0',
-  });
-
-  /**
    * 右键选项所选中的菜单
    */
-  const contextSelectMenu: Ref<MenuOption> = ref(undefined);
+  const contextCurrentMenu: Ref<MenuOption | any> = ref(undefined);
 
   /**
-   * 右键选项关闭左侧/右侧选项是否显示
+   * 右键选菜单是否显示
    */
   const showContextMenu = ref(false);
-  const showLeftMenu = ref(false);
-  const showRightMenu = ref(false);
+
+  /**
+   * 右键菜单选项
+   */
+  const contextMenuOptions = ref([]);
 
   /**
    * 组件加载
    */
   onMounted(() => {
+    // 进入界面滚动到当前菜单
     setTimeout(() => {
       const tabItemElements = document.getElementsByClassName("tab-item");
       if (tabItemElements.length > 0) {
@@ -200,6 +159,7 @@
       }
     }, 100);
 
+    // 将当前菜单加入选项卡
     const interval = setInterval(() => {
       if (appStore.menus.length > 0) {
         clearInterval(interval);
@@ -207,30 +167,6 @@
       }
     }, 50);
   });
-
-  /**
-   * 右键选项
-   */
-  const contextMenuOptions = ref([
-    {
-      label: '刷新页面',
-      key: 'refresh',
-      icon() {
-        return h(NIcon, null, {
-          default: () => h(Refresh),
-        })
-      },
-    },
-    {
-      label: '关闭所有',
-      key: 'close',
-      icon() {
-        return h(NIcon, null, {
-          default: () => h(CloseOutline),
-        })
-      },
-    },
-  ])
 
   /**
    * 路由进入前
@@ -242,13 +178,13 @@
     if (["/login", "/splash", '/403', '/404'].includes(to.path)) {
       return;
     }
-    if (appStore.visitedMenus.findIndex(i => i.key === to.path) != -1) {
+    if (appStore.visitedMenus.findIndex(i => i.key == to.path) != -1) {
       isDisabledArrow();
       return;
     }
-    const menu = appStore.expandMenus.findLast(i => i.key === to.path);
+    const menu = appStore.expandMenus.findLast(i => i.key == to.path);
     if (menu) {
-      // 拿第一层菜单的标签
+      // 拿第一层菜单的图标
       if (!menu.icons) {
         const paths = to.path.split("/");
         const firstMenu = appStore.expandMenus.findLast(i => i.key === "/" + paths[1]);
@@ -268,8 +204,8 @@
    */
   function isDisabledArrow() {
     const { scrollLeft, scrollWidth, clientWidth } = scrollbarProps.value;
-    leftArrowDisabled.value = (scrollLeft === 0);
-    rightArrowDisabled.value = Math.round(scrollLeft) === (scrollWidth - clientWidth);
+    leftArrowDisabled.value = (scrollLeft == 0);
+    rightArrowDisabled.value = Math.round(scrollLeft) == (scrollWidth - clientWidth);
   }
 
   /**
@@ -300,8 +236,8 @@
   /**
    * 侦听路由
    */
-  watch(() => route.fullPath, () => {
-    currentPath.value = route.fullPath;
+  watch(() => route.path, () => {
+    currentPath.value = route.path;
     scrollToCurrentTab();
   });
 
@@ -325,17 +261,88 @@
   /**
    * 右键菜单
    */
-  function onContextMenu(item: MenuOption, e: any) {
+  function onContextMenu(item: MenuOption, e: MouseEvent) {
     e.preventDefault();
-    contextSelectMenu.value = item;
 
-    showLeftMenu.value = isLeftLast(item.key);
-    showRightMenu.value = isRightLast(item.key);
-    const { top, left } = e.target.getBoundingClientRect();
-
-    contextMenuStyle.value.left = left +'px'
-    contextMenuStyle.value.top = top + 'px'
     showContextMenu.value = true;
+    contextCurrentMenu.value = item;
+    getContextMenuOptions();
+
+    // 更改transform属性
+    setTimeout(() => {
+      const tabContextMenu = document.getElementById("tabContextMenu");
+      const clientHeight = tabContextMenu!.parentElement!.clientHeight;
+      const style = tabContextMenu!.parentElement!.style;
+      style.transform = "translateX(" + e.x + "px) translateY( " + (e.y + clientHeight) + "px) translateY(-100%)"
+    }, 10);
+  }
+
+  /**
+   * 右键菜单属性
+   */
+  function getContextMenuOptions() {
+    contextMenuOptions.value = [{
+      label: '内容全屏',
+      key: 'fullscreen',
+      icon() {
+        return h(NIcon, null, {
+          default: () => h(Expand),
+        })
+      },
+    },{
+      label: '刷新页面',
+      key: 'refresh',
+      icon() {
+        return h(NIcon, null, {
+          default: () => h(Refresh),
+        })
+      },
+    },{
+      label: '关闭当前',
+      key: 'closeCurrent',
+      disabled: contextCurrentMenu.value.fixed,
+      icon() {
+        return h(NIcon, null, {
+          default: () => h(Unlink),
+        })
+      },
+    },{
+      label: '关闭其他',
+      key: 'closeOther',
+      disabled: closeLeftDisable() && closeRightDisable(),
+      icon() {
+        return h(NIcon, null, {
+          default: () => h(Repeat),
+        })
+      },
+    },{
+      label: '关闭左侧',
+      key: 'closeLeft',
+      disabled: closeLeftDisable(),
+      icon() {
+        return h(NIcon, null, {
+          default: () => h(ArrowBack),
+        })
+      },
+    },{
+      label: '关闭右侧',
+      key: 'closeRight',
+      disabled: closeRightDisable(),
+      icon() {
+        return h(NIcon, null, {
+          default: () => h(ArrowForward),
+        })
+      },
+    }, {
+      label: '关闭所有',
+      key: 'closeAll',
+      disabled: appStore.visitedMenus.filter(i => !i.fixed).length <= 0,
+      icon() {
+        return h(NIcon, null, {
+          default: () => h(CloseOutline),
+        })
+      },
+    }]
   }
 
   /**
@@ -354,30 +361,43 @@
    */
   function closeContextMenu() {
     showContextMenu.value = false;
+    contextCurrentMenu.value = undefined;
   }
 
   /**
    * 触发选项
    */
   function onDropDownSelect(key: string) {
-    switch (key) {
-      case 'refresh':
-        refreshRoute()
-        break
-      case 'close':
-        closeAll()
-        break
+    if ("refresh" == key) {
+      return refreshRoute();
+    }
+    if ("closeCurrent" == key) {
+      const path = contextCurrentMenu.value ? contextCurrentMenu.value.key : currentPath.value;
+      return removeTab(path);
+    }
+    if ("closeOther" == key) {
+      closeLeft();
+      return closeRight();
+    }
+    if ("closeLeft" == key) {
+      return closeLeft();
+    }
+    if ("closeRight" == key) {
+      return closeRight();
+    }
+    if ("closeAll" == key) {
+      return closeAll()
     }
   }
 
   /**
    * 关闭左侧
    */
-  function closeLeft(item: MenuOption) {
-    const selectIndex = appStore.visitedMenus.findIndex(i => i.key === contextSelectMenu.value.key);
+  function closeLeft() {
+    const currentIndex = getCurrentMenuIndex();
     appStore.visitedMenus = appStore.visitedMenus.filter((item, index) => {
       if (!item.fixed) {
-        return index >= selectIndex;
+        return index >= currentIndex;
       }
       return item;
     });
@@ -387,15 +407,43 @@
   /**
    * 关闭右侧
    */
-  function closeRight(item: MenuOption) {
-    const selectIndex = appStore.visitedMenus.findIndex(i => i.key === contextSelectMenu.value.key);
+  function closeRight() {
+    const currentIndex = getCurrentMenuIndex();
     appStore.visitedMenus = appStore.visitedMenus.filter((item, index) => {
       if (!item.fixed) {
-        return index <= selectIndex;
+        return index <= currentIndex;
       }
       return item;
     });
     toLastTabMenu();
+  }
+
+  /**
+   * 检测左侧是否还有选项卡
+   */
+  function closeLeftDisable() {
+    const currentIndex = getCurrentMenuIndex();
+    return appStore.visitedMenus.filter((item, index) => {
+      return index < currentIndex && !item.fixed;
+    }).length <= 0;
+  }
+
+  /**
+   * 检测右侧是否还有选项卡
+   */
+  function closeRightDisable() {
+    const currentIndex = getCurrentMenuIndex();
+    return appStore.visitedMenus.filter((item, index) => {
+      return index > currentIndex && !item.fixed;
+    }).length <= 0;
+  }
+
+  /**
+   * 获取当前菜单的索引
+   */
+  function getCurrentMenuIndex() {
+    const key = !contextCurrentMenu.value ? currentPath.value : contextCurrentMenu.value.key;
+    return appStore.visitedMenus.findIndex(i => i.key == key);
   }
 
   /**
@@ -407,10 +455,17 @@
   }
 
   /**
-   *
+   * 点击选项卡
+   */
+  function itemClick(item: MenuOption) {
+    router.push(item.key);
+  }
+
+  /**
+   * 切换到最后一个菜单
    */
   function toLastTabMenu(closeAll?: boolean) {
-    if (!closeAll && contextSelectMenu.value.key === currentPath.value) {
+    if (appStore.visitedMenus.findIndex(i => i.key == currentPath.value) != -1) {
       return;
     }
     if (appStore.visitedMenus.length > 0) {
@@ -426,35 +481,12 @@
   }
 
   /**
-   * 检测左侧是否还有选项卡
-   */
-  function isLeftLast(currentPath: string) {
-    const currentIndex = appStore.visitedMenus.findIndex((it) => it.key === currentPath);
-    return currentIndex === 0;
-  }
-
-  /**
-   * 检测右侧是否还有选项卡
-   */
-  function isRightLast(currentPath: string) {
-    const currentIndex = appStore.visitedMenus.findIndex((it) => it.key === currentPath);
-    return currentIndex === appStore.visitedMenus.length - 1
-  }
-
-  /**
-   * 点击选项卡
-   */
-  function itemClick(item: MenuOption) {
-    router.push(item.key);
-  }
-
-  /**
    * 移除选项卡
    */
-  function removeTab(item: MenuOption) {
-    const index = appStore.visitedMenus.findIndex(i => i.key == item.key);
+  function removeTab(path: string) {
+    const index = appStore.visitedMenus.findIndex(i => i.key == path);
     appStore.visitedMenus.splice(index, 1);
-    if (item.key == currentPath.value) {
+    if (path == currentPath.value) {
       router.push(appStore.visitedMenus[appStore.visitedMenus.length - 1].key);
     }
   }
@@ -477,25 +509,6 @@
     line-height: calc(#{$tabHeight} - 3px);
     box-sizing: border-box;
     white-space: nowrap;
-    .context-menu-wrapper {
-      position: fixed;
-      width: 130px;
-      z-index: 999;
-      list-style: none;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-      background-color: var(--base-color);
-      padding-left: 0;
-      & > li {
-        width: 100%;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        padding: 5px 0;
-      }
-      & > li:hover {
-        color: var(--primary-color);
-      }
-    }
     .tab-item {
       padding: 6px 16px 4px;
       cursor: pointer;

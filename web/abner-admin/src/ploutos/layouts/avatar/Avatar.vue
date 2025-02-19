@@ -118,8 +118,6 @@
       display: flex;
       align-items: center;
       .avatar {
-        width: calc(#{$logoHeight} - 15px);
-        height: calc(#{$logoHeight} - 15px);
         display: flex;
         align-items: center;
         & > img {

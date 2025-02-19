@@ -34,8 +34,6 @@ const layoutStore: LayoutStoreOption = {
   isFixedNavBar: ref(true),
   pageAnimate: ref('opacity'),
   navbar: ref({
-    isShowSearch: true,
-    isShowMessage: false,
     isShowRefresh: true,
     isShowFullScreen: true,
   })
@@ -101,16 +99,6 @@ type LayoutStoreOption = {
  * 导航栏属性定义
  */
 type LayoutNavbarOption = {
-
-  /**
-   * 是否显示搜索栏
-   */
-  isShowSearch: boolean,
-
-  /**
-   * 是否显示消息通知
-   */
-  isShowMessage: boolean,
 
   /**
    * 是否显示刷新图标

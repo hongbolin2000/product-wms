@@ -19,21 +19,24 @@ const useAppStore = defineStore('appStore', () => {
    * 设置菜单
    */
   function configMenu(options: MenuOption[]) {
-    // @ts-ignore
     this.menus = options;
 
     // 展开菜单为平层
-    // @ts-ignore
     expandMenu(this.menus, this.expandMenus);
 
     // 固定的菜单选项卡
-    // @ts-ignore
-    const fixedMenus: MenuOption[] = this.expandMenus.filter(i => i.fixed);
-    fixedMenus.forEach(menu => {
-      // @ts-ignore
+    this.expandMenus.forEach(menu => {
       const tabMenu = this.visitedMenus.find(i => i.key === menu.key);
       if (tabMenu) {
-        tabMenu.fixed = true;
+        tabMenu.fixed = menu.fixed;
+      } else if (menu.fixed) {
+        // 拿第一层菜单的图标
+        if (!menu.icons) {
+          const paths = menu.key.split("/");
+          const firstMenu = this.expandMenus.findLast(i => i.key === "/" + paths[1]);
+          menu.icons = firstMenu && firstMenu.icons;
+        }
+        this.visitedMenus.push(menu);
       }
     });
   }
@@ -42,7 +45,6 @@ const useAppStore = defineStore('appStore', () => {
    * 设置网站信息
    */
   function configWebsite(websiteOption: WebsiteOption) {
-    // @ts-ignore
     this.websiteOption = websiteOption;
   }
 

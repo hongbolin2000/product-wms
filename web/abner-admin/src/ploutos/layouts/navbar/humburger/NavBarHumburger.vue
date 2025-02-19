@@ -1,23 +1,24 @@
 <template>
-  <span
-    class="fold-wrapper iconfont"
-    :class="[layoutStore.isCollapse ? 'fold-close-status' : 'fold-open-status']"
-    @click="onToggle"
+  <n-button
+      secondary
+      class="fold-wrapper iconfont"
+      :class="[layoutStore.isCollapse ? 'fold-close-status' : 'fold-open-status']"
+      @click="onToggle"
   >
     <MyIcon name="expand" type="svg"/>
-  </span>
+  </n-button>
 </template>
 
 <script setup lang="ts">
-  /********************************************************************************
-   * 折叠菜单面包屑
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+/********************************************************************************
+ * 折叠菜单面包屑
+ *
+ * @author Berlin
+ ********************************************************************************/
+import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
 
-  /**
+/**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
@@ -38,10 +39,7 @@
     transform: rotate(0);
   }
   .fold-wrapper {
-    box-sizing: border-box;
-    display: inline-block;
-    line-height: $logoHeight;
-    text-align: center;
+    margin-right: 5px;
     padding: 0 10px;
     font-size: 22px;
     transition: transform $transitionTime;
@@ -49,5 +47,9 @@
   .fold-wrapper:hover {
     color: #999999;
     cursor: pointer;
+
+    .svg-icon {
+      fill: var(--primary-color-hover);
+    }
   }
 </style>
