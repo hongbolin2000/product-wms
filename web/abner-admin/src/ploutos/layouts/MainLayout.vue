@@ -26,7 +26,7 @@
     </section>
 
     <div class="main-base-style scrollbar" :class="[mainClass]">
-      <section class="main-section">
+      <section class="main-section" id="layout-main-section">
         <MainContent/>
       </section>
 
@@ -186,7 +186,7 @@
     height: 100%;
     box-sizing: border-box;
     transition: margin-left $transitionTime;
-    background-color: #f0f2f5;
+    background-color: $pageBackgroundColor;
     .main-base-style {
       height: 100%;
       box-sizing: border-box;
@@ -222,5 +222,9 @@
     .nav-bar-close-status {
       width: 100%;
     }
+  }
+  .page-full-screen {
+    background-color: $pageBackgroundColor;
+    padding: 20px;
   }
 </style>

@@ -26,7 +26,6 @@
 import {Expand as ExpandIcon, RefreshOutline as RefreshIcon, SettingsOutline as SettingIcon,} from '@vicons/ionicons5'
 import {ref} from "vue"
 import {useRoute, useRouter} from 'vue-router'
-import screenfull from 'screenfull'
 import {useMessage} from 'naive-ui'
 /********************************************************************************
  * 导航栏工具
@@ -35,6 +34,7 @@ import {useMessage} from 'naive-ui'
  ********************************************************************************/
 import useLayoutStore from "@/ploutos/layouts/store/layout-store"
 import LayoutSetting from "@/ploutos/layouts/actions/setting/LayoutSetting.vue";
+import {screen} from "@/ploutos";
 
 /**
    * 布局状态
@@ -77,11 +77,7 @@ import LayoutSetting from "@/ploutos/layouts/actions/setting/LayoutSetting.vue";
    * 全屏
    */
   function onScreenFull() {
-    if (!screenfull.isEnabled) {
-      message.error('当前浏览器不支持全屏操作')
-      return false
-    }
-    screenfull.toggle()
+    screen.full();
   }
 
   /**

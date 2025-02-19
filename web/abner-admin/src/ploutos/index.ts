@@ -18,6 +18,7 @@ import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
  */
 import message from "@/ploutos/layouts/feedback/message";
 import dialog from "@/ploutos/layouts/feedback/dialog";
+import screen from "@/ploutos/layouts/feedback/screen";
 
 /**
  * 网络请求
@@ -30,5 +31,5 @@ import http from '@/ploutos/layouts/axios/http';
 const ThemeLayout = import('@/ploutos/layouts/ThemeLayout.vue')
 
 export {
-  routerHelper, layoutHelper, message, dialog, http, ThemeLayout
+  routerHelper, layoutHelper, message, dialog, screen, http, ThemeLayout
 };

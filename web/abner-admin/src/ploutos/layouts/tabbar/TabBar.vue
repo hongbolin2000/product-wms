@@ -66,13 +66,16 @@
    * @author Berlin
    ********************************************************************************/
   import useAppStore from "@/ploutos/layouts/store/app-store.ts";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
   import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import type {MenuOption} from "@/ploutos/layouts/types.ts";
+  import {screen} from "@/ploutos";
 
   /**
    * 全局应用状态
    */
   const appStore = useAppStore();
+  const layoutStore = useLayoutStore();
 
   /**
    * 路由
@@ -368,6 +371,9 @@
    * 触发选项
    */
   function onDropDownSelect(key: string) {
+    if ("fullscreen" == key) {
+      return pageFullScreen();
+    }
     if ("refresh" == key) {
       return refreshRoute();
     }
@@ -388,6 +394,13 @@
     if ("closeAll" == key) {
       return closeAll()
     }
+  }
+
+  /**
+   * 内容全屏
+   */
+  function pageFullScreen() {
+    screen.fullElement('layout-main-section', ['page-full-screen']);
   }
 
   /**
