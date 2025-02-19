@@ -16,8 +16,7 @@
             :type="currentPath == item.key ? 'primary' : 'default'"
             class="tab-item"
             secondary
-            style="--n-color: #fff;--n-color-focus: #fff;--n-color-hover: #fff;--n-color-pressed: #fff;--n-ripple-duration: none;"
-            :style="currentPath == item.key ? '' : '--n-text-color: #000'"
+            :style="buttonStyle(item)"
             :data="item.key"
             @click.self="itemClick(item)"
             @contextmenu="onContextMenu(item, $event)"
@@ -57,22 +56,32 @@
 </template>
 
 <script setup lang="ts">
-  import {ArrowBack, ArrowForward, ChevronBack, CloseOutline, Menu, Refresh, Expand, Unlink, Repeat} from '@vicons/ionicons5';
-  import {h, ref, watch, onMounted, type Ref} from "vue";
-  import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
-  import {NIcon, NScrollbar} from "naive-ui";
-  /********************************************************************************
-   * 路由选项卡组件
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-  import type {MenuOption} from "@/ploutos/layouts/types.ts";
-  import {screen} from "@/ploutos";
+import {
+  ArrowBack,
+  ArrowForward,
+  ChevronBack,
+  CloseOutline,
+  Expand,
+  Menu,
+  Refresh,
+  Repeat,
+  Unlink
+} from '@vicons/ionicons5';
+import {h, onMounted, type Ref, ref, watch} from "vue";
+import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
+import {type DropdownOption, NIcon, NScrollbar} from "naive-ui";
+/********************************************************************************
+ * 路由选项卡组件
+ *
+ * @author Berlin
+ ********************************************************************************/
+import useAppStore from "@/ploutos/layouts/store/app-store";
+import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+import {type MenuOption, ThemeMode} from "@/ploutos/layouts/types.ts";
+import {screen} from "@/ploutos";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
 
-  /**
+/**
    * 全局应用状态
    */
   const appStore = useAppStore();
@@ -135,7 +144,26 @@
   /**
    * 右键菜单选项
    */
-  const contextMenuOptions = ref([]);
+  const contextMenuOptions: Ref<DropdownOption[]> = ref([]);
+
+  /**
+   * 按钮样式
+   */
+  function buttonStyle(item: MenuOption) {
+    let style;
+    if (layoutStore.theme == ThemeMode.LIGHT) {
+      style = '--n-color: #fff;--n-color-focus: #fff;--n-color-hover: #fff;--n-color-pressed: #fff;--n-ripple-duration: none;'
+      if (currentPath.value != item.key) {
+        style += '--n-text-color: #000';
+      }
+    } else {
+      style = '--n-color: #18181CFF;--n-color-focus: #18181CFF;--n-color-hover: #18181CFF;--n-color-pressed: #18181CFF;--n-ripple-duration: none;';
+      if (currentPath.value != item.key) {
+        style += '--n-text-color: #fff';
+      }
+    }
+    return style;
+  }
 
   /**
    * 组件加载
@@ -192,10 +220,10 @@
       if (!menu.icons) {
         const paths = to.path.split("/");
         const firstMenu = appStore.expandMenus.findLast(i => i.key === "/" + paths[1]);
-        menu.icons = firstMenu && firstMenu.icons;
+        menu.icons = firstMenu ? firstMenu.icons : '';
       }
     }
-    appStore.visitedMenus.push(menu);
+    appStore.visitedMenus.push(menu as MenuOption);
     isDisabledArrow();
   }
 
@@ -465,7 +493,7 @@
    */
   function closeAll() {
     appStore.visitedMenus = appStore.visitedMenus.filter(i => i.fixed);
-    toLastTabMenu(true);
+    toLastTabMenu();
   }
 
   /**
@@ -478,7 +506,7 @@
   /**
    * 切换到最后一个菜单
    */
-  function toLastTabMenu(closeAll?: boolean) {
+  function toLastTabMenu() {
     if (appStore.visitedMenus.findIndex(i => i.key == currentPath.value) != -1) {
       return;
     }
@@ -530,6 +558,7 @@
         margin-left: 3px;
         font-size: 16px;
       }
+      animation: left-to-right 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .tab-item + .tab-item {
       margin-left: 10px;
@@ -542,6 +571,14 @@
     .arrow-wrapper__disabled {
       cursor: not-allowed;
       color: #b9b9b9;
+    }
+  }
+  @keyframes left-to-right {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
     }
   }
 </style>

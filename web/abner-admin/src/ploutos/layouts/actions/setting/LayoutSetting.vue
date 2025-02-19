@@ -1,26 +1,7 @@
 <template>
-  <n-drawer v-model:show="opened" placement="right" :auto-focus="false" :width="300">
-    <n-drawer-content title="布局设置" closable class="wrapper" show-mask="true" placement="right" display-directive="if">
-      <n-divider dashed>主题设置</n-divider>
-      <n-grid>
-        <n-grid-item
-          v-for="(item, index) of themeList"
-          :key="index"
-          :span="12"
-          class="example-wrapper"
-        >
-          <StyleExample
-            :checked="item.checked"
-            :left-bg="item.leftBg"
-            :right-top-bg="item.rightTopBg"
-            :right-bottom-bg="item.rightBottomBg"
-            :tip-text="item.tipText"
-            @click="themeClick(item)"
-          />
-        </n-grid-item>
-      </n-grid>
-
-      <n-divider dashed>菜单栏样式</n-divider>
+  <n-drawer v-model:show="opened" :width="350">
+    <n-drawer-content title="布局设置" closable class="wrapper" :native-scrollbar="false">
+      <n-divider dashed>菜单栏</n-divider>
       <n-grid>
         <n-grid-item
           v-for="(item, index) of sideExampleList"
@@ -39,7 +20,7 @@
         </n-grid-item>
       </n-grid>
 
-      <n-divider dashed>布局模式</n-divider>
+      <n-divider dashed>导航模式</n-divider>
       <n-grid>
         <n-grid-item
           v-for="(item, index) of layoutExampleList"
@@ -71,57 +52,28 @@
           @click="colorClick(item)"
         />
       </n-grid>
-
-      <n-divider dashed>菜单设置</n-divider>
-      <div class="setting-item-wrapper">
-        <span style="width: 150px">菜单宽度</span>
-        <n-input-number v-model:value="layoutStore.sideWidth" size="small" :min="200" :max="400" :step="10">
-          <template #suffix>px</template>
-        </n-input-number>
-      </div>
-
-      <n-divider dashed>页面切换动画</n-divider>
-      <div class="setting-item-wrapper">
-        <span style="width: 100px">动画效果</span>
-        <n-select
-          v-model:value="layoutStore.pageAnimate"
-          :options="animateOptions"
-          @update:value="onAnimateUpdate"
-        />
-      </div>
-
-      <n-divider dashed>按钮显示</n-divider>
-      <div class="setting-item-wrapper">
-        <span>刷新</span>
-        <n-switch v-model:value="layoutStore.navbar.isShowRefresh" />
-      </div>
-      <div class="setting-item-wrapper">
-        <span>全屏</span>
-        <n-switch v-model:value="layoutStore.navbar.isShowFullScreen" />
-      </div>
     </n-drawer-content>
   </n-drawer>
 </template>
 
 <script setup lang="ts">
-  import {onMounted, ref, watch} from "vue";
-  /********************************************************************************
-   * 布局配置
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import StyleExample from "@/ploutos/layouts/actions/setting/StyleExample.vue";
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import {
-    themeList,
-    sideExampleList,
-    layoutExampleList,
-    primaryColorList,
-    animateOptions,
-    type LayoutStyleOption, type LayoutSelectOption
-  } from './LayoutSetting';
+import {onMounted, ref} from "vue";
+/********************************************************************************
+ * 布局配置
+ *
+ * @author Berlin
+ ********************************************************************************/
+import StyleExample from "./StyleExample.vue";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import {
+  layoutExampleList,
+  type LayoutSelectOption,
+  type LayoutStyleOption,
+  primaryColorList,
+  sideExampleList
+} from './LayoutSetting';
 
-  /**
+/**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
@@ -135,38 +87,30 @@
    * 组件加载
    */
   onMounted(() =>{
-
-    // 主题
-    themeList.value.forEach((it) => {
-      it.checked = layoutStore.theme === it.themeId
-    });
-    // 菜单栏主题
+    // 导航栏主题
     sideExampleList.value.forEach((it) => {
-      it.checked = layoutStore.sideTheme === it.sideThemeId
+      it.checked = layoutStore.sideTheme == it.sideThemeId;
+      setRightBottomBg(it);
     });
     // 布局模式
     layoutExampleList.value.forEach((it) => {
-      it.checked = layoutStore.layoutMode === it.layoutId
+      it.checked = layoutStore.layoutMode == it.layoutId;
+      setRightBottomBg(it);
     });
     // 主题颜色
     primaryColorList.value.forEach((it) => {
-      it.checked = layoutStore.themeColor === it.value
+      it.checked = layoutStore.themeColor == it.value;
     });
   });
 
   /**
-   * 切换主题
+   * 选中时设置背景色
    */
-  async function themeClick(item: LayoutStyleOption) {
-    themeList.value.forEach((it) => {
-      it.checked = it === item;
-    });
-
-    layoutStore.theme = item.themeId;
-    if (item.themeId === 'dark') {
-      exampleClick(sideExampleList.value[0])
+  function setRightBottomBg(it: LayoutStyleOption) {
+    if (it.checked) {
+      it.rightBottomBg = 'var(--n-resize-trigger-color-hover)';
     } else {
-      exampleClick(sideExampleList.value[1])
+      it.rightBottomBg = '#f5f5f5';
     }
   }
 
@@ -176,6 +120,7 @@
   function exampleClick(item: LayoutStyleOption) {
     sideExampleList.value.forEach((it) => {
       it.checked = it === item;
+      setRightBottomBg(it);
     });
     layoutStore.sideTheme = item.sideThemeId;
   }
@@ -186,6 +131,7 @@
   function layoutExampleClick(item: LayoutStyleOption) {
     layoutExampleList.value.forEach((it) => {
       it.checked = it === item;
+      setRightBottomBg(it);
     });
     layoutStore.layoutMode = item.layoutId;
   }
@@ -199,23 +145,6 @@
     })
     layoutStore.themeColor = item.value;
   }
-
-  /**
-   * 监听菜单宽度变化
-   */
-  watch(() => layoutStore.sideWidth, (value) => {
-    layoutStore.sideWidth = value;
-    const r = document.querySelector(':root') as HTMLElement;
-    r.style.setProperty('--menu-width', value + 'px');
-  });
-
-  /**
-   * 切换页面效果
-   */
-  function onAnimateUpdate(value: string) {
-    layoutStore.pageAnimate = value;
-  }
-
 
   /**
    * 打开布局设置抽屉
@@ -234,10 +163,6 @@
 
 <style scoped lang="scss">
   .wrapper {
-    .close-wrapper {
-      text-align: right;
-      font-size: 20px;
-    }
     .colors-wrapper {
       display: flex;
       justify-content: space-evenly;

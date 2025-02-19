@@ -3,12 +3,12 @@
     class="vaw-main-layout-container scrollbar"
     :class="layoutContainerClass"
   >
-    <section :class="layoutContentClass">
-      <NavBar v-if="showNavBar" />
+    <section :class="layoutTopClass">
+      <NavBar/>
       <TabBar/>
     </section>
 
-    <div class="main-base-style scrollbar" :class="[mainClass]">
+    <div class="main-base-style scrollbar" :class="[themeClass]">
       <section class="main-section" id="layout-main-section">
         <MainContent/>
       </section>
@@ -37,20 +37,6 @@
   import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import type {MenuOption} from "@/ploutos/layouts/types";
   import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
-
-  /**
-   * 父组件传入的属性
-   */
-  const props = defineProps({
-
-    /**
-     * 是否显示导航栏
-     */
-    showNavBar: {
-      type: Boolean,
-      default: true
-    }
-  });
 
   /**
    * 布局状态
@@ -90,18 +76,14 @@
       classList.push('main-layout-close-status');
     }
 
-    if (layoutStore.isFixedNavBar) {
-      classList.push('main-layout_fixed-nav-bar');
-    } else {
-      classList.push('main-layout');
-    }
+    classList.push('main-layout_fixed-nav-bar');
     return classList;
   });
 
   /**
    * 主内容样式类
    */
-  const layoutContentClass = computed(() => {
+  const layoutTopClass = computed(() => {
     const classList = [];
     if (layoutStore.layoutMode == 'ttb') {
       classList.push('nav-bar-ttb-status');
@@ -115,12 +97,8 @@
       classList.push('nav-bar-close-status');
     }
 
-    if (layoutStore.isFixedNavBar) {
-      classList.push('fixed-nav-bar');
-    }
-    if (!props.showNavBar) {
-      classList.push('tab-bar-top');
-    }
+    classList.push('fixed-nav-bar');
+    classList.push(themeClass.value);
     return classList;
   });
 
@@ -138,9 +116,9 @@
    * 生成菜单icon
    */
   function renderMenu(menus: MenuOption[]) {
-    menus.forEach(menu => {
+    menus.forEach((menu, index) => {
       menu.icon = renderIcon(menu.icons);
-      if (menu.children) {
+      if (menu.children && menu.children.length > 0) {
         renderMenu(menu.children);
       } else {
         delete menu.children;
@@ -175,8 +153,8 @@
   /**
    * 主题样式类
    */
-  const mainClass = computed(() => {
-    return layoutStore.theme === ThemeMode.DARK ? 'main-base-dark-theme' : 'main-base-light-theme'
+  const themeClass = computed(() => {
+    return layoutStore.theme === ThemeMode.LIGHT ? 'main-base-light-theme' : ''
   })
 </script>
 
@@ -210,10 +188,6 @@
     width: 100%;
   }
 
-  .main-layout {
-    padding-top: 0;
-    overflow-y: auto;
-  }
   .main-layout_fixed-nav-bar {
     padding-top: $logoHeight + $tabHeight;
     overflow-y: hidden;
@@ -226,14 +200,13 @@
     height: 100%;
     box-sizing: border-box;
     transition: margin-left $transitionTime;
-    background-color: $pageBackgroundColor;
     .main-base-style {
       height: 100%;
       box-sizing: border-box;
       padding: 5px;
     }
-    .main-base-dark-theme {
-      background-color: #333333;
+    .main-base-light-theme {
+      background-color: #f0f2f5;
     }
     .main-section {
       min-height: calc(100% - #{$footerHeight} - 10px);
@@ -244,9 +217,6 @@
       top: 0;
       transition: width $transitionTime;
       z-index: 99;
-    }
-    .tab-bar-top {
-      padding-top: $logoHeight;
     }
   }
   .footer-wrapper {

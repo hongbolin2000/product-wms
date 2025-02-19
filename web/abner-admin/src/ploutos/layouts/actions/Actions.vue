@@ -1,47 +1,47 @@
 <template>
   <div class="action-items-wrapper">
-    <n-button secondary v-if="layoutStore.navbar.isShowRefresh" @click="onRefreshRoute" class="action-item">
+    <n-button secondary @click="onRefreshRoute" class="action-item">
       <n-icon size="18">
-        <RefreshIcon />
+        <RefreshOutline />
       </n-icon>
     </n-button>
 
-    <n-button secondary v-if="layoutStore.navbar.isShowFullScreen" @click="onScreenFull" class="action-item">
+    <n-button secondary @click="onScreenFull" class="action-item">
       <n-icon size="18">
-        <ExpandIcon />
+        <Expand />
+      </n-icon>
+    </n-button>
+
+    <n-button secondary @click="onSwitchTheme" class="action-item">
+      <n-icon size="18">
+        <SunnyOutline />
       </n-icon>
     </n-button>
 
     <n-button secondary  @click="onShowSetting" class="action-item">
       <n-icon size="18">
-        <SettingIcon />
+        <SettingsOutline />
       </n-icon>
     </n-button>
-
     <LayoutSetting ref="layoutSetting" />
   </div>
 </template>
 
 <script setup lang="ts">
-import {Expand as ExpandIcon, RefreshOutline as RefreshIcon, SettingsOutline as SettingIcon,} from '@vicons/ionicons5'
+import {Expand, RefreshOutline, SettingsOutline, SunnyOutline} from '@vicons/ionicons5'
 import {ref} from "vue"
 import {useRoute, useRouter} from 'vue-router'
-import {useMessage} from 'naive-ui'
 /********************************************************************************
  * 导航栏工具
  *
  * @author Berlin
  ********************************************************************************/
-import useLayoutStore from "@/ploutos/layouts/store/layout-store"
 import LayoutSetting from "@/ploutos/layouts/actions/setting/LayoutSetting.vue";
 import {screen} from "@/ploutos";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
+import {ThemeMode} from "@/ploutos/layouts/types.ts";
 
 /**
-   * 布局状态
-   */
-  const layoutStore = useLayoutStore();
-
-  /**
    * 路由对象
    */
   const router = useRouter();
@@ -52,19 +52,14 @@ import {screen} from "@/ploutos";
   const route = useRoute();
 
   /**
-   * 消息条数
-   */
-  const badgeValue = ref(3);
-
-  /**
-   * 提示消息
-   */
-  const message = useMessage();
-
-  /**
    * 布局设置抽屉元素
    */
   const layoutSetting = ref();
+
+  /**
+   * 布局状态
+   */
+  const layoutStore = useLayoutStore();
 
   /**
    * 刷新路由
@@ -78,6 +73,17 @@ import {screen} from "@/ploutos";
    */
   function onScreenFull() {
     screen.full();
+  }
+
+  /**
+   * 切换主题
+   */
+  function onSwitchTheme() {
+    if (layoutStore.theme == ThemeMode.DARK) {
+      layoutStore.theme = ThemeMode.LIGHT;
+    } else {
+      layoutStore.theme = ThemeMode.DARK;
+    }
   }
 
   /**

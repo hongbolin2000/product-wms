@@ -1,4 +1,5 @@
 <template>
+  <n-config-provider :theme-overrides="themeOverThemes">
   <div class="scrollbar">
     <n-scrollbar>
       <n-menu
@@ -16,21 +17,23 @@
       />
     </n-scrollbar>
   </div>
+  </n-config-provider>
 </template>
 
 <script setup lang="ts">
-  import {ref, watch, watchEffect} from "vue"
-  import {useRoute, useRouter} from "vue-router"
-  /********************************************************************************
-   * 竖向布局菜单
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import useAppStore from '@/ploutos/layouts/store/app-store';
-  import {DeviceType, MenuOption} from "@/ploutos/layouts/types";
+import {computed, ref, watch, watchEffect} from "vue"
+import {useRoute, useRouter} from "vue-router"
+/********************************************************************************
+ * 竖向布局菜单
+ *
+ * @author Berlin
+ ********************************************************************************/
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import useAppStore from '@/ploutos/layouts/store/app-store';
+import {DeviceType, MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+import {darkTheme} from "naive-ui";
 
-  /**
+/**
    * 父组件传入的属性
    */
   defineProps({
@@ -73,6 +76,53 @@
    * 展开的菜单
    */
   const expandKeys = ref(['']);
+
+/**
+ * 主题
+ */
+const theme = computed(() => {
+  if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.DARK) {
+    return darkTheme;
+  }
+  return null;
+});
+
+/**
+ * 重写主题样式
+ */
+const themeOverThemes = computed(() => {
+
+  if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.DARK || layoutStore.sideTheme == SideTheme.IMAGE) {
+    return {
+      common: {
+        textColor1: '#bbbbbb', // 图标
+        textColor2: '#bbbbbb', // 文字
+        hoverColor: 'none', // 鼠标经过背景
+      },
+      Menu: {
+        // 父菜单
+        itemTextColorChildActive: '#fff', // 激活时文字颜色
+        itemIconColorChildActive: '#fff', // 激活时图标颜色
+        arrowColorChildActive: '#fff', // 激活时箭头颜色
+        itemTextColorChildActiveHover: '#fff', // 激活时鼠标经过文字颜色
+        itemIconColorChildActiveHover: '#fff', // 激活时鼠标经过图标颜色
+        arrowColorChildActiveHover: '#fff', // 激活时鼠标经过箭头颜色
+
+        // 子菜单
+        itemTextColorActive: '#fff', // 激活时文字高亮颜色
+        itemIconColorActive: '#fff', // 激活时图标高亮颜色
+        itemTextColorHover: '#fff', // 鼠标经过文字高亮颜色
+        itemIconColorHover: '#fff', // 鼠标经过图标高亮颜色
+        itemColorActiveHover: layoutStore.themeColor, // 激活时鼠标经过背景颜色
+        itemTextColorActiveHover: '#fff', // 激活时鼠标经过文字颜色
+        itemIconColorActiveHover: '#fff', // 激活时鼠标经过图标颜色
+
+        itemColorActive: layoutStore.themeColor, // 激活颜色
+      }
+    }
+  }
+  return {}
+});
 
   /**
    * 加载

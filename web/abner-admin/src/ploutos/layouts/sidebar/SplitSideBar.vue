@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme-overrides="themeOverThemes">
+  <n-config-provider :theme-overrides="themeOverThemes" :theme="theme">
     <n-card
       :bordered="false"
       class="vaw-tab-split-side-bar-wrapper"
@@ -45,22 +45,23 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref, onMounted, type Ref} from "vue";
-  import {useRoute} from "vue-router";
-  /********************************************************************************
-   * 分栏菜单
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import Logo from "@/ploutos/layouts/logo/Logo.vue";
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import {SideTheme, ThemeMode} from "@/ploutos/layouts/types";
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-  import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
-  import useAppStore from "@/ploutos/layouts/store/app-store";
-  import type {MenuOption} from "@/ploutos/layouts/types";
+import {computed, onMounted, ref, type Ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
+/********************************************************************************
+ * 分栏菜单
+ *
+ * @author Berlin
+ ********************************************************************************/
+import Logo from "@/ploutos/layouts/logo/Logo.vue";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import type {MenuOption} from "@/ploutos/layouts/types";
+import {SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
+import useAppStore from "@/ploutos/layouts/store/app-store";
+import {darkTheme} from "naive-ui";
 
-  /**
+/**
    * 全局应用状态
    */
   const appStore = useAppStore();
@@ -74,11 +75,39 @@ import {computed, ref, onMounted, type Ref} from "vue";
    * 当前路由
    */
   const route = useRoute();
+  const router = useRouter();
 
   /**
    * 选项卡子菜单
    */
   const childMenus: Ref<MenuOption[]> = ref([]);
+
+  /**
+   * 主题
+   */
+  const theme = computed(() => {
+    if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.DARK) {
+      return darkTheme;
+    }
+    return null;
+  });
+
+  /**
+   * 主题样式
+   */
+  const themeOverThemes = computed(() => {
+    // 菜单栏背景图
+    if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.IMAGE
+        || layoutStore.sideTheme == SideTheme.DARK
+    ) {
+      return {
+        common: {
+          textColor2: 'white',
+        }
+      }
+    }
+    return {}
+  });
 
   /**
    * 组件加载
@@ -114,56 +143,6 @@ import {computed, ref, onMounted, type Ref} from "vue";
   }
 
   /**
-   * 主题样式
-   */
-  const themeOverThemes = computed(() => {
-    // 暗黑主题
-    if (layoutStore.theme === ThemeMode.DARK) {
-      return {}
-    }
-
-    // 菜单栏暗黑主题
-    if (layoutStore.sideTheme === SideTheme.DARK) {
-      return {
-        common: {
-          cardColor: '#001428',
-          textColor1: '#bbbbbb',
-          textColor2: '#bbbbbb',
-        },
-        Menu: {
-          itemColorActive: 'rgba(24, 160, 88, 0.4)',
-        },
-      }
-    }
-
-    // 菜单栏白色主题
-    if (layoutStore.sideTheme === SideTheme.WHITE) {
-      return {
-        common: {
-          cardColor: '#ffffff',
-        },
-      }
-    }
-
-    // 菜单栏背景图
-    if (layoutStore.sideTheme === SideTheme.IMAGE) {
-      return {
-        common: {
-          textColor1: '#bbbbbb',
-          textColor2: '#bbbbbb',
-          primaryColor: '#fff',
-        },
-        Menu: {
-          itemColorActive: 'rgba(24, 160, 88, 0.8)',
-          itemTextColorHover: '#f5f5f5',
-          itemIconColorHover: '#f5f5f5',
-        },
-      }
-    }
-    return {}
-  });
-
-  /**
    * 文本颜色
    */
   const contentWrapperStyle = computed(() => {
@@ -178,24 +157,20 @@ import {computed, ref, onMounted, type Ref} from "vue";
    * 选项卡背景色
    */
   const bgColor = computed(() => {
-    // 暗黑
-    if (layoutStore.theme === ThemeMode.DARK) {
-      return '#000000'
+
+    // 菜单栏背景图
+    if (layoutStore.sideTheme === SideTheme.IMAGE) {
+      return 'rgba(255,255,255, 0.1)'
     }
 
-    // 菜单栏暗黑
-    if (layoutStore.sideTheme === SideTheme.DARK)  {
-      return '#000000'
+    // 暗黑
+    if (layoutStore.theme === ThemeMode.DARK || layoutStore.sideTheme === SideTheme.DARK) {
+      return '#101014FF'
     }
 
     // 菜单栏明亮
     if (layoutStore.sideTheme === SideTheme.WHITE) {
       return '#f5f5f5'
-    }
-
-    // 菜单栏背景图
-    if (layoutStore.sideTheme === SideTheme.IMAGE) {
-      return 'rgba(255,255,255, 0.1)'
     }
     return '#ffffff';
   });
@@ -204,18 +179,25 @@ import {computed, ref, onMounted, type Ref} from "vue";
    * 切换一级菜单
    */
   function onTabChange(item: MenuOption) {
-    let menus: any = [];
+    let menus: MenuOption[] = [];
     for (let i = 0; i < appStore.menus.length; i++) {
       const it = appStore.menus[i];
       const checked = it.key === item.key;
       it.checked = checked;
 
-      if (checked) {
+      if (checked && item.children) {
         menus = item.children;
-        continue;
       }
     }
     childMenus.value = menus;
+
+    // 路由到第一个菜单
+    for (let i = 0; i < menus.length; i++) {
+      if (!menus[i].children) {
+        router.push(menus[i].key);
+        break;
+      }
+    }
   }
 </script>
 
@@ -318,7 +300,7 @@ import {computed, ref, onMounted, type Ref} from "vue";
       right: 0;
       bottom: 0;
       left: $tabSplitMenuWidth;
-      overflow-x: hidden;
+      overflow: hidden;
     }
     .vaw-menu-wrapper {
       overflow-x: hidden;

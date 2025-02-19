@@ -6,10 +6,10 @@
  *
  * @author Berlin
  *******************************************************************************/
-$menuWidth: 200px;
+$menuWidth: var(--menu-width);
 $minMenuWidth: 65px;
-$tabMenuWidth: 245px;
 $tabSplitMenuWidth: 65px;
+$tabMenuWidth: var(--tab-menu-width);
 $logoHeight: 64px;
 $transitionTime: 0.3s ease;
 $tabHeight: 40px;

@@ -46,7 +46,12 @@ export type MenuOption = {
   /**
    * 子菜单
    */
-  children: MenuOption[]
+  children: MenuOption[],
+
+  /**
+   * 是否选中
+   */
+  checked?: boolean,
 };
 
 /**

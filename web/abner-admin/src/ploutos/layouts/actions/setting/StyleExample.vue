@@ -1,5 +1,8 @@
 <template>
-  <div class="style-example-container" :class="{ 'circle-tip': checked }">
+  <div class="style-example-container"
+       :class="{ 'circle-tip': checked }"
+       :style="checked ? 'border: 2px solid var(--n-resize-trigger-color-hover)' : ''"
+  >
     <div class="left" :style="{ background: leftBg, backgroundSize: 'cover' }"/>
 
     <div class="right">
@@ -67,8 +70,9 @@
 <style scoped lang="scss">
   $border-radius: 4px;
   .style-example-container {
-    width: 50px;
-    height: 40px;
+    width: 60px;
+    height: 50px;
+    padding: 5px;
     margin: 0 auto;
     border-radius: $border-radius;
     background-color: transparent;
@@ -103,7 +107,7 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: rgb(3, 190, 50);
+    background-color: #03BE32FF;
     text-align: center;
   }
   .extra-class {

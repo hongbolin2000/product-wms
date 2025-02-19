@@ -45,4 +45,9 @@ const userStore = {
    * 是否自动登录
    */
   isAutoLogin: ref(false),
+
+  /**
+   * 用户昵称
+   */
+  nikeName: ref('')
 }

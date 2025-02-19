@@ -1,5 +1,5 @@
 <template>
-  <div class="vaw-header-layout">
+  <div class="vaw-header-layout" :class="themeClass">
     <div class="logo-wrapper">
       <Logo v-if="showLogo" :always-show="true"/>
     </div>
@@ -29,6 +29,8 @@
   import Actions from "@/ploutos/layouts/actions/Actions.vue";
   import Avatar from "@/ploutos/layouts/avatar/Avatar.vue";
   import HorizontalMenu from "@/ploutos/layouts/menus/HorizontalMenu.vue";
+  import {computed} from "vue";
+  import {ThemeMode} from "@/ploutos/layouts/types.ts";
 
   /**
    * 布局状态
@@ -47,6 +49,13 @@
       type: Boolean,
       default: true
     }
+  });
+
+  /**
+   * 主题
+   */
+  const themeClass = computed(() => {
+    return layoutStore.theme === ThemeMode.LIGHT ? 'vaw-header-light-theme' : 'vaw-header-dark-theme'
   });
 </script>
 
@@ -77,5 +86,11 @@
     .avatar-wrapper {
       padding-right: 15px;
     }
+  }
+  .vaw-header-light-theme {
+    background-color: #fff;
+  }
+  .vaw-header-dark-theme {
+    background-color: #18181CFF;
   }
 </style>

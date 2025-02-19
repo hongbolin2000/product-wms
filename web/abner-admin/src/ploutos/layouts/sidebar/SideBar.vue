@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme-overrides="themeOverThemes">
+  <n-config-provider :theme="theme">
     <n-card
       class="vaw-side-bar-wrapper"
       :bordered="false"
@@ -26,10 +26,11 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {ThemeMode, SideTheme} from '@/ploutos/layouts/types'
+  import {SideTheme, ThemeMode} from '@/ploutos/layouts/types'
   import Logo from '@/ploutos/layouts/logo/Logo.vue'
   import ScrollerMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import {darkTheme} from "naive-ui";
 
   /**
    * 布局状态
@@ -51,64 +52,14 @@
   });
 
   /**
-   * 重写主题样式
+   * 主题
    */
-  const themeOverThemes = computed(() => {
-
-    // 布局暗黑主题
-    if (layoutStore.theme === ThemeMode.DARK) {
-      return {}
+  const theme = computed(() => {
+    if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.DARK) {
+      return darkTheme;
     }
-
-    // 菜单侧栏暗黑主题
-    if (layoutStore.sideTheme === SideTheme.DARK) {
-      return {
-        common: {
-          cardColor: '#001428',
-          textColor1: '#bbbbbb',
-          textColor2: '#bbbbbb',
-          popoverColor: 'rgb(72, 72, 78)',
-          hoverColor: 'rgba(255, 255, 255, 0.09)',
-          itemColorActive: 'rgba(24, 160, 88, 0.4)',
-        },
-        Menu: {
-          itemTextColorChildActive: '#ffffff',
-          itemIconColorChildActive: '#ffffff',
-
-          arrowColorChildActive: '#ffffff',
-          arrowColorHover: '#ffffff',
-
-          itemTextColorActive: '#ffffff',
-          itemIconColorActive: '#ffffff',
-
-          itemTextColorHover: '#ffffff',
-          itemIconColorHover: '#ffffff',
-
-          itemColorActive: 'var(--primary-color)',
-        },
-      }
-    }
-    // 菜单侧栏纯白主题
-    if (layoutStore.sideTheme === SideTheme.WHITE) {
-      return {
-        common: {
-          cardColor: '#ffffff'
-        }
-      }
-    }
-    // 菜单侧栏背景图主题
-    if (layoutStore.sideTheme === SideTheme.IMAGE) {
-      return {
-        common: {
-          textColor1: '#bbbbbb',
-          textColor2: '#bbbbbb',
-          hoverColor: 'rgba(255, 255, 255, 0.09)',
-          popoverColor: 'rgb(72, 72, 78)',
-        },
-      }
-    }
-    return {}
-  })
+    return null;
+  });
 </script>
 
 <style scoped lang="scss">
@@ -151,5 +102,16 @@
   .sidebar-bg-img {
     background-image: url('./menu-bg.webp') !important;
     background-size: cover;
+  }
+
+  /* logo显示/隐藏动画效果 */
+  .logo-enter-active,
+  .logo-leave-active {
+    transition: all 0.5s;
+  }
+  .logo-enter-from,
+  .logo-leave-active {
+    opacity: 0;
+    transform: translateY(-100%);
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <router-view v-slot="{ Component, route }">
-    <transition :name="layoutStore.pageAnimate + '-transform'" mode="out-in" appear>
+    <transition :name="'opacity-transform'" mode="out-in" appear>
       <keep-alive>
         <component :is="Component" :key="route.path" />
       </keep-alive>
@@ -21,3 +21,17 @@
    */
   const layoutStore = useLayoutStore();
 </script>
+
+<style lang="scss">
+  /* 渐隐渐现页面动画效果 */
+  .opacity-transform-leave-active,
+  .opacity-transform-enter-active {
+    transition: all 0.5s;
+  }
+  .opacity-transform-enter-from {
+    opacity: 0;
+  }
+  .opacity-transform-leave-to {
+    opacity: 0;
+  }
+</style>

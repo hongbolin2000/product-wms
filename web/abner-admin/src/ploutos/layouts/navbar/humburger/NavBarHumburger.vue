@@ -39,7 +39,8 @@ import useLayoutStore from "@/ploutos/layouts/store/layout-store";
     transform: rotate(0);
   }
   .fold-wrapper {
-    margin-right: 5px;
+    margin-right: 20px;
+    margin-left: 20px;
     padding: 0 10px;
     font-size: 22px;
     transition: transform $transitionTime;

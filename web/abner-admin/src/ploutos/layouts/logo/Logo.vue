@@ -1,9 +1,9 @@
 <template>
-  <div class="logo-wrapper">
+  <div class="logo-wrapper" :style="layoutStore.layoutMode == 'ltr' ? 'border-bottom: 1px dashed var(--border-color)' : ''">
     <img alt="logo" v-if="showLogo" class="logo-img" src="./logo.png" />
     <div
       v-if="showTitle"
-      :class="[!layoutStore.isCollapse || alwaysShow ? 'show-title' : 'close-title']"
+      :class="[!layoutStore.isCollapse ? 'show-title' : 'close-title']"
     >
       <span class="logo-title">
         <n-ellipsis :style="'max-width:' + maxWidth">
@@ -66,11 +66,11 @@
    */
   const maxWidth = computed(() => {
     if (layoutStore.layoutMode === 'ttb') {
-      return 'calc(var(--menu-width) - 80px)';
+      return 'calc(var(--menu-width) - 60px)';
     } else if ((layoutStore.layoutMode === 'lcr')) {
-      return 'calc(var(--menu-width) - 105px)';
+      return 'calc(var(--tab-menu-width) - 70px)';
     } else {
-      return 'calc(var(--menu-width) - 80px)';
+      return 'calc(var(--menu-width) - 60px)';
     }
   })
 </script>
@@ -81,7 +81,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px dashed var(--border-color);
     .logo-img {
       height: 32px;
     }

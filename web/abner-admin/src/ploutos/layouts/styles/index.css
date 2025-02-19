@@ -7,7 +7,8 @@
  * @author Berlin
  *******************************************************************************/
 :root {
-  --menu-width: 210px;
+  --menu-width: 200px;
+  --tab-menu-width: 245px;
 }
 html,
 body,

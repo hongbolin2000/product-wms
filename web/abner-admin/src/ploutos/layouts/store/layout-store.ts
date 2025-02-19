@@ -28,15 +28,8 @@ const layoutStore: LayoutStoreOption = {
   themeColor: ref('#18a058'),
   sideTheme: ref(SideTheme.WHITE),
   deviceType: ref(DeviceType.PC),
-  layoutMode: ref(''),
-  sideWidth: ref(210),
-  isCollapse: ref(false),
-  isFixedNavBar: ref(true),
-  pageAnimate: ref('opacity'),
-  navbar: ref({
-    isShowRefresh: true,
-    isShowFullScreen: true,
-  })
+  layoutMode: ref('ltr'),
+  isCollapse: ref(false)
 };
 
 /**
@@ -70,43 +63,7 @@ type LayoutStoreOption = {
   layoutMode: Ref<string | undefined>,
 
   /**
-   * 菜单宽度
-   */
-  sideWidth: Ref<number>,
-
-  /**
    * 是否折叠菜单
    */
-  isCollapse: Ref<boolean>,
-
-  /**
-   * 是否固定导航栏
-   */
-  isFixedNavBar: Ref<boolean>,
-
-  /**
-   * 页面切换效果
-   */
-  pageAnimate: Ref<string>,
-
-  /**
-   * 导航栏属性
-   */
-  navbar: Ref<LayoutNavbarOption>
-}
-
-/**
- * 导航栏属性定义
- */
-type LayoutNavbarOption = {
-
-  /**
-   * 是否显示刷新图标
-   */
-  isShowRefresh: boolean,
-
-  /**
-   * 是否显示全屏图标
-   */
-  isShowFullScreen: boolean,
+  isCollapse: Ref<boolean>
 }

@@ -11,50 +11,26 @@ import LeftBg from '@/ploutos/layouts/sidebar/menu-bg.webp'
 import {SideTheme, ThemeMode} from "@/ploutos/layouts/types";
 
 /**
- * 主题列表
- */
-export const themeList: Ref<LayoutStyleOption[]> = ref([
-  {
-    leftBg: '#ffffff',
-    rightTopBg: '#ffffff',
-    rightBottomBg: '#f5f5f5',
-    checked: true,
-    themeId: ThemeMode.LIGHT,
-    tipText: '明亮',
-  },
-  {
-    leftBg: '#000000',
-    rightTopBg: '#000000',
-    rightBottomBg: '#333333',
-    checked: false,
-    themeId: ThemeMode.DARK,
-    tipText: '暗黑',
-  },
-]);
-
-/**
  * 菜单栏布局样式
  */
 export const sideExampleList: Ref<LayoutStyleOption[]> = ref([
   {
     leftBg: '#000000',
-    rightTopBg: '#ffffff',
-    rightBottomBg: '#f5f5f5',
-    checked: false,
-    sideThemeId: SideTheme.DARK,
-    tipText: '暗黑',
-  },
-  {
-    leftBg: '#ffffff',
-    rightTopBg: '#ffffff',
+    rightTopBg: '#000000',
     rightBottomBg: '#f5f5f5',
     checked: true,
     sideThemeId: SideTheme.WHITE,
     tipText: '明亮',
-  },
-  {
+  },{
+    leftBg: '#000000',
+    rightTopBg: '#000000',
+    rightBottomBg: '#f5f5f5',
+    checked: false,
+    sideThemeId: SideTheme.DARK,
+    tipText: '暗黑',
+  }, {
     leftBg: `url(${LeftBg})`,
-    rightTopBg: '#ffffff',
+    rightTopBg: '#000000',
     rightBottomBg: '#f5f5f5',
     checked: false,
     sideThemeId: SideTheme.IMAGE,
@@ -72,18 +48,16 @@ export const layoutExampleList: Ref<LayoutStyleOption[]> = ref([
     rightBottomBg: '#d4d4d4',
     checked: true,
     layoutId: 'ltr',
-    tipText: '左右',
-  },
-  {
+    tipText: '左侧',
+  }, {
     leftBg: '#d4d4d4',
-    rightTopBg: '#ffffff',
+    rightTopBg: '#000000',
     rightBottomBg: '#d4d4d4',
     checked: false,
     layoutId: 'ttb',
     class: 'extra-class',
-    tipText: '上下',
-  },
-  {
+    tipText: '顶部',
+  }, {
     leftBg: '#000000',
     rightTopBg: '#d4d4d4',
     rightBottomBg: '#d4d4d4',
@@ -102,115 +76,76 @@ export const primaryColorList: Ref<LayoutSelectOption[]> = ref([
     label: 'cyan',
     value: '#18a058',
     checked: false,
-  },
-  {
+  },{
     label: 'blue',
     value: '#409eff',
     checked: true,
-  },
-  {
+  },{
     label: 'red',
     value: '#F5222D',
     checked: false,
-  },
-  {
+  },{
     label: 'purple',
     value: '#722ED1',
     checked: false,
-  },
-  {
+  },{
     label: 'ee4f12',
     value: '#ee4f12',
     checked: false,
-  },
-  {
+  },{
     label: '0096c7',
     value: '#0096c7',
     checked: false,
-  },
-  {
+  },{
     label: 'ff9801',
     value: '#ff9801',
     checked: false,
-  },
-  {
+  },{
     label: 'ff3d68',
     value: '#ff3d68',
     checked: false,
-  },
-  {
+  },{
     label: '01c1d4',
     value: '#01c1d4',
     checked: false,
-  },
-  {
+  },{
     label: '71efa3',
     value: '#71efa3',
     checked: false,
-  },
-  {
+  },{
     label: '009688',
     value: '#009688',
     checked: false,
-  },
-  {
+  },{
     label: '78dec7',
     value: '#78dec7',
     checked: false,
-  },
-  {
+  },{
     label: '1768ac',
     value: '#1768ac',
     checked: false,
-  },
-  {
+  },{
     label: '1427df',
     value: '#1427df',
     checked: false,
-  },
-  {
+  },{
     label: '43c628',
     value: '#43c628',
     checked: false,
-  },
-  {
+  },{
     label: 'ead41e',
     value: '#ead41e',
     checked: false,
-  },
-  {
+  },{
     label: '22bd7c',
     value: '#22bd7c',
     checked: false,
-  },
-  {
+  },{
     label: '9727bf',
     value: '#9727bf',
     checked: false,
   },
 ]);
-
-/**
- * 页面切换效果
- */
-export const animateOptions: LayoutSelectOption[] = [
-  {
-    label: '渐隐渐现',
-    value: 'opacity',
-  },
-  {
-    label: '左右滑动',
-    value: 'fade',
-  },
-  {
-    label: '上下滑动',
-    value: 'down',
-  },
-  {
-    label: '缩放效果',
-    value: 'scale',
-  },
-]
 
 /**
  * 主题属性

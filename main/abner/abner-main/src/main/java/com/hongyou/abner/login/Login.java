@@ -108,7 +108,9 @@ public class Login extends DataProvider {
 
             // 登录
             this.stpLogin(oprtms.getOprtid(), param.isAutoLogin());
-            return LoginResult.builder().loginCode(LoginCode.LG200.getValue()).build();
+            return LoginResult.builder().
+                    loginCode(LoginCode.LG200.getValue()).
+                    nikeName(StrUtil.blankToDefault(oprtms.getFulnam(), param.getUsername())).build();
         } catch (Exception e) {
             logger.error("用户登录认证失败", e);
             throw new RestRuntimeException("用户登录认证失败");

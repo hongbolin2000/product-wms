@@ -7,7 +7,7 @@
         </div>
 
         <span class="nick-name">
-          超级管理员
+          {{userStore.nikeName}}
           <n-icon class="tip">
             <CaretDownSharp />
           </n-icon>
@@ -30,6 +30,7 @@
   import Avatar from './avatar.gif';
   import {http} from "@/ploutos";
   import {TOKEN_NAME} from '@/ploutos/layouts/types';
+  import useUserStore from "@/ploutos/layouts/store/user-store";
 
   /**
    * 信息弹框
@@ -42,6 +43,11 @@
    * 路由
    */
   const router = useRouter();
+
+  /**
+   * 用户状态
+   */
+  const userStore = useUserStore();
 
   /**
    * 头像选项
@@ -72,7 +78,6 @@
     if (key == 'personal-center') {
       router.push('/personal/info');
     }
-
     if (key == 'logout') {
       logout();
     }

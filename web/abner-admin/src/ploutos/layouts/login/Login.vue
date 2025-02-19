@@ -282,6 +282,7 @@
         userStore.key = key;
         userStore.password = encryptPassword;
       }
+      userStore.nikeName = response.data.nikeName
 
       setTimeout(() => {
         tooltip.destroy();
@@ -328,6 +329,7 @@
     display: flex;
     overflow: hidden;
     height: 100vh;
+    background-color: white;
 
     .title {
       margin-top: 10px;
@@ -411,6 +413,7 @@
           font-size: 26px;
           margin-bottom: 20px;
           font-weight: bold;
+          color: black;
         }
 
         .login {
@@ -435,14 +438,6 @@
     }
     to {
       transform: translateX(0);
-    }
-  }
-  @keyframes show {
-    from {
-      transform: translateY(-50px);
-    }
-    to {
-      transform: translateY(0);
     }
   }
 </style>
