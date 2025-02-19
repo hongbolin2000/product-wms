@@ -13,10 +13,11 @@
         <n-button
             v-for="item of appStore.visitedMenus"
             :key="item.key"
-            :type="currentPath === item.key ? 'primary' : 'default'"
+            :type="currentPath == item.key ? 'primary' : 'default'"
             class="tab-item"
             secondary
             style="--n-color: #fff;--n-color-focus: #fff;--n-color-hover: #fff;--n-color-pressed: #fff;--n-ripple-duration: none;"
+            :style="currentPath == item.key ? '' : '--n-text-color: #000'"
             :data="item.key"
             @click.self="itemClick(item)"
             @contextmenu="onContextMenu(item, $event)"

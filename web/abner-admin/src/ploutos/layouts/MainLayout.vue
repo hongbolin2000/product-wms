@@ -1,26 +1,9 @@
 <template>
   <div
     class="vaw-main-layout-container scrollbar"
-    :class="[
-      layoutStore.layoutMode === 'ttb'
-        ? 'main-layout-ttb-status'
-        : !layoutStore.isCollapse
-        ? 'main-layout-open-status'
-        : 'main-layout-close-status',
-      layoutStore.isFixedNavBar ? 'main-layout_fixed-nav-bar' : 'main-layout',
-    ]"
+    :class="layoutContainerClass"
   >
-    <section
-      :class="[
-        layoutStore.layoutMode === 'ttb'
-          ? 'nav-bar-ttb-status'
-          : !layoutStore.isCollapse
-          ? 'nav-bar-open-status'
-          : 'nav-bar-close-status',
-        layoutStore.isFixedNavBar ? 'fixed-nav-bar' : '',
-        !showNavBar ? 'tab-bar-top' : '',
-      ]"
-    >
+    <section :class="layoutContentClass">
       <NavBar v-if="showNavBar" />
       <TabBar/>
     </section>
@@ -58,7 +41,7 @@
   /**
    * 父组件传入的属性
    */
-  defineProps({
+  const props = defineProps({
 
     /**
      * 是否显示导航栏
@@ -89,6 +72,57 @@
    */
   const listenTo1 = document.querySelector('.main-base-style')
   const listenTo2 = document.querySelector('.vaw-main-layout-container')
+
+  /**
+   * 布局容器样式类
+   */
+  const layoutContainerClass = computed(() => {
+    const classList = [];
+    if (layoutStore.layoutMode == 'ttb') {
+      classList.push('main-layout-ttb-status');
+    } else if (!layoutStore.isCollapse) {
+      if (layoutStore.layoutMode == 'lcr') {
+        classList.push('main-layout-lrc-open-status');
+      } else {
+        classList.push('main-layout-open-status');
+      }
+    } else {
+      classList.push('main-layout-close-status');
+    }
+
+    if (layoutStore.isFixedNavBar) {
+      classList.push('main-layout_fixed-nav-bar');
+    } else {
+      classList.push('main-layout');
+    }
+    return classList;
+  });
+
+  /**
+   * 主内容样式类
+   */
+  const layoutContentClass = computed(() => {
+    const classList = [];
+    if (layoutStore.layoutMode == 'ttb') {
+      classList.push('nav-bar-ttb-status');
+    } else if (!layoutStore.isCollapse) {
+      if (layoutStore.layoutMode == 'lcr') {
+        classList.push('nav-bar-lcr-open-status');
+      } else {
+        classList.push('nav-bar-open-status');
+      }
+    } else {
+      classList.push('nav-bar-close-status');
+    }
+
+    if (layoutStore.isFixedNavBar) {
+      classList.push('fixed-nav-bar');
+    }
+    if (!props.showNavBar) {
+      classList.push('tab-bar-top');
+    }
+    return classList;
+  });
 
   /**
    * 加载菜单
@@ -156,11 +190,17 @@
   .main-layout-open-status {
     margin-left: $menuWidth;
   }
+  .main-layout-lrc-open-status {
+    margin-left: $tabMenuWidth;
+  }
   .main-layout-close-status {
     margin-left: $minMenuWidth;
   }
   .nav-bar-open-status.fixed-nav-bar {
     width: calc(100% - #{$menuWidth});
+  }
+  .nav-bar-lcr-open-status.fixed-nav-bar {
+    width: calc(100% - #{$tabMenuWidth});
   }
   .nav-bar-close-status.fixed-nav-bar {
     width: calc(100% - #{$minMenuWidth});

@@ -13,6 +13,18 @@ html,
 body,
 #app {
   height: 100vh;
+  font-family: -apple-system,
+  BlinkMacSystemFont,
+  segoe ui,
+  Roboto,
+  helvetica neue,
+  Arial,
+  noto sans,
+  sans-serif,
+  apple color emoji,
+  segoe ui emoji,
+  segoe ui symbol,
+  noto color emoji;
 }
 * {
   box-sizing: border-box;

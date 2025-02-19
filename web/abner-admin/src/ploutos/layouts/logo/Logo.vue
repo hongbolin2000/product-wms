@@ -66,7 +66,7 @@
    */
   const maxWidth = computed(() => {
     if (layoutStore.layoutMode === 'ttb') {
-      return 'calc((var(--menu-width)/3*2) - 80px)';
+      return 'calc(var(--menu-width) - 80px)';
     } else if ((layoutStore.layoutMode === 'lcr')) {
       return 'calc(var(--menu-width) - 105px)';
     } else {

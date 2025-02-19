@@ -1,10 +1,10 @@
 <template>
   <div class="vaw-header-layout">
     <div class="logo-wrapper">
-      <Logo v-if="showLogo"/>
+      <Logo v-if="showLogo" :always-show="true"/>
     </div>
 
-    <div style="flex: 1; overflow: hidden; padding: 0 10px">
+    <div style="flex: 1; overflow: hidden;">
       <HorizontalMenu/>
     </div>
 
@@ -62,8 +62,9 @@
     align-items: center;
     box-sizing: border-box;
     border-bottom: 1px solid var(--border-color);
+    background-color: white;
     .logo-wrapper {
-      width: calc(#{$menuWidth} / 3 * 2);
+      width: $menuWidth;
     }
     .menu-wrapper {
       flex: 1;
@@ -71,6 +72,7 @@
     }
     .right-wrapper {
       height: 100%;
+      margin-left: 20px;
     }
     .avatar-wrapper {
       padding-right: 15px;

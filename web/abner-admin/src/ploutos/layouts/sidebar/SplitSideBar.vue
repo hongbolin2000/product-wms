@@ -7,7 +7,7 @@
       style="border-radius: 0"
       :class="[
         !layoutStore.isCollapse ? 'open-status' : 'close-status',
-        layoutStore.sideTheme === 'image' ? 'sidebar-bg-img' : '',
+        layoutStore.sideTheme == 'image' ? 'sidebar-bg-img' : '',
       ]"
     >
       <div class="tab-split-tab-wrapper" :style="{ backgroundColor: bgColor }">
@@ -84,7 +84,12 @@ import {computed, ref, onMounted, type Ref} from "vue";
    * 组件加载
    */
   onMounted(() => {
-    matchTab();
+    const interval = setInterval(() => {
+      if (appStore.menus.length > 0) {
+        clearInterval(interval);
+        matchTab();
+      }
+    }, 50);
   });
 
   /**
@@ -207,7 +212,7 @@ import {computed, ref, onMounted, type Ref} from "vue";
 
       if (checked) {
         menus = item.children;
-        break;
+        continue;
       }
     }
     childMenus.value = menus;
@@ -220,8 +225,7 @@ import {computed, ref, onMounted, type Ref} from "vue";
     background-size: cover;
   }
   .open-status {
-    width: $menuWidth;
-    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.12);
+    width: $tabMenuWidth;
     transition: all $transitionTime;
   }
   .close-status {
@@ -323,13 +327,13 @@ import {computed, ref, onMounted, type Ref} from "vue";
   }
   .is-mobile {
     .open-status {
-      width: $menuWidth;
+      width: $tabMenuWidth;
       transform: translateX(0);
       transition: transform $transitionTime;
     }
     .close-status {
-      width: $menuWidth;
-      transform: translateX(-$menuWidth);
+      width: $tabMenuWidth;
+      transform: translateX(-$tabMenuWidth);
       transition: transform $transitionTime;
       box-shadow: none;
     }
