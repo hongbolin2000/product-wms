@@ -7,7 +7,7 @@ import { defineStore } from 'pinia'
  *
  * @author Berlin
  ********************************************************************************/
-import {DeviceType, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+import {DeviceType, LayoutMode, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
 import {type Ref, ref} from "vue";
 
 /**
@@ -28,8 +28,8 @@ const layoutStore: LayoutStoreOption = {
   themeColor: ref('#18a058'),
   sideTheme: ref(SideTheme.WHITE),
   deviceType: ref(DeviceType.PC),
-  layoutMode: ref('ltr'),
-  isCollapse: ref(false)
+  layoutMode: ref(LayoutMode.LeftRight),
+  isCollapse: true
 };
 
 /**
@@ -50,7 +50,7 @@ type LayoutStoreOption = {
   /**
    * 菜单栏主题
    */
-  sideTheme: Ref<SideTheme | undefined>,
+  sideTheme?: Ref<SideTheme | undefined>,
 
   /**
    * 终端
@@ -60,10 +60,10 @@ type LayoutStoreOption = {
   /**
    * 布局模式
    */
-  layoutMode: Ref<string | undefined>,
+  layoutMode?: Ref<LayoutMode | undefined>,
 
   /**
    * 是否折叠菜单
    */
-  isCollapse: Ref<boolean>
+  isCollapse: boolean
 }

@@ -8,7 +8,7 @@ import {type Ref, ref} from "vue";
  * @author Berlin
  *******************************************************************************/
 import LeftBg from '@/ploutos/layouts/sidebar/menu-bg.webp'
-import {SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+import {LayoutMode, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
 
 /**
  * 菜单栏布局样式
@@ -195,7 +195,7 @@ export type LayoutStyleOption = {
   /**
    * 布局ID
    */
-  layoutId?: string
+  layoutId?: LayoutMode | undefined
 }
 
 /**

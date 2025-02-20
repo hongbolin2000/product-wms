@@ -98,6 +98,7 @@
     .close-title {
       transform: scale(0);
       width: 0;
+      transition: transform 0.2s ease-in;
     }
   }
 </style>

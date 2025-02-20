@@ -81,6 +81,27 @@ export type WebsiteOption = {
 }
 
 /**
+ * 布局模式
+ */
+export enum LayoutMode {
+
+  /**
+   * 左右
+   */
+  LeftRight = 'ltr',
+
+  /**
+   * 上下
+   */
+  TopBottom = 'ttb',
+
+  /**
+   * 分栏
+   */
+  Split = 'lcr'
+}
+
+/**
  * 框架主题
  */
 export enum ThemeMode {

@@ -10,9 +10,7 @@
         layoutStore.sideTheme === 'image' ? 'sidebar-bg-img' : '',
       ]"
     >
-      <transition name="logo">
-        <Logo v-if="showLogo"/>
-      </transition>
+      <Logo v-if="showLogo"/>
       <ScrollerMenu/>
       <div class="mobile-shadow"></div>
     </n-card>
@@ -102,16 +100,5 @@
   .sidebar-bg-img {
     background-image: url('./menu-bg.webp') !important;
     background-size: cover;
-  }
-
-  /* logo显示/隐藏动画效果 */
-  .logo-enter-active,
-  .logo-leave-active {
-    transition: all 0.5s;
-  }
-  .logo-enter-from,
-  .logo-leave-active {
-    opacity: 0;
-    transform: translateY(-100%);
   }
 </style>

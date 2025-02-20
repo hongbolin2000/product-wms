@@ -72,6 +72,7 @@
     box-sizing: border-box;
     border-bottom: 1px solid var(--border-color);
     background-color: white;
+    animation: left-to-right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     .logo-wrapper {
       width: $menuWidth;
     }
@@ -92,5 +93,13 @@
   }
   .vaw-header-dark-theme {
     background-color: #18181CFF;
+  }
+  @keyframes left-to-right {
+    from {
+      transform: translateX(100px);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
 </style>

@@ -72,6 +72,7 @@ import {
   primaryColorList,
   sideExampleList
 } from './LayoutSetting';
+import {LayoutMode} from "@/ploutos/layouts/types.ts";
 
 /**
    * 布局状态
@@ -129,11 +130,22 @@ import {
    * 切换菜单布局模式
    */
   function layoutExampleClick(item: LayoutStyleOption) {
+    if (item.checked) {
+      return;
+    }
+
     layoutExampleList.value.forEach((it) => {
       it.checked = it === item;
       setRightBottomBg(it);
     });
     layoutStore.layoutMode = item.layoutId;
+
+    if (layoutStore.layoutMode == LayoutMode.LeftRight || LayoutMode.Split) {
+      layoutStore.isCollapse = true;
+      setTimeout(() => {
+        layoutStore.isCollapse = false;
+      }, 100);
+    }
   }
 
   /**
