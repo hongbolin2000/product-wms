@@ -140,7 +140,7 @@ import {LayoutMode} from "@/ploutos/layouts/types.ts";
     });
     layoutStore.layoutMode = item.layoutId;
 
-    if (layoutStore.layoutMode == LayoutMode.LeftRight || LayoutMode.Split) {
+    if (layoutStore.layoutMode == LayoutMode.LeftRight || LayoutMode.LeftSplit) {
       layoutStore.isCollapse = true;
       setTimeout(() => {
         layoutStore.isCollapse = false;

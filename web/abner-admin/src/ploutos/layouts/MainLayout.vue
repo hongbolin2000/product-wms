@@ -20,25 +20,24 @@
 </template>
 
 <script setup lang="ts">
-  import {useRouter} from "vue-router";
-  import {useLoadingBar, NIcon} from 'naive-ui';
-  import {computed, onBeforeMount, h} from "vue";
-  /********************************************************************************
-   * 主界面布局
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import NavBar from "@/ploutos/layouts/navbar/NavBar.vue";
-  import {ThemeMode} from "@/ploutos/layouts/types";
-  import MainContent from "@/ploutos/layouts/MainContent.vue";
-  import http from "@/ploutos/layouts/axios/http";
-  import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-  import type {MenuOption} from "@/ploutos/layouts/types";
-  import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
+import {useRouter} from "vue-router";
+import {NIcon, useLoadingBar} from 'naive-ui';
+import {computed, h, onBeforeMount} from "vue";
+/********************************************************************************
+ * 主界面布局
+ *
+ * @author Berlin
+ ********************************************************************************/
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import NavBar from "@/ploutos/layouts/navbar/NavBar.vue";
+import {LayoutMode, type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
+import MainContent from "@/ploutos/layouts/MainContent.vue";
+import http from "@/ploutos/layouts/axios/http";
+import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
+import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
 
-  /**
+/**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
@@ -64,16 +63,26 @@
    */
   const layoutContainerClass = computed(() => {
     const classList = [];
-    if (layoutStore.layoutMode == 'ttb') {
+
+    // 上下布局
+    if (layoutStore.layoutMode == LayoutMode.TopBottom) {
       classList.push('main-layout-ttb-status');
     } else if (!layoutStore.isCollapse) {
-      if (layoutStore.layoutMode == 'lcr') {
-        classList.push('main-layout-lrc-open-status');
+
+      // 分栏布局打开菜单
+      if (layoutStore.layoutMode == LayoutMode.LeftSplit) {
+        classList.push('main-layout-lcr-open-status');
       } else {
         classList.push('main-layout-open-status');
       }
     } else {
-      classList.push('main-layout-close-status');
+
+      // 分栏布局关闭菜单
+      if (layoutStore.layoutMode == LayoutMode.LeftSplit) {
+        classList.push('main-layout-lcr-close-status');
+      } else {
+        classList.push('main-layout-close-status');
+      }
     }
 
     classList.push('main-layout_fixed-nav-bar');
@@ -168,11 +177,14 @@
   .main-layout-open-status {
     margin-left: $menuWidth;
   }
-  .main-layout-lrc-open-status {
+  .main-layout-lcr-open-status {
     margin-left: $tabMenuWidth;
   }
   .main-layout-close-status {
     margin-left: $minMenuWidth;
+  }
+  .main-layout-lcr-close-status {
+    margin-left: calc($minMenuWidth + $minMenuWidth);
   }
   .nav-bar-open-status.fixed-nav-bar {
     width: calc(100% - #{$menuWidth});

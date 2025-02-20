@@ -35,8 +35,8 @@
         </div>
       </div>
 
-      <div class="tab-split-menu-wrapper">
-        <Logo class="tab-split-logo-wrapper" :show-logo="false"/>
+      <div :class="layoutStore.isCollapse ? 'tab-split-menu-close-wrapper' : 'tab-split-menu-open-wrapper'">
+        <Logo class="tab-split-logo-wrapper" :show-logo="false" v-if="!layoutStore.isCollapse"/>
         <VerticalMenu :menus="childMenus" />
       </div>
       <div class="mobile-shadow"></div>
@@ -233,6 +233,7 @@ import {darkTheme} from "naive-ui";
       overflow: hidden;
       height: 100vh;
       box-sizing: border-box;
+      animation: vaw-header-show 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       .tab-split-logo-wrapper {
         max-width: $tabSplitMenuWidth;
         min-width: $tabSplitMenuWidth;
@@ -284,6 +285,7 @@ import {darkTheme} from "naive-ui";
         }
         .label-item-wrapper:hover::after {
           background-color: var(--primary-color);
+          transition: background-color $transitionTime;
         }
         .vaw-tab-split-item-is-active {
           color: var(--select-text-color);
@@ -294,13 +296,19 @@ import {darkTheme} from "naive-ui";
         }
       }
     }
-    .tab-split-menu-wrapper {
+    .tab-split-menu-open-wrapper {
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: $tabSplitMenuWidth;
       overflow: hidden;
+    }
+    .tab-split-menu-close-wrapper {
+      position: fixed;
+      left: $tabSplitMenuWidth;
+      top: 0;
+      max-width: $minMenuWidth;
     }
     .vaw-menu-wrapper {
       overflow-x: hidden;
@@ -318,6 +326,14 @@ import {darkTheme} from "naive-ui";
       transform: translateX(-$tabMenuWidth);
       transition: transform $transitionTime;
       box-shadow: none;
+    }
+  }
+  @keyframes vaw-header-show {
+    from {
+      transform: translateX(100px);
+    }
+    to {
+      transform: translateX(0);
     }
   }
 </style>

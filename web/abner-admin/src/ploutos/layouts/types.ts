@@ -98,7 +98,7 @@ export enum LayoutMode {
   /**
    * 分栏
    */
-  Split = 'lcr'
+  LeftSplit = 'lcr'
 }
 
 /**
