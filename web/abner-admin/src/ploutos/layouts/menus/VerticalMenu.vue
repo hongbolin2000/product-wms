@@ -117,7 +117,14 @@ const themeOverThemes = computed(() => {
         itemTextColorActiveHover: '#fff', // 激活时鼠标经过文字颜色
         itemIconColorActiveHover: '#fff', // 激活时鼠标经过图标颜色
 
-        itemColorActive: layoutStore.themeColor, // 激活颜色
+        itemColorActive: layoutStore.themeColor, // 激活时背景颜色
+      },
+      Dropdown: {
+        // 子菜单
+        optionTextColorHover: '#fff', // 鼠标经过文字颜色
+        optionTextColorActive: '#fff', // 激活时文字颜色
+        optionTextColorChildActive: '#fff', // 激活时子菜单的父菜单文字颜色
+        optionColorActive: layoutStore.themeColor // 激活时背景颜色
       }
     }
   }
