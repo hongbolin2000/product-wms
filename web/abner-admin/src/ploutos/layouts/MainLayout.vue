@@ -104,7 +104,11 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
         classList.push('nav-bar-open-status');
       }
     } else {
-      classList.push('nav-bar-close-status');
+      if (layoutStore.layoutMode == LayoutMode.LeftSplit) {
+        classList.push('nav-bar-lcr-close-status');
+      } else {
+        classList.push('nav-bar-close-status');
+      }
     }
 
     classList.push('fixed-nav-bar');
@@ -198,7 +202,7 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
     margin-left: $minMenuWidth;
   }
   .main-layout-lcr-close-status {
-    margin-left: calc($minMenuWidth * 2);
+    margin-left: calc($minMenuWidth + $tabSplitMenuWidth);
   }
   .nav-bar-open-status.fixed-nav-bar {
     width: calc(100% - #{$menuWidth});
@@ -208,6 +212,9 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
   }
   .nav-bar-close-status.fixed-nav-bar {
     width: calc(100% - #{$minMenuWidth});
+  }
+  .nav-bar-lcr-close-status.fixed-nav-bar {
+    width: calc(100% - #{$minMenuWidth + $tabSplitMenuWidth});
   }
 
   .nav-bar-ttb-status {

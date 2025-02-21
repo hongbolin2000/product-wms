@@ -103,6 +103,9 @@ import {darkTheme} from "naive-ui";
       return {
         common: {
           textColor2: 'white',
+        },
+        Menu: {
+          itemColorActiveCollapsed: layoutStore.themeColor
         }
       }
     }
@@ -188,6 +191,10 @@ import {darkTheme} from "naive-ui";
       if (checked && item.children) {
         menus = item.children;
       }
+    }
+
+    if (menus.length <= 0) {
+      menus.push(item);
     }
     childMenus.value = menus;
 
@@ -309,6 +316,9 @@ import {darkTheme} from "naive-ui";
       left: $tabSplitMenuWidth;
       top: 0;
       max-width: $minMenuWidth;
+      background-color: var(--n-color);
+      height: 100%;
+      padding: 10px 0;
     }
     .vaw-menu-wrapper {
       overflow-x: hidden;
@@ -322,7 +332,7 @@ import {darkTheme} from "naive-ui";
       transition: transform $transitionTime;
     }
     .close-status {
-      width: calc($minMenuWidth * 2);
+      width: calc($minMenuWidth + $tabSplitMenuWidth);
       transform: translateX(-$tabMenuWidth);
       transition: transform $transitionTime;
       box-shadow: none;
