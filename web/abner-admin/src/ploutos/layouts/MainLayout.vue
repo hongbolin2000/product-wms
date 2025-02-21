@@ -1,14 +1,11 @@
 <template>
-  <div
-    class="vaw-main-layout-container scrollbar"
-    :class="layoutContainerClass"
-  >
-    <section :class="layoutTopClass">
-      <NavBar/>
+  <div class="vaw-main-layout-container scrollbar" :class="layoutContainerClass">
+    <section :class="layoutTopClass" :style="{backgroundColor: bgColor, top: paddingTop}">
+      <NavBar v-if="layoutStore.layoutMode != LayoutMode.TopBottom"/>
       <TabBar/>
     </section>
 
-    <div class="main-base-style scrollbar" :class="[themeClass]">
+    <div class="main-base-style scrollbar" :style="{backgroundColor: bgColor}">
       <section class="main-section" id="layout-main-section">
         <MainContent/>
       </section>
@@ -22,7 +19,7 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {NIcon, useLoadingBar} from 'naive-ui';
-import {computed, h, onBeforeMount} from "vue";
+import {computed, h, onBeforeMount, ref} from "vue";
 /********************************************************************************
  * 主界面布局
  *
@@ -55,8 +52,8 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
   /**
    * 回到顶部监听
    */
-  const listenTo1 = document.querySelector('.main-base-style')
-  const listenTo2 = document.querySelector('.vaw-main-layout-container')
+  const listenTo1 = ref(document.querySelector('.main-base-style'));
+  const listenTo2 = ref(document.querySelector('.vaw-main-layout-container'));
 
   /**
    * 布局容器样式类
@@ -90,14 +87,18 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
   });
 
   /**
-   * 主内容样式类
+   * 顶部样式类
    */
   const layoutTopClass = computed(() => {
     const classList = [];
-    if (layoutStore.layoutMode == 'ttb') {
+
+    // 上下布局
+    if (layoutStore.layoutMode == LayoutMode.TopBottom) {
       classList.push('nav-bar-ttb-status');
     } else if (!layoutStore.isCollapse) {
-      if (layoutStore.layoutMode == 'lcr') {
+
+      // 分栏布局
+      if (layoutStore.layoutMode == LayoutMode.LeftSplit) {
         classList.push('nav-bar-lcr-open-status');
       } else {
         classList.push('nav-bar-open-status');
@@ -107,8 +108,28 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
     }
 
     classList.push('fixed-nav-bar');
-    classList.push(themeClass.value);
     return classList;
+  });
+
+  /**
+   * 头部距离顶部距离
+   */
+  const paddingTop = computed(() => {
+    if (layoutStore.layoutMode == LayoutMode.TopBottom) {
+      return '64px'
+    }
+    return '0px';
+  });
+
+  /**
+   * 主内容背景色
+   */
+  const bgColor = computed(() => {
+    if (layoutStore.theme === ThemeMode.LIGHT) {
+      return '#f0f2f5';
+    } else {
+      return '#101014FF';
+    }
   });
 
   /**
@@ -125,7 +146,7 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
    * 生成菜单icon
    */
   function renderMenu(menus: MenuOption[]) {
-    menus.forEach((menu, index) => {
+    menus.forEach((menu) => {
       menu.icon = renderIcon(menu.icons);
       if (menu.children && menu.children.length > 0) {
         renderMenu(menu.children);
@@ -158,13 +179,6 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
   router.afterEach(() => {
     loadingBar.finish();
   });
-
-  /**
-   * 主题样式类
-   */
-  const themeClass = computed(() => {
-    return layoutStore.theme === ThemeMode.LIGHT ? 'main-base-light-theme' : ''
-  })
 </script>
 
 <style scoped lang="scss">
@@ -184,7 +198,7 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
     margin-left: $minMenuWidth;
   }
   .main-layout-lcr-close-status {
-    margin-left: calc($minMenuWidth + $minMenuWidth);
+    margin-left: calc($minMenuWidth * 2);
   }
   .nav-bar-open-status.fixed-nav-bar {
     width: calc(100% - #{$menuWidth});
@@ -217,9 +231,6 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
       box-sizing: border-box;
       padding: 5px;
     }
-    .main-base-light-theme {
-      background-color: #f0f2f5;
-    }
     .main-section {
       min-height: calc(100% - #{$footerHeight} - 10px);
       overflow-x: hidden;
@@ -228,7 +239,7 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
       position: fixed;
       top: 0;
       transition: width $transitionTime;
-      z-index: 99;
+      z-index: 1;
     }
   }
   .footer-wrapper {

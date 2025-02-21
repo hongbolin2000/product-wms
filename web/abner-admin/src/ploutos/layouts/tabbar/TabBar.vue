@@ -1,5 +1,5 @@
 <template>
-  <div class="vaw-tab-bar-container" ref="tabBarContainer">
+  <div class="vaw-tab-bar-container" ref="tabBarContainer" :style="{backgroundColor: bgColor}">
     <div style="display: flex; align-items: center;padding: 6px;min-height: 49px">
       <n-icon
           class="arrow-wrapper"
@@ -67,7 +67,7 @@ import {
   Repeat,
   Unlink
 } from '@vicons/ionicons5';
-import {h, onMounted, type Ref, ref, watch} from "vue";
+import {computed, h, onMounted, type Ref, ref, watch} from "vue";
 import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
 import {type DropdownOption, NIcon, NScrollbar} from "naive-ui";
 /********************************************************************************
@@ -81,7 +81,7 @@ import {type MenuOption, ThemeMode} from "@/ploutos/layouts/types.ts";
 import {screen} from "@/ploutos";
 import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
 
-/**
+  /**
    * 全局应用状态
    */
   const appStore = useAppStore();
@@ -145,6 +145,17 @@ import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
    * 右键菜单选项
    */
   const contextMenuOptions: Ref<DropdownOption[]> = ref([]);
+
+  /**
+   * 选项卡背景色
+   */
+  const bgColor = computed(() => {
+    if (layoutStore.theme === ThemeMode.LIGHT) {
+      return '#f0f2f5';
+    } else {
+      return '#101014FF';
+    }
+  });
 
   /**
    * 按钮样式

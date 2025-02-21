@@ -1,5 +1,5 @@
 <template>
-  <div class="vaw-nav-bar-wrapper" :class="themeClass">
+  <div class="vaw-nav-bar-wrapper" :style="{backgroundColor: bgColor}">
     <NavBarHumburger/>
     <NavBarBreadCrumb v-if="layoutStore.deviceType !== 'mobile'"/>
     <div style="flex: 1"></div>
@@ -34,10 +34,14 @@
   const layoutStore = useLayoutStore();
 
   /**
-   * 主题
+   * 导航栏背景色
    */
-  const themeClass = computed(() => {
-    return layoutStore.theme === ThemeMode.LIGHT ? 'vaw-nav-bar-light-theme' : 'vaw-nav-bar-dark-theme'
+  const bgColor = computed(() => {
+    if (layoutStore.theme === ThemeMode.LIGHT) {
+      return '#fff';
+    } else {
+      return '#18181CFF';
+    }
   });
 </script>
 
@@ -57,11 +61,5 @@
     .right-wrapper {
       height: 100%;
     }
-  }
-  .vaw-nav-bar-light-theme {
-    background-color: #fff;
-  }
-  .vaw-nav-bar-dark-theme {
-    background-color: #18181CFF;
   }
 </style>

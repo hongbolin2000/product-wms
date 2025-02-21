@@ -1,48 +1,42 @@
 <template>
-  <n-config-provider
-    :theme-overrides="themeOverrides"
-    :theme="theme"
-    :locale="zhCN"
-    style="height: 100%"
-  >
+  <n-config-provider :theme-overrides="themeOverrides" :theme="theme" style="height: 100%">
     <n-global-style />
-    <n-el
-      class="vaw-layout-container"
-      :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
-    >
-      <template v-if="layoutStore.layoutMode === 'ttb'">
-        <VawHeader/>
-        <MainLayout :show-nav-bar="false"/>
-      </template>
-      <template v-else-if="layoutStore.layoutMode === 'lcr'">
-        <SplitSideBar/>
-        <MainLayout/>
-      </template>
-      <template v-else>
-        <SideBar/>
-        <MainLayout />
-      </template>
+    <n-scrollbar>
+      <n-el class="vaw-layout-container"
+            :class="[layoutStore.deviceType == 'mobile' && 'is-mobile']"
+            :style="{backgroundColor: bgColor}"
+      >
+        <template v-if="layoutStore.layoutMode == LayoutMode.TopBottom">
+          <VawHeader/>
+        </template>
+        <template v-else-if="layoutStore.layoutMode == LayoutMode.LeftSplit">
+          <SplitSideBar/>
+        </template>
+        <template v-else>
+          <SideBar/>
+        </template>
 
-      <div
-        v-if="layoutStore.deviceType === 'mobile'"
-        class="mobile-shadow"
-        :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
-        @click="closeMenu"
-      ></div>
-    </n-el>
+        <MainLayout/>
+
+        <div class="mobile-shadow" @click="closeMenu"
+             v-if="layoutStore.deviceType === 'mobile'"
+             :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
+        />
+      </n-el>
+    </n-scrollbar>
   </n-config-provider>
 </template>
 
 <script setup lang="ts">
-  import {computed, onBeforeUnmount, onMounted} from "vue"
-  import { darkTheme, zhCN } from 'naive-ui'
+  import {computed, type ComputedRef, onBeforeUnmount, onMounted} from "vue"
+  import {darkTheme} from 'naive-ui'
   /********************************************************************************
    * 框架布局
    *
    * @author Berlin
    ********************************************************************************/
   import '@/ploutos/layouts/styles'
-  import {DeviceType, ThemeMode} from '@/ploutos/layouts/types'
+  import {DeviceType, LayoutMode, ThemeMode} from '@/ploutos/layouts/types'
   import SideBar from '@/ploutos/layouts/sidebar/SideBar.vue'
   import MainLayout from "@/ploutos/layouts/MainLayout.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
@@ -69,8 +63,19 @@
   /**
    * 主题
    */
-  const theme = computed(() => {
-    return layoutStore.theme === ThemeMode.DARK ? darkTheme : null
+  const theme: ComputedRef = computed(() => {
+    return layoutStore.theme == ThemeMode.DARK ? darkTheme : null
+  });
+
+  /**
+   * 布局背景色
+   */
+  const bgColor = computed(() => {
+    if (layoutStore.theme === ThemeMode.LIGHT) {
+      return '#f0f2f5';
+    } else {
+      return '#101014FF';
+    }
   });
 
   /**
@@ -81,9 +86,9 @@
     window.addEventListener('resize', onScreenResize)
   });
 
-/**
- * 组件卸载
- */
+  /**
+   * 组件卸载
+   */
   onBeforeUnmount(() => {
     window.removeEventListener('resize', onScreenResize)
   });
@@ -115,15 +120,11 @@
 
 <style lang="scss">
   .vaw-layout-container {
-    height: 100%;
     max-width: 100%;
     overflow-x: hidden;
+    min-height: 100vh;
     .mobile-shadow {
       display: none;
-    }
-    .layout-mode-ttb {
-      margin-top: $logoHeight;
-      transition: all $transitionTime;
     }
   }
 

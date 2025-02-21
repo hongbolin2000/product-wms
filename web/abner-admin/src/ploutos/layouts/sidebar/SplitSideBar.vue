@@ -322,7 +322,7 @@ import {darkTheme} from "naive-ui";
       transition: transform $transitionTime;
     }
     .close-status {
-      width: $tabMenuWidth;
+      width: calc($minMenuWidth * 2);
       transform: translateX(-$tabMenuWidth);
       transition: transform $transitionTime;
       box-shadow: none;
