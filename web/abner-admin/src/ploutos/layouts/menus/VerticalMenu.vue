@@ -1,37 +1,39 @@
 <template>
   <n-config-provider :theme-overrides="themeOverThemes">
-    <n-scrollbar :style="{padding: padding}">
-      <n-menu
-        mode="vertical"
-        :value="currentPath"
-        :collapsed="layoutStore.isCollapse"
-        :options="!menus ? appStore.menus : menus"
-        :expanded-keys="expandKeys"
-        :collapsed-icon-size="16"
-        :collapsed-width="63"
-        :indent="21"
-        accordion
-        @update:value="onMenuClick"
-        @update:expanded-keys="onMenuExpanded"
-      />
-    </n-scrollbar>
+    <div class="scrollbar" :style="{padding: padding}">
+      <n-scrollbar>
+        <n-menu
+          mode="vertical"
+          :value="currentPath"
+          :collapsed="layoutStore.isCollapse"
+          :options="!menus ? appStore.menus : menus"
+          :expanded-keys="expandKeys"
+          :collapsed-icon-size="16"
+          :collapsed-width="63"
+          :indent="21"
+          accordion
+          @update:value="onMenuClick"
+          @update:expanded-keys="onMenuExpanded"
+        />
+      </n-scrollbar>
+    </div>
   </n-config-provider>
 </template>
 
 <script setup lang="ts">
-import {computed, ref, watch, watchEffect} from "vue"
-import {useRoute, useRouter} from "vue-router"
-/********************************************************************************
- * 竖向布局菜单
- *
- * @author Berlin
- ********************************************************************************/
-import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-import useAppStore from '@/ploutos/layouts/store/app-store';
-import {DeviceType, LayoutMode, MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
-import {darkTheme} from "naive-ui";
+  import {computed, ref, watch, watchEffect} from "vue"
+  import {useRoute, useRouter} from "vue-router"
+  /********************************************************************************
+   * 竖向布局菜单
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import useAppStore from '@/ploutos/layouts/store/app-store';
+  import {DeviceType, LayoutMode, MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+  import {darkTheme} from "naive-ui";
 
-/**
+  /**
    * 父组件传入的属性
    */
   defineProps({
@@ -211,5 +213,8 @@ import {darkTheme} from "naive-ui";
   }
   :deep(.n-menu .n-menu-item:hover) {
     background-color: var(--item-color-active);
+  }
+  .scrollbar {
+    height: calc(100vh - #{$logoHeight}) !important;
   }
 </style>

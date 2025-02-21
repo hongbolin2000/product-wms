@@ -5,7 +5,7 @@
       <TabBar/>
     </section>
 
-    <section class="main-base-style" id="layout-main-section">
+    <section class="main-section" id="layout-main-section">
       <MainContent/>
     </section>
   </div>
@@ -231,8 +231,8 @@
 
   .vaw-main-layout-container {
     transition: margin-left $transitionTime;
-    .main-base-style {
-      padding: 10px;
+    .main-section {
+      padding: 0 10px;
     }
   }
 

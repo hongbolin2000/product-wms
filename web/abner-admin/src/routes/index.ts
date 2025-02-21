@@ -45,7 +45,10 @@ const routes: RouteRecordRaw[] = [
         ]
       }
     ]
-  },
+  }, {
+    path:'/function',
+    component: ThemeLayout
+  }
 ]
 
 /**
