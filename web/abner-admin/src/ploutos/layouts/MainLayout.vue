@@ -1,35 +1,33 @@
 <template>
-  <div class="vaw-main-layout-container scrollbar" :class="layoutContainerClass">
+  <div class="vaw-main-layout-container" :class="layoutContainerClass">
     <section :class="layoutTopClass" :style="{backgroundColor: bgColor, top: paddingTop}">
-      <NavBar v-if="layoutStore.layoutMode != LayoutMode.TopBottom"/>
+      <NavBar v-if="layoutStore.layoutMode !== LayoutMode.TopBottom"/>
       <TabBar/>
     </section>
 
-    <div class="main-base-style scrollbar" :style="{backgroundColor: bgColor}">
-      <section class="main-section" id="layout-main-section">
-        <MainContent/>
-      </section>
-    </div>
+    <section class="main-base-style" id="layout-main-section">
+      <MainContent/>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import {useRouter} from "vue-router";
-import {NIcon, useLoadingBar} from 'naive-ui';
-import {computed, h, onBeforeMount, ref} from "vue";
-/********************************************************************************
- * 主界面布局
- *
- * @author Berlin
- ********************************************************************************/
-import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-import NavBar from "@/ploutos/layouts/navbar/NavBar.vue";
-import {LayoutMode, type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
-import MainContent from "@/ploutos/layouts/MainContent.vue";
-import http from "@/ploutos/layouts/axios/http";
-import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
-import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
+  import {useRouter} from "vue-router";
+  import {NIcon, useLoadingBar} from 'naive-ui';
+  import {computed, h, onBeforeMount} from "vue";
+  /********************************************************************************
+   * 主界面布局
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import NavBar from "@/ploutos/layouts/navbar/NavBar.vue";
+  import {LayoutMode, type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
+  import MainContent from "@/ploutos/layouts/MainContent.vue";
+  import http from "@/ploutos/layouts/axios/http";
+  import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
+  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
 
 /**
    * 布局状态
@@ -107,11 +105,11 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
   });
 
   /**
-   * 头部距离顶部距离
+   * 导航栏距离顶部距离
    */
   const paddingTop = computed(() => {
     if (layoutStore.layoutMode == LayoutMode.TopBottom) {
-      return '64px'
+      return '64px';
     }
     return '0px';
   });
@@ -177,72 +175,68 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
 </script>
 
 <style scoped lang="scss">
-  .scrollbar::-webkit-scrollbar {
-    width: 0;
-  }
+  // 上下布局
   .main-layout-ttb-status {
     margin-left: 0;
   }
+  // 左右布局打开菜单
   .main-layout-open-status {
     margin-left: $menuWidth;
   }
+  // 分栏布局打开菜单
   .main-layout-lcr-open-status {
     margin-left: $tabMenuWidth;
   }
+  // 左右布局关闭菜单
   .main-layout-close-status {
     margin-left: $minMenuWidth;
   }
+  // 分栏布局关闭菜单
   .main-layout-lcr-close-status {
     margin-left: calc($minMenuWidth + $tabSplitMenuWidth);
   }
-  .nav-bar-open-status.fixed-nav-bar {
-    width: calc(100% - #{$menuWidth});
-  }
-  .nav-bar-lcr-open-status.fixed-nav-bar {
-    width: calc(100% - #{$tabMenuWidth});
-  }
-  .nav-bar-close-status.fixed-nav-bar {
-    width: calc(100% - #{$minMenuWidth});
-  }
-  .nav-bar-lcr-close-status.fixed-nav-bar {
-    width: calc(100% - #{$minMenuWidth + $tabSplitMenuWidth});
+  // 固定顶部导航栏
+  .main-layout_fixed-nav-bar {
+    padding-top: $logoHeight + $tabHeight;
   }
 
+  // 上下布局
   .nav-bar-ttb-status {
     width: 100%;
   }
-
-  .main-layout_fixed-nav-bar {
-    padding-top: $logoHeight + $tabHeight;
-    overflow-y: hidden;
-    .main-base-style {
-      overflow-y: auto;
-    }
+  // 左右布局打开菜单
+  .nav-bar-open-status.fixed-nav-bar {
+    width: calc(100% - #{$menuWidth});
   }
-
+  // 分栏布局打开菜单
+  .nav-bar-lcr-open-status.fixed-nav-bar {
+    width: calc(100% - #{$tabMenuWidth});
+  }
+  // 左右布局关闭菜单
+  .nav-bar-close-status.fixed-nav-bar {
+    width: calc(100% - #{$minMenuWidth});
+  }
+  // 分栏布局关闭菜单
+  .nav-bar-lcr-close-status.fixed-nav-bar {
+    width: calc(100% - #{$minMenuWidth + $tabSplitMenuWidth});
+  }
+  // 固定导航栏
   .vaw-main-layout-container {
-    height: 100%;
-    box-sizing: border-box;
-    transition: margin-left $transitionTime;
-    .main-base-style {
-      height: 100%;
-      box-sizing: border-box;
-      padding: 5px;
-    }
-    .main-section {
-      min-height: calc(100% - #{$footerHeight} - 10px);
-      overflow-x: hidden;
-    }
     .fixed-nav-bar {
       position: fixed;
-      top: 0;
       transition: width $transitionTime;
       z-index: 1;
     }
   }
-  .footer-wrapper {
-    margin-top: 6px;
+
+  .vaw-main-layout-container {
+    transition: margin-left $transitionTime;
+    .main-base-style {
+      padding: 10px;
+    }
   }
+
+  // 手机模式
   .is-mobile {
     .main-layout-open-status,
     .main-layout-close-status {

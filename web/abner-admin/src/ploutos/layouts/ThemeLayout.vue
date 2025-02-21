@@ -1,6 +1,6 @@
 <template>
-  <n-config-provider class="provider" :theme-overrides="themeOverrides" :theme="theme" style="height: 100%">
-    <n-global-style />
+  <n-config-provider :theme-overrides="themeOverrides" :theme="theme" style="height: 100%">
+    <n-global-style/>
     <n-scrollbar>
       <n-el class="vaw-layout-container"
             :class="[layoutStore.deviceType == 'mobile' && 'is-mobile']"
@@ -50,7 +50,7 @@
   const layoutStore = useLayoutStore();
 
   /**
-   * 重写主题样式
+   * 主题样式
    */
   const themeOverrides = computed(() => {
     return {
@@ -69,7 +69,7 @@
   });
 
   /**
-   * 布局背景色
+   * 主布局背景色
    */
   const bgColor = computed(() => {
     if (layoutStore.theme === ThemeMode.LIGHT) {

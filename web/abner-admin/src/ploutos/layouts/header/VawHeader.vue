@@ -88,6 +88,11 @@
       padding-right: 15px;
     }
   }
+  .is-mobile {
+    .logo-wrapper {
+      width: 65px;
+    }
+  }
   .vaw-header-light-theme {
     background-color: #fff;
   }
