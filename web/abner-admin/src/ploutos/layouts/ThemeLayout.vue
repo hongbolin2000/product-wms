@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme-overrides="themeOverrides" :theme="theme" style="height: 100%">
+  <n-config-provider class="provider" :theme-overrides="themeOverrides" :theme="theme" style="height: 100%">
     <n-global-style />
     <n-scrollbar>
       <n-el class="vaw-layout-container"
@@ -23,6 +23,7 @@
              :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
         />
       </n-el>
+      <n-back-top/>
     </n-scrollbar>
   </n-config-provider>
 </template>

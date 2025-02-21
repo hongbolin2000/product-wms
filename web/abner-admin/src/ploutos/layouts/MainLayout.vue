@@ -9,10 +9,7 @@
       <section class="main-section" id="layout-main-section">
         <MainContent/>
       </section>
-
-      <n-back-top :listen-to="listenTo1" />
     </div>
-    <n-back-top :listen-to="listenTo2" />
   </div>
 </template>
 
@@ -48,12 +45,6 @@ import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
    * 路由loading对象
    */
   const loadingBar = useLoadingBar();
-
-  /**
-   * 回到顶部监听
-   */
-  const listenTo1 = ref(document.querySelector('.main-base-style'));
-  const listenTo2 = ref(document.querySelector('.vaw-main-layout-container'));
 
   /**
    * 布局容器样式类
