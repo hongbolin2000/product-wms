@@ -1,5 +1,5 @@
 <template>
-  <div class="logo-wrapper" :style="layoutStore.layoutMode == 'ltr' ? 'border-bottom: 1px dashed var(--border-color)' : ''">
+  <div class="logo-wrapper" :style="layoutStore.layoutMode != LayoutMode.TopBottom ? 'border-bottom: 1px dashed var(--border-color)' : ''">
     <img alt="logo" v-if="showLogo" class="logo-img" src="./logo.png" />
     <div
       v-if="showTitle"
@@ -15,16 +15,17 @@
 </template>
 
 <script setup lang="ts">
-  /********************************************************************************
-   * Logo布局
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import useLayoutStore from "../store/layout-store";
-  import useAppStore from "../store/app-store";
-  import {computed} from "vue";
+/********************************************************************************
+ * Logo布局
+ *
+ * @author Berlin
+ ********************************************************************************/
+import useLayoutStore from "../store/layout-store";
+import useAppStore from "../store/app-store";
+import {computed} from "vue";
+import {LayoutMode} from "@/ploutos/layouts/types.ts";
 
-  /**
+/**
    * 布局状态
    */
   const layoutStore = useLayoutStore();

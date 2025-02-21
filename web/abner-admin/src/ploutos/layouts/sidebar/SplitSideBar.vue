@@ -318,7 +318,6 @@ import {darkTheme} from "naive-ui";
       max-width: $minMenuWidth;
       background-color: var(--n-color);
       height: 100%;
-      padding: 10px 0;
     }
     .vaw-menu-wrapper {
       overflow-x: hidden;
