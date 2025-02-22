@@ -180,40 +180,20 @@
       }
       clearInterval(interval);
 
-      // 全局右键菜单
-      getContextMenuOptions();
+      // 计算右键菜单选项
+      getContextMenuOptions(false);
 
-      // 将当前选项卡加入路由（所有标签都被关闭并且按F5刷新才会出现的情况）
+      // 将当前选项卡加入路由（用于第一次登录系统或者浏览器手动输入地址）
       addVisitedRouter({...route});
 
-      // 滚动到当前选项卡（由于有动画导致元素位置不准确，所以做延时）
+      // 滚动条溢出时滚动到当前选项卡
+      // 由于选项卡加载时使用了动画（动画时长1s）导致元素位置不准确，所以做延时滚动
       setTimeout(() => {
         calScrollbarProps();
         scrollToCurrentTab();
-      }, 1500);
+      }, 1050);
     }, 50);
   });
-
-  /**
-   * 计算滚动条属性（右侧滚动箭头是否可用）
-   */
-  function calScrollbarProps() {
-    const tabItemElements = document.getElementsByClassName("tab-item");
-    if (tabItemElements.length > 0) {
-
-      // 获取滚动条总宽度（也就是最后一个元素的位置）
-      const tabItemElement = tabItemElements[tabItemElements.length - 1] as HTMLElement;
-      const scrollWidth: number = tabItemElement.parentElement?.clientWidth!;
-
-      // 滚动条属性(检测右滚动图标是否可用)
-      scrollbarProps.value = {
-        scrollLeft: 0,
-        scrollWidth: tabItemElement.offsetLeft,
-        clientWidth: scrollWidth
-      }
-      isDisabledArrow();
-    }
-  }
 
   /**
    * 路由进入前
@@ -245,12 +225,35 @@
    ********************************************************************************/
 
   /**
-   * 检查左右滚动图标是否显示(滚动条浮动允许为1)
+   * 计算滚动条属性（右侧滚动箭头是否可用）
+   */
+  function calScrollbarProps() {
+    const tabItemElements = document.getElementsByClassName("tab-item");
+    if (tabItemElements.length > 0) {
+
+      // 获取滚动条总宽度（也就是最后一个元素的位置）
+      const tabItemElement = tabItemElements[tabItemElements.length - 1] as HTMLElement;
+      const scrollWidth = tabItemElement.offsetLeft;
+
+      // 获取显示的容器宽度
+      const clientWidth: number = tabItemElement.parentElement?.clientWidth!;
+
+      // 滚动条属性(检测右滚动图标是否可用)
+      scrollbarProps.value = {
+        scrollLeft: 0,
+        scrollWidth: scrollWidth,
+        clientWidth: clientWidth
+      }
+    }
+  }
+
+  /**
+   * 检查左右滚动图标是否显示(滚动条浮动允许为20px)
    */
   function isDisabledArrow() {
     const { scrollLeft, scrollWidth, clientWidth } = scrollbarProps.value;
     leftArrowDisabled.value = scrollLeft == 0;
-    rightArrowDisabled.value = Math.round(scrollLeft + 1) >= (scrollWidth - clientWidth);
+    rightArrowDisabled.value = Math.round(scrollLeft + 20) >= (scrollWidth - clientWidth);
   }
 
   /**
@@ -275,7 +278,6 @@
       scrollWidth: e.target.scrollWidth,
       clientWidth: e.target.clientWidth,
     };
-    isDisabledArrow();
   }
 
   /**
@@ -283,9 +285,41 @@
    */
   watch(() => route.path, () => {
     currentPath.value = route.path;
+
     // 路由改变，重新计算右键菜单并滚动到当前路由
-    getContextMenuOptions();
+    getContextMenuOptions(false);
     scrollToCurrentTab();
+  });
+
+  /**
+   * 监听滚动条变化
+   */
+  watch(scrollbarProps, () => {
+    isDisabledArrow();
+  });
+
+  /**
+   * 侦听菜单折叠事件
+   */
+  const isManualCollapse = ref(false);
+  layoutStore.$subscribe((mutation, state) => {
+
+    // 没有手动折叠过菜单并且当前折叠菜单
+    if (!isManualCollapse.value && state.isCollapse) {
+      isManualCollapse.value = true;
+      return;
+    }
+
+    // 手动折叠过菜单并且当前打开菜单
+    if (isManualCollapse.value && !state.isCollapse) {
+      calScrollbarProps();
+
+      // 滚动条溢出时滚动到当前选项卡
+      // 由于折叠菜单加载时使用了动画（动画时长300ms）导致元素位置不准确，所以做延时滚动
+      setTimeout(() => {
+        scrollToCurrentTab();
+      }, 350);
+    }
   });
 
   /**
@@ -294,6 +328,7 @@
   function scrollToCurrentTab() {
     const scroll = scrollbar.value as InstanceType<typeof NScrollbar>
     const el = document.querySelector(`[data="${currentPath.value}"]`) as HTMLElement;
+
     el && scroll.scrollTo({
       left: el.offsetLeft,
       debounce: true,
@@ -316,7 +351,7 @@
     y.value = e.clientY;
 
     // 计算右键菜单选项
-    getContextMenuOptions();
+    getContextMenuOptions(true);
 
     // 已经打开时先关闭，实现动效
     if (showContextMenu.value) {
@@ -334,15 +369,16 @@
    * 关闭右键菜单
    */
   function contextMenuClickOutSide() {
+    // 重新计算右键菜单选项
+    getContextMenuOptions(false);
     showContextMenu.value = false;
   }
 
   /**
    * 右键菜单属性
    */
-  function getContextMenuOptions() {
-    // 非右键点击菜单时找当前路由菜单
-    if (!contextCurrentMenu.value) {
+  function getContextMenuOptions(isMouseRight: boolean) {
+    if (!isMouseRight) {
       contextCurrentMenu.value = appStore.expandMenus.findLast(i => i.key == currentPath.value);
     }
 
@@ -444,9 +480,9 @@
       closeAll();
     }
 
-    // 关闭右键菜单
+    // 重新计算右键菜单选项
     showContextMenu.value = false;
-    contextCurrentMenu.value = undefined;
+    getContextMenuOptions(false);
   }
 
   /**
@@ -481,6 +517,15 @@
    */
   function pageFullScreen() {
     screen.fullElement('layout-main-section', ['page-full-screen']);
+  }
+
+  /**
+   * 移除选项卡
+   */
+  function removeTab(path: string) {
+    const index = appStore.visitedMenus.findIndex(i => i.key == path);
+    appStore.visitedMenus.splice(index, 1);
+    toLastTabMenu();
   }
 
   /**
@@ -527,13 +572,17 @@
    * 切换到最后一个菜单
    */
   function toLastTabMenu() {
-    router.push({ path: appStore.visitedMenus[appStore.visitedMenus.length -1].key });
+    // 当前路由被关闭时才切换到最后一个选项卡
+    if (appStore.visitedMenus.findIndex(i => i.key == currentPath.value) == -1) {
+      router.push({ path: appStore.visitedMenus[appStore.visitedMenus.length -1].key });
+      return;
+    }
 
-    // 计算右键菜单选项并滚动到当前路由选项卡
-    getContextMenuOptions();
-    setTimeout(() => {
-      calScrollbarProps();
-    }, 10);
+    // 未关闭时滚动到当前选项卡
+    calScrollbarProps();
+    setTimeout(() => {{
+      scrollToCurrentTab();
+    }}, 0);
   }
 
   /**
@@ -541,23 +590,6 @@
    */
   function refreshRoute() {
     router.push({ path: route.path, query: {t: new Date().getTime()} });
-  }
-
-  /**
-   * 移除选项卡
-   */
-  function removeTab(path: string) {
-    const index = appStore.visitedMenus.findIndex(i => i.key == path);
-    appStore.visitedMenus.splice(index, 1);
-    if (path == currentPath.value) {
-      router.push(appStore.visitedMenus[appStore.visitedMenus.length - 1].key);
-    }
-
-    // 计算右键菜单选项并滚动到当前路由选项卡
-    getContextMenuOptions();
-    setTimeout(() => {
-      calScrollbarProps();
-    }, 10);
   }
 
   /**

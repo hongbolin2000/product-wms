@@ -16,7 +16,9 @@ import {type Ref, ref} from "vue";
 const useLayoutStore = defineStore('layoutStore', () => {
   return { ...layoutStore }
 }, {
-  persist: true
+  persist: {
+    pick: ['theme', 'themeColor', 'sideTheme', 'layoutMode']
+  },
 });
 export default useLayoutStore;
 
@@ -29,7 +31,7 @@ const layoutStore: LayoutStoreOption = {
   sideTheme: ref(SideTheme.WHITE),
   deviceType: ref(DeviceType.PC),
   layoutMode: ref(LayoutMode.LeftRight),
-  isCollapse: true
+  isCollapse: ref(true),
 };
 
 /**
@@ -65,5 +67,5 @@ type LayoutStoreOption = {
   /**
    * 是否折叠菜单
    */
-  isCollapse: boolean
+  isCollapse: Ref<boolean>
 }
