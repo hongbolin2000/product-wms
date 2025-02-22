@@ -41,12 +41,14 @@
           title: '提示',
           content: '长时间未操作系统，需重新登录！',
           confirmText: '确认',
-          onConfirmClick: async () => {
-            await router.replace("/login");
+          onConfirmClick: () => {
+            router.replace("/login");
           }
         });
       } else {
-        await router.replace("/login");
+        setTimeout(() => {
+          router.replace("/login");
+        }, 1000);
       }
       return;
     }
@@ -62,19 +64,12 @@
 <style scoped lang="scss">
   .first-loading-wrp {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     background-color: #DFFEF4FF;
     img {
       height: 90vh;
-    }
-    .title{
-      font-size: 28px;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 50px;
     }
   }
 </style>

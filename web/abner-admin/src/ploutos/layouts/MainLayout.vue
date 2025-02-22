@@ -249,7 +249,6 @@
     }
   }
   .page-full-screen {
-    background-color: $pageBackgroundColor;
     padding: 20px;
   }
 </style>

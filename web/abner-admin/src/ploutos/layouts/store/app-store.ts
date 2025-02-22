@@ -2,13 +2,13 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {defineStore} from "pinia";
+import {ref, type Ref} from "vue";
 /********************************************************************************
  * APP全局应用状态
  *
  * @author Berlin
  ********************************************************************************/
 import type {MenuOption, WebsiteOption} from "@/ploutos/layouts/types";
-import {ref, type Ref} from "vue";
 
 /**
  * 创建APP全局应用状态
@@ -16,36 +16,34 @@ import {ref, type Ref} from "vue";
 const useAppStore = defineStore('appStore', () => {
 
   /**
-   * 设置菜单
+   * 状态定义
    */
-  function configMenu(options: MenuOption[]) {
-    this.menus = options;
-
-    // 展开菜单为平层
-    expandMenu(this.menus, this.expandMenus);
-
-    // 固定的菜单选项卡
-    this.expandMenus.forEach(menu => {
-      const tabMenu = this.visitedMenus.find(i => i.key === menu.key);
-      if (tabMenu) {
-        tabMenu.fixed = menu.fixed;
-      } else if (menu.fixed) {
-        // 拿第一层菜单的图标
-        if (!menu.icons) {
-          const paths = menu.key.split("/");
-          const firstMenu = this.expandMenus.findLast(i => i.key === "/" + paths[1]);
-          menu.icons = firstMenu && firstMenu.icons;
-        }
-        this.visitedMenus.push(menu);
-      }
-    });
+  const store: AppStoreOption = {
+    menus: ref([]),
+    expandMenus: ref([]),
+    websiteOption: ref({
+      title: '',
+      subtitle: '',
+      companyName: '',
+      version: ''
+    }),
+    visitedMenus: ref([])
   }
 
   /**
-   * 设置网站信息
+   * 设置菜单
    */
-  function configWebsite(websiteOption: WebsiteOption) {
-    this.websiteOption = websiteOption;
+  function configMenu(options: MenuOption[]) {
+    store.menus.value = options;
+
+    // 展开菜单为平层
+    expandMenu(store.menus.value, store.expandMenus.value);
+
+    // 添加固定的菜单选项卡
+    addFixedVisitedMenu();
+
+    // 移除选项卡中没有的菜单(权限认证)
+    removeVisitedMenu();
   }
 
   /**
@@ -60,26 +58,51 @@ const useAppStore = defineStore('appStore', () => {
     });
   }
 
-  return { ...appStore, configMenu, configWebsite }
+  /**
+   * 添加固定的菜单选项卡
+   */
+  function addFixedVisitedMenu() {
+    store.expandMenus.value.forEach(menu => {
+      const tabMenu = store.visitedMenus.value.find(i => i.key === menu.key);
+      if (tabMenu) {
+        tabMenu.fixed = menu.fixed;
+      } else if (menu.fixed) {
+        if (!menu.icons) {
+          menu.icons = menu.parentIcon;
+        }
+        // 将固定的菜单加入选项卡
+        store.visitedMenus.value.push(menu);
+      }
+    });
+  }
+
+  /**
+   * 移除选项卡中没有的菜单
+   */
+  function removeVisitedMenu() {
+    [...store.visitedMenus.value].forEach(tabMenu => {
+      const menu = store.expandMenus.value.find(i => i.key === tabMenu.key);
+      if (!menu) {
+        const visitedIndex = store.visitedMenus.value.findIndex(i => i.key === tabMenu.key);
+        store.visitedMenus.value.splice(visitedIndex, 1);
+      }
+    });
+  }
+
+  /**
+   * 设置网站信息
+   */
+  function configWebsite(websiteOption: WebsiteOption) {
+    store.websiteOption.value = websiteOption;
+  }
+
+  return { ...store, configMenu, configWebsite }
 }, {
-  persist: true
+  persist: {
+    pick: ['visitedMenus']
+  }
 });
 export default useAppStore;
-
-/**
- * 初始APP全局应用状态
- */
-const appStore: AppStoreOption = {
-  menus: [],
-  expandMenus: [],
-  websiteOption: {
-    title: '',
-    subtitle: '',
-    companyName: '',
-    version: ''
-  },
-  visitedMenus: ref([])
-}
 
 /**
  * APP应用状态类型定义
@@ -89,17 +112,17 @@ type AppStoreOption = {
   /**
    * 菜单
    */
-  menus: MenuOption[],
+  menus: Ref<MenuOption[]>,
 
   /**
    * 展开的菜单
    */
-  expandMenus: MenuOption[],
+  expandMenus: Ref<MenuOption[]>,
 
   /**
    * 网站信息
    */
-  websiteOption: WebsiteOption,
+  websiteOption: Ref<WebsiteOption>,
 
   /**
    * 选项卡路由

@@ -209,13 +209,8 @@
       return;
     }
     const menu = appStore.expandMenus.findLast(i => i.key == to.path);
-    if (menu) {
-      // 拿第一层菜单的图标
-      if (!menu.icons) {
-        const paths = to.path.split("/");
-        const firstMenu = appStore.expandMenus.findLast(i => i.key === "/" + paths[1]);
-        menu.icons = firstMenu ? firstMenu.icons : '';
-      }
+    if (!menu.icons) {
+      menu.icons = menu.parentIcon;
     }
     appStore.visitedMenus.push(menu as MenuOption);
   }

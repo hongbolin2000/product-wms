@@ -39,6 +39,11 @@ export type MenuOption = {
   icon: () => VNodeChild;
 
   /**
+   * 父菜单图标
+   */
+  parentIcon: string,
+
+  /**
    * 是否固定菜单在选项卡中
    */
   fixed: boolean;
