@@ -1,10 +1,10 @@
 <template>
   <div class="vaw-nav-bar-wrapper" :style="{backgroundColor: bgColor}">
     <NavBarHumburger/>
-    <NavBarBreadCrumb v-if="layoutStore.deviceType !== 'mobile'"/>
+    <NavBarBreadCrumb v-if="layoutStore.deviceType !== DeviceType.MOBILE"/>
     <div style="flex: 1"></div>
 
-    <div class="right-wrapper" v-if="layoutStore.deviceType !== 'mobile'">
+    <div v-if="layoutStore.deviceType !== DeviceType.MOBILE">
       <Actions />
     </div>
 
@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+  import {computed} from "vue";
   /********************************************************************************
    * 导航栏
    *
@@ -25,8 +26,7 @@
   import Actions from "@/ploutos/layouts/actions/Actions.vue";
   import Avatar from "@/ploutos/layouts/avatar/Avatar.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import {computed} from "vue";
-  import {ThemeMode} from "@/ploutos/layouts/types.ts";
+  import {DeviceType, ThemeMode} from "@/ploutos/layouts/types";
 
   /**
    * 布局状态
@@ -47,19 +47,12 @@
 
 <style scoped lang="scss">
   .vaw-nav-bar-wrapper {
-    height: $logoHeight;
-    max-height: $logoHeight;
     min-height: $logoHeight;
-    overflow: hidden;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
-    margin: 0 12px;
+    margin: 0 10px;
     .avatar-wrapper {
-      padding-right: 15px;
-    }
-    .right-wrapper {
-      height: 100%;
+      padding-right: 10px;
     }
   }
 </style>

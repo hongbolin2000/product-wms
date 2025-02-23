@@ -1,35 +1,33 @@
 <template>
   <n-breadcrumb>
-    <transition-group name="breadcrumb">
-      <n-breadcrumb-item v-for="item of breadcrumbs" :key="item.key">
-        <n-dropdown
-          v-if="item.children && item.children.length > 0"
-          :options="item.children"
-          @select="handleSelect"
-        >
-          <span class="dropdown-item">
-            <component :is="item.icon" style="vertical-align: -0.1rem"/>
-            {{ item.label }}
-            <n-icon class="tip">
-              <ChevronDown />
-            </n-icon>
-          </span>
-        </n-dropdown>
-        <span v-else>
+    <n-breadcrumb-item v-for="item of breadcrumbs" :key="item.key">
+      <n-dropdown
+        v-if="item.children && item.children.length > 0"
+        :options="item.children"
+        @select="handleSelect"
+      >
+        <span class="dropdown-item">
           <component :is="item.icon" style="vertical-align: -0.1rem"/>
           {{ item.label }}
+          <n-icon class="tip">
+            <ChevronDown />
+          </n-icon>
         </span>
-      </n-breadcrumb-item>
-    </transition-group>
+      </n-dropdown>
+      <span v-else>
+        <component :is="item.icon" style="vertical-align: -0.1rem"/>
+        {{ item.label }}
+      </span>
+    </n-breadcrumb-item>
   </n-breadcrumb>
 </template>
 
 <script setup lang="ts">
   import {useRoute, useRouter} from "vue-router";
   import {onMounted, ref, watch} from "vue";
-  import { ChevronDown } from '@vicons/ionicons5'
+  import { ChevronDown } from '@vicons/ionicons5';
   /********************************************************************************
-   * 导航栏当前菜单面包屑
+   * 导航栏菜单面包屑
    *
    * @author Berlin
    ********************************************************************************/
@@ -60,7 +58,7 @@
    * 组件加载
    */
   onMounted(() => {
-    // 因为需向后台请求菜单，这个时候菜单可能未请求到
+    // 获取菜单后再做事情
     const interval = setInterval(() => {
       if (appStore.menus.length > 0) {
         clearInterval(interval);

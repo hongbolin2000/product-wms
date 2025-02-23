@@ -202,7 +202,7 @@
     addVisitedRouter(to);
   });
   function addVisitedRouter(to: RouteLocationNormalized) {
-    if (["/login", "/splash", '/403', '/404'].includes(to.path)) {
+    if (["/login", "/splash", "/refresh/fresh", '/403', '/404'].includes(to.path)) {
       return;
     }
     if (appStore.visitedMenus.findIndex(i => i.key == to.path) != -1) {
@@ -279,6 +279,9 @@
    * 侦听路由
    */
   watch(() => route.path, () => {
+    if (["/login", "/splash", "/refresh/fresh", '/403', '/404'].includes(route.path)) {
+      return;
+    }
     currentPath.value = route.path;
 
     // 路由改变，重新计算右键菜单并滚动到当前路由
@@ -584,7 +587,7 @@
    * 刷新页面
    */
   function refreshRoute() {
-    router.push({ path: route.path, query: {t: new Date().getTime()} });
+    router.replace("/refresh/fresh?redirect=" + route.path);
   }
 
   /**

@@ -65,7 +65,7 @@ import {ThemeMode} from "@/ploutos/layouts/types.ts";
    * 刷新路由
    */
   function onRefreshRoute() {
-    router.push({ path: route.path, query: {t: new Date().getTime()} });
+    router.replace("/refresh/fresh?redirect=" + route.path);
   }
 
   /**
