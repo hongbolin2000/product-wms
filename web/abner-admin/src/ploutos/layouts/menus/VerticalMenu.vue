@@ -1,6 +1,6 @@
 <template>
   <n-config-provider :theme-overrides="themeOverThemes">
-    <div :class="menuClass" :style="{padding: padding}">
+    <div :class="menuClass">
       <n-scrollbar>
         <n-menu
           mode="vertical"
@@ -21,17 +21,17 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, ref, watch, watchEffect} from "vue"
-  import {useRoute, useRouter} from "vue-router"
+  import {computed, ref, watch, watchEffect} from "vue";
+  import {useRoute, useRouter} from "vue-router";
+  import {darkTheme} from "naive-ui";
   /********************************************************************************
-   * 竖向布局菜单
+   * 垂直菜单
    *
    * @author Berlin
    ********************************************************************************/
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import useAppStore from '@/ploutos/layouts/store/app-store';
   import {DeviceType, LayoutMode, MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
-  import {darkTheme} from "naive-ui";
 
   /**
    * 父组件传入的属性
@@ -92,7 +92,10 @@
    */
   const themeOverThemes = computed(() => {
 
-  if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.DARK || layoutStore.sideTheme == SideTheme.IMAGE) {
+    // 暗黑模式
+    if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.DARK ||
+        layoutStore.sideTheme == SideTheme.IMAGE
+    ) {
       return {
         common: {
           textColor1: '#bbbbbb', // 图标
@@ -138,16 +141,7 @@
     if (layoutStore.layoutMode == LayoutMode.LeftSplit && layoutStore.isCollapse) {
       return 'left-split-collapse-menu';
     }
-    return 'menu';
-  });
-
-  /**
-   * 菜单容器边距
-   */
-  const padding = computed(() => {
-    if (layoutStore.layoutMode == LayoutMode.LeftSplit) {
-      return '10px 0';
-    }
+    return 'vaw-vertical-menu';
   });
 
   /**
@@ -201,33 +195,14 @@
    */
   watch(() => currentRoute.path, (value) => {
     currentPath.value = value.split("?")[0];
-    handleExpandPath();
   });
 </script>
 
 <style scoped lang="scss">
-  .menu {
+  .vaw-vertical-menu {
     height: calc(100vh - #{$logoHeight}) !important;
   }
- .left-split-collapse-menu {
-   height: 100vh;
- }
-  :deep(.n-menu .n-submenu .n-menu-item-content__icon) {
-    font-size: 16px !important;
-  }
-  :deep(.n-menu .n-menu-item-content .n-menu-item-content__icon) {
-    font-size: 16px !important;
-  }
-  :deep(.n-menu .n-menu-item) {
-    margin-top: 0;
-    margin-bottom: 5px;
-  }
-  :deep(.n-menu .n-menu-item::before) {
-    left: 5px;
-    right: 5px;
-    border-radius: 5px;
-  }
-  :deep(.n-menu .n-menu-item:hover) {
-    background-color: var(--item-color-active);
-  }
+   .left-split-collapse-menu {
+     height: 100vh;
+   }
 </style>

@@ -1,7 +1,7 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-import {type Router} from "vue-router";
+import {type RouteLocationNormalized, type Router} from "vue-router";
 /********************************************************************************
  * Router帮助类（提供给功能应用调用）
  *
@@ -38,6 +38,14 @@ namespace routerHelper {
     layoutRoutes.forEach(route => {
       props.router.addRoute(route);
     });
+  }
+
+  /**
+   * 检查理由路径是否在布局中忽略
+   */
+  export function isIgnoreRoute(route: RouteLocationNormalized) {
+    return ["/login", "/splash", "/refresh/fresh", '/403', '/404'].includes(route.path);
+
   }
 }
 export default routerHelper;

@@ -75,7 +75,7 @@
   import useAppStore from "@/ploutos/layouts/store/app-store";
   import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import {type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
-  import {screen} from "@/ploutos";
+  import {screen, routerHelper} from "@/ploutos";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
 
   /**
@@ -202,7 +202,7 @@
     addVisitedRouter(to);
   });
   function addVisitedRouter(to: RouteLocationNormalized) {
-    if (["/login", "/splash", "/refresh/fresh", '/403', '/404'].includes(to.path)) {
+    if (routerHelper.isIgnoreRoute(to)) {
       return;
     }
     if (appStore.visitedMenus.findIndex(i => i.key == to.path) != -1) {
@@ -279,7 +279,7 @@
    * 侦听路由
    */
   watch(() => route.path, () => {
-    if (["/login", "/splash", "/refresh/fresh", '/403', '/404'].includes(route.path)) {
+    if (routerHelper.isIgnoreRoute(route)) {
       return;
     }
     currentPath.value = route.path;

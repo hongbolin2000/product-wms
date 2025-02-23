@@ -36,6 +36,58 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/index/work-space.vue"),
       },
       {
+        path: '/system/index3',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index4',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index5',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index6',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index7',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index8',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index9',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index10',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index11',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index12',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index13',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index14',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
+        path: '/system/index15',
+        component: () => import("@/views/index/work-space.vue"),
+      },
+      {
         path: '/system/index2',
         children: [
           {

@@ -33,6 +33,7 @@
    ********************************************************************************/
   import useAppStore from "@/ploutos/layouts/store/app-store";
   import type {MenuOption} from "@/ploutos/layouts/types.ts";
+  import {routerHelper} from "@/ploutos";;
 
   /**
    * 路由对象
@@ -126,7 +127,7 @@
    * 侦听菜单变化
    */
   watch(() => route.path, () => {
-    if (['/403', '/404'].includes(route.path)) {
+    if (routerHelper.isIgnoreRoute(route)) {
       return;
     }
     generateBreadcrumb();
