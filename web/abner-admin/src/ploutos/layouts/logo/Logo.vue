@@ -1,9 +1,9 @@
 <template>
-  <div class="logo-wrapper" :style="layoutStore.layoutMode != LayoutMode.TopBottom ? 'border-bottom: 1px dashed var(--border-color)' : ''">
+  <div class="logo-wrapper" :style="logoStyle">
     <img alt="logo" v-if="showLogo" class="logo-img" src="./logo.png" />
-    <div
-      v-if="showTitle"
-      :class="[!layoutStore.isCollapse ? 'show-title' : 'close-title']"
+
+    <div v-if="showTitle"
+      :class="[layoutStore.isCollapse ? 'close-title' : 'show-title']"
     >
       <span class="logo-title">
         <n-ellipsis :style="'max-width:' + maxWidth">
@@ -15,14 +15,14 @@
 </template>
 
 <script setup lang="ts">
+import {computed} from "vue";
 /********************************************************************************
  * Logo布局
  *
  * @author Berlin
  ********************************************************************************/
-import useLayoutStore from "../store/layout-store";
-import useAppStore from "../store/app-store";
-import {computed} from "vue";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import useAppStore from "@/ploutos/layouts/store/app-store";
 import {LayoutMode} from "@/ploutos/layouts/types.ts";
 
 /**
@@ -54,21 +54,25 @@ import {LayoutMode} from "@/ploutos/layouts/types.ts";
     showTitle: {
       type: Boolean,
       default: true
-    },
-
-    /**
-     * 总是显示网站标题
-     */
-    alwaysShow: Boolean
+    }
   });
+
+  /**
+   * logo样式
+   */
+  const logoStyle = computed(() => {
+    if (layoutStore.layoutMode != LayoutMode.TopBottom) {
+      return 'border-bottom: 1px dashed var(--border-color)';
+    }
+  })
 
   /**
    * 计算标题的最大显示宽度
    */
   const maxWidth = computed(() => {
-    if (layoutStore.layoutMode === 'ttb') {
+    if (layoutStore.layoutMode === LayoutMode.TopBottom) {
       return 'calc(var(--menu-width) - 60px)';
-    } else if ((layoutStore.layoutMode === 'lcr')) {
+    } else if ((layoutStore.layoutMode === LayoutMode.LeftSplit)) {
       return 'calc(var(--tab-menu-width) - 70px)';
     } else {
       return 'calc(var(--menu-width) - 60px)';
@@ -88,18 +92,17 @@ import {LayoutMode} from "@/ploutos/layouts/types.ts";
     .logo-title {
       font-weight: bold;
       color: #2d8cf0;
-      margin-left: 12px;
+      margin-left: 10px;
       font-size: 18px;
     }
     .show-title {
       transform: scale(1);
-      width: auto;
-      transition: transform 0.2s ease-in;
+      transition: transform $transitionTime;
     }
     .close-title {
       transform: scale(0);
       width: 0;
-      transition: transform 0.2s ease-in;
+      transition: transform $transitionTime;
     }
   }
 </style>

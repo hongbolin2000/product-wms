@@ -29,22 +29,22 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, type ComputedRef, onBeforeUnmount, onMounted} from "vue"
-  import {darkTheme} from 'naive-ui'
-  /********************************************************************************
-   * 框架布局
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import '@/ploutos/layouts/styles'
-  import {DeviceType, LayoutMode, ThemeMode} from '@/ploutos/layouts/types'
-  import SideBar from '@/ploutos/layouts/sidebar/SideBar.vue'
-  import MainLayout from "@/ploutos/layouts/MainLayout.vue";
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import VawHeader from "@/ploutos/layouts/header/VawHeader.vue";
-  import SplitSideBar from "@/ploutos/layouts/sidebar/SplitSideBar.vue";
+import {computed, type ComputedRef, onBeforeUnmount, onMounted} from "vue"
+import {darkTheme} from 'naive-ui'
+/********************************************************************************
+ * 框架布局
+ *
+ * @author Berlin
+ ********************************************************************************/
+import '@/ploutos/layouts/styles'
+import {DeviceType, LayoutMode, ThemeMode} from '@/ploutos/layouts/types'
+import SideBar from '@/ploutos/layouts/sidebar/SideBar.vue'
+import MainLayout from "@/ploutos/layouts/MainLayout.vue";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import VawHeader from "@/ploutos/layouts/header/VawHeader.vue";
+import SplitSideBar from "@/ploutos/layouts/sidebar/SplitSideBar.vue";
 
-  /**
+/**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
@@ -53,11 +53,16 @@
    * 主题样式
    */
   const themeOverrides = computed(() => {
+    const common = {
+      primaryColor: layoutStore.themeColor,
+      primaryColorHover: layoutStore.themeColor,
+    }
+
+    if (layoutStore.theme == ThemeMode.DARK) {
+      common['borderColor'] = 'white'
+    }
     return {
-      common: {
-        primaryColor: layoutStore.themeColor,
-        primaryColorHover: layoutStore.themeColor,
-      },
+      common: common,
     }
   });
 

@@ -1,7 +1,7 @@
 <template>
   <div class="vaw-header-layout" :class="themeClass">
     <div class="logo-wrapper">
-      <Logo v-if="showLogo" :always-show="true"/>
+      <Logo v-if="showLogo"/>
     </div>
 
     <div style="flex: 1; overflow: hidden;">
