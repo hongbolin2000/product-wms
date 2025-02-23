@@ -6,6 +6,7 @@ package com.hongyou.abner.menu;
 import cn.hutool.cache.Cache;
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.util.StrUtil;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.XmlUtil;
@@ -64,7 +65,7 @@ public class MenuPage {
             List<Element> menus = XmlUtil.getChildElements(root, MENU_KEY);
 
             // 解析菜单
-            List<MenuOption> menuOptions = this.loadMenu(menus);
+            List<MenuOption> menuOptions = this.loadMenu(menus, "");
             menuCaches.put(MENU_KEY, menuOptions);
             return menuOptions;
         } catch (Exception e) {
@@ -76,24 +77,28 @@ public class MenuPage {
     /**
      * 解析菜单
      */
-    private List<MenuOption> loadMenu(final List<Element> menus) {
+    private List<MenuOption> loadMenu(final List<Element> menus, final String parentIcon) {
         List<MenuOption> menuOptions = new ArrayList<>();
         for (Element menu: menus) {
             MenuOption.MenuOptionBuilder menuOption = MenuOption.builder();
 
-            // 递归检查是否有子菜单
-            if (menu.hasChildNodes()) {
-                List<Element> childMenus = XmlUtil.getChildElements(menu, MENU_KEY);
-                menuOption.children(this.loadMenu(childMenus));
-            }
-
+            // 解析菜单属性
             String path = XmlUtil.getAttribute(menu, "path");
             String label = XmlUtil.getAttribute(menu, "label");
             String icon = XmlUtil.getAttribute(menu, "icon");
+
+            // 递归检查是否有子菜单
+            if (menu.hasChildNodes()) {
+                String parentIcons = StrUtil.isBlank(icon) ? parentIcon : icon;
+                List<Element> childMenus = XmlUtil.getChildElements(menu, MENU_KEY);
+                menuOption.children(this.loadMenu(childMenus, parentIcons));
+            }
+
             boolean fixed = XmlUtil.getBooleanAttribute(menu, "fixed");
             menuOption.key(path).
                     label(label).
                     icons(icon).
+                    parentIcon(parentIcon).
                     fixed(fixed);
             menuOptions.add(menuOption.build());
         }

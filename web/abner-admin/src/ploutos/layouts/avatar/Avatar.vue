@@ -2,9 +2,7 @@
   <div class="vaw-avatar-container">
     <n-dropdown trigger="hover" :options="options" size="large" @select="handleSelect">
       <div class="action-wrapper">
-        <div class="avatar">
-          <n-avatar circle size="small" :src="Avatar" />
-        </div>
+        <n-avatar circle size="small" :src="Avatar" />
 
         <span class="nick-name">
           {{userStore.nikeName}}
@@ -19,7 +17,7 @@
 
 <script setup lang="ts">
   import { h } from 'vue'
-  import {NIcon, useDialog, useLoadingBar, useMessage} from 'naive-ui'
+  import {NIcon, useLoadingBar, useMessage} from 'naive-ui'
   import { Menu, LogInOutline, CaretDownSharp } from '@vicons/ionicons5'
   import {useRouter} from "vue-router";
   /********************************************************************************
@@ -28,16 +26,15 @@
    * @author Berlin
    ********************************************************************************/
   import Avatar from './avatar.gif';
-  import {http} from "@/ploutos";
+  import {http, dialog} from "@/ploutos";
   import {TOKEN_NAME} from '@/ploutos/layouts/types';
   import useUserStore from "@/ploutos/layouts/store/user-store";
 
   /**
-   * 信息弹框
+   * 加载控件
    */
-  const dialog = useDialog();
-  const message = useMessage();
   const loadingBar = useLoadingBar();
+  const message = useMessage();
 
   /**
    * 路由
@@ -57,17 +54,13 @@
       label: '个人中心',
       key: 'personal-center',
       icon: () =>
-        h(NIcon, null, {
-          default: () => h(Menu),
-        }),
+        h(NIcon, null, {default: () => h(Menu)}),
     },
     {
       label: '退出登录',
       key: 'logout',
       icon: () =>
-        h(NIcon, null, {
-          default: () => h(LogInOutline),
-        }),
+        h(NIcon, null, {default: () => h(LogInOutline),}),
     },
   ]
 
@@ -90,9 +83,9 @@
     dialog.warning({
       title: '提示',
       content: '是否要退出当前账号？',
-      positiveText: '退出',
-      negativeText: '再想想',
-      onPositiveClick: () => {
+      confirmText: '退出',
+      cancelText: '再想想',
+      onConfirmClick: () => {
         (async () => {
           let tooltip = message.loading("退出登录中...", {duration: 0});
 
@@ -122,23 +115,10 @@
     .action-wrapper {
       display: flex;
       align-items: center;
-      .avatar {
-        display: flex;
-        align-items: center;
-        & > img {
-          border: 1px solid #f6f6f6;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 50%;
-        }
-      }
       .nick-name {
         margin: 0 5px;
         .tip {
-          transform: rotate(0);
           transition: transform $transitionTime;
-          margin-left: 2px;
         }
       }
     }
@@ -148,7 +128,6 @@
     color: var(--primary-color);
     .nick-name .tip {
       transform: rotate(180deg);
-      transition: transform $transitionTime;
     }
   }
 </style>

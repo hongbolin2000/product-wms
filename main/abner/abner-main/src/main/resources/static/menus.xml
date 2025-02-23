@@ -5,7 +5,20 @@
         <menu path="/index/work-place" label="工作台" fixed="true"/>
     </menu>
     <menu path="/system" label="系统管理" icon="setting">
-        <menu path="/system/index" label="系统管理1"/>
+        <menu path="/system/index" label="系统管理"/>
+        <menu path="/system/index3" label="系统管理3"/>
+        <menu path="/system/index4" label="系统管理4"/>
+        <menu path="/system/index5" label="系统管理5"/>
+        <menu path="/system/index6" label="系统管理6"/>
+        <menu path="/system/index7" label="系统管理7"/>
+        <menu path="/system/index8" label="系统管理8"/>
+        <menu path="/system/index9" label="系统管理9"/>
+        <menu path="/system/index10" label="系统管理10"/>
+        <menu path="/system/index11" label="系统管理11"/>
+        <menu path="/system/index12" label="系统管理12"/>
+        <menu path="/system/index13" label="系统管理13"/>
+        <menu path="/system/index14" label="系统管理14"/>
+        <menu path="/system/index15" label="系统管理15"/>
         <menu path="/system/index2" label="系统管理2">
             <menu path="/system/index2/index" label="系统管理2.2"/>
         </menu>

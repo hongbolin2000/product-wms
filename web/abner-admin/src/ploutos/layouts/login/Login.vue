@@ -329,14 +329,11 @@
     display: flex;
     overflow: hidden;
     height: 100vh;
-    background-color: white;
-
     .title {
       margin-top: 10px;
       color: #ffffff;
       font-weight: bold;
       font-size: 24px;
-      text-align: center;
     }
     .sub-title {
       margin-top: 10px;
@@ -346,7 +343,6 @@
     .ttppii {
       display: flex;
       flex: 1 1 0;
-      justify-content: center;
       align-items: center;
       color: #ffffff;
       font-size: 30px;
@@ -363,9 +359,8 @@
     .left {
       position: relative;
       min-width: 50%;
-      width: 50%;
       & > img {
-        width: 100%;
+        width: 100vw;
         height: 100%;
         object-fit: cover;
       }
@@ -405,15 +400,15 @@
       flex-direction: column;
       align-items: center;
       .form-wrapper {
-        width: 50%;
+        z-index: 99;
         max-width: 500px;
         padding: 30px;
         box-shadow: 0 0 7px #dddddd;
+        background-color: white;
         .form-title {
-          font-size: 26px;
+          font-size: 20px;
           margin-bottom: 20px;
           font-weight: bold;
-          color: black;
         }
 
         .login {

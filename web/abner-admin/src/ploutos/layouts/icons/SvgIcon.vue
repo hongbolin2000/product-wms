@@ -45,12 +45,10 @@
    * 样式类名
    */
   const className = computed(() => {
-
     // svg
     if (props.type === 'svg') {
       return 'svg-icon'
     }
-
     // ali iconfont
     if (props.type === 'icon') {
       return 'iconfont icon-' + props.name
