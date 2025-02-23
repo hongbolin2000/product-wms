@@ -238,13 +238,20 @@
 
   // 手机模式
   .is-mobile {
+    // 打开/关闭菜单
     .main-layout-open-status,
-    .main-layout-close-status {
+    .main-layout-close-status,
+    .main-layout-lcr-open-status,
+    .main-layout-lcr-close-status {
       margin-left: 0;
       transition: none;
     }
+
+    // 打开/关闭菜单
     .nav-bar-open-status,
-    .nav-bar-close-status {
+    .nav-bar-close-status,
+    .nav-bar-lcr-open-status,
+    .nav-bar-lcr-close-status{
       width: 100%;
     }
   }

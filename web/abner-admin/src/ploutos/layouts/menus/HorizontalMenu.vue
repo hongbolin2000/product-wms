@@ -12,18 +12,18 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, ref, watch} from "vue";
-  import {useRoute, useRouter} from "vue-router";
-  /********************************************************************************
-   * 水平菜单
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import useAppStore from "@/ploutos/layouts/store/app-store";
-  import {SideTheme, ThemeMode} from "@/ploutos/layouts/types.ts";
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
+import {computed, ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+/********************************************************************************
+ * 水平菜单
+ *
+ * @author Berlin
+ ********************************************************************************/
+import useAppStore from "@/ploutos/layouts/store/app-store";
+import {LayoutMode, SideTheme, ThemeMode} from "@/ploutos/layouts/types.ts";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
 
-  /**
+/**
    * 全局应用状态
    */
   const appStore = useAppStore();
@@ -57,7 +57,10 @@
  */
 const themeOverThemes = computed(() => {
 
-  if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.DARK || layoutStore.sideTheme == SideTheme.IMAGE) {
+  if (layoutStore.theme == ThemeMode.DARK || (
+      (layoutStore.sideTheme == SideTheme.DARK || layoutStore.sideTheme == SideTheme.IMAGE)
+      && layoutStore.layoutMode != LayoutMode.TopBottom
+  )) {
     return {
       common: {
         textColor1: '#bbbbbb', // 图标

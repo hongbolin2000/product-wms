@@ -1,6 +1,6 @@
 <template>
   <n-config-provider :theme-overrides="themeOverThemes">
-    <div class="scrollbar" :style="{padding: padding}">
+    <div :class="menuClass" :style="{padding: padding}">
       <n-scrollbar>
         <n-menu
           mode="vertical"
@@ -132,6 +132,16 @@
   });
 
   /**
+   * 菜单样式类
+   */
+  const menuClass = computed(() => {
+    if (layoutStore.layoutMode == LayoutMode.LeftSplit && layoutStore.isCollapse) {
+      return 'left-split-collapse-menu';
+    }
+    return 'menu';
+  });
+
+  /**
    * 菜单容器边距
    */
   const padding = computed(() => {
@@ -196,6 +206,12 @@
 </script>
 
 <style scoped lang="scss">
+  .menu {
+    height: calc(100vh - #{$logoHeight}) !important;
+  }
+ .left-split-collapse-menu {
+   height: 100vh;
+ }
   :deep(.n-menu .n-submenu .n-menu-item-content__icon) {
     font-size: 16px !important;
   }
@@ -213,8 +229,5 @@
   }
   :deep(.n-menu .n-menu-item:hover) {
     background-color: var(--item-color-active);
-  }
-  .scrollbar {
-    height: calc(100vh - #{$logoHeight}) !important;
   }
 </style>

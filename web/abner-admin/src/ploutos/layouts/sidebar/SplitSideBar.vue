@@ -6,20 +6,16 @@
       :content-style="{ padding: 0 }"
       style="border-radius: 0"
       :class="[
-        !layoutStore.isCollapse ? 'open-status' : 'close-status',
-        layoutStore.sideTheme == 'image' ? 'sidebar-bg-img' : '',
+        layoutStore.isCollapse ? 'close-status' : 'open-status',
+        layoutStore.sideTheme == SideTheme.IMAGE ? 'sidebar-bg-img' : '',
       ]"
     >
       <div class="tab-split-tab-wrapper" :style="{ backgroundColor: bgColor }">
-        <Logo class="tab-split-logo-wrapper" :show-title="false"/>
+        <Logo :show-title="false"/>
 
-        <div style="height: calc(100% - 48px)">
+        <div class="tab-split-tab-scroll">
           <n-scrollbar>
-            <div
-              id="tabSplitContentWrapper"
-              class="tab-split-content-wrapper"
-              :style="contentWrapperStyle"
-            >
+            <div class="tab-split-content-wrapper" :style="contentWrapperStyle">
               <div
                 v-for="item of appStore.menus"
                 :key="item.key"
@@ -36,8 +32,11 @@
       </div>
 
       <div :class="layoutStore.isCollapse ? 'tab-split-menu-close-wrapper' : 'tab-split-menu-open-wrapper'">
-        <Logo class="tab-split-logo-wrapper" :show-logo="false" v-if="!layoutStore.isCollapse"/>
-        <VerticalMenu :menus="childMenus" />
+        <Logo :show-logo="false" v-if="!layoutStore.isCollapse"/>
+        <VerticalMenu
+            :menus="childMenus"
+            :class="[layoutStore.sideTheme == SideTheme.IMAGE ? 'sidebar-bg-img' : '']"
+        />
       </div>
       <div class="mobile-shadow"></div>
     </n-card>
@@ -47,6 +46,7 @@
 <script setup lang="ts">
 import {computed, onMounted, ref, type Ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
+import {darkTheme} from "naive-ui";
 /********************************************************************************
  * 分栏菜单
  *
@@ -54,12 +54,10 @@ import {useRoute, useRouter} from "vue-router";
  ********************************************************************************/
 import Logo from "@/ploutos/layouts/logo/Logo.vue";
 import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-import type {MenuOption} from "@/ploutos/layouts/types";
-import {SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+import {type MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
 import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
 import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
 import useAppStore from "@/ploutos/layouts/store/app-store";
-import {darkTheme} from "naive-ui";
 
 /**
    * 全局应用状态
@@ -85,7 +83,7 @@ import {darkTheme} from "naive-ui";
   /**
    * 主题
    */
-  const theme = computed(() => {
+  const theme: Ref = computed(() => {
     if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.DARK) {
       return darkTheme;
     }
@@ -96,15 +94,16 @@ import {darkTheme} from "naive-ui";
    * 主题样式
    */
   const themeOverThemes = computed(() => {
-    // 菜单栏背景图
+    // 暗黑模式和菜单栏背景图
     if (layoutStore.theme == ThemeMode.DARK || layoutStore.sideTheme == SideTheme.IMAGE
         || layoutStore.sideTheme == SideTheme.DARK
     ) {
       return {
         common: {
-          textColor2: 'white',
+          textColor2: 'white', // 文字颜色
         },
         Menu: {
+          // 菜单折叠激活时背景颜色
           itemColorActiveCollapsed: layoutStore.themeColor
         }
       }
@@ -128,20 +127,26 @@ import {darkTheme} from "naive-ui";
    * 根据路由匹配选项卡
    */
   function matchTab() {
-    const menus: any[] = [];
+    // 获取匹配到的路由
+    const menus: MenuOption[] = [];
     const matchedRoutes = route.matched;
-    if (matchedRoutes && matchedRoutes.length > 0) {
-      appStore.menus.forEach((menu) => {
-        if (menu.key === matchedRoutes[0].path) {
-          menu.checked = true
-          if (menu.children) {
-            menus.push(...menu.children);
-          }
-        } else {
-          menu.checked = false
-        }
-      })
+    if (matchedRoutes && matchedRoutes.length <= 0) {
+      return;
     }
+
+    // 找到子路由
+    appStore.menus.forEach((menu) => {
+      if (menu.key === matchedRoutes[0].path) {
+        menu.checked = true
+        if (menu.children) {
+          menus.push(...menu.children);
+        } else {
+          menus.push(menu);
+        }
+      } else {
+        menu.checked = false
+      }
+    })
     childMenus.value.push(...menus);
   }
 
@@ -149,33 +154,29 @@ import {darkTheme} from "naive-ui";
    * 文本颜色
    */
   const contentWrapperStyle = computed(() => {
-    return `--select-text-color: ${
-      layoutStore.theme === 'light' || layoutStore.sideTheme === 'white'
-        ? '#fff'
-        : 'var(--text-color)'
-    }`
+    let color = 'var(--text-color)';
+    if (layoutStore.theme === ThemeMode.LIGHT || layoutStore.sideTheme == SideTheme.WHITE) {
+      color = 'white'
+    }
+    return `--select-text-color: ${color }`
   });
 
   /**
    * 选项卡背景色
    */
   const bgColor = computed(() => {
-
     // 菜单栏背景图
     if (layoutStore.sideTheme === SideTheme.IMAGE) {
       return 'rgba(255,255,255, 0.1)'
     }
-
     // 暗黑
     if (layoutStore.theme === ThemeMode.DARK || layoutStore.sideTheme === SideTheme.DARK) {
       return '#101014FF'
     }
-
     // 菜单栏明亮
     if (layoutStore.sideTheme === SideTheme.WHITE) {
       return '#f5f5f5'
     }
-    return '#ffffff';
   });
 
   /**
@@ -183,6 +184,8 @@ import {darkTheme} from "naive-ui";
    */
   function onTabChange(item: MenuOption) {
     let menus: MenuOption[] = [];
+
+    // 找到子菜单
     for (let i = 0; i < appStore.menus.length; i++) {
       const it = appStore.menus[i];
       const checked = it.key === item.key;
@@ -193,6 +196,7 @@ import {darkTheme} from "naive-ui";
       }
     }
 
+    // 没有子菜单
     if (menus.length <= 0) {
       menus.push(item);
     }
@@ -219,35 +223,20 @@ import {darkTheme} from "naive-ui";
   }
   .close-status {
     width: $minMenuWidth;
-    box-shadow: none;
     transition: all $transitionTime;
   }
+
   .vaw-tab-split-side-bar-wrapper {
     position: fixed;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    height: 100vh;
-    box-sizing: border-box;
     z-index: 999;
     .tab-split-tab-wrapper {
-      position: relative;
-      top: 0;
-      left: 0;
-      width: $tabSplitMenuWidth;
-      min-width: $tabSplitMenuWidth;
       max-width: $tabSplitMenuWidth;
-      overflow: hidden;
       height: 100vh;
-      box-sizing: border-box;
       animation: vaw-header-show 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      .tab-split-logo-wrapper {
-        max-width: $tabSplitMenuWidth;
-        min-width: $tabSplitMenuWidth;
+      .tab-split-tab-scroll {
+        height: calc(100% - $logoHeight);
       }
       .tab-split-content-wrapper {
-        position: relative;
-        height: 100%;
         @mixin after {
           content: '';
           position: absolute;
@@ -261,18 +250,11 @@ import {darkTheme} from "naive-ui";
         .label-item-wrapper {
           position: relative;
           min-height: $logoHeight * 1.2;
-          padding: 10px 0;
           display: flex;
           flex-direction: column;
-          overflow: hidden;
           align-items: center;
           justify-content: center;
-          box-sizing: border-box;
-          color: var(--text-color);
           z-index: 1;
-          & > i {
-            font-size: 16px;
-          }
           & > span {
             font-size: 12px;
             line-height: 14px;
@@ -285,31 +267,24 @@ import {darkTheme} from "naive-ui";
           &::after {
             @include after;
           }
-          & svg {
-            width: 26px;
-            height: 26px;
+          &:hover::after {
+            background-color: var(--primary-color);
+            transition: background-color $transitionTime;
           }
-        }
-        .label-item-wrapper:hover::after {
-          background-color: var(--primary-color);
-          transition: background-color $transitionTime;
         }
         .vaw-tab-split-item-is-active {
           color: var(--select-text-color);
-        }
-        .vaw-tab-split-item-is-active::after {
-          background-color: var(--primary-color);
-          @include after;
+          &::after {
+            background-color: var(--primary-color);
+          }
         }
       }
     }
     .tab-split-menu-open-wrapper {
       position: absolute;
-      top: 0;
       right: 0;
       bottom: 0;
       left: $tabSplitMenuWidth;
-      overflow: hidden;
     }
     .tab-split-menu-close-wrapper {
       position: fixed;
@@ -318,23 +293,14 @@ import {darkTheme} from "naive-ui";
       max-width: $minMenuWidth;
       background-color: var(--n-color);
       height: 100%;
-    }
-    .vaw-menu-wrapper {
-      overflow-x: hidden;
-      color: white;
+      transition: all $transitionTime;
     }
   }
+
   .is-mobile {
-    .open-status {
-      width: $tabMenuWidth;
-      transform: translateX(0);
-      transition: transform $transitionTime;
-    }
     .close-status {
-      width: calc($minMenuWidth + $tabSplitMenuWidth);
-      transform: translateX(-$tabMenuWidth);
-      transition: transform $transitionTime;
-      box-shadow: none;
+      $negativeMenuWidth: calc(#{$tabSplitMenuWidth + $minMenuWidth} * -1);
+      transform: translateX($negativeMenuWidth);
     }
   }
   @keyframes vaw-header-show {
