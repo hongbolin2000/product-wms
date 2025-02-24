@@ -44,17 +44,11 @@
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import VawHeader from "@/ploutos/layouts/header/VawHeader.vue";
   import SplitSideBar from "@/ploutos/layouts/sidebar/SplitSideBar.vue";
-  import Actions from "@/ploutos/layouts/actions/Actions.vue";
-  import {JSX} from "vue/jsx-runtime";
 
   /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
-
-  function Action(): JSX.Element {
-    return <Actions/>
-  }
 
   /**
    * 主题样式
