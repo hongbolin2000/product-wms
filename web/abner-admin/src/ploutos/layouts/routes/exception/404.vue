@@ -1,25 +1,54 @@
 <template>
-  <div class="exception-wrapper">
-    <n-result status="404" title="您访问的页面不存在~" description="有疑问请尽快联系管理员哦~">
-      <template #footer>
-        <n-button @click="back">返回上一页</n-button>
-      </template>
-    </n-result>
-  </div>
+  <n-config-provider :theme="theme" style="height: 100%" :style="{backgroundColor: bgColor}">
+    <div class="exception-wrapper">
+      <n-result status="404" title="您访问的页面不存在~" description="有疑问请尽快联系管理员哦~">
+        <template #footer>
+          <n-button @click="back">返回上一页</n-button>
+        </template>
+      </n-result>
+    </div>
+  </n-config-provider>
 </template>
 
 <script setup lang="ts">
   import {useRouter} from "vue-router";
+  import {darkTheme} from 'naive-ui';
+  import {computed, type ComputedRef} from "vue";
+  import {ThemeMode} from "@/ploutos/layouts/types.ts";
   /********************************************************************************
    * 404页面
    *
    * @author Berlin
    ********************************************************************************/
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
 
   /**
    * 路由对象
    */
   const router = useRouter();
+
+  /**
+   * 布局状态
+   */
+  const layoutStore = useLayoutStore();
+
+  /**
+   * 主题
+   */
+  const theme: ComputedRef = computed(() => {
+    return layoutStore.theme == ThemeMode.DARK ? darkTheme : null
+  });
+
+  /**
+   * 背景色
+   */
+  const bgColor = computed(() => {
+    if (layoutStore.theme === ThemeMode.LIGHT) {
+      return '#f0f2f5';
+    } else {
+      return '#101014FF';
+    }
+  });
 
   /**
    * 回到上一页

@@ -118,6 +118,12 @@
           itemIconColorChildActiveHorizontal: '#fff', // 激活时文字颜色
           itemTextColorChildActiveHoverHorizontal: '#fff', // 激活时鼠标经过文字颜色
           itemIconColorChildActiveHoverHorizontal: '#fff', // 激活时鼠标经过图标颜色
+
+          // 没有children的菜单
+          itemTextColorActiveHorizontal: '#fff', // 激活时文字颜色
+          itemIconColorActiveHorizontal: '#fff', // 激活时图标颜色
+          itemTextColorActiveHoverHorizontal: '#fff', // 激活时鼠标经过文字颜色
+          itemIconColorActiveHoverHorizontal: '#fff', // 激活时鼠标经过图标颜色
         },
         Dropdown: {
           // 子菜单
@@ -183,7 +189,7 @@
   });
 
   /**
-   * 侦听布局编号
+   * 侦听布局变化
    */
   watch(layoutMode, () => {
     if (layoutMode == LayoutMode.TopLeft) {

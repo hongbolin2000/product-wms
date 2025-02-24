@@ -121,7 +121,7 @@ type AppStoreOption = {
   expandMenus: Ref<MenuOption[]>,
 
   /**
-   * 顶部+左侧菜单模式的子菜单
+   * 顶部+左侧模式子菜单
    */
   topLeftChildMenus: Ref<MenuOption[]>,
 

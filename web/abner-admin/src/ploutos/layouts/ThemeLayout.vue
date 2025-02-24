@@ -3,14 +3,14 @@
     <n-global-style/>
     <n-scrollbar>
       <n-el class="vaw-layout-container"
-            :class="[layoutStore.deviceType == 'mobile' && 'is-mobile']"
+            :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
             :style="{backgroundColor: bgColor}"
       >
-        <template v-if="layoutStore.layoutMode == LayoutMode.TopBottom || layoutStore.layoutMode == LayoutMode.TopLeft">
-          <SideBar v-if="layoutStore.layoutMode == LayoutMode.TopLeft"/>
+        <template v-if="layoutStore.layoutMode === LayoutMode.TopBottom || layoutStore.layoutMode === LayoutMode.TopLeft">
+          <SideBar v-if="layoutStore.layoutMode === LayoutMode.TopLeft"/>
           <VawHeader/>
         </template>
-        <template v-else-if="layoutStore.layoutMode == LayoutMode.LeftSplit">
+        <template v-else-if="layoutStore.layoutMode === LayoutMode.LeftSplit">
           <SplitSideBar/>
         </template>
         <template v-else>
@@ -29,7 +29,7 @@
   </n-config-provider>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
   import {computed, type ComputedRef, onBeforeUnmount, onMounted} from "vue"
   import {darkTheme} from 'naive-ui'
   /********************************************************************************
@@ -44,11 +44,17 @@
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import VawHeader from "@/ploutos/layouts/header/VawHeader.vue";
   import SplitSideBar from "@/ploutos/layouts/sidebar/SplitSideBar.vue";
+  import Actions from "@/ploutos/layouts/actions/Actions.vue";
+  import {JSX} from "vue/jsx-runtime";
 
   /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
+
+  function Action(): JSX.Element {
+    return <Actions/>
+  }
 
   /**
    * 主题样式

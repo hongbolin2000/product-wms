@@ -18,8 +18,9 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, onMounted, type Ref, ref} from "vue";
+import {computed, onMounted, type Ref, ref, watch} from "vue";
   import {darkTheme} from "naive-ui";
+  import {storeToRefs} from 'pinia';
   /********************************************************************************
    * 侧边栏菜单布局
    *
@@ -41,6 +42,11 @@
    * 菜单
    */
   const menus: Ref<MenuOption[]> = ref([]);
+
+  /**
+   * 顶部+左侧模式子菜单
+   */
+  const { topLeftChildMenus } = storeToRefs(appStore);
 
   /**
    * 组件加载
@@ -74,9 +80,11 @@
   /**
    * 顶部+左侧菜单模式，侦听子菜单
    */
-  appStore.$subscribe((mutation, state) => {
-    menus.value = state.topLeftChildMenus;
-  })
+  watch(topLeftChildMenus, () => {
+    if (layoutStore.layoutMode == LayoutMode.TopLeft) {
+      menus.value = appStore.topLeftChildMenus;
+    }
+  });
 </script>
 
 <style scoped lang="scss">
