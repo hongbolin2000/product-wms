@@ -6,7 +6,6 @@
             :class="[layoutStore.deviceType == 'mobile' && 'is-mobile']"
             :style="{backgroundColor: bgColor}"
       >
-        <Actions style="display: none"/>
         <template v-if="layoutStore.layoutMode == LayoutMode.TopBottom || layoutStore.layoutMode == LayoutMode.TopLeft">
           <SideBar v-if="layoutStore.layoutMode == LayoutMode.TopLeft"/>
           <VawHeader/>
@@ -45,7 +44,6 @@
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import VawHeader from "@/ploutos/layouts/header/VawHeader.vue";
   import SplitSideBar from "@/ploutos/layouts/sidebar/SplitSideBar.vue";
-  import Actions from "@/ploutos/layouts/actions/Actions.vue";
 
   /**
    * 布局状态
