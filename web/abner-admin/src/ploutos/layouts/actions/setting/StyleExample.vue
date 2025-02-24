@@ -70,8 +70,8 @@
 <style scoped lang="scss">
   $border-radius: 4px;
   .style-example-container {
-    width: 60px;
-    height: 50px;
+    width: 70px;
+    height: 55px;
     padding: 5px;
     margin: 0 auto;
     border-radius: $border-radius;

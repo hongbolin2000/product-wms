@@ -103,7 +103,12 @@ export enum LayoutMode {
   /**
    * 分栏
    */
-  LeftSplit = 'lcr'
+  LeftSplit = 'lcr',
+
+  /**
+   * 顶部+左侧混合
+   */
+  TopLeft = 'tlf'
 }
 
 /**

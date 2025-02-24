@@ -4,7 +4,7 @@
         <n-menu
           mode="horizontal"
           :value="currentPath"
-          :options="appStore.menus"
+          :options="menus"
           @update:value="onMenuClick"
         />
     </n-scrollbar>
@@ -12,18 +12,19 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, ref, watch} from "vue";
-  import {useRoute, useRouter} from "vue-router";
-  /********************************************************************************
-   * 水平菜单
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import useAppStore from "@/ploutos/layouts/store/app-store";
-  import {LayoutMode, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import {computed, onMounted, ref, type Ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+/********************************************************************************
+ * 水平菜单
+ *
+ * @author Berlin
+ ********************************************************************************/
+import useAppStore from "@/ploutos/layouts/store/app-store";
+import {LayoutMode, ThemeMode} from "@/ploutos/layouts/types";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import type {MenuOption} from "naive-ui";
 
-  /**
+/**
    * 全局应用状态
    */
   const appStore = useAppStore();
@@ -42,7 +43,53 @@
   /**
    * 当前路由地址
    */
-  const currentPath = ref(route.path);
+  const currentPath = ref('');
+
+  /**
+   * 一级菜单
+   */
+  const menus: Ref<MenuOption[]> = ref([]);
+
+  /**
+   * 组件加载
+   */
+  onMounted(() => {
+    // 等待菜单加载完成后再做事情
+    const interval = setInterval(() => {
+      if (appStore.menus <= 0) {
+        return;
+      }
+      clearInterval(interval);
+      renderMenus();
+    }, 50);
+  });
+
+  /**
+   * 生成菜单
+   */
+  function renderMenus() {
+    const topMenus = [];
+
+    // 顶部+左侧菜单模式
+    if (layoutStore.layoutMode == LayoutMode.TopLeft) {
+      appStore.menus.forEach(menu => {
+        const topMenu = {...menu}
+        delete topMenu.children;
+        topMenus.push(topMenu);
+      });
+      menus.value = topMenus;
+
+      // 当前激活的菜单
+      currentPath.value = "/" + route.path.split("/")[1];
+      matchChildMenus(currentPath.value);
+    }
+
+    // 其他模式
+    if (layoutStore.layoutMode != LayoutMode.TopLeft) {
+      menus.value = appStore.menus;
+      currentPath.value = route.path;
+    }
+  }
 
   /**
    * 重写主题样式
@@ -79,18 +126,64 @@
   });
 
   /**
+   * 匹配子菜单(顶部+左侧菜单模式)
+   */
+  function matchChildMenus(key: string) {
+    const parentMenu = appStore.menus.find(i => i.key == key);
+    let topLeftChildMenus = [];
+
+    // 没有子菜单
+    if (!parentMenu?.children) {
+      topLeftChildMenus.push(parentMenu);
+    } else{
+      topLeftChildMenus = parentMenu.children;
+    }
+    appStore.topLeftChildMenus = topLeftChildMenus;
+  }
+
+  /**
    * 点击菜单
    */
   function onMenuClick(key: string) {
-    router.push(key);
+    if (layoutStore.layoutMode != LayoutMode.TopLeft) {
+      router.push(key);
+    }
+
+    // 顶部+左侧菜单模式
+    if (layoutStore.layoutMode == LayoutMode.TopLeft) {
+      matchChildMenus(key);
+
+      // 路由到第一个菜单
+      for (let i = 0; i < appStore.topLeftChildMenus.length; i++) {
+        if (!appStore.topLeftChildMenus[i].children) {
+          router.push(appStore.topLeftChildMenus[i].key);
+          break;
+        }
+      }
+    }
   }
 
   /**
    * 监听路由变化
    */
   watch(() => route.path, (value) => {
-    currentPath.value = value.split("?")[0];
+    // 顶部+左侧菜单模式
+    if (layoutStore.layoutMode == LayoutMode.TopLeft) {
+      currentPath.value = "/" + route.path.split("/")[1];
+      onMenuClick(currentPath.value);
+    } else {
+      currentPath.value = value;
+    }
   });
+
+  /**
+   * 侦听布局编号
+   */
+  layoutStore.$subscribe((mutation, state) => {
+    if (state.layoutMode == LayoutMode.TopLeft) {
+      renderMenus();
+    }
+  })
 </script>
 
 <style scoped lang="scss">

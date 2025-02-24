@@ -11,29 +11,55 @@
       ]"
     >
       <Logo/>
-      <ScrollerMenu/>
+      <ScrollerMenu :menus="menus"/>
       <div class="mobile-shadow"/>
     </n-card>
   </n-config-provider>
 </template>
 
 <script setup lang="ts">
-  import {computed, type Ref} from "vue";
+  import {computed, onMounted, type Ref, ref} from "vue";
   import {darkTheme} from "naive-ui";
   /********************************************************************************
    * 侧边栏菜单布局
    *
    * @author Berlin
    ********************************************************************************/
-  import {SideTheme, ThemeMode} from '@/ploutos/layouts/types'
+  import {LayoutMode, MenuOption, SideTheme, ThemeMode} from '@/ploutos/layouts/types'
   import Logo from '@/ploutos/layouts/logo/Logo.vue'
   import ScrollerMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
 
   /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
+  const appStore = useAppStore();
+
+  /**
+   * 菜单
+   */
+  const menus: Ref<MenuOption[]> = ref([]);
+
+  /**
+   * 组件加载
+   */
+  onMounted(() => {
+    // 等待菜单加载完成后再做事情
+    const interval = setInterval(() => {
+      if (appStore.menus <= 0) {
+        return;
+      }
+      clearInterval(interval);
+
+      if (layoutStore.layoutMode == LayoutMode.TopLeft) {
+        menus.value = appStore.topLeftChildMenus;
+      } else {
+        menus.value = appStore.menus;
+      }
+    });
+  });
 
   /**
    * 主题
@@ -44,6 +70,13 @@
     }
     return null;
   });
+
+  /**
+   * 顶部+左侧菜单模式，侦听子菜单
+   */
+  appStore.$subscribe((mutation, state) => {
+    menus.value = state.topLeftChildMenus;
+  })
 </script>
 
 <style scoped lang="scss">

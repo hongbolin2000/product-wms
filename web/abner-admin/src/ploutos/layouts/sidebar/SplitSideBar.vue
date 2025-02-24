@@ -44,22 +44,22 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref, type Ref} from "vue";
-import {useRoute, useRouter} from "vue-router";
-import {darkTheme} from "naive-ui";
-/********************************************************************************
- * 分栏菜单
- *
- * @author Berlin
- ********************************************************************************/
-import Logo from "@/ploutos/layouts/logo/Logo.vue";
-import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-import {type MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
-import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
-import useAppStore from "@/ploutos/layouts/store/app-store";
+  import {computed, onMounted, ref, type Ref} from "vue";
+  import {useRoute, useRouter} from "vue-router";
+  import {darkTheme} from "naive-ui";
+  /********************************************************************************
+   * 分栏菜单
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import Logo from "@/ploutos/layouts/logo/Logo.vue";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import {type MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
+  import useAppStore from "@/ploutos/layouts/store/app-store";
 
-/**
+  /**
    * 全局应用状态
    */
   const appStore = useAppStore();
@@ -115,6 +115,7 @@ import useAppStore from "@/ploutos/layouts/store/app-store";
    * 组件加载
    */
   onMounted(() => {
+    // 等待菜单加载完成后再做事情
     const interval = setInterval(() => {
       if (appStore.menus.length > 0) {
         clearInterval(interval);

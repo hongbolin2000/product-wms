@@ -50,6 +50,14 @@ export const layoutExampleList: Ref<LayoutStyleOption[]> = ref([
     layoutId: LayoutMode.LeftRight,
     tipText: '左侧',
   }, {
+    leftBg: '#000000',
+    rightTopBg: '#d4d4d4',
+    rightBottomBg: '#d4d4d4',
+    checked: false,
+    layoutId: LayoutMode.LeftSplit,
+    class: 'extra-class-1',
+    tipText: '分栏',
+  }, {
     leftBg: '#d4d4d4',
     rightTopBg: '#000000',
     rightBottomBg: '#d4d4d4',
@@ -59,13 +67,12 @@ export const layoutExampleList: Ref<LayoutStyleOption[]> = ref([
     tipText: '顶部',
   }, {
     leftBg: '#000000',
-    rightTopBg: '#d4d4d4',
+    rightTopBg: '#000000',
     rightBottomBg: '#d4d4d4',
     checked: false,
-    layoutId: LayoutMode.LeftSplit,
-    class: 'extra-class-1',
-    tipText: '分栏',
-  },
+    layoutId: LayoutMode.TopLeft,
+    tipText: '顶+左混合',
+  }
 ]);
 
 /**

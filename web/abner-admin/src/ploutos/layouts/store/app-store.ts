@@ -21,6 +21,7 @@ const useAppStore = defineStore('appStore', () => {
   const store: AppStoreOption = {
     menus: ref([]),
     expandMenus: ref([]),
+    topLeftChildMenus: ref([]),
     websiteOption: ref({
       title: '',
       subtitle: '',
@@ -118,6 +119,11 @@ type AppStoreOption = {
    * 展开的菜单
    */
   expandMenus: Ref<MenuOption[]>,
+
+  /**
+   * 顶部+左侧菜单模式的子菜单
+   */
+  topLeftChildMenus: Ref<MenuOption[]>,
 
   /**
    * 网站信息

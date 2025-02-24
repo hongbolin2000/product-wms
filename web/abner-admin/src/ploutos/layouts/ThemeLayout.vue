@@ -6,7 +6,8 @@
             :class="[layoutStore.deviceType == 'mobile' && 'is-mobile']"
             :style="{backgroundColor: bgColor}"
       >
-        <template v-if="layoutStore.layoutMode == LayoutMode.TopBottom">
+        <template v-if="layoutStore.layoutMode == LayoutMode.TopBottom || layoutStore.layoutMode == LayoutMode.TopLeft">
+          <SideBar v-if="layoutStore.layoutMode == LayoutMode.TopLeft"/>
           <VawHeader/>
         </template>
         <template v-else-if="layoutStore.layoutMode == LayoutMode.LeftSplit">

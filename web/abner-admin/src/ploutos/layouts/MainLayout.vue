@@ -1,7 +1,7 @@
 <template>
   <div class="vaw-main-layout-container" :class="layoutContainerClass">
     <section :class="layoutTopClass" :style="{backgroundColor: bgColor, top: paddingTop}">
-      <NavBar v-if="layoutStore.layoutMode !== LayoutMode.TopBottom"/>
+      <NavBar v-if="showNavBar"/>
       <TabBar/>
     </section>
 
@@ -29,7 +29,7 @@
   import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
 
-/**
+  /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
@@ -108,7 +108,10 @@
    * 导航栏距离顶部距离
    */
   const paddingTop = computed(() => {
-    if (layoutStore.layoutMode == LayoutMode.TopBottom) {
+    // 上下布局padding
+    if (layoutStore.layoutMode == LayoutMode.TopBottom ||
+        layoutStore.layoutMode == LayoutMode.TopLeft
+    ) {
       return '64px';
     }
     return '0px';
@@ -123,6 +126,15 @@
     } else {
       return '#101014FF';
     }
+  });
+
+  /**
+   * 是否显示导航栏
+   */
+  const showNavBar = computed(() => {
+    // 上下布局不显示
+    return layoutStore.layoutMode !== LayoutMode.TopBottom &&
+        layoutStore.layoutMode != LayoutMode.TopLeft
   });
 
   /**

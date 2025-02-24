@@ -6,7 +6,7 @@
           mode="vertical"
           :value="currentPath"
           :collapsed="layoutStore.isCollapse"
-          :options="!menus ? appStore.menus : menus"
+          :options="menus"
           :expanded-keys="expandKeys"
           :collapsed-icon-size="16"
           :collapsed-width="63"
@@ -30,7 +30,6 @@
    * @author Berlin
    ********************************************************************************/
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import useAppStore from '@/ploutos/layouts/store/app-store';
   import {DeviceType, LayoutMode, MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
 
   /**
@@ -43,7 +42,7 @@
      */
     menus: {
       type: Array<MenuOption>,
-      required: false
+      required: true
     }
   });
 
@@ -51,11 +50,6 @@
    * 布局状态
    */
   const layoutStore = useLayoutStore();
-
-  /**
-   * 全局应用状态
-   */
-  const appStore = useAppStore();
 
   /**
    * 当前路由
