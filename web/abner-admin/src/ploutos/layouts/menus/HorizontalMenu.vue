@@ -192,9 +192,7 @@
    * 侦听布局变化
    */
   watch(layoutMode, () => {
-    if (layoutMode == LayoutMode.TopLeft) {
-      renderMenus();
-    }
+    renderMenus();
   });
 </script>
 
