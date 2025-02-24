@@ -12,19 +12,20 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref, type Ref, watch} from "vue";
-import {useRoute, useRouter} from "vue-router";
-/********************************************************************************
- * 水平菜单
- *
- * @author Berlin
- ********************************************************************************/
-import useAppStore from "@/ploutos/layouts/store/app-store";
-import {LayoutMode, ThemeMode} from "@/ploutos/layouts/types";
-import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-import type {MenuOption} from "naive-ui";
+  import {computed, onMounted, ref, type Ref, watch} from "vue";
+  import {useRoute, useRouter} from "vue-router";
+  import {storeToRefs} from 'pinia';
+  /********************************************************************************
+   * 水平菜单
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import useAppStore from "@/ploutos/layouts/store/app-store";
+  import {LayoutMode, ThemeMode} from "@/ploutos/layouts/types";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import type {MenuOption} from "naive-ui";
 
-/**
+  /**
    * 全局应用状态
    */
   const appStore = useAppStore();
@@ -49,6 +50,11 @@ import type {MenuOption} from "naive-ui";
    * 一级菜单
    */
   const menus: Ref<MenuOption[]> = ref([]);
+
+  /**
+   * 布局模式
+   */
+  const { layoutMode } = storeToRefs(layoutStore);
 
   /**
    * 组件加载
@@ -129,7 +135,7 @@ import type {MenuOption} from "naive-ui";
    * 匹配子菜单(顶部+左侧菜单模式)
    */
   function matchChildMenus(key: string) {
-    const parentMenu = appStore.menus.find(i => i.key == key);
+    const parentMenu = appStore.expandMenus.find(i => i.key == key);
     let topLeftChildMenus = [];
 
     // 没有子菜单
@@ -179,11 +185,11 @@ import type {MenuOption} from "naive-ui";
   /**
    * 侦听布局编号
    */
-  layoutStore.$subscribe((mutation, state) => {
-    if (state.layoutMode == LayoutMode.TopLeft) {
+  watch(layoutMode, () => {
+    if (layoutMode == LayoutMode.TopLeft) {
       renderMenus();
     }
-  })
+  });
 </script>
 
 <style scoped lang="scss">
