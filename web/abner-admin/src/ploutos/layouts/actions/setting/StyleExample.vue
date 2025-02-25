@@ -137,7 +137,7 @@
       left: 5px;
       content: '';
       display: inline-block;
-      width: 10px;
+      width: 15px;
       height: 100%;
     }
   }
