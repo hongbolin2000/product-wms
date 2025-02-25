@@ -35,6 +35,11 @@ td .n-button + .n-button {
   margin-left: 10px;
 }
 
-.n-card {
-  border-radius: 10px;
+.main-section {
+  .n-card {
+    border-radius: 10px;
+  }
+  .n-card__content {
+    padding: 20px;
+  }
 }

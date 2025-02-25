@@ -37,7 +37,7 @@ public class MenuPage {
     /**
      * 缓存
      */
-    private Cache<String, List<MenuOption>> menuCaches = CacheUtil.newFIFOCache(1);
+    private final Cache<String, List<MenuOption>> menuCaches = CacheUtil.newFIFOCache(1);
 
     /**
      * 缓存的key

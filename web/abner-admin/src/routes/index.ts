@@ -98,6 +98,15 @@ const routes: RouteRecordRaw[] = [
       }
     ]
   }, {
+    path: '/list',
+    component: ThemeLayout,
+    children: [
+      {
+        path: "/list/sample",
+        component: () => import('@/ploutos/graces/grid-viewer/index.vue')
+      }
+    ]
+  }, {
     path:'/function',
     component: ThemeLayout
   }
