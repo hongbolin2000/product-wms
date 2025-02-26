@@ -16,7 +16,7 @@ public class AesUtil {
      * 生成密匙
      */
     public static void main(String[] args) {
-        AesManager.getInstance().generateKey();
+        AesManager.getInstance().generateKeyStore();
     }
 
     /**
