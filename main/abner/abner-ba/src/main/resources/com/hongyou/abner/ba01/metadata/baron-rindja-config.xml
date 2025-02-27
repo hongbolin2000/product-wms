@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+  <!-- 门店查询表格 -->
+  <generic-grider-descriptor name="storeGrider">store-grider.xml</generic-grider-descriptor>
+</baron-rindja-config>

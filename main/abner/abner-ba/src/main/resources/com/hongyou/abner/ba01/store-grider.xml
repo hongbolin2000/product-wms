@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Hong Bo Lin</name>
+    </developer>
+
+    <actions>
+        <action type="link" icon="add" label="新增" link="/add" permission="ba03" actions="新增"/>
+    </actions>
+
+    <columns>
+        <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" sortable="true" filterable="true"/>
+        <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" sortable="true" filterable="true"/>
+        <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" sortable="true" filterable="true"/>
+        <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" resizable="true" sortable="true" filterable="true"/>
+        <column type="label" name="provinceName" expr="prvcnm" width="120" title="@STREMS.PRVCNM" sortable="true" filterable="true"/>
+        <column type="label" name="cityName" expr="citynm" width="120" title="@STREMS.CITYNM" sortable="true" filterable="true"/>
+        <column type="label" name="storeAddress" expr="stread" width="150" title="@STREMS.STREAD" sortable="true" filterable="true"/>
+        <column type="label" name="businessStartTime" expr="bssttm" width="120" title="@STREMS.BSSTTM" sortable="true"
+                format="!HH:mm"/>
+        <column type="label" name="businessEndTime" expr="bsedtm" width="120" title="@STREMS.BSEDTM" sortable="true"
+                format="!HH:mm"/>
+        <column type="label" name="operatorBy" expr="oprtby" width="90" title="@AREAMS.OPRTBY" sortable="true"/>
+        <column type="label" name="operatorTime" expr="oprttm" width="120" title="@AREAMS.OPRTTM" sortable="true"
+                format="!yyyy-MM-dd HH:mm"/>
+    </columns>
+</rindja-generic-grider>

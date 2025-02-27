@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: classpath:/project.yml
   application.name: abner-main
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/test-store-wcs?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
@@ -7,3 +9,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 server:
   port: 8081
+
+baron:
+  debug: true

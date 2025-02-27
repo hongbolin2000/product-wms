@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.net.URL;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,8 +57,8 @@ public class MenuPage {
             }
 
             // 加载XML文件
-            URL resource = ResourceUtil.getResource("static/menus.xml");
-            Document document = XmlUtil.readXML(resource.getPath());
+            InputStream stream = ResourceUtil.getStream("static/menus.xml");
+            Document document = XmlUtil.readXML(stream);
 
             // 解析根节点
             Element root = XmlUtil.getRootElement(document);
@@ -94,7 +94,7 @@ public class MenuPage {
                 menuOption.children(this.loadMenu(childMenus, parentIcons));
             }
 
-            boolean fixed = XmlUtil.getBooleanAttribute(menu, "fixed");
+            boolean fixed = XmlUtil.getAttributeAsBool(menu, "fixed");
             menuOption.key(path).
                     label(label).
                     icons(icon).
