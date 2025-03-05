@@ -1,37 +1,46 @@
 <template>
   <n-config-provider :theme-overrides="themeOverrides" :theme="theme" style="height: 100%">
     <n-global-style/>
-    <n-scrollbar>
-      <n-el class="vaw-layout-container"
-            :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
-            :style="{backgroundColor: bgColor}"
-      >
-        <template v-if="layoutStore.layoutMode === LayoutMode.TopBottom || layoutStore.layoutMode === LayoutMode.TopLeft">
-          <SideBar v-if="layoutStore.layoutMode === LayoutMode.TopLeft"/>
-          <VawHeader/>
-        </template>
-        <template v-else-if="layoutStore.layoutMode === LayoutMode.LeftSplit">
-          <SplitSideBar/>
-        </template>
-        <template v-else>
-          <SideBar/>
-        </template>
+      <n-scrollbar>
+        <n-spin :show="layoutStore.loading">
+          <template #icon>
+            <n-icon>
+              <SettingsOutline />
+            </n-icon>
+          </template>
 
-        <MainLayout/>
+          <n-el class="vaw-layout-container"
+                :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
+                :style="{backgroundColor: bgColor}"
+          >
+            <template v-if="layoutStore.layoutMode === LayoutMode.TopBottom || layoutStore.layoutMode === LayoutMode.TopLeft">
+              <SideBar v-if="layoutStore.layoutMode === LayoutMode.TopLeft"/>
+              <VawHeader/>
+            </template>
+            <template v-else-if="layoutStore.layoutMode === LayoutMode.LeftSplit">
+              <SplitSideBar/>
+            </template>
+            <template v-else>
+              <SideBar/>
+            </template>
 
-        <div class="mobile-shadow" @click="closeMenu"
-             v-if="layoutStore.deviceType === 'mobile'"
-             :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
-        />
-      </n-el>
-      <n-back-top/>
-    </n-scrollbar>
+            <MainLayout/>
+
+            <div class="mobile-shadow" @click="closeMenu"
+                 v-if="layoutStore.deviceType === 'mobile'"
+                 :class="[layoutStore.isCollapse ? 'close-shadow' : 'show-shadow']"
+            />
+          </n-el>
+          <n-back-top/>
+        </n-spin>
+      </n-scrollbar>
   </n-config-provider>
 </template>
 
 <script setup lang="tsx">
   import {computed, type ComputedRef, onBeforeUnmount, onMounted} from "vue"
   import {darkTheme} from 'naive-ui'
+  import {SettingsOutline} from '@vicons/ionicons5';
   /********************************************************************************
    * 框架布局
    *

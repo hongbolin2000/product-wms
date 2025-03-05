@@ -14,13 +14,13 @@
   import {useRouter} from "vue-router";
   import {darkTheme} from 'naive-ui';
   import {computed, type ComputedRef} from "vue";
-  import {ThemeMode} from "@/ploutos/layouts/types.ts";
+  import {ThemeMode} from "@/ploutos/layouts/types";
   /********************************************************************************
    * 404页面
    *
    * @author Berlin
    ********************************************************************************/
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
 
   /**
    * 路由对象

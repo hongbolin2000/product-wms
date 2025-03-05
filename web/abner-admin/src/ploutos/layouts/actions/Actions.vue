@@ -28,20 +28,20 @@
 </template>
 
 <script setup lang="ts">
-import {Expand, RefreshOutline, SettingsOutline, SunnyOutline} from '@vicons/ionicons5'
-import {ref} from "vue"
-import {useRoute, useRouter} from 'vue-router'
-/********************************************************************************
- * 导航栏工具
- *
- * @author Berlin
- ********************************************************************************/
-import LayoutSetting from "@/ploutos/layouts/actions/setting/LayoutSetting.vue";
-import {screen} from "@/ploutos";
-import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
-import {ThemeMode} from "@/ploutos/layouts/types.ts";
+  import {Expand, RefreshOutline, SettingsOutline, SunnyOutline} from '@vicons/ionicons5'
+  import {ref} from "vue"
+  import {useRoute, useRouter} from 'vue-router'
+  /********************************************************************************
+   * 导航栏工具
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import LayoutSetting from "@/ploutos/layouts/actions/setting/LayoutSetting.vue";
+  import {screen} from "@/ploutos";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import {ThemeMode} from "@/ploutos/layouts/types";
 
-/**
+  /**
    * 路由对象
    */
   const router = useRouter();

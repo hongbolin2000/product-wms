@@ -15,17 +15,17 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
-/********************************************************************************
- * Logo布局
- *
- * @author Berlin
- ********************************************************************************/
-import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-import useAppStore from "@/ploutos/layouts/store/app-store";
-import {LayoutMode} from "@/ploutos/layouts/types.ts";
+  import {computed} from "vue";
+  /********************************************************************************
+   * Logo布局
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import useAppStore from "@/ploutos/layouts/store/app-store";
+  import {LayoutMode} from "@/ploutos/layouts/types";
 
-/**
+  /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();

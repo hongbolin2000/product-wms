@@ -57,24 +57,24 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-/********************************************************************************
- * 布局配置
- *
- * @author Berlin
- ********************************************************************************/
-import StyleExample from "./StyleExample.vue";
-import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-import {
-  layoutExampleList,
-  type LayoutSelectOption,
-  type LayoutStyleOption,
-  primaryColorList,
-  sideExampleList
-} from './LayoutSetting';
-import {LayoutMode} from "@/ploutos/layouts/types.ts";
+  import {onMounted, ref} from "vue";
+  /********************************************************************************
+   * 布局配置
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import StyleExample from "./StyleExample.vue";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import {
+    layoutExampleList,
+    type LayoutSelectOption,
+    type LayoutStyleOption,
+    primaryColorList,
+    sideExampleList
+  } from './LayoutSetting';
+  import {LayoutMode} from "@/ploutos/layouts/types";
 
-/**
+  /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();

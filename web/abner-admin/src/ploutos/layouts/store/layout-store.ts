@@ -32,6 +32,7 @@ const layoutStore: LayoutStoreOption = {
   deviceType: ref(DeviceType.PC),
   layoutMode: ref(LayoutMode.LeftRight),
   isCollapse: ref(true),
+  loading: false
 };
 
 /**
@@ -67,5 +68,10 @@ type LayoutStoreOption = {
   /**
    * 是否折叠菜单
    */
-  isCollapse: Ref<boolean>
+  isCollapse: Ref<boolean>,
+
+  /**
+   * loading
+   */
+  loading: boolean
 }

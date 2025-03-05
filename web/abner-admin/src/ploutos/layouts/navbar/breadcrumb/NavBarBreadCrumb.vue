@@ -32,7 +32,7 @@
    * @author Berlin
    ********************************************************************************/
   import useAppStore from "@/ploutos/layouts/store/app-store";
-  import type {MenuOption} from "@/ploutos/layouts/types.ts";
+  import type {MenuOption} from "@/ploutos/layouts/types";
   import {routerHelper} from "@/ploutos";;
 
   /**

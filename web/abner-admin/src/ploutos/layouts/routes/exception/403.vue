@@ -11,58 +11,58 @@
 </template>
 
 <script setup lang="ts">
-import {useRouter} from "vue-router";
-import {darkTheme} from 'naive-ui';
-import {computed, type ComputedRef} from "vue";
-import {ThemeMode} from "@/ploutos/layouts/types.ts";
-/********************************************************************************
- * 404页面
- *
- * @author Berlin
- ********************************************************************************/
-import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
+  import {useRouter} from "vue-router";
+  import {darkTheme} from 'naive-ui';
+  import {computed, type ComputedRef} from "vue";
+  import {ThemeMode} from "@/ploutos/layouts/types";
+  /********************************************************************************
+   * 404页面
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
 
-/**
- * 路由对象
- */
-const router = useRouter();
+  /**
+   * 路由对象
+   */
+  const router = useRouter();
 
-/**
- * 布局状态
- */
-const layoutStore = useLayoutStore();
+  /**
+   * 布局状态
+   */
+  const layoutStore = useLayoutStore();
 
-/**
- * 主题
- */
-const theme: ComputedRef = computed(() => {
-  return layoutStore.theme == ThemeMode.DARK ? darkTheme : null
-});
+  /**
+   * 主题
+   */
+  const theme: ComputedRef = computed(() => {
+    return layoutStore.theme == ThemeMode.DARK ? darkTheme : null
+  });
 
-/**
- * 背景色
- */
-const bgColor = computed(() => {
-  if (layoutStore.theme === ThemeMode.LIGHT) {
-    return '#f0f2f5';
-  } else {
-    return '#101014FF';
+  /**
+   * 背景色
+   */
+  const bgColor = computed(() => {
+    if (layoutStore.theme === ThemeMode.LIGHT) {
+      return '#f0f2f5';
+    } else {
+      return '#101014FF';
+    }
+  });
+
+  /**
+   * 回到上一页
+   */
+  function back() {
+    router.go(-1);
   }
-});
-
-/**
- * 回到上一页
- */
-function back() {
-  router.go(-1);
-}
 </script>
 
-<style lang="scss">
-.exception-wrapper {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  <style lang="scss">
+  .exception-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>

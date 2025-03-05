@@ -32,7 +32,7 @@
   import Avatar from "@/ploutos/layouts/avatar/Avatar.vue";
   import HorizontalMenu from "@/ploutos/layouts/menus/HorizontalMenu.vue";
   import {computed} from "vue";
-  import {DeviceType, LayoutMode, ThemeMode} from "@/ploutos/layouts/types.ts";
+  import {DeviceType, LayoutMode, ThemeMode} from "@/ploutos/layouts/types";
   import NavBarHumburger from "@/ploutos/layouts/navbar/humburger/NavBarHumburger.vue";
 
   /**
@@ -55,6 +55,7 @@
     left: 0;
     right: 0;
     display: flex;
+    z-index: 1;
     align-items: center;
     animation: vaw-header-show 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     .logo-wrapper-open {

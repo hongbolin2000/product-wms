@@ -29,7 +29,7 @@ import {computed, onMounted, type Ref, ref, watch} from "vue";
   import Logo from '@/ploutos/layouts/logo/Logo.vue'
   import ScrollerMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
+  import useAppStore from "@/ploutos/layouts/store/app-store";
 
   /**
    * 布局状态
