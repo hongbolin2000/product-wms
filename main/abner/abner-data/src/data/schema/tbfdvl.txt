@@ -9,6 +9,8 @@ Y	TableFieldValue
 N	TFVLID,		ID,			NOT NULL, 		,						id,				ID,						主键
 *****************************************************************************************************************************************************
 N	TFDSID,		BIGINT,		NOT NULL, 		,						fieldId,		Field,				    表字段
+K   TBFDDS                  - FLDNAM, LANGUG
+K   TBFDDS:TBDFMS           - TBLNAM
 *****************************************************************************************************************************************************
 N	VALCDE,		VC(32),		NOT NULL,		'',						valueCode,		Value Code,				字典代码
 N	VALUE,		VC(32),		NOT NULL,		'',						value,		    Value,			        字典值

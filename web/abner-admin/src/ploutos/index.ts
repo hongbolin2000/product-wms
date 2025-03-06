@@ -30,6 +30,28 @@ import http from '@/ploutos/layouts/axios/http';
  */
 const ThemeLayout = import('@/ploutos/layouts/ThemeLayout.vue')
 
+/**
+ * 通用界面
+ */
+import Graces from '@/ploutos/graces/ag01/index';
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+
+/**
+ * 加载控件
+ */
+function loading(value: boolean) {
+  const layoutStore = useLayoutStore();
+  layoutStore.loading = value;
+}
+
 export {
-  routerHelper, layoutHelper, message, dialog, screen, http, ThemeLayout
+  routerHelper,
+  layoutHelper,
+  message,
+  dialog,
+  screen,
+  http,
+  ThemeLayout,
+  Graces,
+  loading,
 };

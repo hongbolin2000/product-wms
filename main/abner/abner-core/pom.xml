@@ -24,5 +24,11 @@
             <artifactId>baron-rindja</artifactId>
             <version>${hongyou.baron.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.hongyou</groupId>
+            <artifactId>abner-data</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

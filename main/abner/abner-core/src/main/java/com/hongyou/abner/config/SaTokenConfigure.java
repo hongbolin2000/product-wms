@@ -4,14 +4,12 @@
 package com.hongyou.abner.config;
 
 import cn.dev33.satoken.config.SaTokenConfig;
-import cn.dev33.satoken.context.SaHolder;
-import cn.dev33.satoken.context.model.SaResponse;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.stp.StpUtil;
+import com.hongyou.baron.exceptions.NotAuthorizedException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -66,7 +64,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
             try {
                 StpUtil.checkLogin();
             } catch (Exception e) {
-                SaHolder.getResponse().setStatus(HttpStatus.UNAUTHORIZED.value());
+                throw new NotAuthorizedException("用户未登录认证");
             }
         }));
         interceptor.addPathPatterns("/**");

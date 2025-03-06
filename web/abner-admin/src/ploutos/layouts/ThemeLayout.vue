@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme-overrides="themeOverrides" :theme="theme" style="height: 100%">
+  <n-config-provider :theme-overrides="themeOverrides" :theme="theme" :locale="zhCN" style="height: 100%">
     <n-global-style/>
       <n-scrollbar>
         <n-spin :show="layoutStore.loading">
@@ -39,7 +39,7 @@
 
 <script setup lang="tsx">
   import {computed, type ComputedRef, onBeforeUnmount, onMounted} from "vue"
-  import {darkTheme} from 'naive-ui'
+  import {darkTheme, zhCN} from 'naive-ui'
   import {SettingsOutline} from '@vicons/ionicons5';
   /********************************************************************************
    * 框架布局

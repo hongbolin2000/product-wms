@@ -12,7 +12,7 @@
     "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "strict": true,
+    "strict": false,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
@@ -33,6 +33,7 @@
     }
   },
   "include": [
+    "env.d.ts",
     "src/**/*",
   ],
   "exclude": ["dist", "node_modules"]

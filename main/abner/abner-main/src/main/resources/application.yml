@@ -3,10 +3,22 @@ spring:
     import: classpath:/project.yml
   application.name: abner-main
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test-store-wcs?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/test-berlin?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: 1234qwer
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      timeout: 10s
+      lettuce:
+        pool:
+          max-active: 200
+          max-wait: -1ms
+          max-idle: 10
+          min-idle: 0
 server:
   port: 8081
 

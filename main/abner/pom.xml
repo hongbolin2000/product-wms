@@ -47,9 +47,6 @@
 
         <!-- Maven Plugin -->
         <maven.compiler-plugin>3.13.0</maven.compiler-plugin>
-
-        <!-- Sa-Token -->
-        <satoken.version>1.39.0</satoken.version>
     </properties>
 
     <build>
@@ -105,12 +102,6 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-spring-boot3-starter</artifactId>
-            <version>${satoken.version}</version>
         </dependency>
     </dependencies>
 
