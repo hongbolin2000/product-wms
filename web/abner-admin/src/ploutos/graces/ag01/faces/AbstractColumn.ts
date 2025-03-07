@@ -7,6 +7,7 @@
  * @author Berlin
  *******************************************************************************/
 import AbstractComponent from "@/ploutos/graces/ag01/faces/AbstractComponent";
+import ValueModel from "@/ploutos/graces/ag01/faces/ValueModel";
 
 export default class AbstractColumn extends AbstractComponent{
 
@@ -19,6 +20,16 @@ export default class AbstractColumn extends AbstractComponent{
 	 * 列宽度
 	 */
 	width: number;
+
+	/**
+	 * 过滤器
+	 */
+	filter: string;
+
+	/**
+	 * 过滤选项
+	 */
+	filterOptions: ValueModel[]
 
 	/**
 	 * 当前行数据

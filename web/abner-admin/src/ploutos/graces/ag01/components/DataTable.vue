@@ -135,7 +135,7 @@ import LabelColumnFactory from "@/ploutos/graces/ag01/faces/columns/LabelColumnF
     const columns: TableBaseColumn[] = [];
 
     // 生成表格列
-    datatable.columns.forEach(item => {
+    datatable.columns.filter(i => !i.hidden).forEach(item => {
       const column: TableBaseColumn = <TableBaseColumn>{};
       column.key = item.name;
       column.sorter = true;
@@ -156,8 +156,12 @@ import LabelColumnFactory from "@/ploutos/graces/ag01/faces/columns/LabelColumnF
       }
 
       // 渲染表格标题
-      column.title = () => {
-        return h(HeaderColumn, {column: item})
+      if (item.filter) {
+        column.title = () => {
+          return h(HeaderColumn, {column: item})
+        }
+      } else {
+        column.title = item.title;
       }
 
       // 表格排序
@@ -167,7 +171,6 @@ import LabelColumnFactory from "@/ploutos/graces/ag01/faces/columns/LabelColumnF
 
       // 渲染表格数据列
       if (item.type != LabelColumnFactory.TYPE) {
-        debugger
         column.render = (rowData, rowIndex) => renderColumn(rowData, rowIndex, {...item});
       }
       columns.push(column);

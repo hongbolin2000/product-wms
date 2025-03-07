@@ -2,7 +2,10 @@
   <div>
     <n-card v-if="grider.datatable">
       <n-space :size="10" style="margin-bottom: 10px;">
-        <component v-for="action of grider.actions" :is="ActionFactories.getInstance().create(action)"/>
+        <component
+            v-for="action of grider.actions.filter(i => !i.hidden)"
+            :is="ActionFactories.getInstance().create(action)"
+        />
       </n-space>
 
       <DataTable
