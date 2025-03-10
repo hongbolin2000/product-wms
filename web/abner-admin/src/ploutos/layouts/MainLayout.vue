@@ -1,6 +1,6 @@
 <template>
   <div class="vaw-main-layout-container" :class="layoutContainerClass">
-    <section :class="layoutTopClass" :style="{backgroundColor: bgColor, top: paddingTop}">
+    <section :class="layoutTopClass" :style="{backgroundColor: layoutStore.themeBgColor, top: paddingTop}">
       <NavBar v-if="showNavBar"/>
       <TabBar/>
     </section>
@@ -118,17 +118,6 @@
   });
 
   /**
-   * 主内容背景色
-   */
-  const bgColor = computed(() => {
-    if (layoutStore.theme === ThemeMode.LIGHT) {
-      return '#f0f2f5';
-    } else {
-      return '#101014FF';
-    }
-  });
-
-  /**
    * 是否显示导航栏
    */
   const showNavBar = computed(() => {
@@ -209,7 +198,7 @@
   }
   // 固定顶部导航栏
   .main-layout_fixed-nav-bar {
-    padding-top: $logoHeight + $tabHeight;
+    padding-top: calc($logoHeight + $tabHeight);
   }
 
   // 上下布局
@@ -230,7 +219,7 @@
   }
   // 分栏布局关闭菜单
   .nav-bar-lcr-close-status.fixed-nav-bar {
-    width: calc(100% - #{$minMenuWidth + $tabSplitMenuWidth});
+    width: calc(100% - (#{$minMenuWidth} + #{$tabSplitMenuWidth}));
   }
   // 固定导航栏
   .vaw-main-layout-container {
@@ -244,7 +233,7 @@
   .vaw-main-layout-container {
     transition: margin-left $transitionTime;
     .main-section {
-      padding: 0 10px;
+      padding: 0 10px 10px 10px;
     }
   }
 

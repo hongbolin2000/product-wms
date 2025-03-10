@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :theme="theme" style="height: 100%" :style="{backgroundColor: bgColor}">
+  <n-config-provider :theme="theme" style="height: 100%" :style="{backgroundColor: layoutStore.themeBgColor}">
     <div class="exception-wrapper">
       <n-result status="403" title="您没有权限访问该页面~" description="有疑问请尽快联系管理员哦~">
         <template #footer>
@@ -37,17 +37,6 @@
    */
   const theme: ComputedRef = computed(() => {
     return layoutStore.theme == ThemeMode.DARK ? darkTheme : null
-  });
-
-  /**
-   * 背景色
-   */
-  const bgColor = computed(() => {
-    if (layoutStore.theme === ThemeMode.LIGHT) {
-      return '#f0f2f5';
-    } else {
-      return '#101014FF';
-    }
   });
 
   /**

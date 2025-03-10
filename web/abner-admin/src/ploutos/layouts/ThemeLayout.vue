@@ -11,7 +11,7 @@
 
           <n-el class="vaw-layout-container"
                 :class="[layoutStore.deviceType === 'mobile' && 'is-mobile']"
-                :style="{backgroundColor: bgColor}"
+                :style="{backgroundColor: layoutStore.themeBgColor}"
           >
             <template v-if="layoutStore.layoutMode === LayoutMode.TopBottom || layoutStore.layoutMode === LayoutMode.TopLeft">
               <SideBar v-if="layoutStore.layoutMode === LayoutMode.TopLeft"/>
@@ -81,17 +81,6 @@
    */
   const theme: ComputedRef = computed(() => {
     return layoutStore.theme == ThemeMode.DARK ? darkTheme : null
-  });
-
-  /**
-   * 主布局背景色
-   */
-  const bgColor = computed(() => {
-    if (layoutStore.theme === ThemeMode.LIGHT) {
-      return '#f0f2f5';
-    } else {
-      return '#101014FF';
-    }
   });
 
   /**

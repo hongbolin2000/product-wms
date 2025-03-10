@@ -1,5 +1,5 @@
 <template>
-  <n-drawer v-model:show="opened" :width="350">
+  <n-drawer v-model:show="opened" :width="400">
     <n-drawer-content title="布局设置" closable class="wrapper" :native-scrollbar="false">
       <n-divider dashed>菜单栏</n-divider>
       <n-grid>

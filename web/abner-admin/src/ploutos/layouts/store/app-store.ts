@@ -3,6 +3,7 @@
  */
 import {defineStore} from "pinia";
 import {ref, type Ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 /********************************************************************************
  * APP全局应用状态
  *
@@ -30,6 +31,10 @@ const useAppStore = defineStore('appStore', () => {
     }),
     visitedMenus: ref([])
   }
+
+  // 路由对象
+  const route = useRoute();
+  const router = useRouter();
 
   /**
    * 设置菜单
@@ -91,13 +96,38 @@ const useAppStore = defineStore('appStore', () => {
   }
 
   /**
+   * 关闭当前页面
+   */
+  async function closeCurrentTab() {
+    // 移除当前选项卡并跳转到最后一个选项卡
+    store.visitedMenus.value.splice(getCurrentTabIndex(), 1);
+    await router.push({
+      path: store.visitedMenus.value[store.visitedMenus.value.length -1].key
+    });
+  }
+
+  /**
+   * 更改选项卡title
+   */
+  function changeTabTitle(title: string) {
+    store.visitedMenus.value[getCurrentTabIndex()].label = title;
+  }
+
+  /**
+   * 获取当前选型卡索引
+   */
+  function getCurrentTabIndex() {
+    return store.visitedMenus.value.findIndex(i => i.key == route.path);
+  }
+
+  /**
    * 设置网站信息
    */
   function configWebsite(websiteOption: WebsiteOption) {
     store.websiteOption.value = websiteOption;
   }
 
-  return { ...store, configMenu, configWebsite }
+  return { ...store, configMenu, configWebsite, closeCurrentTab, changeTabTitle }
 }, {
   persist: {
     pick: ['visitedMenus']

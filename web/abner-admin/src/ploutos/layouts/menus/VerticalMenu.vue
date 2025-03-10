@@ -31,6 +31,7 @@
    ********************************************************************************/
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import {DeviceType, LayoutMode, MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
 
   /**
    * 父组件传入的属性
@@ -50,6 +51,7 @@
    * 布局状态
    */
   const layoutStore = useLayoutStore();
+  const appStore = useAppStore();
 
   /**
    * 当前路由
@@ -188,7 +190,9 @@
    * 监听路由变化
    */
   watch(() => currentRoute.path, (value) => {
-    currentPath.value = value.split("?")[0];
+    if (appStore.expandMenus.find(i => i.key == value)?.label) {
+      currentPath.value = value;
+    }
   });
 </script>
 

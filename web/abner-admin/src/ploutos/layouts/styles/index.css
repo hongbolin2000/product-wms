@@ -8,7 +8,12 @@
  *******************************************************************************/
 :root {
   --menu-width: 200px;
+  --min-menu-width: 65px;
   --tab-menu-width: 245px;
+  --tab-split-menu-width: 65px;
+  --logo-height: 65px;
+  --tab-height: 45px;
+  --bottom-option-height: 110px;
 }
 html,
 body,
@@ -27,6 +32,17 @@ body,
   segoe ui emoji,
   segoe ui symbol,
   noto color emoji;
+
+  .n-card {
+    border-radius: 10px;
+  }
+  .n-card__content {
+    padding: 20px;
+  }
+  .n-card-header {
+    padding: 10px 10px 10px 20px;
+    font-size: 16px;
+  }
 }
 * {
   box-sizing: border-box;
@@ -34,13 +50,4 @@ body,
 
 td .n-button + .n-button {
   margin-left: 10px;
-}
-
-.main-section {
-  .n-card {
-    border-radius: 10px;
-  }
-  .n-card__content {
-    padding: 20px;
-  }
 }

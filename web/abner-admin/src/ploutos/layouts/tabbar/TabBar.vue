@@ -180,11 +180,11 @@
       }
       clearInterval(interval);
 
-      // 计算右键菜单选项
-      getContextMenuOptions(false);
-
       // 将当前选项卡加入路由（用于第一次登录系统或者浏览器手动输入地址）
       addVisitedRouter({...route});
+
+      // 计算右键菜单选项
+      getContextMenuOptions(false);
 
       // 滚动条溢出时滚动到当前选项卡
       // 由于选项卡加载时使用了动画（动画时长1s）导致元素位置不准确，所以做延时滚动
@@ -208,11 +208,19 @@
     if (appStore.visitedMenus.findIndex(i => i.key == to.path) != -1) {
       return;
     }
-    const menu = appStore.expandMenus.findLast(i => i.key == to.path);
+
+    let menu = appStore.expandMenus.findLast(i => i.key == to.path);
+    if (!menu) {
+      menu = {
+        key: to.path,
+      }
+      appStore.expandMenus.push(menu);
+    }
+
     if (!menu.icons) {
       menu.icons = menu.parentIcon;
     }
-    appStore.visitedMenus.push(menu as MenuOption);
+    appStore.visitedMenus.push({...menu} as MenuOption);
   }
 
   /********************************************************************************

@@ -17,7 +17,7 @@ const useLayoutStore = defineStore('layoutStore', () => {
   return { ...layoutStore }
 }, {
   persist: {
-    pick: ['theme', 'themeColor', 'sideTheme', 'layoutMode']
+    pick: ['theme', 'themeColor', 'themeBgColor', 'sideTheme', 'layoutMode']
   },
 });
 export default useLayoutStore;
@@ -28,6 +28,7 @@ export default useLayoutStore;
 const layoutStore: LayoutStoreOption = {
   theme: ref(ThemeMode.LIGHT),
   themeColor: ref('#18a058'),
+  themeBgColor: ref('#f0f2f5'),
   sideTheme: ref(SideTheme.WHITE),
   deviceType: ref(DeviceType.PC),
   layoutMode: ref(LayoutMode.LeftRight),
@@ -49,6 +50,11 @@ type LayoutStoreOption = {
    * 主题颜色
    */
   themeColor: Ref<string>,
+
+  /**
+   * 主题背景色
+   */
+  themeBgColor: Ref<string>,
 
   /**
    * 菜单栏主题

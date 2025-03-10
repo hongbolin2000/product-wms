@@ -4,7 +4,8 @@
       <Logo v-if="layoutStore.layoutMode == LayoutMode.TopBottom"/>
     </div>
 
-    <NavBarHumburger style="margin: 0"/>
+    <NavBarHumburger style="margin: 0" v-if="layoutStore.layoutMode == LayoutMode.TopBottom"/>
+    <NavBarHumburger v-if="layoutStore.layoutMode == LayoutMode.TopLeft"/>
 
     <div style="flex: 1; overflow: hidden;">
       <HorizontalMenu/>

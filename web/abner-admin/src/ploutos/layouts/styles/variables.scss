@@ -7,9 +7,9 @@
  * @author Berlin
  *******************************************************************************/
 $menuWidth: var(--menu-width); // 左右布局菜单宽度
-$minMenuWidth: 65px; // 折叠菜单最小宽度
-$tabSplitMenuWidth: 65px; // 分栏一级菜单宽度
+$minMenuWidth: var(--min-menu-width); // 折叠菜单最小宽度
+$tabSplitMenuWidth: var(--tab-split-menu-width); // 分栏一级菜单宽度
 $tabMenuWidth: var(--tab-menu-width); // 分栏菜单总宽度
-$logoHeight: 65px; // logo高度
+$logoHeight: var(--logo-height); // logo高度
 $transitionTime: 0.3s ease; // 过渡时间
-$tabHeight: 45px; // 路由选项卡宽度
+$tabHeight: var(--tab-height); // 路由选项卡宽度

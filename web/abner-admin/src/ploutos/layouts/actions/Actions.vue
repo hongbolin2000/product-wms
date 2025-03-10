@@ -81,8 +81,10 @@
   function onSwitchTheme() {
     if (layoutStore.theme == ThemeMode.DARK) {
       layoutStore.theme = ThemeMode.LIGHT;
+      layoutStore.themeBgColor = '#f0f2f5';
     } else {
       layoutStore.theme = ThemeMode.DARK;
+      layoutStore.themeBgColor = '#101014FF';
     }
   }
 

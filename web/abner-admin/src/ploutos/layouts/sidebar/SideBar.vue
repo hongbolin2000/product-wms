@@ -2,8 +2,8 @@
   <n-config-provider :theme="theme">
     <n-card
       class="vaw-side-bar-wrapper"
-      :bordered="false"
       :content-style="{ padding: 0 }"
+      style="border-radius: 0;"
       :class="[
         layoutStore.isCollapse ? 'close-status' : 'open-status',
         layoutStore.sideTheme == SideTheme.IMAGE ? 'sidebar-bg-img' : '',

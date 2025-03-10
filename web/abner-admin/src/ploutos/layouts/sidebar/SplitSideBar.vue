@@ -1,9 +1,9 @@
 <template>
   <n-config-provider :theme-overrides="themeOverThemes" :theme="theme">
     <n-card
-      :bordered="false"
       class="vaw-tab-split-side-bar-wrapper"
       :content-style="{ padding: 0 }"
+      style="border-radius: 0;"
       :class="[
         layoutStore.isCollapse ? 'close-status' : 'open-status',
         layoutStore.sideTheme == SideTheme.IMAGE ? 'sidebar-bg-img' : '',
@@ -249,7 +249,7 @@
         }
         .label-item-wrapper {
           position: relative;
-          min-height: $logoHeight * 1.2;
+          min-height: calc($logoHeight * 1.2);
           display: flex;
           flex-direction: column;
           align-items: center;
