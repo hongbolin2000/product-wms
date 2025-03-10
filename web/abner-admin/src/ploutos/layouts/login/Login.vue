@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
   import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
-  import {useMessage, useLoadingBar} from 'naive-ui'
+  import {useLoadingBar} from 'naive-ui'
   import {useRouter} from 'vue-router'
   /********************************************************************************
    * 登录界面
@@ -88,9 +88,9 @@
   import useUserStore from "@/ploutos/layouts/store/user-store";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import {CryptoHelper} from "@/ploutos/layouts/helps/crypto-helper";
-  import http from '@/ploutos/layouts/axios/http';
   import {TOKEN_NAME} from "@/ploutos/layouts/types";
   import type {MessageReactive} from "naive-ui/es/message/src/MessageProvider";
+  import {http, message} from '@/ploutos/index';
 
   /**
    * 全局应用状态
@@ -130,7 +130,6 @@
   /**
    * 提示消息
    */
-  const message = useMessage();
   const loadingBar = useLoadingBar();
 
   /**

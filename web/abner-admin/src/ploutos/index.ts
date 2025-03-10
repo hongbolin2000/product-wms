@@ -16,6 +16,7 @@ import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
 /**
  * 反馈组件
  */
+import notification from "@/ploutos/layouts/feedback/notification";
 import message from "@/ploutos/layouts/feedback/message";
 import dialog from "@/ploutos/layouts/feedback/dialog";
 import screen from "@/ploutos/layouts/feedback/screen";
@@ -47,6 +48,7 @@ function loading(value: boolean) {
 export {
   routerHelper,
   layoutHelper,
+  notification,
   message,
   dialog,
   screen,

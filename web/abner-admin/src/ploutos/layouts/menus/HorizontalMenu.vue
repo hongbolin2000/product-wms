@@ -179,6 +179,10 @@
    * 监听路由变化
    */
   watch(() => route.path, (value) => {
+    if (!appStore.expandMenus.find(i => i.key == value)?.label) {
+      return;
+    }
+
     // 顶部+左侧菜单模式
     if (layoutStore.layoutMode == LayoutMode.TopLeft) {
       currentPath.value = "/" + route.path.split("/")[1];

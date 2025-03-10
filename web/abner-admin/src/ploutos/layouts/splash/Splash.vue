@@ -12,7 +12,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {http, message, dialog} from "@/ploutos";
+  import {http, notification, dialog, message} from "@/ploutos";
 
   /**
    * 路由
@@ -30,8 +30,9 @@
     });
 
     // 初始化通知消息组件
-    message.init();
+    notification.init();
     dialog.init();
+    message.init();
 
     // 检查用户是否已登录
     const response = await http.post("/auth/isLogin");

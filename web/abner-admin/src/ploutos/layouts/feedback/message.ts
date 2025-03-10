@@ -1,39 +1,40 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-import type {NotificationApiInjection} from "naive-ui/es/notification/src/NotificationProvider";
-import {useNotification} from "naive-ui";
+import {useMessage} from "naive-ui";
+import type {MessageApiInjection} from "naive-ui/es/message/src/MessageProvider";
+import type {MessageOptions} from "naive-ui/es/message/src/types";
 /********************************************************************************
- * 通知消息组件
+ * 提示信息组件
  *
  * @author Berlin
  *******************************************************************************/
 namespace Message {
 
   /**
-   * 引入通知消息组件
+   * 引入提示信息组件
    */
-  let notification: NotificationApiInjection;
+  let message: MessageApiInjection;
 
   /**
-   * 警告消息
+   * 加载信息
    */
-  export function warning(content: string) {
-    notification.warning({ title: content, duration: 3000 });
+  export function loading(content: string, options?: MessageOptions) {
+    return message.loading(content, options);
   }
 
   /**
-   * 异常消息
+   * 成功信息
    */
-  export function error(content: string) {
-    notification.error({ title: content, duration: 3000 });
+  export function success(content: string, options?: MessageOptions) {
+    return message.success(content, options);
   }
 
   /**
-   * 初始化通知消息组件
+   * 初始化提示信息组件
    */
   export function init() {
-    notification = useNotification();
+    message = useMessage();
   }
 }
 export default Message;

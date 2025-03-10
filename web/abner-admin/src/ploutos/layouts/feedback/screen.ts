@@ -7,7 +7,7 @@ import screenfull from 'screenfull'
  *
  * @author Berlin
  *******************************************************************************/
-import {message} from "@/ploutos";
+import {notification} from "@/ploutos";
 namespace Screen {
 
   /**
@@ -47,7 +47,7 @@ namespace Screen {
    */
   function enabled(): boolean {
     if (!screenfull.isEnabled) {
-      message.error('当前浏览器不支持全屏操作')
+      notification.error('当前浏览器不支持全屏操作')
       return false
     }
     return true;

@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
   import { h } from 'vue'
-  import {NIcon, useLoadingBar, useMessage} from 'naive-ui'
+  import {NIcon, useLoadingBar} from 'naive-ui'
   import { Menu, LogInOutline, CaretDownSharp } from '@vicons/ionicons5'
   import {useRouter} from "vue-router";
   /********************************************************************************
@@ -26,7 +26,7 @@
    * @author Berlin
    ********************************************************************************/
   import Avatar from './avatar.gif';
-  import {http, dialog} from "@/ploutos";
+  import {http, dialog, message} from "@/ploutos";
   import {TOKEN_NAME} from '@/ploutos/layouts/types';
   import useUserStore from "@/ploutos/layouts/store/user-store";
 
@@ -34,7 +34,6 @@
    * 加载控件
    */
   const loadingBar = useLoadingBar();
-  const message = useMessage();
 
   /**
    * 路由

@@ -7,7 +7,7 @@
  * @author Berlin
  *******************************************************************************/
 import type {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from "axios";
-import {message, dialog} from "@/ploutos";
+import {notification, dialog} from "@/ploutos";
 import {TOKEN_NAME} from '@/ploutos/layouts/types';
 import {useRouter} from "vue-router";
 
@@ -38,7 +38,7 @@ export function useResponseInterceptor(client: AxiosInstance) {
 
     // 检查是否有code字段，不为200则提示报错
     if (response.data.code && response.data.code != 200) {
-      message.warning(response.data.message);
+      notification.warning(response.data.message);
       return Promise.reject(response);
     }
     return response;
@@ -46,13 +46,13 @@ export function useResponseInterceptor(client: AxiosInstance) {
 
     // 服务器无法连接
     if (error.code == "ERR_NETWORK") {
-      message.error('服务器无响应');
+      notification.error('服务器无响应');
       return Promise.reject(error);
     }
 
     // 服务器请求超时
     if (error.code == "ECONNABORTED") {
-      message.error('服务器请求超时');
+      notification.error('服务器请求超时');
       return Promise.reject(error);
     }
 
@@ -76,16 +76,16 @@ export function useResponseInterceptor(client: AxiosInstance) {
 
     // 404
     if (error.response.status == 404) {
-      message.error('请求路径不正确');
+      notification.error('请求路径不正确');
       return Promise.reject(error);
     }
 
     // 500
     if (error.response.status === 500) {
       if (error.response.data) {
-        message.error(error.response.data.toString());
+        notification.error(error.response.data.toString());
       } else {
-        message.error('服务器出错了');
+        notification.error('服务器出错了');
       }
       return Promise.reject(error);
     }
