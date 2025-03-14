@@ -1,12 +1,12 @@
 <template>
-    <span>{{column.rowData[column.name]}}</span>
+  <n-input v-model:value="widget.rowData[widget.name]" :placeholder="'输入' + widget.title" :disabled="widget.disabled"/>
 </template>
 
 <script setup lang="ts">
   import type { PropType } from 'vue'
-  import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
+  import type AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
   /********************************************************************************
-   * 标签列
+   * 文本输入控件
    *
    * @author Berlin
    ********************************************************************************/
@@ -15,8 +15,8 @@
    * 父组件传入的属性
    */
   defineProps({
-    column: {
-      type: Object as PropType<AbstractColumn>,
+    widget: {
+      type: Object as PropType<AbstractWidget>,
       required: true
     }
   });

@@ -73,6 +73,29 @@
     }
     return {
       common: common,
+      Button: {
+        textColorPrimary: 'white', // 按钮文字颜色
+        textColorHoverPrimary: 'white', // 鼠标经过按钮文字颜色
+        textColorPressedPrimary: 'white', // 鼠标按下按钮文字颜色
+        colorPressedPrimary: layoutStore.themeColor, // 鼠标按下按钮背景颜色
+        borderPressedPrimary: layoutStore.themeColor, // 鼠标按下边框颜色
+        textColorFocusPrimary: 'white', // 按钮聚焦文字颜色
+
+        textColorTextPressed: layoutStore.themeColor, // 鼠标按下按钮文字颜色（文本按钮）
+        textColorTextPressedPrimary: layoutStore.themeColor, // 鼠标按下按钮文字颜色（文本Primary按钮）
+      },
+      Card: {
+        borderRadius: '10px', // 边框圆角
+        paddingMedium: '20px', // 内容边距
+        titleFontSizeMedium: '16px', // 标题字体大小
+      },
+      Tabs: {
+        panePaddingMedium: '20px 0px 0px 0px'
+      },
+      Scrollbar: {
+        height: '7px',
+        width: '7px'
+      }
     }
   });
 

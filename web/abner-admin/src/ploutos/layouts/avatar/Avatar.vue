@@ -80,7 +80,6 @@
    */
   function logout() {
     dialog.warning({
-      title: '提示',
       content: '是否要退出当前账号？',
       confirmText: '退出',
       cancelText: '再想想',

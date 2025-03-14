@@ -31,6 +31,15 @@ namespace Message {
   }
 
   /**
+   * 错误信息
+   */
+  export function error(content: string, options?: MessageOptions) {
+    return message.error(content, options);
+  }
+
+  /**
+
+  /**
    * 初始化提示信息组件
    */
   export function init() {

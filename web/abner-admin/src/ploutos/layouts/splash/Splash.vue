@@ -39,9 +39,8 @@
     if (!response.data.login) {
       if (response.data.frozen) {
         dialog.warning({
-          title: '提示',
           content: '长时间未操作系统，需重新登录！',
-          confirmText: '确认',
+          noCancel: true,
           onConfirmClick: () => {
             router.replace("/login");
           }
@@ -57,7 +56,11 @@
     // 跳转页面
     setTimeout(() => {
       const redirect: string[] = route.query.redirect!.toString().split("redirect=");
-      router.replace(redirect[redirect.length - 1]);
+      let path = redirect[redirect.length - 1];
+      if (path.indexOf('login') != -1) {
+        path = "/";
+      }
+      router.replace(path);
     }, 1000);
   });
 </script>

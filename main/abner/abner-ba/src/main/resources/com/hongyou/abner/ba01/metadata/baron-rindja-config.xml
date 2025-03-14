@@ -3,4 +3,7 @@
 
   <!-- 门店查询表格 -->
   <generic-grider-descriptor name="storeGrider">store-grider.xml</generic-grider-descriptor>
+
+  <!-- 门店编辑 -->
+  <generic-editor-descriptor name="storeEditor">store-editor.xml</generic-editor-descriptor>
 </baron-rindja-config>

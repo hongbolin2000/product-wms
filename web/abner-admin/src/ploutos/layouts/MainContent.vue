@@ -1,6 +1,6 @@
 <template>
   <router-view v-slot="{ Component, route }">
-    <transition :name="'opacity-transform'" mode="out-in" appear>
+    <transition name="opacity-transform" mode="out-in" appear>
       <keep-alive :include="cacheComponentNames">
         <component :is="Component" :key="route.path" />
       </keep-alive>
@@ -33,15 +33,30 @@
    */
   const cacheComponentNames = ref([]);
 
+  /**
+   * 监听选项卡变化
+   */
   appStore.$subscribe((mutation, state) => {
     const cacheNames = [];
 
     // 从路由选项卡中获取组件名
-    appStore.visitedMenus.forEach(menu => {
-      const route = router.getRoutes().find(i => i.path == menu.key);
-      cacheNames.push(route!.components!.default['name']);
-    });
+    appStore.visitedMenus.forEach(async (menu) => {
+      let route: any = router.getRoutes().find(i => i.path == menu.key);
 
+      // 手动匹配路由（主要是带参数的路由）
+      if (route == undefined) {
+        const resolved = router.resolve(menu.key);
+        route = resolved.matched[resolved.matched.length - 1];
+      }
+
+      // 路由组件未加载时进行加载
+      if (typeof(route?.components!.default) == 'function') {
+        const components = await route?.components.default();
+        cacheNames.push(components.default.name);
+      } else {
+        cacheNames.push(route!.components!.default.name);
+      }
+    });
     cacheComponentNames.value = cacheNames;
   });
 </script>

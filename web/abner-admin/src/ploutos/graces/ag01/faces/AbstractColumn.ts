@@ -8,13 +8,9 @@
  *******************************************************************************/
 import AbstractComponent from "@/ploutos/graces/ag01/faces/AbstractComponent";
 import ValueModel from "@/ploutos/graces/ag01/faces/ValueModel";
+import type {Ref} from "vue";
 
-export default class AbstractColumn extends AbstractComponent{
-
-	/**
-	 * 列标题
-	 */
-	title: string;
+export default class AbstractColumn extends AbstractComponent {
 
 	/**
 	 * 列宽度

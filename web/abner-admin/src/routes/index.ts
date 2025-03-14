@@ -102,8 +102,16 @@ const routes: RouteRecordRaw[] = [
     component: () => ThemeLayout,
     children: [
       {
-        path: "/list/sample",
-        component: () => import('@/views/grid-viewer-sample/index.vue')
+        path: "/list/grider",
+        component: () => import('@/views/graces-sample/grider.vue')
+      },
+      {
+        path: "/list/editor",
+        component: () => import('@/views/graces-sample/editor.vue'),
+      },
+      {
+        path: "/list/editor/:id",
+        component: () => import('@/views/graces-sample/editor.vue'),
       }
     ]
   }, {

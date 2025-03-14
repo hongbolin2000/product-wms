@@ -73,7 +73,7 @@
    * @author Berlin
    ********************************************************************************/
   import useAppStore from "@/ploutos/layouts/store/app-store";
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import {type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
   import {screen, routerHelper} from "@/ploutos";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
@@ -163,7 +163,7 @@
       style = '--n-color: #18181CFF;--n-color-focus: #18181CFF;--n-color-hover: #18181CFF;';
       style += '--n-color-pressed: #18181CFF;--n-ripple-duration: none;';
       if (currentPath.value != item.key) {
-        style += '--n-text-color: #fff';
+        style += '--n-text-color: #bbbbbbs';
       }
     }
     return style;
@@ -276,6 +276,7 @@
    * 滚动事件
    */
   function onScroll(e: any) {
+    e.preventDefault();
     scrollbarProps.value = {
       scrollLeft: e.target.scrollLeft,
       scrollWidth: e.target.scrollWidth,
@@ -605,7 +606,7 @@
    */
   function renderMenuIcon(icon: string | unknown) {
     icon = !icon ? 'menu' : icon;
-    return () => h(NIcon, null, { default: () => h(MyIcon, {name: icon}) })
+    return () => h(NIcon, null, { default: () => h(SvgIcon, {name: icon}) })
   }
 </script>
 

@@ -24,7 +24,7 @@
         </menu>
     </menu>
     <menu path="/list" label="列表页面" icon="detail">
-        <menu path="/list/sample" label="动态列表"/>
+        <menu path="/list/grider" label="动态列表"/>
     </menu>
     <menu path="/form" label="表单页面" icon="file-text">
     </menu>

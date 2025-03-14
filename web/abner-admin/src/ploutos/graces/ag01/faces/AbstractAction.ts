@@ -14,9 +14,4 @@ export default class AbstractAction extends AbstractComponent {
 	 * 图标
 	 */
 	icon: string;
-
-	/**
-	 * 标签
-	 */
-	label: string;
 }

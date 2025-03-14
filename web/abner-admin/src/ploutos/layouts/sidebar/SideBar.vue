@@ -3,6 +3,7 @@
     <n-card
       class="vaw-side-bar-wrapper"
       :content-style="{ padding: 0 }"
+      :bordered="layoutStore.sideTheme != SideTheme.IMAGE"
       style="border-radius: 0;"
       :class="[
         layoutStore.isCollapse ? 'close-status' : 'open-status',

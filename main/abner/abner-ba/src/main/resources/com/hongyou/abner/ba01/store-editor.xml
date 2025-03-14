@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Hong Bo Lin</name>
+    </developer>
+
+    <description>
+        门店编辑
+    </description>
+
+    <atitle>@add</atitle>
+    <etitle>@edit</etitle>
+
+    <statement>
+        <table name="vstrems"/>
+        <param column="streid" type="=" expr="storeId"/>
+    </statement>
+
+    <editor spans="1" formWidth="50%" placement="left">
+        <input type="text" name="storeId" expr="streid" hidden="true"/>
+        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16" required="true"/>
+        <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" tab="true"/>
+        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64" required="true"/>
+        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64" required="true"/>
+        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128" required="true"/>
+    </editor>
+
+    <editor title="@editor01.title" row="1" tab="true" width="60%">
+        <input type="text" name="storeId" expr="streid" hidden="true"/>
+        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16" required="true"/>
+        <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" tab="true"/>
+        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64" required="true"/>
+        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64" required="true" spans="2"/>
+        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128" required="true"/>
+    </editor>
+
+    <editor title="@editor02.title" row="1" tab="true">
+        <input type="text" name="storeId" expr="streid" hidden="true"/>
+        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+        <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+    </editor>
+
+    <editor title="@editor02.title" row="1">
+        <input type="text" name="storeId" expr="streid" hidden="true"/>
+        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+        <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+    </editor>
+
+    <editor title="@editor02.title" row="2">
+        <input type="text" name="storeId" expr="streid" hidden="true"/>
+        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+        <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+    </editor>
+
+    <editor title="@editor02.title" row="2">
+        <input type="text" name="storeId" expr="streid" hidden="true"/>
+        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+        <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+    </editor>
+
+    <editor title="@editor02.title">
+        <input type="text" name="storeId" expr="streid" hidden="true"/>
+        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+        <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+    </editor>
+
+    <sheeter name="orderLine" title="@editor01.title" tab="true" row="1">
+        <statement>
+            <table name="vstrems"/>
+            <param column="areaid" type="=" expr="areaId"/>
+        </statement>
+
+        <inputs>
+            <input type="text" name="storeId" expr="streid" hidden="true"/>
+            <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+            <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+            <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+            <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+            <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+            <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress1" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress2" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress3" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress4" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress5" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress6" expr="stread" title="@STREMS.STREAD" length="128"/>
+        </inputs>
+    </sheeter>
+
+    <sheeter name="orderLine1" title="@editor01.title" tab="true" row="1">
+        <statement>
+            <table name="vstrems"/>
+            <param column="areaid" type="=" expr="areaId"/>
+        </statement>
+
+        <inputs>
+            <input type="text" name="storeId" expr="streid" hidden="true"/>
+            <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+            <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+            <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+            <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+            <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+            <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress1" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress2" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress3" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress4" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress5" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress6" expr="stread" title="@STREMS.STREAD" length="128"/>
+        </inputs>
+    </sheeter>
+
+    <sheeter name="orderLine2" title="@editor01.title" row="1">
+        <statement>
+            <table name="vstrems"/>
+            <param column="areaid" type="=" expr="areaId"/>
+        </statement>
+
+        <inputs>
+            <input type="text" name="storeId" expr="streid" hidden="true"/>
+            <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+            <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+            <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+            <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+            <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+            <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress1" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress2" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress3" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress4" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress5" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress6" expr="stread" title="@STREMS.STREAD" length="128"/>
+        </inputs>
+    </sheeter>
+
+    <sheeter name="orderLine2" title="@editor01.title" row="3">
+        <statement>
+            <table name="vstrems"/>
+            <param column="areaid" type="=" expr="areaId"/>
+        </statement>
+
+        <inputs>
+            <input type="text" name="storeId" expr="streid" hidden="true"/>
+            <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16"/>
+            <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
+            <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true"/>
+            <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64"/>
+            <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64"/>
+            <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress1" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress2" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress3" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress4" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress5" expr="stread" title="@STREMS.STREAD" length="128"/>
+            <input type="text" name="storeAddress6" expr="stread" title="@STREMS.STREAD" length="128"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="add">新增门店</item>
+            <item key="edit">编辑门店</item>
+            <item key="editor01.title">门店信息</item>
+            <item key="editor02.title">门店信息2</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="add">Add Store</item>
+            <item key="edit">Edit Store</item>
+            <item key="editor01.title">Store Info</item>
+            <item key="editor02.title">Store Info2</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

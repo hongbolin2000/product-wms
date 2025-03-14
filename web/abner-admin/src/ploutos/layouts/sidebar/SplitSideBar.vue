@@ -3,6 +3,7 @@
     <n-card
       class="vaw-tab-split-side-bar-wrapper"
       :content-style="{ padding: 0 }"
+      :bordered="layoutStore.sideTheme != SideTheme.IMAGE"
       style="border-radius: 0;"
       :class="[
         layoutStore.isCollapse ? 'close-status' : 'open-status',
@@ -22,7 +23,7 @@
                 :class="{ 'vaw-tab-split-item-is-active': item.checked }"
                 @click="onTabChange(item)"
               >
-                <MyIcon :name="item.icons" />
+                <SvgIcon :name="item.icons" />
                 <span>{{ item.label }}</span>
               </div>
             </div>
@@ -54,7 +55,7 @@
   import Logo from "@/ploutos/layouts/logo/Logo.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import {type MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
   import useAppStore from "@/ploutos/layouts/store/app-store";
 

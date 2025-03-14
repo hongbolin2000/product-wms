@@ -19,6 +19,11 @@ export default class AbstractComponent {
 	name: string;
 
 	/**
+	 * 控件标题
+	 */
+	title: string;
+
+	/**
 	 * 是否隐藏
 	 */
 	hidden: boolean;

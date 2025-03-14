@@ -42,7 +42,7 @@ export default class ActionFactories {
 	 *
 	 * @param factory 动作按钮生产工厂
 	 */
-	registry(factory: ActionFactory) {
+	private registry(factory: ActionFactory) {
 		this.factories.set(factory.getType(), factory);
 	}
 
@@ -51,7 +51,7 @@ export default class ActionFactories {
 	 *
 	 * @param type 动作按钮类型
 	 */
-	get(type: string): ActionFactory {
+	private get(type: string): ActionFactory {
 		return this.factories.get(type);
 	}
 

@@ -3,23 +3,23 @@
  */
 import type {VNode} from "vue";
 /********************************************************************************
- * 动作按钮工厂定义
+ * 输入控件工厂定义
  *
  * @author Berlin
  *******************************************************************************/
-import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction";
+import type AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget";
 
-export default interface ActionFactory {
+export default interface WidgetFactory {
 
 	/**
-	 * 动作按钮类型
+	 * 输入控件类型
 	 */
 	getType(): string;
 
 	/**
-	 * 生成动作按钮
+	 * 生成输入控件
 	 *
-	 * @param action 动作按钮定义属性
+	 * @param widget 输入控件定义属性
 	 */
-	create(action: AbstractAction): VNode;
+	create(widget: AbstractWidget): VNode;
 }

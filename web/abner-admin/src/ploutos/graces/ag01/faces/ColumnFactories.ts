@@ -9,7 +9,7 @@ import type {VNode} from "vue";
  *******************************************************************************/
 import type ColumnFactory from "@/ploutos/graces/ag01/faces/ColumnFactory.ts";
 import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
-import LabelColumnFactory from "@/ploutos/graces/ag01/faces/columns/LabelColumnFactory";
+import LinkColumnFactory from "@/ploutos/graces/ag01/faces/columns/LinkColumnFactory.ts";
 
 export default class ColumnFactories {
 
@@ -27,7 +27,7 @@ export default class ColumnFactories {
 	 * 表格列工厂
 	 */
 	constructor() {
-		this.registry(new LabelColumnFactory());
+		this.registry(new LinkColumnFactory());
 	}
 
 	/**
@@ -42,7 +42,7 @@ export default class ColumnFactories {
 	 *
 	 * @param factory 表格列生产工厂
 	 */
-	registry(factory: ColumnFactory) {
+	private registry(factory: ColumnFactory) {
 		this.factories.set(factory.getType(), factory);
 	}
 
@@ -51,7 +51,7 @@ export default class ColumnFactories {
 	 *
 	 * @param type 表格列类型
 	 */
-	get(type: string): ColumnFactory {
+	private get(type: string): ColumnFactory {
 		return this.factories.get(type);
 	}
 

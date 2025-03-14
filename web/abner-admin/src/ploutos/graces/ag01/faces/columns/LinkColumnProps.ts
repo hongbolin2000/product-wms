@@ -4,12 +4,12 @@
 /********************************************************************************
  * @author Berlin
  *******************************************************************************/
-import AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction";
+import AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
 
 /**
  * 路由动作按钮属性
  */
-export default class LinkActionProps extends AbstractAction {
+export default class LinkColumnProps extends AbstractColumn {
 
 	/**
 	 * 路由地址
@@ -27,7 +27,7 @@ export default class LinkActionProps extends AbstractAction {
 	dialogWidth: string;
 
 	/**
-	 * drawer宽度
+	 * 按钮图标
 	 */
-	drawerWidth: string;
+	icon: string;
 }

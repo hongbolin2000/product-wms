@@ -9,7 +9,6 @@
    * @author Berlin
    ********************************************************************************/
   import {Graces} from '@/ploutos/index.ts';
-
 </script>
 
 <style scoped lang="scss">

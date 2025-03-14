@@ -23,8 +23,12 @@
           v-if="column?.filter == 'date'"
           update-value-on-close
       />
+
       <n-button @click="handleQuery">
         查询
+      </n-button>
+      <n-button @click="handleClear">
+        清除
       </n-button>
     </n-space>
   </n-popover>
@@ -92,6 +96,14 @@
    * 查询
    */
   function handleQuery() {
+    onSearch();
+  }
+
+  /**
+   * 清除
+   */
+  function handleClear() {
+    value.value[props.column.name] = null;
     onSearch();
   }
 </script>

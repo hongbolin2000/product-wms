@@ -3,7 +3,7 @@
       class="fold-wrapper iconfont"
       :class="[layoutStore.isCollapse ? 'fold-close-status' : 'fold-open-status']"
   >
-    <MyIcon name="expand" type="svg"/>
+    <SvgIcon name="list_expand_right"/>
   </n-button>
 </template>
 
@@ -13,7 +13,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
 
   /**

@@ -26,7 +26,7 @@
   import MainContent from "@/ploutos/layouts/MainContent.vue";
   import http from "@/ploutos/layouts/axios/http";
   import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
-  import MyIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
 
   /**
@@ -157,7 +157,7 @@
    */
   function renderIcon(icon: string) {
     icon = !icon ? 'menu' : icon;
-    return () => h(NIcon, null, { default: () => h(MyIcon, {name: icon}) })
+    return () => h(NIcon, null, { default: () => h(SvgIcon, {name: icon}) })
   }
 
   /**

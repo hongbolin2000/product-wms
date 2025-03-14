@@ -7,9 +7,9 @@ import {h, type VNode} from "vue";
  *
  * @author Berlin
  *******************************************************************************/
-import ActionFactory from "@/ploutos/graces/ag01/faces/ActionFactory";
 import AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction";
 import LinkAction from "@/ploutos/graces/ag01/faces/actions/LinkAction.vue";
+import type ActionFactory from "@/ploutos/graces/ag01/faces/ActionFactory.ts";
 
 export default class LinkActionFactory implements ActionFactory {
 

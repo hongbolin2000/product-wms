@@ -1,39 +1,41 @@
 <template>
-  <div>
-    <n-card v-if="grider.datatable">
-      <n-space :size="10" style="margin-bottom: 10px;">
-        <component
-            v-for="action of grider.actions.filter(i => !i.hidden)"
-            :is="ActionFactories.getInstance().create(action)"
-        />
-      </n-space>
+  <transition name="opacity-transform">
+    <div v-if="grider.datatable">
+      <n-card>
+        <n-space :size="10" style="margin-bottom: 10px;">
+          <component
+              v-for="action of grider.actions"
+              :is="ActionFactories.getInstance().create(action)"
+          />
+        </n-space>
 
-      <DataTable
-          :datatable="grider.datatable"
-          :max-height="maxHeight"
-          need-pagination
-          @on-sort="handelSort"
-          @on-pagination="handelPagination"
-          @on-search="handelSearch"
-          @double-click="handelDoubleClick"
-      />
-    </n-card>
-
-    <div v-if="grider.subTables" style="display: flex;gap: 10px;margin-top: 10px">
-      <n-card
-          v-for="datatable of grider.subTables"
-          :style="{width: 'calc(100% / ' + grider.subTables.length + ')'}"
-      >
         <DataTable
-            :datatable="datatable"
+            :datatable="grider.datatable"
             :max-height="maxHeight"
-            @double-click="handelDoubleClick"
-            @on-search="loadSubTablesData"
-            @on-sort="handelSubSort"
+            need-pagination
+            @on-sort="handelSort"
+            @on-pagination="handelPagination"
+            @on-search="handelSearch"
+            @on-double-click="handelDoubleClick"
         />
       </n-card>
+
+      <div v-if="grider.subTables" class="sub-table">
+        <n-card
+            v-for="datatable of grider.subTables"
+            :style="{width: getFormWidth(datatable)}"
+        >
+          <DataTable
+              :datatable="datatable"
+              :max-height="maxHeight"
+              @on-double-click="handelDoubleClick"
+              @on-search="loadSubTablesData"
+              @on-sort="handelSubSort"
+          />
+        </n-card>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -48,9 +50,10 @@
   import type GriderProps from "@/ploutos/graces/ag01/grid-viewer/GriderProps.ts";
   import DataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
   import type DoubleClick from "@/ploutos/graces/ag01/faces/DoubleClick.ts";
+  import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
 
   /**
-   * 浏览表格
+   * 浏览表格属性定义
    */
   const grider: Ref<GriderProps> = ref({});
 
@@ -60,9 +63,13 @@
   const params: Ref = ref({});
 
   /**
-   * 当前排序字段
+   * 主表排序字段
    */
   const sorter: Ref = ref(null);
+
+  /**
+   * 子表排序字段
+   */
   const subSorter: Ref = ref(null);
 
   /**
@@ -77,14 +84,29 @@
    * 父组件传入的属性
    */
   const props = defineProps({
+
+    /**
+     * 模块号
+     */
     module: {
       type: String,
       required: true
     },
+
+    /**
+     * 界面名称
+     */
     name: {
       type: String,
       required: true
-    }
+    },
+
+    /**
+     * 参数
+     */
+    params: {
+      type: Object
+    },
   });
 
   /**
@@ -92,9 +114,9 @@
    */
   const maxHeight = computed(() => {
     if (!grider.value.subTables) {
-      return 'calc(100vh - 110px - 180px)';
+      return 'calc(100vh - var(--logo-height) - var(--tab-height) - 180px)';
     }
-    return 'calc((100vh - 110px - 280px) / 2)';
+    return 'calc((100vh - var(--logo-height) - var(--tab-height) - 270px) / 2)';
   });
 
   /**
@@ -111,10 +133,12 @@
     try {
       loading(true);
 
-      const data = {
-        module: props.module, name: props.name, local: 'zh-CN'
-      }
-      const response = await http.post("/ag01/grider/loadDefine", data);
+      const response = await http.post("/ag01/grider/loadDefine", {
+        module: props.module,
+        name: props.name,
+        local: navigator.language,
+        params: params
+      });
       grider.value = response.data;
 
       await loadTableData();
@@ -135,15 +159,18 @@
       loading(true);
       clearSubTablesData();
 
-      const data = {
-        module: props.module, name: props.name, local: 'zh-CN',
-        sorter: sorter.value, params: params.value,
+      const response = await http.post("/ag01/grider/loadTableData", {
+        module: props.module,
+        name: props.name,
+        local: navigator.language,
+        sorter: sorter.value,
+        params: params.value,
         pageNumber: pagination.value.pageNumber,
         pageSize: pagination.value.pageSize
-      }
-      const response = await http.post("/ag01/grider/loadTableData", data);
-
+      });
       grider.value.datatable.data = response.data.data;
+
+      // 第一页才查询总记录数
       if (pagination.value.pageNumber == 1) {
         grider.value.datatable.total = response.data.total;
       }
@@ -242,8 +269,50 @@
     delete params.value[doubleClick.input];
     doubleClick = undefined!;
   }
+
+  /**
+   * 表格的宽度
+   */
+  function getFormWidth(table: Datatable) {
+    // 表格与表格之间的间隙
+    const subTables = grider.value.subTables;
+    const gap = 10 * (subTables.length - 1) / subTables.length;
+
+    // 表格设置了宽度
+    if (table.width) {
+      return 'calc(' + table.width + ' - ' + gap + 'px)';
+    }
+
+    // 未设置宽度的表格
+    let restWidth = "100% ", restCount = 0;
+    subTables.forEach(datatable => {
+      if (datatable.width) {
+        restWidth += "- " + datatable.width;
+      } else {
+        restCount++;
+      }
+    });
+    // 未设置宽度的表格宽度
+    return 'calc((' + restWidth + ') / ' + restCount + ' - ' + gap + 'px)';
+  }
 </script>
 
 <style scoped lang="scss">
+  .sub-table {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px
+  }
 
+  /* 渐隐渐现页面动画效果 */
+  .opacity-transform-leave-active,
+  .opacity-transform-enter-active {
+    transition: all 0.5s;
+  }
+  .opacity-transform-enter-from {
+    opacity: 0;
+  }
+  .opacity-transform-leave-to {
+    opacity: 0;
+  }
 </style>

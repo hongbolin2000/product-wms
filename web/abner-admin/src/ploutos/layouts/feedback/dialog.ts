@@ -13,22 +13,27 @@ type DialogOption = {
   /**
    * 标题
    */
-  title: string | (() => import("vue").VNodeChild);
+  title?: string | (() => import("vue").VNodeChild);
 
   /**
    * 内容
    */
-  content: string | (() => import("vue").VNodeChild);
+  content?: string | (() => import("vue").VNodeChild);
 
   /**
-   * 确认文件
+   * 确认文字
    */
-  confirmText: string,
+  confirmText?: string,
 
   /**
-   * 取消文件
+   * 取消文字
    */
   cancelText?: string,
+
+  /**
+   * 是否显示取消按钮
+   */
+  noCancel?: boolean,
 
   /**
    * 点击确认
@@ -49,14 +54,27 @@ namespace Dialog {
   let dialog: DialogApiInjection;
 
   /**
+   * 成功弹框
+   */
+  export function success(options: DialogOption) {
+    dialog.success({
+      title: options.title ? options.title : '提示',
+      content: options.content ? options.content : '是否确认？',
+      positiveText: options.confirmText ? options.confirmText : '确认',
+      negativeText: options.cancelText ? options.cancelText : options.noCancel ? undefined : '取消',
+      onPositiveClick: () => options.onConfirmClick(),
+    });
+  }
+
+  /**
    * 警告弹框
    */
   export function warning(options: DialogOption) {
     dialog.warning({
-      title: options.title,
-      content: options.content,
-      positiveText: options.confirmText,
-      negativeText: options.cancelText,
+      title: options.title ? options.title : '提示',
+      content: options.content ? options.content : '是否确认？',
+      positiveText: options.confirmText ? options.confirmText : '确认',
+      negativeText: options.cancelText ? options.cancelText : options.noCancel ? undefined : '取消',
       onPositiveClick: () => options.onConfirmClick(),
     });
   }
