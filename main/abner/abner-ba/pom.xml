@@ -13,5 +13,10 @@
     <description>后台管理系统基础数据模块</description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.hongyou</groupId>
+            <artifactId>abner-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -74,7 +74,24 @@
       @update:sorter="onSort"
       :pagination="needPagination ? pagination : false"
       :scroll-x="0"
-      remote
+      :remote="true"
+      :row-props="rowProps"
+      :max-height="maxHeight"
+      :row-key="rowKey"
+      v-model:checked-row-keys="datatable.checkedKeys"
+      ref="tableRef"
+      :get-csv-cell="getCsvCell"
+      :get-csv-header="getCsvHeader"
+      :single-line="!mainDataTable.bordered && !layoutStore.bordered"
+      :striped="mainDataTable.striped || layoutStore.striped"
+      v-if="!static"
+  />
+  <n-data-table
+      v-else
+      :columns="renderColumns(datatable)"
+      :data="datatable.data"
+      size="small"
+      :scroll-x="0"
       :row-props="rowProps"
       :max-height="maxHeight"
       :row-key="rowKey"
@@ -113,19 +130,19 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    computed,
-    h,
-    type HTMLAttributes,
-    nextTick,
-    type PropType,
-    provide,
-    ref,
-    type Ref,
-    shallowRef,
-    type VNode,
-    onMounted
-  } from "vue";
+import {
+  computed,
+  h,
+  type HTMLAttributes,
+  nextTick,
+  type PropType,
+  provide,
+  ref,
+  type Ref,
+  shallowRef,
+  type VNode,
+  onBeforeMount
+} from "vue";
   import {type DataTableSortState, type DropdownOption, NIcon} from "naive-ui";
   import {ChevronDown, Expand, RefreshOutline} from '@vicons/ionicons5'
   /********************************************************************************
@@ -152,23 +169,32 @@
    * 父组件传入的属性
    */
   const props = defineProps({
+    // 主数据表
     mainDataTable: {
       type: Object as PropType<Datatable>,
-      required: true
+      required: false
     },
+    // 当前数据表
     datatable: {
       type: Object as PropType<Datatable>,
       required: true
     },
+    // 是否需要分页
     needPagination: {
       type: Boolean,
     },
+    // 表格最大高度
     maxHeight: {
       type: String
     },
+    // 是否显示工具栏
     showTools: {
       type: Boolean,
-    }
+    },
+    // 是否静态界面，只加载界面定义，数据由功能设置
+    static: {
+      type: Boolean
+    },
   });
 
   /**
@@ -196,6 +222,11 @@
      */
     (e: 'onDoubleClick', rowData: any): void;
   }>();
+
+  /**
+   * 主数据表
+   */
+  const mainDataTable: Ref = ref(props.mainDataTable);
 
   /**
    * 布局状态
@@ -311,7 +342,11 @@
   /**
    * 组件加载
    */
-  onMounted(() => {
+  onBeforeMount(() => {
+    if (!mainDataTable.value) {
+      mainDataTable.value = props.datatable;
+    }
+
     if (props.datatable.actions) {
       actions.value = props.datatable.actions.filter(i => !i.option);
       const options = props.datatable.actions.filter(i => i.option);
@@ -409,7 +444,7 @@
 
       const column: TableBaseColumn = <TableBaseColumn>{};
       column.key = item.name;
-      column.sorter = true;
+      column.sorter = props.static ? 'default' : true;
       column.width = item.width ? item.width : 100;
       column.resizable = TagColumnFactory.TYPE != item.type;
       column.ellipsis = TagColumnFactory.TYPE != item.type;

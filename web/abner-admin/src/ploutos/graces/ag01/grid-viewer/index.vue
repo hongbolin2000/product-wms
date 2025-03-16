@@ -3,7 +3,7 @@
     <div v-if="grider.datatable">
       <n-card>
         <DataTable
-            :main-data-table="grider.datatable"
+            :static="static"
             :datatable="grider.datatable"
             :max-height="maxHeight"
             need-pagination
@@ -21,6 +21,7 @@
             :style="{width: getFormWidth(datatable)}"
         >
           <DataTable
+              :static="static"
               :main-data-table="grider.datatable"
               :datatable="datatable"
               :max-height="maxHeight"
@@ -35,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, provide, ref, type Ref, watch} from "vue";
+  import {onMounted, provide, ref, type Ref, watch} from "vue";
   /********************************************************************************
    * 通用表格浏览界面
    *
@@ -92,11 +93,44 @@ import {onMounted, provide, ref, type Ref, watch} from "vue";
     params: {
       type: Object
     },
+    // 是否显示工具栏
     showTools: {
       type: Boolean,
       default: undefined
+    },
+    // 是否静态界面，只加载界面定义，数据由功能设置
+    static: {
+      type: Boolean
+    },
+    // 是否自定义主表查询函数
+    query: {
+      type: Boolean,
+      default: true
+    },
+    // 是否自定义子表查询函数
+    querySub: {
+      type: Boolean,
+      default: true
     }
   });
+
+  /**
+   * 父组件事件
+   */
+  const emit = defineEmits<{
+
+    /**
+     * 自定义主表查询
+     */
+    (e: 'onSearch', params: object, sorter: {name: string | number, order: 'asc' | 'desc'},
+     pageNumber: number, pageSize: number
+    ): void;
+
+    /**
+     * 自定义子表查询
+     */
+    (e: 'onSubSearch', params: object, sorter: {name: string | number, order: 'asc' | 'desc'}): void;
+  }>();
 
   /**
    * 过滤条件
@@ -115,7 +149,25 @@ import {onMounted, provide, ref, type Ref, watch} from "vue";
     if (!grider.value) {
       return;
     }
-    const expr = !layoutStore.isFullScreen ? '- var(--logo-height) - var(--tab-height)' : ' - 10px';
+
+    let expr = '';
+    if (!layoutStore.isFullScreen) {
+      // 减去顶部高度
+      expr += '- var(--logo-height) - var(--tab-height)';
+    } else {
+      // 减去全屏时的margin高度
+      expr += ' - 10px';
+    }
+    // 加上工具栏高度
+    if (props.showTools != undefined && !props.showTools) {
+      expr += ' + 44px'
+    }
+    // 加上分页器高度
+    if (props.static) {
+      expr += ' + 40px'
+    }
+
+    // 计算最终高度
     if (!grider.value.subTables) {
       maxHeight.value = 'calc(100vh ' + expr + ' - 180px)';
     } else {
@@ -169,6 +221,14 @@ import {onMounted, provide, ref, type Ref, watch} from "vue";
    */
   async function loadTableData() {
     try {
+      if (props.static) {
+        return;
+      }
+      if (!props.query) {
+        emit('onSearch', params.value, sorter.value, pager.value.pageNumber, pager.value.pageSize);
+        return;
+      }
+
       loading(true);
       clearSubTablesData();
 
@@ -237,7 +297,11 @@ import {onMounted, provide, ref, type Ref, watch} from "vue";
    */
   async function loadSubTablesData() {
     try {
-      if (!doubleClick) {
+      if (!doubleClick || props.static) {
+        return;
+      }
+      if (!props.querySub) {
+        emit('onSubSearch', params.value, sorter.value);
         return;
       }
 

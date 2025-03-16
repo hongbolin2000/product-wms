@@ -1,5 +1,6 @@
 <template>
-  <Graces.GridViewer module="ba01" name="storeGrider"/>
+<!--  <Graces.GridViewer module="ba01" name="storeGrider" @onSearch="onSearch" :query="false" @onSubSearch="onSearch" :query-sub="false"/>-->
+  <Graces.GridViewer module="ba01" name="storeGrider" @onSearch="onSearch"/>
 </template>
 
 <script setup lang="ts" name="GridViewerSample">
@@ -14,6 +15,10 @@
     alert("aaa");
   }
   window['ba01Cancel'] = ba01Cancel;
+
+  function onSearch(params: object, sorter: Graces.Sorter, pageNumber?: number, pageSize?: number) {
+    debugger;
+  }
 </script>
 
 <style scoped lang="scss">
