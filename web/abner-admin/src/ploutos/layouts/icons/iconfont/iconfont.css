@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4755836 */
-  src: url('iconfont.woff2?t=1741790586841') format('woff2'),
-       url('iconfont.woff?t=1741790586841') format('woff'),
-       url('iconfont.ttf?t=1741790586841') format('truetype');
+  src: url('iconfont.woff2?t=1742059278312') format('woff2'),
+       url('iconfont.woff?t=1742059278312') format('woff'),
+       url('iconfont.ttf?t=1742059278312') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-csv:before {
+  content: "\e6af";
+}
+
+.icon-delete:before {
+  content: "\e64f";
 }
 
 .icon-add:before {
@@ -27,41 +35,5 @@
 
 .icon-edit:before {
   content: "\e7e1";
-}
-
-.icon-appstore:before {
-  content: "\f184";
-}
-
-.icon-file-text:before {
-  content: "\e664";
-}
-
-.icon-setting:before {
-  content: "\e78e";
-}
-
-.icon-Partition:before {
-  content: "\e90e";
-}
-
-.icon-location:before {
-  content: "\e790";
-}
-
-.icon-detail:before {
-  content: "\e793";
-}
-
-.icon-interation:before {
-  content: "\e7a7";
-}
-
-.icon-file-unknown:before {
-  content: "\e7b9";
-}
-
-.icon-dashboard:before {
-  content: "\e78b";
 }
 

@@ -2,13 +2,12 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 /********************************************************************************
+ * 路由动作按钮列属性
+ *
  * @author Berlin
  *******************************************************************************/
 import AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
 
-/**
- * 路由动作按钮属性
- */
 export default class LinkColumnProps extends AbstractColumn {
 
 	/**
@@ -30,4 +29,14 @@ export default class LinkColumnProps extends AbstractColumn {
 	 * 按钮图标
 	 */
 	icon: string;
+
+	/**
+	 * 禁用表达式
+	 */
+	disabled: string;
+
+	/**
+	 * 是否禁用
+	 */
+	isDisabled: boolean;
 }

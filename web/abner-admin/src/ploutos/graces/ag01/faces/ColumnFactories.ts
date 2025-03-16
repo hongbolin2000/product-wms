@@ -10,6 +10,8 @@ import type {VNode} from "vue";
 import type ColumnFactory from "@/ploutos/graces/ag01/faces/ColumnFactory.ts";
 import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
 import LinkColumnFactory from "@/ploutos/graces/ag01/faces/columns/LinkColumnFactory.ts";
+import ScriptLinkColumnFactory from "@/ploutos/graces/ag01/faces/columns/ScriptLinkColumnFactory.ts";
+import TagColumnFactory from "@/ploutos/graces/ag01/faces/columns/TagColumnFactory.ts";
 
 export default class ColumnFactories {
 
@@ -28,6 +30,8 @@ export default class ColumnFactories {
 	 */
 	constructor() {
 		this.registry(new LinkColumnFactory());
+		this.registry(new ScriptLinkColumnFactory());
+		this.registry(new TagColumnFactory());
 	}
 
 	/**
@@ -62,5 +66,12 @@ export default class ColumnFactories {
 	 */
 	create(column: AbstractColumn): VNode {
 		return this.get(column.type).create(column);
+	}
+
+	/**
+	 * 是否link
+	 */
+	static isLink(column: AbstractColumn): boolean {
+		return LinkColumnFactory.TYPE == column.type || ScriptLinkColumnFactory.TYPE == column.type;
 	}
 }

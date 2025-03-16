@@ -7,9 +7,9 @@ import {h, type VNode} from "vue";
  *
  * @author Berlin
  *******************************************************************************/
-import AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction";
 import LinkAction from "@/ploutos/graces/ag01/faces/actions/LinkAction.vue";
 import type ActionFactory from "@/ploutos/graces/ag01/faces/ActionFactory.ts";
+import type LinkActionProps from "@/ploutos/graces/ag01/faces/actions/LinkActionProps.ts";
 
 export default class LinkActionFactory implements ActionFactory {
 
@@ -30,7 +30,7 @@ export default class LinkActionFactory implements ActionFactory {
 	 *
 	 * @param action 动作按钮定义属性
 	 */
-	create(action: AbstractAction): VNode {
+	create(action: LinkActionProps): VNode {
 		return h(LinkAction, {action: action});
 	}
 }

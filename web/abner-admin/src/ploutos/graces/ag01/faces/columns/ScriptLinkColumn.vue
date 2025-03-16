@@ -1,0 +1,121 @@
+<template>
+  <n-tag checkable class="tag-item" @click="onHandelClick" :type="column.danger && 'error'"
+      :style="{color: column.danger && '#e88080'}" :disabled="column.isDisabled"
+  >
+    <template #icon v-if="column.icon">
+      <SvgIcon :name="column.icon" style="margin-right: 5px"/>
+    </template>
+    {{column.title}}
+  </n-tag>
+</template>
+
+<script setup lang="ts">
+  import {inject, onBeforeMount, onBeforeUpdate, type PropType} from 'vue'
+  import {useRouter} from "vue-router";
+  /********************************************************************************
+   * 脚本按钮列
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import {dialog, http, loading, message} from "@/ploutos";
+  import ScriptLinkColumnProps from "@/ploutos/graces/ag01/faces/columns/ScriptLinkColumnProps.ts";
+
+  /**
+   * 路由
+   */
+  const router = useRouter();
+
+  /**
+   * 注入关闭右键菜单函数
+   */
+  const onCloseContextMenu = inject<Function>('onCloseContextMenu');
+
+  /**
+   * 父组件传入的属性
+   */
+  const props = defineProps({
+    column: {
+      type: Object as PropType<ScriptLinkColumnProps>,
+      required: true
+    }
+  });
+
+  /**
+   * 组件加载前
+   */
+  onBeforeMount(() => {
+    disabled();
+  });
+
+  /**
+   * 组件更新前
+   */
+  onBeforeUpdate(() => {
+    disabled();
+  })
+
+  /**
+   * 禁用
+   */
+  function disabled() {
+    if (props.column.disabled) {
+      const func = new Function( 'rowData', 'disabled', 'return eval("rowData." + disabled)');
+      props.column.isDisabled = func(props.column.rowData, props.column.disabled);
+    }
+  }
+
+  /**
+   * 按钮点击
+   */
+  function onHandelClick() {
+    if (props.column.isDisabled) {
+      return;
+    }
+    onCloseContextMenu();
+
+    // 远程调用
+    if (props.column.mode == 'remote') {
+      const label = props.column.rowData[props.column.labelColumn];
+
+      // 确认弹框提示
+      dialog.warning({
+        content: '是否确认' + props.column.title + props.column.datatableTitle + ' - ' + label + '？',
+        onConfirmClick: () => onConfirm(label)
+      });
+    }
+
+    // 脚本执行
+    if (props.column.mode == 'script') {
+      const func = new Function( 'link', 'data', 'return eval(link).call(this, data)');
+      func(props.column.link, {
+        value: props.column.rowData[props.column.name],
+        rowData: props.column.rowData,
+        rowIndex: props.column.rowIndex
+      });
+    }
+  }
+
+  /**
+   * 调用后台
+   */
+  function onConfirm(label: string) {
+    (async () => {
+      try {
+        loading(true);
+        await http.post(props.column.link, [props.column.rowData[props.column.name]]);
+        message.success(props.column.datatableTitle + '[ ' + label + ' ]' + props.column.title + '成功');
+      } finally {
+        loading(false);
+      }
+    })();
+  }
+</script>
+
+<style scoped lang="scss">
+  .tag-item {
+    padding: 17px 9.5px;
+    margin: 0 4px;
+    width: calc(100% - 8px);
+  }
+</style>

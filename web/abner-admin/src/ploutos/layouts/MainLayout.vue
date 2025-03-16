@@ -5,8 +5,8 @@
       <TabBar/>
     </section>
 
-    <section class="main-section" id="layout-main-section">
-      <MainContent/>
+    <section class="main-section">
+      <MainContent id="layout-main-content"/>
     </section>
   </div>
 </template>
@@ -22,7 +22,7 @@
    ********************************************************************************/
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import NavBar from "@/ploutos/layouts/navbar/NavBar.vue";
-  import {LayoutMode, type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
+  import {LayoutMode, type MenuOption} from "@/ploutos/layouts/types";
   import MainContent from "@/ploutos/layouts/MainContent.vue";
   import http from "@/ploutos/layouts/axios/http";
   import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
@@ -256,7 +256,12 @@
       width: 100%;
     }
   }
-  .page-full-screen {
-    padding: 20px;
+  .page-full-screen-light {
+    padding: 10px;
+    background-color: #f0f2f5;
+  }
+  .page-full-screen-dark {
+    padding: 10px;
+    background-color: #101014FF;
   }
 </style>

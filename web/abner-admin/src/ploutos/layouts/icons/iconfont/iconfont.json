@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11374065",
+      "name": "csv",
+      "font_class": "csv",
+      "unicode": "e6af",
+      "unicode_decimal": 59055
+    },
+    {
+      "icon_id": "13519374",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
       "icon_id": "4113780",
       "name": "add",
       "font_class": "add",
@@ -32,69 +46,6 @@
       "font_class": "edit",
       "unicode": "e7e1",
       "unicode_decimal": 59361
-    },
-    {
-      "icon_id": "24553766",
-      "name": "appstore",
-      "font_class": "appstore",
-      "unicode": "f184",
-      "unicode_decimal": 61828
-    },
-    {
-      "icon_id": "39643780",
-      "name": "file-text",
-      "font_class": "file-text",
-      "unicode": "e664",
-      "unicode_decimal": 58980
-    },
-    {
-      "icon_id": "4765891",
-      "name": "setting",
-      "font_class": "setting",
-      "unicode": "e78e",
-      "unicode_decimal": 59278
-    },
-    {
-      "icon_id": "9229180",
-      "name": "Partition",
-      "font_class": "Partition",
-      "unicode": "e90e",
-      "unicode_decimal": 59662
-    },
-    {
-      "icon_id": "4765897",
-      "name": "location",
-      "font_class": "location",
-      "unicode": "e790",
-      "unicode_decimal": 59280
-    },
-    {
-      "icon_id": "4765971",
-      "name": "detail",
-      "font_class": "detail",
-      "unicode": "e793",
-      "unicode_decimal": 59283
-    },
-    {
-      "icon_id": "4766245",
-      "name": "interation",
-      "font_class": "interation",
-      "unicode": "e7a7",
-      "unicode_decimal": 59303
-    },
-    {
-      "icon_id": "4766475",
-      "name": "file-unknown",
-      "font_class": "file-unknown",
-      "unicode": "e7b9",
-      "unicode_decimal": 59321
-    },
-    {
-      "icon_id": "4765881",
-      "name": "dashboard",
-      "font_class": "dashboard",
-      "unicode": "e78b",
-      "unicode_decimal": 59275
     }
   ]
 }

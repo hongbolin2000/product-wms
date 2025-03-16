@@ -30,7 +30,7 @@
    * @author Berlin
    ********************************************************************************/
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import {DeviceType, LayoutMode, MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
+  import {DeviceType, LayoutMode, type MenuOption, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
   import useAppStore from "@/ploutos/layouts/store/app-store.ts";
 
   /**

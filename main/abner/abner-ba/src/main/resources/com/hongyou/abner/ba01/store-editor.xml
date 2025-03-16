@@ -10,17 +10,18 @@
 
     <atitle>@add</atitle>
     <etitle>@edit</etitle>
+    <url>/ba01/save</url>
 
     <statement>
         <table name="vstrems"/>
         <param column="streid" type="=" expr="storeId"/>
     </statement>
 
-    <editor spans="1" formWidth="50%" placement="left">
+    <editor title="门店信息" spans="1" formWidth="50%" placement="left">
         <input type="text" name="storeId" expr="streid" hidden="true"/>
         <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16" required="true"/>
         <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
-        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" tab="true"/>
+        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" tabtitle="true"/>
         <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64" required="true"/>
         <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64" required="true"/>
         <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128" required="true"/>
@@ -109,7 +110,7 @@
         </inputs>
     </sheeter>
 
-    <sheeter name="orderLine1" title="@editor01.title" tab="true" row="1">
+    <sheeter name="orderLine1" title="@editor01.title" tab="true" row="1" required="false">
         <statement>
             <table name="vstrems"/>
             <param column="areaid" type="=" expr="areaId"/>
@@ -132,7 +133,7 @@
         </inputs>
     </sheeter>
 
-    <sheeter name="orderLine2" title="@editor01.title" row="1">
+    <sheeter name="orderLine2" title="@editor01.title" row="1" required="false">
         <statement>
             <table name="vstrems"/>
             <param column="areaid" type="=" expr="areaId"/>
@@ -155,7 +156,7 @@
         </inputs>
     </sheeter>
 
-    <sheeter name="orderLine2" title="@editor01.title" row="3">
+    <sheeter name="orderLine2" title="@editor01.title" row="3" required="false">
         <statement>
             <table name="vstrems"/>
             <param column="areaid" type="=" expr="areaId"/>
@@ -181,14 +182,14 @@
     <intl>
         <lang code="zh-CN">
             <item key="add">新增门店</item>
-            <item key="edit">编辑门店</item>
+            <item key="edit">修改门店</item>
             <item key="editor01.title">门店信息</item>
             <item key="editor02.title">门店信息2</item>
         </lang>
 
         <lang code="en-US">
             <item key="add">Add Store</item>
-            <item key="edit">Edit Store</item>
+            <item key="edit">Modify Store</item>
             <item key="editor01.title">Store Info</item>
             <item key="editor02.title">Store Info2</item>
         </lang>

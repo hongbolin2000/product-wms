@@ -91,6 +91,7 @@
   import {TOKEN_NAME} from "@/ploutos/layouts/types";
   import type {MessageReactive} from "naive-ui/es/message/src/MessageProvider";
   import {http, message} from '@/ploutos/index';
+  import {storeToRefs} from "pinia";
 
   /**
    * 全局应用状态
@@ -316,8 +317,9 @@
   /**
    * 清除用户名
    */
-  userStore.$subscribe((mutation, state) => {
-    if (!state.isRememberAccount) {
+  const {isRememberAccount} =  storeToRefs(userStore);
+  watch(isRememberAccount, () => {
+    if (!isRememberAccount) {
       userStore.username = '';
     }
   });

@@ -38,6 +38,11 @@ export default class Sheeter extends AbstractComponent {
 	added: boolean;
 
 	/**
+	 * 是否必填
+	 */
+	required: boolean;
+
+	/**
 	 * 是否折叠
 	 */
 	collapse: Ref<boolean> | boolean;
@@ -45,5 +50,5 @@ export default class Sheeter extends AbstractComponent {
 	/**
 	 * 编辑表格数据
 	 */
-	data: [];
+	data: object[];
 }

@@ -36,11 +36,16 @@
   /**
    * 监听选项卡变化
    */
+  let visitedMenus = [];
   appStore.$subscribe((mutation, state) => {
     const cacheNames = [];
+    if (state.visitedMenus.length == visitedMenus.length) {
+      return;
+    }
+    visitedMenus = [...state.visitedMenus];
 
     // 从路由选项卡中获取组件名
-    appStore.visitedMenus.forEach(async (menu) => {
+    state.visitedMenus.forEach(async (menu) => {
       let route: any = router.getRoutes().find(i => i.path == menu.key);
 
       // 手动匹配路由（主要是带参数的路由）

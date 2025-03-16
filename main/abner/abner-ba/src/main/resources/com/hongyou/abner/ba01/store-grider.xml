@@ -8,13 +8,6 @@
         门店列表
     </description>
 
-    <actions>
-        <action type="link" icon="add" title="@add" link="/add/@{_companyId}" hidden="storeType == 'AAA'" />
-        <action type="link" icon="add" title="@add" link="/list/editor" />
-        <action type="link" mode="dialog" icon="add" title="@add" link="/list/editor" />
-        <action type="link" mode="drawer" icon="add" title="@add" link="/list/editor" />
-    </actions>
-
     <filters>
         <opts name="enabled" type="enum" table="STREMS" column="ENABLD"/>
     </filters>
@@ -33,7 +26,18 @@
         </statement>
     </support-statements>
 
-    <datatable>
+    <datatable title="门店" bordered="true" striped="true">
+        <actions>
+            <action type="link" icon="add" title="@add" link="/add/@{_companyId}" hidden="storeType == 'AAA'" />
+            <action type="link" icon="add" title="@add" link="/list/editor" />
+            <action type="link" mode="dialog" icon="add" title="@add" link="/list/editor" />
+            <action type="link" mode="drawer" icon="add" title="@add" link="/list/editor" />
+            <action type="scriptLink" option="true" icon="delete" title="取消订单" link="ba01Cancel" danger="true"/>
+            <action type="checkLink" option="true" icon="delete" title="批量删除" labelColumn="storeName"
+                    link="/ba01/deleteBatch" danger="true"
+            />
+        </actions>
+
         <statement>
             <table name="vstrems"/>
             <order by="oprttm desc"/>
@@ -42,8 +46,9 @@
         <double.click type="query" datatables="detail" input="storeName"/>
 
         <columns>
-            <column type="label" name="enabled" expr="enabld" width="70" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
-                    filter="@enabled"/>
+            <column type="check" name="storeId" expr="streid" disabled="storeCode == 'GP-SH003'"/>
+            <column type="tag" name="enabled" expr="enabld" width="70" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
+                    filter="@enabled" success="enabled == '可用'" error="enabled != '可用'"/>
             <column type="label" name="orderQty" expr="ordqty" width="140" title="@STREMS.ENABLD" format="%#.###" filter="text"/>
             <column type="label" name="area" expr="areanm" width="140" title="@STREMS.AREAID" filter="text"/>
             <column type="label" name="storeType" expr="strety" width="160" title="@STREMS.STRETY" filter="text"/>
@@ -59,9 +64,14 @@
             <column type="label" name="operatorBy" expr="oprtby" width="160" title="@AREAMS.OPRTBY"/>
             <column type="label" name="operatorTime" expr="oprttm" width="160" title="@AREAMS.OPRTTM"
                     format="!yyyy-MM-dd HH:mm" filter="date"/>
-            <column name="edit" type="link" expr="streid" width="70" title="编辑" link="/list/editor"/>
-            <column name="editDialog" type="link" expr="streid" width="70" title="编辑" link="/list/editor" mode="dialog"/>
-            <column name="editDrawer" icon="edit" type="link" expr="streid" width="70" title="编辑" link="/list/editor" mode="drawer"/>
+            <column type="link" name="edit" icon="edit" expr="streid" title="编辑" link="/list/editor"/>
+            <column type="link" name="editDialog" icon="edit" expr="streid" title="编辑" link="/list/editor" mode="dialog"/>
+            <column type="link" name="editDrawer" icon="edit" expr="streid" title="编辑" link="/list/editor" mode="drawer"
+                    disabled="storeCode == 'GP-SH003'"
+            />
+            <column type="scriptLink" name="delete" icon="delete" expr="streid" title="删除" link="/ba01/deleteBatch"
+                    labelColumn="storeName" danger="true"
+            />
         </columns>
     </datatable>
 

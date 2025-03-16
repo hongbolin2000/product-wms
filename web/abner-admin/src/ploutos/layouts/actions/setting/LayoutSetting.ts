@@ -20,14 +20,14 @@ export const sideExampleList: Ref<LayoutStyleOption[]> = ref([
     rightBottomBg: '#f5f5f5',
     checked: true,
     sideThemeId: SideTheme.WHITE,
-    tipText: '明亮',
+    tipText: '亮色',
   },{
     leftBg: '#000000',
     rightTopBg: '#000000',
     rightBottomBg: '#f5f5f5',
     checked: false,
     sideThemeId: SideTheme.DARK,
-    tipText: '暗黑',
+    tipText: '暗色',
   }, {
     leftBg: `url(${LeftBg})`,
     rightTopBg: '#000000',
@@ -197,7 +197,7 @@ export type LayoutStyleOption = {
   /**
    * 追加样式类
    */
-  class?: string,
+  class?: string | unknown,
 
   /**
    * 布局ID

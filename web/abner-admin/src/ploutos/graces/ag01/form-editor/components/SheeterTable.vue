@@ -92,7 +92,8 @@
         },
         onDeleteClick: () => {
           sheeter.data.splice(index, 1);
-          message.success("数据删除成功！");
+          const title = props.sheeter.title ? '[ ' + props.sheeter.title + ' ]' : '';
+          message.success(title + '删除成功');
         }
       })
     }

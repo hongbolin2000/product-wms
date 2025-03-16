@@ -63,6 +63,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
         InterceptorRegistration interceptor = registry.addInterceptor(new SaInterceptor(handle -> {
             try {
                 StpUtil.checkLogin();
+                StpUtil.updateLastActiveToNow();
             } catch (Exception e) {
                 throw new NotAuthorizedException("用户未登录认证");
             }

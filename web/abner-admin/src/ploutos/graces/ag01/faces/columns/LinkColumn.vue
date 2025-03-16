@@ -1,14 +1,14 @@
 <template>
-  <n-tag checkable class="tag-item" @click="onHandelClick">
-    <template #icon>
-      <SvgIcon :name="icon" style="margin-right: 5px"/>
+  <n-tag checkable class="tag-item" @click="onHandelClick" :disabled="props.column.isDisabled">
+    <template #icon v-if="column.icon">
+      <SvgIcon :name="column.icon" style="margin-right: 5px"/>
     </template>
     {{column.title}}
   </n-tag>
 </template>
 
 <script setup lang="ts">
-import {computed, inject, onMounted, type PropType, shallowRef} from 'vue'
+  import {inject, onBeforeMount, onBeforeUpdate, type PropType, shallowRef} from 'vue'
   import {useRouter} from "vue-router";
   /********************************************************************************
    * 路由列
@@ -41,22 +41,24 @@ import {computed, inject, onMounted, type PropType, shallowRef} from 'vue'
   /**
    * 注入关闭右键菜单函数
    */
-  const onCloseContextMenu = inject('onCloseContextMenu');
+  const onCloseContextMenu = inject<Function>('onCloseContextMenu');
 
   /**
    * 注入模态框显示函数
    */
-  const onShowModal = inject('onShowModal');
+  const onShowModal = inject<Function>('onShowModal');
 
   /**
    * 注入抽屉显示函数
    */
-  const onShowDrawer = inject('onShowDrawer');
+  const onShowDrawer = inject<Function>('onShowDrawer');
 
   /**
-   * 组件加载
+   * 组件加载前
    */
-  onMounted(async () => {
+  onBeforeMount(async () => {
+    disabled();
+
     if (props.column?.mode != 'router') {
       const route: any = router.getRoutes().find(i => i.path == props.column?.link);
 
@@ -71,19 +73,30 @@ import {computed, inject, onMounted, type PropType, shallowRef} from 'vue'
   });
 
   /**
-   * 按钮图标
+   * 组件更新前
    */
-  const icon = computed(() => {
-    if (props.column.icon == 'edit') {
-      return 'file-text';
-    }
-    return props.column.icon;
+  onBeforeUpdate(() => {
+    disabled();
   });
+
+  /**
+   * 禁用
+   */
+  function disabled() {
+    if (props.column.disabled) {
+      const func = new Function( 'rowData', 'disabled', 'return eval("rowData." + disabled)');
+      props.column.isDisabled = func(props.column.rowData, props.column.disabled);
+    }
+  }
 
   /**
    * 按钮点击
    */
   function onHandelClick() {
+    if (props.column.isDisabled) {
+      return;
+    }
+
     const column = props.column;
     const value = column.rowData[column.name];
 
@@ -102,8 +115,8 @@ import {computed, inject, onMounted, type PropType, shallowRef} from 'vue'
 
 <style scoped lang="scss">
   .tag-item {
-    padding: 15px 10px;
-    margin: 0 5px;
-    width: calc(100% - 10px);
+    padding: 17px 9.5px;
+    margin: 0 4px;
+    width: calc(100% - 8px);
   }
 </style>

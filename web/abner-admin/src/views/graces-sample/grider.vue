@@ -9,6 +9,11 @@
    * @author Berlin
    ********************************************************************************/
   import {Graces} from '@/ploutos/index.ts';
+
+  function ba01Cancel(data: string) {
+    alert("aaa");
+  }
+  window['ba01Cancel'] = ba01Cancel;
 </script>
 
 <style scoped lang="scss">

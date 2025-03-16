@@ -79,6 +79,7 @@
         textColorPressedPrimary: 'white', // 鼠标按下按钮文字颜色
         colorPressedPrimary: layoutStore.themeColor, // 鼠标按下按钮背景颜色
         borderPressedPrimary: layoutStore.themeColor, // 鼠标按下边框颜色
+        borderPressed: layoutStore.themeColor,
         textColorFocusPrimary: 'white', // 按钮聚焦文字颜色
 
         textColorTextPressed: layoutStore.themeColor, // 鼠标按下按钮文字颜色（文本按钮）
@@ -91,6 +92,9 @@
       },
       Tabs: {
         panePaddingMedium: '20px 0px 0px 0px'
+      },
+      Switch : {
+        railColorActive: layoutStore.themeColor,
       },
       Scrollbar: {
         height: '7px',

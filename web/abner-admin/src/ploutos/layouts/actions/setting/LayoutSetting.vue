@@ -52,6 +52,16 @@
           @click="colorClick(item)"
         />
       </n-grid>
+
+      <n-divider dashed>数据表格</n-divider>
+      <div class="setting-item-wrapper">
+        <span>边框</span>
+        <n-switch v-model:value="layoutStore.bordered"/>
+      </div>
+      <div class="setting-item-wrapper">
+        <span>斑马格</span>
+        <n-switch v-model:value="layoutStore.striped"/>
+      </div>
     </n-drawer-content>
   </n-drawer>
 </template>

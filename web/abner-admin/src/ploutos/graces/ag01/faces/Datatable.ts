@@ -9,8 +9,15 @@
 import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
 import type DoubleClick from "@/ploutos/graces/ag01/faces/DoubleClick.ts";
 import AbstractComponent from "@/ploutos/graces/ag01/faces/AbstractComponent";
+import type {DataTableRowKey} from "naive-ui";
+import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction.ts";
 
 export default class Datatable extends AbstractComponent{
+
+	/**
+	 * 动作按钮
+	 */
+	actions: AbstractAction[];
 
 	/**
 	 * 表格列
@@ -28,6 +35,16 @@ export default class Datatable extends AbstractComponent{
 	width: string;
 
 	/**
+	 * 是否显示边框
+	 */
+	bordered: boolean;
+
+	/**
+	 * 是否显示斑马格
+	 */
+	striped: boolean;
+
+	/**
 	 * 表格数据
 	 */
 	data: [];
@@ -36,4 +53,14 @@ export default class Datatable extends AbstractComponent{
 	 * 总记录数
 	 */
 	total: number;
+
+	/**
+	 * 表格选择数据的字段key
+	 */
+	checkRowKey: string;
+
+	/**
+	 * 表格选择的数据
+	 */
+	checkedKeys: DataTableRowKey[];
 }

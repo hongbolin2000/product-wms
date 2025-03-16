@@ -28,7 +28,7 @@ export default class AbstractWidget extends AbstractComponent{
 	/**
 	 * 是否作为选项卡标题显示
 	 */
-	tab: boolean;
+	tabtitle: boolean;
 
 	/**
 	 * 控件宽度

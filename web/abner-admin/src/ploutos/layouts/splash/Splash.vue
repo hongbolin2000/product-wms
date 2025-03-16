@@ -1,6 +1,6 @@
 <template>
-  <div class="first-loading-wrp">
-    <img src="./loading.gif" alt="loading">
+  <div class="splash-wrapper">
+    <img src="/loading.gif" alt="loading">
   </div>
 </template>
 
@@ -39,7 +39,8 @@
     if (!response.data.login) {
       if (response.data.frozen) {
         dialog.warning({
-          content: '长时间未操作系统，需重新登录！',
+          closable: false,
+          content: '用户认证已失效，需重新登录！',
           noCancel: true,
           onConfirmClick: () => {
             router.replace("/login");
@@ -66,7 +67,7 @@
 </script>
 
 <style scoped lang="scss">
-  .first-loading-wrp {
+  .splash-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;

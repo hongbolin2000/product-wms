@@ -1,4 +1,72 @@
 <template>
+  <div class="datatable-action-wrapper" v-if="showTools">
+    <n-space :size="10">
+      <component v-for="action of actions" :is="() => {
+        action.datatable = datatable;
+        return ActionFactories.getInstance().create(action)
+      }"/>
+
+      <n-dropdown trigger="hover" :options="optionActions" v-if="optionActions.length > 0">
+        <n-button icon-placement="right" class="more-action">
+          <template #icon>
+            <n-icon class="tip">
+              <ChevronDown style="font-size: 14px"/>
+            </n-icon>
+          </template>
+          更多操作
+        </n-button>
+      </n-dropdown>
+    </n-space>
+
+    <div style="flex: 1" v-if="datatable.actions.length > 0"></div>
+    <n-space size="small" :style="datatable.actions.length <= 0 ? 'flex-direction: row-reverse' : ''">
+      <n-tooltip trigger="hover" v-if="!layoutStore.bordered">
+        <template #trigger>
+          <n-switch v-model:value="mainDataTable.bordered" size="small"/>
+        </template>
+        边框
+      </n-tooltip>
+
+      <n-tooltip trigger="hover" v-if="!layoutStore.striped">
+        <template #trigger>
+          <n-switch v-model:value="mainDataTable.striped" size="small"/>
+        </template>
+        斑马格
+      </n-tooltip>
+
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button secondary size="small" @click="onSearch()" class="tool-item">
+            <n-icon size="18">
+              <RefreshOutline/>
+            </n-icon>
+          </n-button>
+        </template>
+        刷新
+      </n-tooltip>
+
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button secondary size="small" @click="layoutStore.fullScreen()" class="tool-item">
+            <n-icon size="18">
+              <Expand/>
+            </n-icon>
+          </n-button>
+        </template>
+        全屏
+      </n-tooltip>
+
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button secondary size="small" @click="exportCsv()" class="tool-item">
+            <SvgIcon name="csv"/>
+          </n-button>
+        </template>
+        导出csv 导出后请使用记事本另存为同名文件编码选择ASNI后再打开
+      </n-tooltip>
+    </n-space>
+  </div>
+
   <n-data-table
       :columns="renderColumns(datatable)"
       :data="datatable.data"
@@ -9,6 +77,13 @@
       remote
       :row-props="rowProps"
       :max-height="maxHeight"
+      :row-key="rowKey"
+      v-model:checked-row-keys="datatable.checkedKeys"
+      ref="tableRef"
+      :get-csv-cell="getCsvCell"
+      :get-csv-header="getCsvHeader"
+      :single-line="!mainDataTable.bordered && !layoutStore.bordered"
+      :striped="mainDataTable.striped || layoutStore.striped"
   />
 
   <n-dropdown
@@ -38,37 +113,49 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  h,
-  type HTMLAttributes,
-  nextTick,
-  type PropType,
-  provide,
-  ref,
-  type Ref,
-  shallowRef,
-  type VNode
-} from "vue";
-  import {DataTableSortState, type DropdownOption, type PaginationProps} from "naive-ui";
+  import {
+    computed,
+    h,
+    type HTMLAttributes,
+    nextTick,
+    type PropType,
+    provide,
+    ref,
+    type Ref,
+    shallowRef,
+    type VNode,
+    onMounted
+  } from "vue";
+  import {type DataTableSortState, type DropdownOption, NIcon} from "naive-ui";
+  import {ChevronDown, Expand, RefreshOutline} from '@vicons/ionicons5'
   /********************************************************************************
    * 数据表格
    *
    * @author Berlin
    ********************************************************************************/
   import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
-  import type {TableBaseColumn} from "naive-ui/es/data-table/src/interface";
+  import type {TableBaseColumn, TableSelectionColumn} from "naive-ui/es/data-table/src/interface";
   import ColumnFactories from "@/ploutos/graces/ag01/faces/ColumnFactories.ts";
   import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
   import HeaderColumn from "@/ploutos/graces/ag01/components/HeaderColumn.vue";
   import LabelColumnFactory from "@/ploutos/graces/ag01/faces/columns/LabelColumnFactory.ts";
   import type LinkColumnProps from "@/ploutos/graces/ag01/faces/columns/LinkColumnProps.ts";
-  import LinkColumnFactory from "@/ploutos/graces/ag01/faces/columns/LinkColumnFactory.ts";
+  import CheckColumnFactory from "@/ploutos/graces/ag01/faces/columns/CheckColumnFactory.ts";
+  import type CheckColumnProps from "@/ploutos/graces/ag01/faces/columns/CheckColumnProps.ts";
+  import TagColumnFactory from "@/ploutos/graces/ag01/faces/columns/TagColumnFactory.ts";
+  import ActionFactories from "@/ploutos/graces/ag01/faces/ActionFactories.ts";
+  import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction.ts";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
+  import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
 
   /**
    * 父组件传入的属性
    */
   const props = defineProps({
+    mainDataTable: {
+      type: Object as PropType<Datatable>,
+      required: true
+    },
     datatable: {
       type: Object as PropType<Datatable>,
       required: true
@@ -78,6 +165,9 @@ import {
     },
     maxHeight: {
       type: String
+    },
+    showTools: {
+      type: Boolean,
     }
   });
 
@@ -99,7 +189,7 @@ import {
     /**
      * 分页
      */
-    (e: 'onPagination', pagination: {pageNumber: number, pageSize: number}): void;
+    (e: 'onPagination', pager: {pageNumber: number, pageSize: number}): void;
 
     /**
      * 表格行双击事件
@@ -108,9 +198,20 @@ import {
   }>();
 
   /**
+   * 布局状态
+   */
+  const layoutStore = useLayoutStore();
+
+  /**
    * 当前排序字段
    */
   const currentSorter: Ref<DataTableSortState> = ref(undefined);
+
+  /**
+   * 展示按钮
+   */
+  const actions: Ref<AbstractAction[]> = shallowRef([]);
+  const optionActions: Ref<DropdownOption[]> = shallowRef([]);
 
   /**
    * 右键菜单位置
@@ -146,7 +247,7 @@ import {
   /**
    * 右键选择的列
    */
-  const selectColumn: Ref<LinkColumnProps> = ref({});
+  const selectColumn: Ref<LinkColumnProps> = ref(<LinkColumnProps>{});
 
   /**
    * 右键link执行的组件
@@ -159,41 +260,74 @@ import {
   const componentValue: Ref = ref(undefined);
 
   /**
-   * 分页总记录数
+   * 表格Ref
    */
-  const itemCount = computed(() => {
-    return props.datatable?.total;
-  })
+  const tableRef = ref();
+
+  /**
+   * 分页器
+   */
+  const pager = ref({
+    pageNumber: 1,
+    pageSize: 20
+  });
 
   /**
    * 分页属性
    */
-  const pagination: Ref<PaginationProps> = ref({
-    page: 1,
-    pageSize: 20,
-    itemCount: itemCount,
-    showSizePicker: true,
-    showQuickJumper: true,
-    pageSizes: [20, 50, 100, 500],
-    onChange: (page: number) => {
-      pagination.value.page = page;
-      doubleRowIndex.value = -1;
+  const pagination = computed(() => {
+    return {
+      page: pager.value.pageNumber,
+      pageSize: pager.value.pageSize,
+      itemCount: props.datatable?.total,
+      showSizePicker: true,
+      showQuickJumper: true,
+      pageSizes: [20, 50, 100, 500],
+      onChange: (pageNumber: number) => {
+        pager.value.pageNumber = pageNumber;
+        doubleRowIndex.value = -1;
+        props.datatable.checkedKeys = [];
 
-      emit('onPagination', {
-        pageNumber: page, pageSize: pagination.value.pageSize!
-      });
-    },
-    onUpdatePageSize: (pageSize: number) => {
-      pagination.value.pageSize = pageSize;
-      pagination.value.page = 1;
-      doubleRowIndex.value = -1;
+        emit('onPagination', {
+          pageNumber: pageNumber, pageSize: pager.value.pageSize!
+        });
+      },
+      onUpdatePageSize: (pageSize: number) => {
+        pager.value.pageNumber = 1;
+        pager.value.pageSize = pageSize;
+        doubleRowIndex.value = -1;
+        props.datatable.checkedKeys = [];
 
-      emit('onPagination', {
-        pageNumber: 1, pageSize: pageSize
+        emit('onPagination', {
+          pageNumber: 1, pageSize: pageSize
+        });
+      },
+      prefix({ itemCount }) {
+        return `总记录数 ${itemCount} 条`
+      }
+    }
+  });
+
+  /**
+   * 组件加载
+   */
+  onMounted(() => {
+    if (props.datatable.actions) {
+      actions.value = props.datatable.actions.filter(i => !i.option);
+      const options = props.datatable.actions.filter(i => i.option);
+
+      const actionOptions: DropdownOption[] = []
+      options.forEach(action => {
+        actionOptions.push({
+          key: action.name,
+          type: 'render',
+          render: () => {
+            action.datatable = props.datatable;
+            return ActionFactories.getInstance().create(action);
+          },
+        });
       });
-    },
-    prefix({ itemCount }) {
-      return `总记录数 ${itemCount} 条`
+      optionActions.value = actionOptions;
     }
   });
 
@@ -239,17 +373,37 @@ import {
 
     // 生成表格列
     datatable.columns.forEach(item => {
+      item.datatableTitle = datatable.title;
+      item.rowData = selectRowData;
 
-      // 路由列
-      if (item.type == LinkColumnFactory.TYPE) {
-        item.rowData = selectRowData;
+      // 操作按钮
+      if (ColumnFactories.isLink(item)) {
         menuOptions.push({
           key: item.name,
           type: 'render',
           render: () => {
-            return ColumnFactories.getInstance().create(item)
+            return ColumnFactories.getInstance().create({...item});
           },
-        })
+        });
+        return;
+      }
+
+      // 选择列
+      if (item.type == CheckColumnFactory.TYPE) {
+        const checkColumn: CheckColumnProps = <CheckColumnProps>{...item};
+
+        const column: TableSelectionColumn = <TableSelectionColumn>{};
+        column.type = 'selection';
+        column.disabled = (row: object) => {
+          if (checkColumn.disabled) {
+            const func = new Function( 'rowData', 'disabled', 'return eval("rowData." + disabled)');
+            return func(row, checkColumn.disabled);
+          }
+        }
+        column.multiple = !checkColumn.single;
+        datatable.checkRowKey = checkColumn.name;
+        // @ts-ignore
+        columns.push(column);
         return;
       }
 
@@ -257,8 +411,8 @@ import {
       column.key = item.name;
       column.sorter = true;
       column.width = item.width ? item.width : 100;
-      column.resizable = true;
-      column.ellipsis = true;
+      column.resizable = TagColumnFactory.TYPE != item.type;
+      column.ellipsis = TagColumnFactory.TYPE != item.type;
 
       // 列属性
       column.cellProps = (rowData: object, rowIndex: number): HTMLAttributes => {
@@ -297,6 +451,13 @@ import {
   }
 
   /**
+   * 返回选择时的Row Key数据
+   */
+  function rowKey(row: object) {
+    return row[props.datatable.checkRowKey];
+  }
+
+  /**
    * 生成表格列
    */
   function renderColumn(rowData: any, rowIndex: number, column: AbstractColumn): VNode {
@@ -312,6 +473,9 @@ import {
     currentSorter.value = state;
     doubleRowIndex.value = -1;
 
+    pager.value.pageNumber = 1;
+    props.datatable.checkedKeys = [];
+
     let sorter = null;
     if (state.order) {
       sorter = {
@@ -326,6 +490,9 @@ import {
    * 条件搜索
    */
   function onSearch() {
+    props.datatable.checkedKeys = [];
+    pager.value.pageNumber = 1;
+
     doubleRowIndex.value = -1;
     emit('onSearch');
   }
@@ -362,10 +529,45 @@ import {
     onCloseContextMenu();
   }
   provide('onShowDrawer', onShowDrawer);
+
+  /**
+   * 导出csv
+   */
+  function exportCsv() {
+    tableRef.value?.downloadCsv({ fileName: props.datatable.title + '数据表' + new Date().getTime()});
+  }
+  function getCsvCell(value) {
+    return value;
+  }
+  function getCsvHeader(column) {
+    return props.datatable.columns.find(i => i.name == column.key).title;
+  }
 </script>
 
 <style scoped lang="scss">
   :deep(.n-data-table-th__ellipsis) {
     max-width: 100% !important;
+  }
+  .datatable-action-wrapper {
+    display: flex;
+    margin-bottom: 10px;
+    height: 34px;
+
+    .more-action {
+      .tip {
+        transition: transform $transitionTime;
+      }
+      &:hover {
+        .tip {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    .tool-item {
+      &:hover {
+        cursor: pointer;
+        color: var(--primary-color-hover);
+      }
+    }
   }
 </style>

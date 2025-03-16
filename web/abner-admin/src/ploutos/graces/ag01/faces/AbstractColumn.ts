@@ -8,7 +8,6 @@
  *******************************************************************************/
 import AbstractComponent from "@/ploutos/graces/ag01/faces/AbstractComponent";
 import ValueModel from "@/ploutos/graces/ag01/faces/ValueModel";
-import type {Ref} from "vue";
 
 export default class AbstractColumn extends AbstractComponent {
 
@@ -26,6 +25,11 @@ export default class AbstractColumn extends AbstractComponent {
 	 * 过滤选项
 	 */
 	filterOptions: ValueModel[]
+
+	/**
+	 * 当前表格标题
+	 */
+	datatableTitle: string;
 
 	/**
 	 * 当前行数据

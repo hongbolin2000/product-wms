@@ -8,33 +8,47 @@ import { defineStore } from 'pinia'
  * @author Berlin
  ********************************************************************************/
 import {DeviceType, LayoutMode, SideTheme, ThemeMode} from "@/ploutos/layouts/types";
-import {type Ref, ref} from "vue";
+import {type Ref, shallowRef} from "vue";
+import {screen} from "@/ploutos";
 
 /**
  * 创建布局状态存储器
  */
 const useLayoutStore = defineStore('layoutStore', () => {
-  return { ...layoutStore }
+
+  /**
+   * 布局状态
+   */
+  const layoutStore: LayoutStoreOption = {
+    theme: shallowRef(ThemeMode.LIGHT),
+    themeColor: shallowRef('#18a058'),
+    themeBgColor: shallowRef('#f0f2f5'),
+    sideTheme: shallowRef(SideTheme.WHITE),
+    deviceType: shallowRef(DeviceType.PC),
+    layoutMode: shallowRef(LayoutMode.LeftRight),
+    isCollapse: shallowRef(true),
+    bordered: shallowRef(false),
+    striped: shallowRef(false),
+    loading: shallowRef(false),
+    isFullScreen: shallowRef(false),
+  };
+
+  /**
+   * 内容全屏
+   */
+  async function fullScreen() {
+    const clazz = layoutStore.theme.value == ThemeMode.DARK ? 'page-full-screen-dark' : 'page-full-screen-light';
+    await screen.fullElement('layout-main-content', [clazz]);
+    layoutStore.isFullScreen.value = true;
+  }
+
+  return { ...layoutStore, fullScreen }
 }, {
   persist: {
-    pick: ['theme', 'themeColor', 'themeBgColor', 'sideTheme', 'layoutMode']
+    pick: ['theme', 'themeColor', 'themeBgColor', 'sideTheme', 'layoutMode', 'bordered', 'striped']
   },
 });
 export default useLayoutStore;
-
-/**
- * 初始布局状态
- */
-const layoutStore: LayoutStoreOption = {
-  theme: ref(ThemeMode.LIGHT),
-  themeColor: ref('#18a058'),
-  themeBgColor: ref('#f0f2f5'),
-  sideTheme: ref(SideTheme.WHITE),
-  deviceType: ref(DeviceType.PC),
-  layoutMode: ref(LayoutMode.LeftRight),
-  isCollapse: ref(true),
-  loading: false
-};
 
 /**
  * 布局状态类型定义
@@ -77,7 +91,22 @@ type LayoutStoreOption = {
   isCollapse: Ref<boolean>,
 
   /**
+   * 是否显示表格边框
+   */
+  bordered: Ref<boolean>,
+
+  /**
+   * 是否显示表格斑马格
+   */
+  striped: Ref<boolean>,
+
+  /**
    * loading
    */
-  loading: boolean
+  loading: Ref<boolean>,
+
+  /**
+   * 是否全屏
+   */
+  isFullScreen: Ref<boolean>;
 }

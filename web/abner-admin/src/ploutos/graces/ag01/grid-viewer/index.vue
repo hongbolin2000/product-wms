@@ -1,18 +1,13 @@
 <template>
-  <transition name="opacity-transform">
+  <transition name="opacity-transform" v-if="grider">
     <div v-if="grider.datatable">
       <n-card>
-        <n-space :size="10" style="margin-bottom: 10px;">
-          <component
-              v-for="action of grider.actions"
-              :is="ActionFactories.getInstance().create(action)"
-          />
-        </n-space>
-
         <DataTable
+            :main-data-table="grider.datatable"
             :datatable="grider.datatable"
             :max-height="maxHeight"
             need-pagination
+            :show-tools="showTools != undefined ? showTools : true"
             @on-sort="handelSort"
             @on-pagination="handelPagination"
             @on-search="handelSearch"
@@ -26,6 +21,7 @@
             :style="{width: getFormWidth(datatable)}"
         >
           <DataTable
+              :main-data-table="grider.datatable"
               :datatable="datatable"
               :max-height="maxHeight"
               @on-double-click="handelDoubleClick"
@@ -39,28 +35,29 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, onMounted, provide, ref, type Ref} from "vue";
+import {onMounted, provide, ref, type Ref, watch} from "vue";
   /********************************************************************************
    * 通用表格浏览界面
    *
    * @author Berlin
    ********************************************************************************/
   import {http, loading} from "@/ploutos";
-  import ActionFactories from "@/ploutos/graces/ag01/faces/ActionFactories.ts";
   import type GriderProps from "@/ploutos/graces/ag01/grid-viewer/GriderProps.ts";
   import DataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
   import type DoubleClick from "@/ploutos/graces/ag01/faces/DoubleClick.ts";
   import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
+  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import {storeToRefs} from "pinia";
+
+  /**
+   * 布局状态
+   */
+  const layoutStore = useLayoutStore();
 
   /**
    * 浏览表格属性定义
    */
-  const grider: Ref<GriderProps> = ref({});
-
-  /**
-   * 过滤条件
-   */
-  const params: Ref = ref({});
+  const grider: Ref<GriderProps> = ref();
 
   /**
    * 主表排序字段
@@ -73,9 +70,9 @@
   const subSorter: Ref = ref(null);
 
   /**
-   * 分页属性
+   * 分页器
    */
-  const pagination = ref({
+  const pager = ref({
     pageNumber: 1,
     pageSize: 20
   })
@@ -84,46 +81,62 @@
    * 父组件传入的属性
    */
   const props = defineProps({
-
-    /**
-     * 模块号
-     */
     module: {
       type: String,
       required: true
     },
-
-    /**
-     * 界面名称
-     */
     name: {
       type: String,
       required: true
     },
-
-    /**
-     * 参数
-     */
     params: {
       type: Object
     },
+    showTools: {
+      type: Boolean,
+      default: undefined
+    }
   });
+
+  /**
+   * 过滤条件
+   */
+  const params: Ref = ref(props.params ? props.params : new Object({}));
+
+  /**
+   * 表格最大高度
+   */
+  const maxHeight = ref('');
 
   /**
    * 计算表格最大高度
    */
-  const maxHeight = computed(() => {
-    if (!grider.value.subTables) {
-      return 'calc(100vh - var(--logo-height) - var(--tab-height) - 180px)';
+  function getMaxHeight() {
+    if (!grider.value) {
+      return;
     }
-    return 'calc((100vh - var(--logo-height) - var(--tab-height) - 270px) / 2)';
+    const expr = !layoutStore.isFullScreen ? '- var(--logo-height) - var(--tab-height)' : ' - 10px';
+    if (!grider.value.subTables) {
+      maxHeight.value = 'calc(100vh ' + expr + ' - 180px)';
+    } else {
+      maxHeight.value = 'calc((100vh ' + expr + ' - 270px) / 2)';
+    }
+  }
+
+  /**
+   * 监听布局状态变化
+   */
+  const {isFullScreen} = storeToRefs(layoutStore);
+  watch(isFullScreen, () => {
+    getMaxHeight();
   });
 
   /**
    * 组件加载
    */
-  onMounted(() => {
-    loadDefine();
+  onMounted(async () => {
+    await loadDefine();
+    getMaxHeight();
   });
 
   /**
@@ -165,13 +178,13 @@
         local: navigator.language,
         sorter: sorter.value,
         params: params.value,
-        pageNumber: pagination.value.pageNumber,
-        pageSize: pagination.value.pageSize
+        pageNumber: pager.value.pageNumber,
+        pageSize: pager.value.pageSize
       });
       grider.value.datatable.data = response.data.data;
 
       // 第一页才查询总记录数
-      if (pagination.value.pageNumber == 1) {
+      if (response.data.total) {
         grider.value.datatable.total = response.data.total;
       }
     } finally {
@@ -183,7 +196,7 @@
    * 排序
    */
   function handelSort(state: any) {
-    pagination.value.pageNumber = 1;
+    pager.value.pageNumber = 1;
     sorter.value = state;
     loadTableData();
   }
@@ -192,7 +205,7 @@
    * 条件搜索
    */
   function handelSearch() {
-    pagination.value.pageNumber = 1;
+    pager.value.pageNumber = 1;
     loadTableData();
   }
   provide('params', params.value);
@@ -200,8 +213,8 @@
   /**
    * 分页
    */
-  function handelPagination(option: any) {
-    pagination.value = option;
+  function handelPagination(pagination: any) {
+    pager.value = pagination;
     loadTableData();
   }
 

@@ -94,7 +94,7 @@ public class MenuPage {
                 menuOption.children(this.loadMenu(childMenus, parentIcons));
             }
 
-            boolean fixed = XmlUtil.getAttributeAsBool(menu, "fixed");
+            boolean fixed = XmlUtil.getAttributeAsBool(menu, "fixed", false);
             menuOption.key(path).
                     label(label).
                     icons(icon).

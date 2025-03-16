@@ -6,7 +6,7 @@
           v-for="widget of editor.widgets"
           :path="widget.name"
       >
-        <widget :widget="widget"/>
+        <component :is="editorWidget" :widget="widget"/>
       </n-form-item-gi>
     </n-grid>
 </template>
@@ -17,7 +17,6 @@
    *
    * @author Berlin
    ********************************************************************************/
-
   import type {PropType} from "vue";
   import type FormEditor from "@/ploutos/graces/ag01/faces/FormEditor.ts";
   import type AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
@@ -44,7 +43,7 @@
   /**
    * 生成输入控件
    */
-  function widget(prop: {widget: AbstractWidget}) {
+  function editorWidget(prop: {widget: AbstractWidget}) {
     prop.widget.rowData = props.formValue;
     return WidgetFactories.getInstance().create(prop.widget);
   }

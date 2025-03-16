@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-  import {onMounted} from 'vue';
+  import {onBeforeMount} from 'vue';
   import {useRouter} from 'vue-router';
   import {layoutHelper} from '@/ploutos';
   /********************************************************************************
@@ -20,6 +20,7 @@
    * @author Berlin
    ********************************************************************************/
   import packages from '../package.json';
+  import '@/iconfont/iconfont.css';
 
   /**
    * 路由
@@ -29,8 +30,7 @@
   /**
    * 组件加载
    */
-  onMounted(() => {
-
+  onBeforeMount(() => {
     // 初始化网站信息
     layoutHelper.initialWebsite({
       title: '门店设备数据采集平台',

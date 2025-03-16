@@ -24,10 +24,24 @@ namespace Message {
   }
 
   /**
+   * 提示信息
+   */
+  export function info(content: string, options?: MessageOptions) {
+    return message.info(content, options);
+  }
+
+  /**
    * 成功信息
    */
   export function success(content: string, options?: MessageOptions) {
     return message.success(content, options);
+  }
+
+  /**
+   * 成功信息
+   */
+  export function warning(content: string, options?: MessageOptions) {
+    return message.warning(content, options);
   }
 
   /**

@@ -16,14 +16,28 @@ namespace Notification {
   let notification: NotificationApiInjection;
 
   /**
-   * 警告消息
+   * 信息通知
+   */
+  export function info(content: string) {
+    notification.info({ title: content, duration: 3000 });
+  }
+
+  /**
+   * 成功通知
+   */
+  export function success(content: string) {
+    notification.success({ title: content, duration: 3000 });
+  }
+
+  /**
+   * 警告通知
    */
   export function warning(content: string) {
     notification.warning({ title: content, duration: 3000 });
   }
 
   /**
-   * 异常消息
+   * 异常通知
    */
   export function error(content: string) {
     notification.error({ title: content, duration: 3000 });

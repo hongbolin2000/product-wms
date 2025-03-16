@@ -8,6 +8,8 @@ import screenfull from 'screenfull'
  * @author Berlin
  *******************************************************************************/
 import {notification} from "@/ploutos";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
+
 namespace Screen {
 
   /**
@@ -37,6 +39,8 @@ namespace Screen {
     // 退出全屏
     screenfull.onchange(() => {
       if (!screenfull.isFullscreen) {
+        const layoutStore = useLayoutStore();
+        layoutStore.isFullScreen = false;
         element.classList.remove(appendClassNames);
       }
     });

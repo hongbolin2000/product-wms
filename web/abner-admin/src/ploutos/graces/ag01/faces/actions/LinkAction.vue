@@ -1,7 +1,7 @@
 <template>
     <n-button type="primary" @click="onHandelClick">
-      <template #icon>
-        <SvgIcon name="add"/>
+      <template #icon v-if="action.icon">
+        <SvgIcon :name="action.icon"/>
       </template>
       {{action.title}}
     </n-button>
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-  import {onMounted, type PropType, ref, shallowRef} from 'vue'
+import {computed, onMounted, type PropType, ref, shallowRef} from 'vue'
   import {useRouter} from "vue-router";
   /********************************************************************************
    * 路由动作按钮
@@ -65,6 +65,13 @@
   });
 
   /**
+   * 按钮图标
+   */
+  const icon = computed(() => {
+    return props.action.icon;
+  });
+
+  /**
    * 组件加载
    */
   onMounted(async () => {
@@ -93,7 +100,6 @@
       showDrawer.value = true;
       return;
     }
-    document.body.click();
     router.push(props.action?.link!);
   }
 </script>

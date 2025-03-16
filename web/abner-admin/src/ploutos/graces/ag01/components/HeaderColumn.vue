@@ -70,7 +70,7 @@
   /**
    * 注入查询函数
    */
-  const onSearch = inject('onSearch');
+  const onSearch = inject<Function>('onSearch');
 
   /**
    * 组件加载

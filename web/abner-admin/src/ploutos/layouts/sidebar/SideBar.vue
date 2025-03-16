@@ -26,7 +26,7 @@ import {computed, onMounted, type Ref, ref, watch} from "vue";
    *
    * @author Berlin
    ********************************************************************************/
-  import {LayoutMode, MenuOption, SideTheme, ThemeMode} from '@/ploutos/layouts/types'
+  import {LayoutMode, type MenuOption, SideTheme, ThemeMode} from '@/ploutos/layouts/types'
   import Logo from '@/ploutos/layouts/logo/Logo.vue'
   import ScrollerMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
@@ -54,7 +54,7 @@ import {computed, onMounted, type Ref, ref, watch} from "vue";
   onMounted(() => {
     // 等待菜单加载完成后再做事情
     const interval = setInterval(() => {
-      if (appStore.menus <= 0) {
+      if (appStore.menus.length <= 0) {
         return;
       }
       clearInterval(interval);

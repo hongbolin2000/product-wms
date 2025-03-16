@@ -77,6 +77,7 @@
   import {type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
   import {screen, routerHelper} from "@/ploutos";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import {storeToRefs} from "pinia";
 
   /**
    * 全局应用状态
@@ -192,7 +193,7 @@
         calScrollbarProps();
         scrollToCurrentTab();
       }, 1050);
-    }, 50);
+    }, 100);
   });
 
   /**
@@ -209,7 +210,7 @@
       return;
     }
 
-    let menu = appStore.expandMenus.findLast(i => i.key == to.path);
+    let menu = appStore.expandMenus.find(i => i.key == to.path);
     if (!menu) {
       menu = {
         key: to.path,
@@ -308,17 +309,17 @@
   /**
    * 侦听菜单折叠事件
    */
-  const isManualCollapse = ref(false);
-  layoutStore.$subscribe((mutation, state) => {
-
+  let isManualCollapse = false;
+  const {isCollapse} = storeToRefs(layoutStore);
+  watch(isCollapse, () => {
     // 没有手动折叠过菜单并且当前折叠菜单
-    if (!isManualCollapse.value && state.isCollapse) {
-      isManualCollapse.value = true;
+    if (!isManualCollapse && layoutStore.isCollapse) {
+      isManualCollapse = true;
       return;
     }
 
     // 手动折叠过菜单并且当前打开菜单
-    if (isManualCollapse.value && !state.isCollapse) {
+    if (isManualCollapse && !layoutStore.isCollapse) {
       calScrollbarProps();
 
       // 滚动条溢出时滚动到当前选项卡
@@ -386,7 +387,7 @@
    */
   function getContextMenuOptions(isMouseRight: boolean) {
     if (!isMouseRight) {
-      contextCurrentMenu.value = appStore.expandMenus.findLast(i => i.key == currentPath.value);
+      contextCurrentMenu.value = appStore.expandMenus.find(i => i.key == currentPath.value);
     }
 
     contextMenuOptions.value = [{
@@ -465,7 +466,7 @@
    */
   function onDropDownSelect(key: string) {
     if ("fullscreen" == key) {
-      pageFullScreen();
+      layoutStore.fullScreen();
     }
     if ("refresh" == key) {
       refreshRoute();
@@ -517,13 +518,6 @@
    */
   function getCurrentMenuIndex() {
     return appStore.visitedMenus.findIndex(i => i.key == contextCurrentMenu.value.key);
-  }
-
-  /**
-   * 内容全屏
-   */
-  function pageFullScreen() {
-    screen.fullElement('layout-main-section', ['page-full-screen']);
   }
 
   /**
@@ -604,7 +598,7 @@
    *
    * @param icon
    */
-  function renderMenuIcon(icon: string | unknown) {
+  function renderMenuIcon(icon: string) {
     icon = !icon ? 'menu' : icon;
     return () => h(NIcon, null, { default: () => h(SvgIcon, {name: icon}) })
   }

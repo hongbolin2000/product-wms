@@ -26,32 +26,32 @@ export type MenuOption = {
   /**
    * 标签
    */
-  label: string,
+  label?: string,
 
   /**
    * 菜单字符图标
    */
-  icons: string,
+  icons?: string,
 
   /**
    * 菜单渲染图标
    */
-  icon: () => VNodeChild;
+  icon?: () => VNodeChild;
 
   /**
    * 父菜单图标
    */
-  parentIcon: string,
+  parentIcon?: string,
 
   /**
    * 是否固定菜单在选项卡中
    */
-  fixed: boolean;
+  fixed?: boolean;
 
   /**
    * 子菜单
    */
-  children: MenuOption[],
+  children?: MenuOption[],
 
   /**
    * 是否选中

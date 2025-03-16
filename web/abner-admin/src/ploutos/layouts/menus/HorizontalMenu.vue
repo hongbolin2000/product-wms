@@ -62,7 +62,7 @@
   onMounted(() => {
     // 等待菜单加载完成后再做事情
     const interval = setInterval(() => {
-      if (appStore.menus <= 0) {
+      if (appStore.menus.length <= 0) {
         return;
       }
       clearInterval(interval);

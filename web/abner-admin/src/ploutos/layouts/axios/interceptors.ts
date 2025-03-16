@@ -64,6 +64,7 @@ export function useResponseInterceptor(client: AxiosInstance) {
     // 401
     if (error.response.status == 401) {
       dialog.warning({
+        closable: false,
         content: '用户认证已失效，需重新登录！',
         noCancel: true,
         onConfirmClick: async () => {

@@ -1,177 +1,181 @@
 <template>
-  <div>
-    <div :style="style">
-      <n-scrollbar>
-        <!-- 编辑表单 -->
-        <div v-for="row of editor.editorRows" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
-          <!-- 非选项卡表单 -->
-          <n-card
-              :title="editor.title"
-              :segmented="{content: true}"
-              v-for="editor of row.noTabEditors"
-              :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, editor)}"
-              :bordered="!props.isDrawer"
-              :content-style="{paddingBottom: props.isDrawer && 0}"
-          >
-            <template #header-extra>
+  <n-spin :show="spining" v-if="editor">
+    <template #icon>
+      <n-icon>
+        <SettingsOutline />
+      </n-icon>
+    </template>
+
+    <n-scrollbar :style="style">
+      <!-- 编辑表单 -->
+      <div v-for="row of editor.editorRows" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
+        <!-- 非选项卡表单 -->
+        <n-card
+            :title="editor.title"
+            :segmented="{content: true}"
+            v-for="editor of row.noTabEditors"
+            :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, editor)}"
+            :bordered="!props.isDrawer"
+            :content-style="{paddingBottom: props.isDrawer && 0}"
+        >
+          <template #header-extra>
+            <n-button @click="onCollapse(row)" text>
+              {{editor.collapse ? '展开' : '折叠'}}
+            </n-button>
+          </template>
+
+          <n-collapse-transition :show="!editor.collapse">
+            <n-form
+                :model="formValue"
+                :rules="formRules"
+                ref="formRefs"
+                :style="{width: editor.formWidth, margin: 'auto'}"
+                :label-placement="editor.placement"
+                label-width="auto"
+            >
+              <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount"/>
+            </n-form>
+          </n-collapse-transition>
+        </n-card>
+
+        <!-- 选项卡表单 -->
+        <n-card
+            v-if="row.tabEditors.length > 0"
+            class="n-card-tab"
+            :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false)}"
+            :bordered="!props.isDrawer"
+            :content-style="{paddingBottom: props.isDrawer && 0}"
+        >
+          <n-tabs type="line" animated>
+            <template #suffix>
               <n-button @click="onCollapse(row)" text>
-                {{editor.collapse ? '展开' : '折叠'}}
+                {{row.tabEditors[0].collapse ? '展开' : '折叠'}}
               </n-button>
             </template>
 
-            <n-collapse-transition :show="!editor.collapse">
-              <n-form
-                  :model="formValue"
-                  :rules="formRules"
-                  ref="formRefs"
-                  :style="{width: editor.formWidth, margin: 'auto'}"
-                  :label-placement="editor.placement"
-                  label-width="auto"
-              >
-                <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount"/>
-              </n-form>
-            </n-collapse-transition>
-          </n-card>
+            <n-tab-pane :name="editor.name" :tab="editor.title" v-for="editor of row.tabEditors">
+              <n-collapse-transition :show="!editor.collapse">
+                <n-form
+                    :model="formValue"
+                    :rules="formRules"
+                    ref="formRefs"
+                    :style="{width: editor.formWidth, margin: 'auto'}"
+                    :label-placement="editor.placement"
+                    label-width="auto"
+                >
+                  <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount"/>
+                </n-form>
+              </n-collapse-transition>
+            </n-tab-pane>
+          </n-tabs>
+        </n-card>
+      </div>
 
-          <!-- 选项卡表单 -->
-          <n-card
-              v-if="row.tabEditors.length > 0"
-              class="n-card-tab"
-              :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false)}"
-              :bordered="!props.isDrawer"
-              :content-style="{paddingBottom: props.isDrawer && 0}"
-          >
-            <n-tabs type="line" animated>
-              <template #suffix>
-                <n-button @click="onCollapse(row)" text>
-                  {{row.tabEditors[0].collapse ? '展开' : '折叠'}}
-                </n-button>
-              </template>
+      <!-- 编辑表格 -->
+      <div v-for="row of editor.sheeterRows" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
 
-              <n-tab-pane :name="editor.name" :tab="editor.title" v-for="editor of row.tabEditors">
-                <n-collapse-transition :show="!editor.collapse">
-                  <n-form
-                      :model="formValue"
-                      :rules="formRules"
-                      ref="formRefs"
-                      :style="{width: editor.formWidth, margin: 'auto'}"
-                      :label-placement="editor.placement"
-                      label-width="auto"
-                  >
-                    <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount"/>
-                  </n-form>
-                </n-collapse-transition>
-              </n-tab-pane>
-            </n-tabs>
-          </n-card>
-        </div>
+        <!-- 非选项卡表格 -->
+        <n-card
+            :title="sheeter.title"
+            v-for="sheeter of row.noTabSheeters"
+            :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true, sheeter)}"
+            :bordered="!props.isDrawer"
+            :content-style="{paddingBottom: props.isDrawer && 0}"
+            :segmented="{content: true}"
+        >
+          <template #header-extra>
+            <n-space :size="10">
+              <n-button @click="onShowSheetModal(sheeter)" type="primary" text v-if="sheeter.added">
+                添加
+              </n-button>
 
-        <!-- 编辑表格 -->
-        <div v-for="row of editor.sheeterRows" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
+              <n-button @click="onSheeterCollapse(row)" text>
+                {{sheeter.collapse ? '展开' : '折叠'}}
+              </n-button>
+            </n-space>
+          </template>
 
-          <!-- 非选项卡表格 -->
-          <n-card
-              :title="sheeter.title"
-              v-for="sheeter of row.noTabSheeters"
-              :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true, sheeter)}"
-              :bordered="!props.isDrawer"
-              :content-style="{paddingBottom: props.isDrawer && 0}"
-              :segmented="{content: true}"
-          >
-            <template #header-extra>
+          <SheeterTable
+              :row-index="sheeterRowIndex"
+              :sheeter="sheeter"
+              @on-double-click="onSheeterDoubleClick"
+              @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
+          />
+        </n-card>
+
+        <!-- 选项卡表格 -->
+        <n-card
+            v-if="row.tabSheeters.length > 0"
+            :class="['n-card-tab', props.isDrawer ? 'editor-row-drawer' : 'editor-row']"
+            :bordered="!props.isDrawer"
+            :content-style="{paddingBottom: props.isDrawer && 0}"
+            :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true)}"
+        >
+          <n-tabs type="line" animated @update:value="(value) => onSheeterTabsChange(row, value)">
+            <template #suffix>
               <n-space :size="10">
-                <n-button @click="onShowSheetModal(sheeter)" type="primary" text v-if="sheeter.added">
+                <n-button @click="onShowSheetModal(currentTabSheeter)" type="primary" text v-if="currentTabSheeter.added">
                   添加
                 </n-button>
 
                 <n-button @click="onSheeterCollapse(row)" text>
-                  {{sheeter.collapse ? '展开' : '折叠'}}
+                  {{row.tabSheeters[0].collapse ? '展开' : '折叠'}}
                 </n-button>
               </n-space>
             </template>
 
-            <SheeterTable
-                :row-index="sheeterRowIndex"
-                :sheeter="sheeter"
-                @on-double-click="onSheeterDoubleClick"
-                @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
-            />
-          </n-card>
+            <n-tab-pane :name="sheeter.name" :tab="sheeter.title" v-for="sheeter of row.tabSheeters">
+              <SheeterTable
+                  :row-index="sheeterRowIndex"
+                  :sheeter="sheeter"
+                  @on-double-click="onSheeterDoubleClick"
+                  @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
+              />
+            </n-tab-pane>
+          </n-tabs>
+        </n-card>
+      </div>
 
-          <!-- 选项卡表格 -->
-          <n-card
-              v-if="row.tabSheeters.length > 0"
-              :class="['n-card-tab', props.isDrawer ? 'editor-row-drawer' : 'editor-row']"
-              :bordered="!props.isDrawer"
-              :content-style="{paddingBottom: props.isDrawer && 0}"
-              :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true)}"
+      <!-- 编辑表格弹框 -->
+      <n-modal
+          v-model:show="showFormModal"
+          :title="(sheeterRowIndex == -1 ?'添加' : '修改') + (selectSheeter && selectSheeter.title)"
+          :draggable="{bounds: 'none'}"
+          :style="{width: '60%'}"
+          preset="dialog"
+      >
+        <n-card style="max-height: 60vh;overflow-y: auto" :bordered="false">
+          <n-form
+              :model="sheeterRowValue"
+              :rules="sheeterFormRules"
+              ref="sheeterFormRef"
+              label-placement="left"
+              label-width="auto"
           >
-            <n-tabs type="line" animated @update:value="(value) => onSheeterTabsChange(row, value)">
-              <template #suffix>
-                <n-space :size="10">
-                  <n-button @click="onShowSheetModal(currentTabSheeter)" type="primary" text v-if="currentTabSheeter.added">
-                    添加
-                  </n-button>
+            <n-grid :cols="24" :x-gap="20">
+              <n-form-item-gi
+                  :span="8"
+                  :label="widget.title"
+                  v-for="widget of selectSheeter.widgets"
+                  :path="widget.name"
+              >
+                <sheeter-widget :widget="widget"/>
+              </n-form-item-gi>
+            </n-grid>
+          </n-form>
+        </n-card>
 
-                  <n-button @click="onSheeterCollapse(row)" text>
-                    {{row.tabSheeters[0].collapse ? '展开' : '折叠'}}
-                  </n-button>
-                </n-space>
-              </template>
+        <template #action>
+          <n-button type="primary" @click="onSaveSheeterForm">
+            保存
+          </n-button>
 
-              <n-tab-pane :name="sheeter.name" :tab="sheeter.title" v-for="sheeter of row.tabSheeters">
-                <SheeterTable
-                    :row-index="sheeterRowIndex"
-                    :sheeter="sheeter"
-                    @on-double-click="onSheeterDoubleClick"
-                    @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
-                />
-              </n-tab-pane>
-            </n-tabs>
-          </n-card>
-        </div>
-
-        <!-- 编辑表格弹框 -->
-        <n-modal
-            v-model:show="showFormModal"
-            :title="'添加' + selectSheeter.title"
-            :draggable="{bounds: 'none'}"
-            :style="{width: '60%'}"
-            preset="dialog"
-        >
-          <n-card style="max-height: 60vh;overflow-y: auto" :bordered="false">
-            <n-form
-                :model="sheeterRowValue"
-                :rules="sheeterFormRules"
-                ref="sheeterFormRef"
-                label-placement="left"
-                label-width="auto"
-            >
-              <n-grid :cols="24" :x-gap="20">
-                <n-form-item-gi
-                    :span="8"
-                    :label="widget.title"
-                    v-for="widget of selectSheeter.widgets"
-                    :path="widget.name"
-                >
-                  <sheeter-widget :widget="widget"/>
-                </n-form-item-gi>
-              </n-grid>
-            </n-form>
-          </n-card>
-
-          <template #action>
-            <n-button type="primary" @click="onSaveSheeterForm">
-              保存
-            </n-button>
-
-            <n-button @click="showFormModal = false">
-              关闭
-            </n-button>
-          </template>
-        </n-modal>
-      </n-scrollbar>
-    </div>
+          <n-button @click="showFormModal = false">
+            关闭
+          </n-button>
+        </template>
+      </n-modal>
+    </n-scrollbar>
 
     <n-card
         class="form-btn-option"
@@ -190,7 +194,7 @@
         </n-button>
       </n-space>
     </n-card>
-  </div>
+  </n-spin>
 </template>
 
 <script setup lang="ts">
@@ -213,6 +217,7 @@
   import FormGrid from "@/ploutos/graces/ag01/form-editor/components/FormGrid.vue";
   import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTable.vue";
   import type SheeterRow from "@/ploutos/graces/ag01/faces/SheeterRow.ts";
+  import {SettingsOutline} from "@vicons/ionicons5";
 
   /**
    * 应用状态
@@ -221,9 +226,14 @@
   const layoutStore = useLayoutStore();
 
   /**
+   * 是否加载中（提供给drawer和dialog使用）
+   */
+  const spining = shallowRef(false);
+
+  /**
    * 编辑界面属性定义
    */
-  const editor: Ref<EditorProps> = ref({});
+  const editor: Ref<EditorProps> = ref();
 
   /**
    * 父组件传入的属性
@@ -294,7 +304,7 @@
   /**
    * 表单数据
    */
-  const formValue: Ref = ref({});
+  const formValue: Ref = ref(new Object({}));
 
   /**
    * 表单检验规则
@@ -307,6 +317,11 @@
   const formRefs = ref([]);
 
   /**
+   * 作为选项卡标题的列名
+   */
+  const tabTitleName = ref('');
+
+  /**
    * 组件加载
    */
   onMounted(() => {
@@ -314,11 +329,22 @@
   });
 
   /**
+   * 加载中
+   */
+  function spin(value: boolean) {
+    if (props.isDialog || props.isDrawer) {
+      spining.value = value;
+    } else  {
+      loading(value);
+    }
+  }
+
+  /**
    * 加载界面定义
    */
   async function loadDefine() {
     try {
-      loading(true);
+      spin(true);
 
       const data = {
         module: props.module, name: props.name, params: props.params, local: 'zh-CN'
@@ -327,16 +353,21 @@
       editor.value = response.data;
 
       // 计算表单基础属性
-      const rules = {}; let tabTitleName;
+      const rules = {};
+      const allEditors = [];
       editor.value.editorRows.forEach(row => {
 
         // 选项卡表单
         row.tabEditors = row.editors.filter(i => i.tab);
         row.noTabEditors = row.editors.filter(i => !i.tab);
 
+        // 加入全部表单
+        allEditors.push(...row.noTabEditors);
+        allEditors.push(...row.tabEditors);
+
         // 计算一行展示的表单数
         let editorCount = row.noTabEditors.length;
-        editorCount += row.tabEditors > 0 ? 1 : 0;
+        editorCount += row.tabEditors.length > 0 ? 1 : 0;
         row.editorCount = editorCount;
 
         row.editors.forEach(editor => {
@@ -349,12 +380,13 @@
                 trigger: ['blur', 'input'],
               }
             }
-            if (widget.tab) {
-              tabTitleName = widget.name;
+            if (widget.tabtitle) {
+              tabTitleName.value = widget.name;
             }
           });
         })
       });
+      editor.value.allEditors = allEditors;
       formRules.value = rules;
 
       // 拆分编辑表格
@@ -374,14 +406,13 @@
       // 更改选型卡标题
       if (!props.isDialog && !props.isDrawer) {
         if (props.fill) {
-          const suffix = tabTitleName ? ' - ' + formValue.value[tabTitleName] : '';
-          changeTabTitle(editor.value.etitle, suffix);
+          changeTabTitle(editor.value.etitle, formValue.value[tabTitleName.value]);
         } else {
           changeTabTitle(editor.value.atitle, '');
         }
       }
     } finally {
-      loading(false);
+      spin(false);
     }
   }
 
@@ -390,7 +421,7 @@
    */
   async function loadData() {
     try {
-      loading(true);
+      spin(true);
 
       const data = {
         module: props.module, name: props.name, local: 'zh-CN',
@@ -406,7 +437,7 @@
         });
       });
     } finally {
-      loading(false);
+      spin(false);
     }
   }
 
@@ -419,7 +450,7 @@
         return;
       }
       clearInterval(interval);
-      appStore.changeTabTitle(title + suffix);
+      appStore.changeTabTitle(title + (suffix ? ' - ' + suffix : ''));
     }, 100);
   }
 
@@ -427,26 +458,63 @@
    * 保存
    */
   async function handelSave() {
+    // 校验表单
     for (let i = 0; i < formRefs.value.length; i++) {
       await formRefs.value[i].validate((errors) => {
         if (errors) {
-          message.error("请将信息填写完整");
+          message.error("请将表单" + getFormTitle(editor.value.allEditors[i].title) + "填写完整");
         }
       });
     }
 
-    // 编辑表格
-    dialog.warning({
-      onConfirmClick: () => {
-        const data = formValue.value;
-        editor.value.sheeterRows.forEach(row => {
-          row.sheeters.forEach(sheeter => {
-            data[sheeter.name] = sheeter.data;
-          });
-        });
-        emit('onSave', data);
+    // 校验表格数据
+    const data = formValue.value;
+    for (let i = 0; i < editor.value.sheeterRows.length; i++) {
+      const sheeters = editor.value.sheeterRows[i].sheeters;
+
+      for (let j = 0; j < sheeters.length; j++) {
+        const sheeter = sheeters[j];
+        data[sheeter.name] = sheeter.data;
+        if (sheeter.required && (!sheeter.data || sheeter.data.length <= 0)) {
+          message.error("请将" + getFormTitle(sheeter.title) + "表格数据填写完整")
+          return;
+        }
       }
+    }
+
+    // 编辑表格
+    const title = props.fill ? editor.value.etitle : editor.value.atitle;
+    const titleValue = formValue.value[tabTitleName.value];
+    dialog.warning({
+      content: '是否确认' + title + (titleValue ? ' - ' + titleValue : '') + '？',
+      onConfirmClick: () => onConfirm(data, title, titleValue)
     })
+  }
+
+  /**
+   * 确认提交
+   */
+  function onConfirm(data: object, title: string, titleValue: string) {
+    if (editor.value.url) {
+      (async () => {
+        try {
+          spin(true);
+          await http.post(editor.value.url, data);
+          message.success(title + (titleValue ? '[ ' + titleValue + ' ]' : '') + '成功');
+        } finally {
+          spin(false);
+        }
+      })();
+    } else {
+      emit('onSave', data);
+    }
+  }
+
+  /**
+   * 表单标题
+   */
+  function getFormTitle(title: string) {
+    return title ? '[ ' + title + ' ]' : ''
   }
 
   /**
@@ -524,7 +592,7 @@
     }
     // 弹框展示
     if (props.isDialog) {
-      return {maxHeight: '60vh', overflowY: 'auto'};
+      return {maxHeight: '60vh'};
     }
   });
 
@@ -575,7 +643,7 @@
   /**
    * 当前操作的编辑表格
    */
-  const selectSheeter: Ref<Sheeter> = ref({});
+  const selectSheeter: Ref<Sheeter> = ref();
 
   /**
    * 当前操作编辑表格数据
@@ -590,7 +658,7 @@
   /**
    * 当前操作编辑表格ref
    */
-  const sheeterFormRef = ref();
+  const sheeterFormRef: Ref = ref({});
 
   /**
    * 当前编辑行index
@@ -600,7 +668,7 @@
   /**
    * 选项卡当前选择的表格
    */
-  const currentTabSheeter = ref({});
+  const currentTabSheeter: Ref<Sheeter> = shallowRef();
 
   /**
    * 折叠编辑表格
@@ -660,16 +728,17 @@
    * 保存编辑表单值
    */
   async function onSaveSheeterForm() {
+    const title = getFormTitle(selectSheeter.value.title);
     await sheeterFormRef.value.validate((errors) => {
       if (errors) {
-        message.error("请将信息填写完整");
+        message.error("请将表单" + title + "填写完整");
       }
     });
 
     // 修改
     if (sheeterRowIndex.value != -1) {
       selectSheeter.value.data[sheeterRowIndex.value] = sheeterRowValue.value;
-      message.success("数据保存成功！可继续修改数据");
+      message.success(title + "已保存！可继续修改或关闭弹框");
     }
 
     // 添加
@@ -679,7 +748,7 @@
 
       data.push({...sheeterRowValue.value});
       selectSheeter.value.data = data;
-      message.success("数据保存成功！可继续添加数据");
+      message.success(title + "已保存！可继续添加或关闭弹框");
     }
   }
 
