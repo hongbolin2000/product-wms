@@ -10,6 +10,7 @@ import type {VNode} from "vue";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import type AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
 import TextWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/TextWidgetFactory";
+import NumberWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetFactory.ts";
 
 export default class WidgetFactories {
 
@@ -28,6 +29,7 @@ export default class WidgetFactories {
 	 */
 	constructor() {
 		this.registry(new TextWidgetFactory());
+		this.registry(new NumberWidgetFactory())
 	}
 
 	/**

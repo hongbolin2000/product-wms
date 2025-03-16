@@ -164,6 +164,7 @@ import {
   import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction.ts";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+import {Parser} from "expr-eval";
 
   /**
    * 父组件传入的属性
@@ -429,10 +430,9 @@ import {
 
         const column: TableSelectionColumn = <TableSelectionColumn>{};
         column.type = 'selection';
-        column.disabled = (row: object) => {
+        column.disabled = (row: any) => {
           if (checkColumn.disabled) {
-            const func = new Function( 'rowData', 'disabled', 'return eval("rowData." + disabled)');
-            return func(row, checkColumn.disabled);
+            return Parser.parse(checkColumn.disabled).evaluate(row);
           }
         }
         column.multiple = !checkColumn.single;

@@ -1,6 +1,8 @@
 <template>
-<!--  <Graces.GridViewer module="ba01" name="storeGrider" @onSearch="onSearch" :query="false" @onSubSearch="onSearch" :query-sub="false"/>-->
-  <Graces.GridViewer module="ba01" name="storeGrider" @onSearch="onSearch"/>
+  <div>
+    <!--  <Graces.GridViewer module="ba01" name="storeGrider" @onSearch="onSearch" :query="false" @onSubSearch="onSearch" :query-sub="false"/>-->
+    <Graces.GridViewer module="ba01" name="storeGrider" @onSearch="onSearch"/>
+  </div>
 </template>
 
 <script setup lang="ts" name="GridViewerSample">

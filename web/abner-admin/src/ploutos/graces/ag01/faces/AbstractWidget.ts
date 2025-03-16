@@ -36,12 +36,25 @@ export default class AbstractWidget extends AbstractComponent{
 	width: string;
 
 	/**
+	 * 禁用表达式
+	 */
+	disabled: string;
+
+	/********************************************************************************
+	 * 以下为前端计算内容
+	 *******************************************************************************/
+	/**
 	 * 是否禁用
 	 */
-	disabled: boolean;
+	isDisabled: boolean;
 
 	/**
 	 * 表单值
 	 */
 	rowData: any;
+
+	/**
+	 * 当前表单所有的输入控件
+	 */
+	widgets: AbstractWidget[];
 }

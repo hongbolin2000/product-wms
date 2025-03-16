@@ -7,9 +7,9 @@ import {h, type VNode} from "vue";
  *
  * @author Berlin
  *******************************************************************************/
-import AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget";
 import TextWidget from "@/ploutos/graces/ag01/faces/widgets/TextWidget.vue";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
+import type TextWidgetProps from "@/ploutos/graces/ag01/faces/widgets/TextWidgetProps.ts";
 
 export default class TextWidgetFactory implements WidgetFactory {
 
@@ -30,7 +30,7 @@ export default class TextWidgetFactory implements WidgetFactory {
 	 *
 	 * @param widget 文本输入控件定义属性
 	 */
-	create(widget: AbstractWidget): VNode {
+	create(widget: TextWidgetProps): VNode {
 		return h(TextWidget, {widget: widget});
 	}
 }

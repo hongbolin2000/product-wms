@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import {onBeforeMount, onBeforeUpdate, type PropType} from 'vue'
   import type TagColumnProps from "@/ploutos/graces/ag01/faces/columns/TagColumnProps.ts";
+import {Parser} from "expr-eval";
   /********************************************************************************
    * tag标签列
    *
@@ -41,16 +42,15 @@ import {onBeforeMount, onBeforeUpdate, type PropType} from 'vue'
    * 计算标签类型
    */
   function tagType() {
-    const func = new Function( 'rowData', 'express', 'return eval("rowData." + express)');
-    if (props.column.success && func(props.column.rowData, props.column.success)) {
+    if (props.column.success && Parser.parse(props.column.success).evaluate(props.column.rowData)) {
       props.column.tagType = 'success';
       return;
     }
-    if (props.column.warning && func(props.column.rowData, props.column.warning)) {
+    if (props.column.warning && Parser.parse(props.column.warning).evaluate(props.column.rowData)) {
       props.column.tagType = 'warning';
       return;
     }
-    if (props.column.error && func(props.column.rowData, props.column.error)) {
+    if (props.column.error && Parser.parse(props.column.error).evaluate(props.column.rowData)) {
       props.column.tagType = 'error';
       return;
     }

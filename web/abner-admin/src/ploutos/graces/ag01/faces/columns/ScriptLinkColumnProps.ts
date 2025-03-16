@@ -36,12 +36,15 @@ export default class ScriptLinkColumnProps extends AbstractColumn {
 	disabled: string;
 
 	/**
-	 * 是否禁用
-	 */
-	isDisabled: boolean;
-
-	/**
 	 * 危险操作
 	 */
 	danger: boolean;
+
+	/********************************************************************************
+	 * 以下为前端计算内容
+	 *******************************************************************************/
+	/**
+	 * 是否禁用
+	 */
+	isDisabled: boolean;
 }

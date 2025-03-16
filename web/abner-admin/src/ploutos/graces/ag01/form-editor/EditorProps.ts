@@ -33,12 +33,15 @@ export default class EditorProps {
 	editorRows: FormEditorRow[];
 
 	/**
-	 * 所有的编辑表单
-	 */
-	allEditors: FormEditor[];
-
-	/**
 	 * 编辑表格
 	 */
 	sheeterRows: SheeterRow[];
+
+	/********************************************************************************
+	 * 以下为前端计算内容
+	 *******************************************************************************/
+	/**
+	 * 所有的编辑表单
+	 */
+	allEditors: FormEditor[];
 }

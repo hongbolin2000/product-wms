@@ -20,6 +20,7 @@
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import {dialog, http, loading, message} from "@/ploutos";
   import ScriptLinkColumnProps from "@/ploutos/graces/ag01/faces/columns/ScriptLinkColumnProps.ts";
+  import {Parser} from "expr-eval";
 
   /**
    * 路由
@@ -60,8 +61,7 @@
    */
   function disabled() {
     if (props.column.disabled) {
-      const func = new Function( 'rowData', 'disabled', 'return eval("rowData." + disabled)');
-      props.column.isDisabled = func(props.column.rowData, props.column.disabled);
+      props.column.isDisabled = Parser.parse(props.column.disabled).evaluate(props.column.rowData);
     }
   }
 

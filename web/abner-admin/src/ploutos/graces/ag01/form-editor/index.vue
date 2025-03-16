@@ -146,7 +146,7 @@
       >
         <n-card style="max-height: 60vh;overflow-y: auto" :bordered="false">
           <n-form
-              :model="sheeterRowValue"
+              :model="sheeterFormValue"
               :rules="sheeterFormRules"
               ref="sheeterFormRef"
               label-placement="left"
@@ -353,8 +353,7 @@
       editor.value = response.data;
 
       // 计算表单基础属性
-      const rules = {};
-      const allEditors = [];
+      const rules = {}, allEditors = [], value = {};
       editor.value.editorRows.forEach(row => {
 
         // 选项卡表单
@@ -373,21 +372,26 @@
         row.editors.forEach(editor => {
           // 表单校验规则
           editor.widgets.forEach(widget => {
-            if (widget.required) {
+            if (!widget.hidden && widget.required) {
               rules[widget.name] = {
                 required: true,
                 message: '请输入' + widget.title,
                 trigger: ['blur', 'input'],
               }
             }
+            // 初始化值
             if (widget.tabtitle) {
               tabTitleName.value = widget.name;
             }
+            value[widget.name] = widget.default ? widget.default : '';
           });
+          // 过滤掉隐藏的控件
+          editor.widgets = editor.widgets.filter(i => !i.hidden);
         })
       });
       editor.value.allEditors = allEditors;
       formRules.value = rules;
+      formValue.value = value;
 
       // 拆分编辑表格
       editor.value.sheeterRows.forEach(row => {
@@ -648,7 +652,7 @@
   /**
    * 当前操作编辑表格数据
    */
-  const sheeterRowValue: Ref = ref({});
+  const sheeterFormValue: Ref = ref({});
 
   /**
    * 当前操作编辑表格校验规则
@@ -692,7 +696,7 @@
   function onSheeterUpdateClick(sheeter, rowData: any, rowIndex: number) {
       selectSheeter.value = sheeter;
       sheeterRowIndex.value = rowIndex;
-      sheeterRowValue.value = {...rowData};
+      sheeterFormValue.value = {...rowData};
       showFormModal.value = true;
   }
 
@@ -709,16 +713,17 @@
   function onShowSheetModal(sheet: Sheeter) {
     const rules = [];
     sheet.widgets.forEach(widget => {
-      if (widget.required) {
+      if (!widget.hidden && widget.required) {
         rules[widget.name] = {
           required: true,
           message: '请输入' + widget.title,
           trigger: ['blur', 'input'],
         }
       }
+      sheeterFormValue[widget.name] = widget.default ? widget.default : '';
     });
     selectSheeter.value = sheet;
-    sheeterRowValue.value = {};
+    sheeterFormValue.value = {};
     sheeterRowIndex.value = -1;
     sheeterFormRules.value = rules;
     showFormModal.value = true;
@@ -737,7 +742,7 @@
 
     // 修改
     if (sheeterRowIndex.value != -1) {
-      selectSheeter.value.data[sheeterRowIndex.value] = sheeterRowValue.value;
+      selectSheeter.value.data[sheeterRowIndex.value] = sheeterFormValue.value;
       message.success(title + "已保存！可继续修改或关闭弹框");
     }
 
@@ -746,7 +751,7 @@
       let data = selectSheeter.value.data;
       data = !data ? [] : data;
 
-      data.push({...sheeterRowValue.value});
+      data.push({...sheeterFormValue.value});
       selectSheeter.value.data = data;
       message.success(title + "已保存！可继续添加或关闭弹框");
     }
@@ -756,7 +761,7 @@
    * 生成输入控件
    */
   function sheeterWidget(props: {widget: AbstractWidget}) {
-    props.widget.rowData = sheeterRowValue.value;
+    props.widget.rowData = sheeterFormValue.value;
     return WidgetFactories.getInstance().create(props.widget);
   }
 </script>

@@ -45,6 +45,7 @@
    */
   function editorWidget(prop: {widget: AbstractWidget}) {
     prop.widget.rowData = props.formValue;
+    prop.widget.widgets = props.editor.widgets;
     return WidgetFactories.getInstance().create(prop.widget);
   }
 </script>

@@ -17,6 +17,7 @@
    ********************************************************************************/
   import LinkColumnProps from "@/ploutos/graces/ag01/faces/columns/LinkColumnProps.ts";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import {Parser} from "expr-eval";
 
   /**
    * 路由
@@ -84,8 +85,7 @@
    */
   function disabled() {
     if (props.column.disabled) {
-      const func = new Function( 'rowData', 'disabled', 'return eval("rowData." + disabled)');
-      props.column.isDisabled = func(props.column.rowData, props.column.disabled);
+      props.column.isDisabled = Parser.parse(props.column.disabled).evaluate(props.column.rowData);
     }
   }
 

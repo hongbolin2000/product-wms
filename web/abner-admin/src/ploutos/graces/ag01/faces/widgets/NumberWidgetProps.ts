@@ -2,34 +2,49 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 /********************************************************************************
- * tag标签列属性
+ * 数字输入控件属性
  *
  * @author Berlin
  *******************************************************************************/
-import AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
+import AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
 
-export default class TagColumnProps extends AbstractColumn {
-
-	/**
-	 * 成功标签展示表达式
-	 */
-	success: string;
+export default class NumberWidgetProps extends AbstractWidget {
 
 	/**
-	 * 警告标签展示表达式
+	 * 小数精度
 	 */
-	warning: string;
+	scale: number;
 
 	/**
-	 * 异常标签展示表达式
+	 * 最小值
 	 */
-	error: string;
+	min: number;
+
+	/**
+	 * 最大值
+	 */
+	max: number;
+
+	/**
+	 * 前缀
+	 */
+	prefix: string;
+
+	/**
+	 * 后缀
+	 */
+	suffix: string;
 
 	/********************************************************************************
 	 * 以下为前端计算内容
 	 *******************************************************************************/
 	/**
-	 * 标签类型
+	 * 前缀图标
 	 */
-	tagType: 'primary' | 'success' | 'warning' | 'error';
+	prefixIcon: string;
+
+	/**
+	 * 后缀图标
+	 */
+	suffixIcon: string;
 }

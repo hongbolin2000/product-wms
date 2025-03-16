@@ -1,13 +1,14 @@
 <template>
-  <n-input
-      :type="widget.mode"
+  <n-input-number
       v-model:value="widget.rowData[widget.name]"
       :placeholder="'输入' + widget.title"
-      :disabled="widget.isDisabled"
       clearable
-      :maxlength="widget.maxLength"
-      show-count
-      show-password-on="mousedown"
+      :disabled="widget.isDisabled"
+      style="width: 100%"
+      :min="widget.min"
+      :max="widget.max"
+      :precision="widget.scale"
+      autocomplete="tel"
   >
     <template #prefix v-if="widget.prefix">
       <SvgIcon :name="props.widget.prefixIcon" v-if="props.widget.prefixIcon"/>
@@ -18,18 +19,19 @@
       <SvgIcon :name="props.widget.suffixIcon" v-if="props.widget.suffixIcon"/>
       <span v-else>{{props.widget.suffix}}</span>
     </template>
-  </n-input>
+  </n-input-number>
 </template>
 
 <script setup lang="ts">
-  import {onBeforeUpdate, onBeforeMount, type PropType} from 'vue'
+  import {onBeforeMount, onBeforeUpdate, type PropType} from 'vue'
+  import decimal from 'decimal.js';
   /********************************************************************************
-   * 文本输入控件
+   * 数字输入控件
    *
    * @author Berlin
    ********************************************************************************/
   import {WidgetUtil} from "@/ploutos/graces/ag01/faces/widgets/WidgetUtil.ts";
-  import type TextWidgetProps from "@/ploutos/graces/ag01/faces/widgets/TextWidgetProps.ts";
+  import type NumberWidgetProps from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetProps.ts";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
 
   /**
@@ -37,7 +39,7 @@
    */
   const props = defineProps({
     widget: {
-      type: Object as PropType<TextWidgetProps>,
+      type: Object as PropType<NumberWidgetProps>,
       required: true
     }
   });
@@ -52,6 +54,12 @@
     if (props.widget.suffix.startsWith('icon-')) {
       props.widget.suffixIcon = props.widget.suffix.split('icon-')[1];
     }
+
+    // 缺省值
+    let value = props.widget.rowData[props.widget.name];
+    value = !value ? 0 : new decimal(value);
+    props.widget.rowData[props.widget.name] = value;
+
     WidgetUtil.disabled(props.widget);
   });
 

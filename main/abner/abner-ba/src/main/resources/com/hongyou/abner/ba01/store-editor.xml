@@ -19,12 +19,16 @@
 
     <editor title="门店信息" spans="1" formWidth="50%" placement="left">
         <input type="text" name="storeId" expr="streid" hidden="true"/>
-        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16" required="true"/>
-        <input type="text" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true"/>
-        <input type="text" name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" tabtitle="true"/>
-        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64" required="true"/>
-        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64" required="true"/>
-        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128" required="true"/>
+        <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16" default="aaa" prefix="icon-delete"/>
+        <input type="text" mode="textarea" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true" disabled="storeType == 'a'"/>
+        <input type="text" mode="password"  name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" tabtitle="true" disabled="storeType == 'a'"/>
+        <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64" disabled="storeCode != ''" suffix="元"/>
+        <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64" required="true" disabled="storeType == 'a'"/>
+        <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128" required="true" disabled="storeType == 'a'"/>
+        <input type="number" name="orderQty" expr="ordqty" title="@STREMS.ORDQTY" format="%#" disabled="storeType == 'a' or storeCode == 'a'"
+               min="10" max="1000" prefix="icon-delete" scale="3"
+        />
+        <input type="number" name="orderQty2" expr="ordqty" title="@STREMS.ORDQTY" format="%#" suffix="元"/>
     </editor>
 
     <editor title="@editor01.title" row="1" tab="true" width="60%">
