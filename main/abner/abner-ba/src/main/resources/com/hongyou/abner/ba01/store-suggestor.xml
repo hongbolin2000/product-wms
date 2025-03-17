@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Hong Bo Lin</name>
+    </developer>
+
+    <description>
+        门店查询建议器
+    </description>
+
+    <maxRows>-1</maxRows>
+
+    <statement>
+        <table name="strems"/>
+        <param column="streid" type="=" expr="fieldValue"/>
+        <param column="strecd" expr="searchValue"/>
+        <order by="strecd desc"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="streid" />
+        <field name="label" expr="strenm" />
+    </fields>
+</rindja-generic-suggestor>

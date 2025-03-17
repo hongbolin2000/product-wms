@@ -1,13 +1,20 @@
 <template>
   <n-checkbox
+      v-if="widget.mode == 'check'"
       v-model:checked="widget.rowData[widget.name]"
       :checked-value="widget.checked"
       :unchecked-value="widget.unchecked"
    />
+  <n-switch
+      v-else
+      v-model:checked="widget.rowData[widget.name]"
+      :checked-value="widget.checked"
+      :unchecked-value="widget.unchecked"
+  />
 </template>
 
 <script setup lang="ts">
-import {onBeforeUpdate, onBeforeMount, type PropType, shallowRef} from 'vue'
+  import {onBeforeUpdate, onBeforeMount, type PropType} from 'vue'
   /********************************************************************************
    * 选择输入控件
    *

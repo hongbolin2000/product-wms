@@ -7,29 +7,30 @@
     </template>
 
     <n-space :size="10">
-      <n-input
-          type="text"
-          :placeholder="column?.title!"
-          v-model:value="value[column?.name]"
-          style="width: 150px"
-          clearable
-          v-if="column?.filter == 'text'"
-      />
+      <n-input-group>
+        <n-input
+            type="text"
+            :placeholder="column?.title!"
+            v-model:value="value[column?.name]"
+            style="width: 150px"
+            clearable
+            v-if="column?.filter == 'text'"
+        />
+        <n-date-picker
+            v-model:value="value[column?.name]"
+            type="datetimerange"
+            clearable
+            v-if="column?.filter == 'date'"
+            update-value-on-close
+        />
 
-      <n-date-picker
-          v-model:value="value[column?.name]"
-          type="datetimerange"
-          clearable
-          v-if="column?.filter == 'date'"
-          update-value-on-close
-      />
-
-      <n-button @click="handleQuery">
-        查询
-      </n-button>
-      <n-button @click="handleClear">
-        清除
-      </n-button>
+        <n-button @click="handleQuery">
+          查询
+        </n-button>
+        <n-button @click="handleClear">
+          清除
+        </n-button>
+      </n-input-group>
     </n-space>
   </n-popover>
 

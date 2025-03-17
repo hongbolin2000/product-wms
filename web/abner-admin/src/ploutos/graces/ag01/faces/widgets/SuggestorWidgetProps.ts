@@ -2,26 +2,21 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 /********************************************************************************
- * 选择输入控件属性
+ * 查询建议器输入控件属性
  *
  * @author Berlin
  *******************************************************************************/
 import AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
 
-export default class CheckWidgetProps extends AbstractWidget {
+export default class SuggestorWidgetProps extends AbstractWidget {
 
 	/**
-	 * 展现模式(check,switch)
+	 * 模块号
 	 */
-	mode: 'check' | 'switch';
+	module: string;
 
 	/**
-	 * 选中时的值
+	 * 建议器名称
 	 */
-	checked: string;
-
-	/**
-	 * 未选中时的值
-	 */
-	unchecked: string;
+	suggestor: string;
 }

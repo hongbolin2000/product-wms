@@ -1,5 +1,10 @@
 <template>
-  <n-time-picker v-model:formatted-value="widget.rowData[widget.name]" clearable style="width: 100%"/>
+  <n-time-picker
+      v-model:formatted-value="widget.rowData[widget.name]"
+      clearable
+      style="width: 100%"
+      :placeholder="'选择' + widget.title"
+  />
 </template>
 
 <script setup lang="ts">
