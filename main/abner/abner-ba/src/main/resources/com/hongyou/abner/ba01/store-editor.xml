@@ -34,8 +34,10 @@
                required="true"/>
         <input type="time" name="startTime" expr="bssttm" title="@STREMS.BSSTTM" format="HH:mm:ss"
                required="true"/>
-        <input type="enum" mode="check" name="enabled" expr="enabld" title="@STREMS.ENABLD" options="@@STREMS.ENABLD"
+        <input type="enum" name="enabled" expr="enabld" title="@STREMS.ENABLD" options="@@STREMS.ENABLD"
                default="Y" required="true"/>
+        <input type="check" name="enabled1" expr="enabld" title="@STREMS.ENABLD"
+               checked="Y" unchecked="N"/>
     </editor>
 
     <editor title="@editor01.title" row="1" tab="true" width="60%">
