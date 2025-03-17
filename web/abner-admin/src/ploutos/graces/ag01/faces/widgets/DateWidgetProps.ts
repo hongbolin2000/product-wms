@@ -13,7 +13,7 @@ export default class DateWidgetProps extends AbstractWidget {
 	/**
 	 * 输入模式（date,datetime,daterange,month,year,quarter,week）
 	 */
-	mode: 'date'| 'daterange' | 'datetime'  | 'datetimerange' | 'month' | 'monthrange' | 'year'
+	mode: 'date'| 'daterange' | 'datetime' | 'datetimerange' | 'month' | 'monthrange' | 'year'
 		| 'yearrange' | 'quarter' | 'quarterrange' | 'week';
 
 	/********************************************************************************

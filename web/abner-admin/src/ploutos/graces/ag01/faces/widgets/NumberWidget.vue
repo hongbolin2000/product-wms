@@ -24,7 +24,6 @@
 
 <script setup lang="ts">
   import {onBeforeMount, onBeforeUpdate, type PropType} from 'vue'
-  import decimal from 'decimal.js';
   /********************************************************************************
    * 数字输入控件
    *
@@ -57,7 +56,7 @@
 
     // 缺省值
     let value = props.widget.rowData[props.widget.name];
-    value = !value ? 0 : new decimal(value);
+    value = !value ? 0 : parseFloat(value);
     props.widget.rowData[props.widget.name] = value;
 
     WidgetUtil.disabled(props.widget);

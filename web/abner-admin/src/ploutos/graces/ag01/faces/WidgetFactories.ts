@@ -12,6 +12,8 @@ import type AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
 import TextWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/TextWidgetFactory";
 import NumberWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetFactory.ts";
 import DateWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/DateWidgetFactory.ts";
+import TimeWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/TimeWidgetFactory.ts";
+import EnumWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/EnumWidgetFactory.ts";
 
 export default class WidgetFactories {
 
@@ -31,7 +33,9 @@ export default class WidgetFactories {
 	constructor() {
 		this.registry(new TextWidgetFactory());
 		this.registry(new NumberWidgetFactory());
-		this.registry(new DateWidgetFactory())
+		this.registry(new DateWidgetFactory());
+		this.registry(new TimeWidgetFactory());
+		this.registry(new EnumWidgetFactory());
 	}
 
 	/**

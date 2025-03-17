@@ -26,12 +26,16 @@
         <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64" required="true" disabled="storeType == 'a'"/>
         <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128" required="true" disabled="storeType == 'a'"/>
         <input type="number" name="orderQty" expr="ordqty" title="@STREMS.ORDQTY" format="%#" disabled="storeType == 'a' or storeCode == 'a'"
-               min="10" max="1000" prefix="icon-delete" scale="3" required="true"
+               min="10" max="1000" scale="3" default="10" prefix="icon-delete" required="true"
         />
         <input type="number" name="orderQty2" expr="ordqty" title="@STREMS.ORDQTY" format="%#" suffix="元"/>
         <input type="date" name="orderDate" expr="ordrdt" title="@STREMS.ORDRDT" format="!yyyy-MM-dd" required="true"/>
         <input type="date" mode="datetimerange" name="createTime" expr="oprttm,oprttm" title="@STREMS.ORDRDT" format="!yyyy-MM-dd HH:mm:ss"
                required="true"/>
+        <input type="time" name="startTime" expr="bssttm" title="@STREMS.BSSTTM" format="HH:mm:ss"
+               required="true"/>
+        <input type="enum" mode="check" name="enabled" expr="enabld" title="@STREMS.ENABLD" options="@@STREMS.ENABLD"
+               default="Y" required="true"/>
     </editor>
 
     <editor title="@editor01.title" row="1" tab="true" width="60%">
