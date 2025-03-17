@@ -8,12 +8,12 @@
 
     <n-scrollbar :style="style">
       <!-- 编辑表单 -->
-      <div v-for="row of editor.editorRows" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
+      <div v-for="(row, index) of editor.editorRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
         <!-- 非选项卡表单 -->
         <n-card
             :title="editor.title"
             :segmented="{content: true}"
-            v-for="editor of row.noTabEditors"
+            v-for="editor of row.noTabEditors" :key="editor.name"
             :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, editor)}"
             :bordered="!props.isDrawer"
             :content-style="{paddingBottom: props.isDrawer && 0}"
@@ -53,7 +53,7 @@
               </n-button>
             </template>
 
-            <n-tab-pane :name="editor.name" :tab="editor.title" v-for="editor of row.tabEditors">
+            <n-tab-pane :name="editor.name" :tab="editor.title" v-for="editor of row.tabEditors" :key="editor.name">
               <n-collapse-transition :show="!editor.collapse">
                 <n-form
                     :model="formValue"
@@ -72,12 +72,12 @@
       </div>
 
       <!-- 编辑表格 -->
-      <div v-for="row of editor.sheeterRows" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
+      <div v-for="(row, index) of editor.sheeterRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
 
         <!-- 非选项卡表格 -->
         <n-card
             :title="sheeter.title"
-            v-for="sheeter of row.noTabSheeters"
+            v-for="sheeter of row.noTabSheeters" :key="sheeter.name"
             :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true, sheeter)}"
             :bordered="!props.isDrawer"
             :content-style="{paddingBottom: props.isDrawer && 0}"
@@ -124,7 +124,7 @@
               </n-space>
             </template>
 
-            <n-tab-pane :name="sheeter.name" :tab="sheeter.title" v-for="sheeter of row.tabSheeters">
+            <n-tab-pane :name="sheeter.name" :tab="sheeter.title" v-for="sheeter of row.tabSheeters" :key="sheeter.name">
               <SheeterTable
                   :row-index="sheeterRowIndex"
                   :sheeter="sheeter"
@@ -158,6 +158,7 @@
                   :label="widget.title"
                   v-for="widget of selectSheeter.widgets"
                   :path="widget.name"
+                  :key="widget.name"
               >
                 <sheeter-widget :widget="widget"/>
               </n-form-item-gi>
@@ -218,6 +219,7 @@
   import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTable.vue";
   import type SheeterRow from "@/ploutos/graces/ag01/faces/SheeterRow.ts";
   import {SettingsOutline} from "@vicons/ionicons5";
+  import NumberWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetFactory.ts";
 
   /**
    * 应用状态
@@ -375,6 +377,7 @@
             if (!widget.hidden && widget.required) {
               rules[widget.name] = {
                 required: true,
+                type: getRuleType(widget),
                 message: '请输入' + widget.title,
                 trigger: ['blur', 'input'],
               }
@@ -417,6 +420,18 @@
       }
     } finally {
       spin(false);
+    }
+  }
+
+  /**
+   * 表单校验类型
+   */
+  function getRuleType(widget: object) {
+    if (NumberWidgetFactory.TYPE == widget.type) {
+      return 'number';
+    }
+    if (new RegExp('range').test(widget.mode)) {
+      return 'array'
     }
   }
 
@@ -716,6 +731,7 @@
       if (!widget.hidden && widget.required) {
         rules[widget.name] = {
           required: true,
+          type: getRuleType(widget),
           message: '请输入' + widget.title,
           trigger: ['blur', 'input'],
         }
@@ -762,6 +778,7 @@
    */
   function sheeterWidget(props: {widget: AbstractWidget}) {
     props.widget.rowData = sheeterFormValue.value;
+    props.widget.widgets = selectSheeter.value.widgets;
     return WidgetFactories.getInstance().create(props.widget);
   }
 </script>

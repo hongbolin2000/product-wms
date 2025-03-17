@@ -19,6 +19,7 @@
         <n-card
             v-for="datatable of grider.subTables"
             :style="{width: getFormWidth(datatable)}"
+            :key="datatable.name"
         >
           <DataTable
               :static="static"

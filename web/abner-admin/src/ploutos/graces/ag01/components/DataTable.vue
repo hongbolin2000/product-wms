@@ -1,7 +1,7 @@
 <template>
   <div class="datatable-action-wrapper" v-if="showTools">
     <n-space :size="10">
-      <component v-for="action of actions" :is="() => {
+      <component v-for="action of actions" :key="action.name" :is="() => {
         action.datatable = datatable;
         return ActionFactories.getInstance().create(action)
       }"/>

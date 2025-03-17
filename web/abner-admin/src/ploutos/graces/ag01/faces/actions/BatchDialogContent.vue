@@ -4,7 +4,7 @@
 
     <n-scrollbar style="max-height: 60vh">
       <n-grid :cols="4">
-        <n-gi v-for="text of content">
+        <n-gi v-for="(text, index) of content" :key="index">
           {{text}}
           <n-divider style="margin-top: 3px;margin-bottom: 10px"/>
         </n-gi>

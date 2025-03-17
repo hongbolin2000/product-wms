@@ -5,6 +5,7 @@
           :label="widget.title"
           v-for="widget of editor.widgets"
           :path="widget.name"
+          :key="widget.name"
       >
         <component :is="editorWidget" :widget="widget"/>
       </n-form-item-gi>
