@@ -2,6 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {h, type VNode} from "vue";
+import type {FormItemRule} from "naive-ui/es/form/src/interface";
 /********************************************************************************
  * 数字输入控件工厂
  *
@@ -10,6 +11,7 @@ import {h, type VNode} from "vue";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import NumberWidget from "@/ploutos/graces/ag01/faces/widgets/NumberWidget.vue";
 import type NumberWidgetProps from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetProps.ts";
+import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class NumberWidgetFactory implements WidgetFactory {
 
@@ -32,5 +34,17 @@ export default class NumberWidgetFactory implements WidgetFactory {
 	 */
 	create(widget: NumberWidgetProps): VNode {
 		return h(NumberWidget, {widget: widget});
+	}
+
+	/**
+	 * 数字输入控件校验规则
+	 */
+	getRule(widget: CheckWidgetProps): FormItemRule {
+		return {
+			required: true,
+			type: 'number',
+			message: '请输入' + widget.title,
+			trigger: ['blur', 'input'],
+		}
 	}
 }

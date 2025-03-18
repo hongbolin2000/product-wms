@@ -2,6 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {h, type VNode} from "vue";
+import type {FormItemRule} from "naive-ui/es/form/src/interface";
 /********************************************************************************
  * 文件上传输入控件工厂
  *
@@ -32,5 +33,16 @@ export default class UploadWidgetFactory implements WidgetFactory {
 	 */
 	create(widget: CheckWidgetProps): VNode {
 		return h(UploadWidget, {widget: widget});
+	}
+
+	/**
+	 * 查询建议器输入控件校验规则
+	 */
+	getRule(widget: CheckWidgetProps): FormItemRule {
+		return {
+			required: true,
+			message: '请上传' + widget.title,
+			trigger: ['blur', 'input'],
+		}
 	}
 }

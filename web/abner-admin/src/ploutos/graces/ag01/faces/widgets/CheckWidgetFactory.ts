@@ -8,8 +8,9 @@ import {h, type VNode} from "vue";
  * @author Berlin
  *******************************************************************************/
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
-import type CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
+import  CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 import CheckWidget from "@/ploutos/graces/ag01/faces/widgets/CheckWidget.vue";
+import type {FormItemRule} from "naive-ui/es/form/src/interface";
 
 export default class CheckWidgetFactory implements WidgetFactory {
 
@@ -32,5 +33,16 @@ export default class CheckWidgetFactory implements WidgetFactory {
 	 */
 	create(widget: CheckWidgetProps): VNode {
 		return h(CheckWidget, {widget: widget});
+	}
+
+	/**
+	 * 选择输入控件校验规则
+	 */
+	getRule(widget: CheckWidgetProps): FormItemRule {
+		return {
+			required: true,
+			message: '请选择' + widget.title,
+			trigger: ['blur', 'input'],
+		}
 	}
 }

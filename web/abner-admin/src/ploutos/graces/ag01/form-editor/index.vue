@@ -167,13 +167,8 @@
         </n-card>
 
         <template #action>
-          <n-button type="primary" @click="onSaveSheeterForm">
-            保存
-          </n-button>
-
-          <n-button @click="showFormModal = false">
-            关闭
-          </n-button>
+          <n-button type="primary" @click="onSaveSheeterForm">保存</n-button>
+          <n-button @click="showFormModal = false">关闭</n-button>
         </template>
       </n-modal>
     </n-scrollbar>
@@ -186,13 +181,8 @@
         :bordered="!props.isDialog && !props.isDrawer"
     >
       <n-space :size="10">
-        <n-button type="primary" @click="handelSave">
-          提交
-        </n-button>
-
-        <n-button @click="onClose()">
-          关闭
-        </n-button>
+        <n-button type="primary" @click="handelSave">提交</n-button>
+        <n-button @click="onClose()">关闭</n-button>
       </n-space>
     </n-card>
   </n-spin>
@@ -241,47 +231,23 @@
    * 父组件传入的属性
    */
   const props = defineProps({
-
-    /**
-     * 模块号
-     */
     module: {
       type: String,
       required: true
     },
-
-    /**
-     * 界面名称
-     */
     name: {
       type: String,
       required: true
     },
-
-    /**
-     * 参数
-     */
     params: {
       type: Object
     },
-
-    /**
-     * 是否查询数据
-     */
     fill: {
       type: Boolean,
     },
-
-    /**
-     * 是否弹框展示
-     */
     isDialog: {
       type: Boolean
     },
-
-    /**
-     * 是否抽屉展示
-     */
     isDrawer: {
       type: Boolean
     }
@@ -304,18 +270,10 @@
   }>();
 
   /**
-   * 表单数据
+   * 表单数据/校验规则/ref
    */
   const formValue: Ref = ref(new Object({}));
-
-  /**
-   * 表单检验规则
-   */
   const formRules: ShallowRef = shallowRef({});
-
-  /**
-   * 表单ref
-   */
   const formRefs = ref([]);
 
   /**
@@ -347,17 +305,15 @@
   async function loadDefine() {
     try {
       spin(true);
-
       const data = {
         module: props.module, name: props.name, params: props.params, local: 'zh-CN'
       }
       const response = await http.post("/ag01/editor/loadDefine", data);
       editor.value = response.data;
 
-      // 计算表单基础属性
+      // 表单显示行
       const rules = {}, allEditors = [], value = {};
       editor.value.editorRows.forEach(row => {
-
         // 选项卡表单
         row.tabEditors = row.editors.filter(i => i.tab);
         row.noTabEditors = row.editors.filter(i => !i.tab);
@@ -370,28 +326,24 @@
         let editorCount = row.noTabEditors.length;
         editorCount += row.tabEditors.length > 0 ? 1 : 0;
         row.editorCount = editorCount;
-
-        row.editors.forEach(editor => {
-          // 表单校验规则
-          editor.widgets.forEach(widget => {
-            if (!widget.hidden && widget.required) {
-              rules[widget.name] = {
-                required: true,
-                type: getRuleType(widget),
-                message: '请输入' + widget.title,
-                trigger: ['blur', 'input'],
-              }
-            }
-            // 初始化值
-            if (widget.tabtitle) {
-              tabTitleName.value = widget.name;
-            }
-            value[widget.name] = widget.default ? widget.default : '';
-          });
-          // 过滤掉隐藏的控件
-          editor.widgets = editor.widgets.filter(i => !i.hidden);
-        })
       });
+
+      // 表单校验规则
+      allEditors.forEach(editor => {
+        editor.widgets.forEach(widget => {
+          // 表单校验规则
+          if (!widget.hidden && widget.required) {
+            rules[widget.name] = WidgetFactories.getInstance().getRule(widget);
+          }
+          // 初始化值
+          if (widget.tabtitle) {
+            tabTitleName.value = widget.name;
+          }
+          value[widget.name] = widget.default ? widget.default : '';
+        });
+        // 过滤掉隐藏的控件
+        editor.widgets = editor.widgets.filter(i => !i.hidden);
+      })
       editor.value.allEditors = allEditors;
       formRules.value = rules;
       formValue.value = value;
@@ -420,18 +372,6 @@
       }
     } finally {
       spin(false);
-    }
-  }
-
-  /**
-   * 表单校验类型
-   */
-  function getRuleType(widget: object) {
-    if (NumberWidgetFactory.TYPE == widget.type) {
-      return 'number';
-    }
-    if (new RegExp('range').test(widget.mode)) {
-      return 'array'
     }
   }
 
@@ -655,39 +595,23 @@
    ********************************************************************************/
 
   /**
-   * 编辑表格弹框
+   * 编辑表格弹框是否显示
    */
   const showFormModal = ref(false);
 
   /**
-   * 当前操作的编辑表格
+   * 选项卡当前选择的表格/当前操作的编辑表格/当前操作编辑表格ref
    */
+  const currentTabSheeter: Ref<Sheeter> = shallowRef();
   const selectSheeter: Ref<Sheeter> = ref();
-
-  /**
-   * 当前操作编辑表格数据
-   */
-  const sheeterFormValue: Ref = ref({});
-
-  /**
-   * 当前操作编辑表格校验规则
-   */
-  const sheeterFormRules: ShallowRef = shallowRef({});
-
-  /**
-   * 当前操作编辑表格ref
-   */
   const sheeterFormRef: Ref = ref({});
 
   /**
-   * 当前编辑行index
+   * 当前操作编辑表格数据/当前操作编辑表格校验规则/当前编辑行index
    */
+  const sheeterFormValue: Ref = ref({});
+  const sheeterFormRules: ShallowRef = shallowRef({});
   const sheeterRowIndex = ref(-1);
-
-  /**
-   * 选项卡当前选择的表格
-   */
-  const currentTabSheeter: Ref<Sheeter> = shallowRef();
 
   /**
    * 折叠编辑表格
@@ -729,12 +653,7 @@
     const rules = [];
     sheet.widgets.forEach(widget => {
       if (!widget.hidden && widget.required) {
-        rules[widget.name] = {
-          required: true,
-          type: getRuleType(widget),
-          message: '请输入' + widget.title,
-          trigger: ['blur', 'input'],
-        }
+        rules[widget.name] = WidgetFactories.getInstance().getRule(widget);
       }
       sheeterFormValue[widget.name] = widget.default ? widget.default : '';
     });

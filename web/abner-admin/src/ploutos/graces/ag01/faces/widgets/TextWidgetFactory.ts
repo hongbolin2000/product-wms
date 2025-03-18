@@ -2,6 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {h, type VNode} from "vue";
+import type {FormItemRule} from "naive-ui/es/form/src/interface";
 /********************************************************************************
  * 文本输入控件工厂
  *
@@ -10,6 +11,7 @@ import {h, type VNode} from "vue";
 import TextWidget from "@/ploutos/graces/ag01/faces/widgets/TextWidget.vue";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import type TextWidgetProps from "@/ploutos/graces/ag01/faces/widgets/TextWidgetProps.ts";
+import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class TextWidgetFactory implements WidgetFactory {
 
@@ -32,5 +34,16 @@ export default class TextWidgetFactory implements WidgetFactory {
 	 */
 	create(widget: TextWidgetProps): VNode {
 		return h(TextWidget, {widget: widget});
+	}
+
+	/**
+	 * 文本输入控件校验规则
+	 */
+	getRule(widget: CheckWidgetProps): FormItemRule {
+		return {
+			required: true,
+			message: '请输入' + widget.title,
+			trigger: ['blur', 'input'],
+		}
 	}
 }

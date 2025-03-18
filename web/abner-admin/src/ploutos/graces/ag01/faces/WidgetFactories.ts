@@ -2,6 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import type {VNode} from "vue";
+import type {FormItemRule} from "naive-ui/es/form/src/interface";
 /********************************************************************************
  * 输入控件注册工厂
  *
@@ -76,5 +77,14 @@ export default class WidgetFactories {
 	 */
 	create(widget: AbstractWidget): VNode {
 		return this.get(widget.type).create(widget);
+	}
+
+	/**
+	 * 输入控件校验规则
+	 *
+	 * @param widget
+	 */
+	getRule(widget: AbstractWidget): FormItemRule {
+		return this.get(widget.type).getRule(widget);
 	}
 }

@@ -2,6 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {h, type VNode} from "vue";
+import type {FormItemRule} from "naive-ui/es/form/src/interface";
 /********************************************************************************
  * 日期输入控件工厂
  *
@@ -10,6 +11,7 @@ import {h, type VNode} from "vue";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import DateWidget from "@/ploutos/graces/ag01/faces/widgets/DateWidget.vue";
 import DateWidgetProps from "@/ploutos/graces/ag01/faces/widgets/DateWidgetProps.ts";
+import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class DateWidgetFactory implements WidgetFactory {
 
@@ -32,5 +34,17 @@ export default class DateWidgetFactory implements WidgetFactory {
 	 */
 	create(widget: DateWidgetProps): VNode {
 		return h(DateWidget, {widget: widget});
+	}
+
+	/**
+	 * 日期输入控件校验规则
+	 */
+	getRule(widget: CheckWidgetProps): FormItemRule {
+		return {
+			required: true,
+			type: new RegExp('range').test(widget.mode) ? 'array' : null,
+			message: '请选择' + widget.title,
+			trigger: ['blur', 'input'],
+		}
 	}
 }

@@ -7,6 +7,7 @@
  * @author Berlin
  *******************************************************************************/
 import AbstractComponent from "@/ploutos/graces/ag01/faces/AbstractComponent";
+import type {Ref} from "vue";
 
 export default class AbstractWidget extends AbstractComponent{
 
@@ -43,6 +44,11 @@ export default class AbstractWidget extends AbstractComponent{
 	/********************************************************************************
 	 * 以下为前端计算内容
 	 *******************************************************************************/
+	/**
+	 * 表单校验规则
+	 */
+	formRules: Ref<object>;
+
 	/**
 	 * 是否禁用
 	 */

@@ -2,6 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {h, type VNode} from "vue";
+import type {FormItemRule} from "naive-ui/es/form/src/interface";
 /********************************************************************************
  * 枚举输入控件工厂
  *
@@ -10,6 +11,7 @@ import {h, type VNode} from "vue";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import type EnumWidgetProps from "@/ploutos/graces/ag01/faces/widgets/EnumWidgetProps.ts";
 import EnumWidget from "@/ploutos/graces/ag01/faces/widgets/EnumWidget.vue";
+import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class EnumWidgetFactory implements WidgetFactory {
 
@@ -32,5 +34,16 @@ export default class EnumWidgetFactory implements WidgetFactory {
 	 */
 	create(widget: EnumWidgetProps): VNode {
 		return h(EnumWidget, {widget: widget});
+	}
+
+	/**
+	 * 枚举输入控件校验规则
+	 */
+	getRule(widget: CheckWidgetProps): FormItemRule {
+		return {
+			required: true,
+			message: '请选择' + widget.title,
+			trigger: ['blur', 'input'],
+		}
 	}
 }
