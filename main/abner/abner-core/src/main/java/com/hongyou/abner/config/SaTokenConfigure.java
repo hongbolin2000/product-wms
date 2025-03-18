@@ -69,6 +69,6 @@ public class SaTokenConfigure implements WebMvcConfigurer {
             }
         }));
         interceptor.addPathPatterns("/**");
-        interceptor.excludePathPatterns("/auth/**");
+        interceptor.excludePathPatterns("/auth/**", "/doc/**");
     }
 }

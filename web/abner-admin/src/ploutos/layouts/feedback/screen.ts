@@ -7,7 +7,7 @@ import screenfull from 'screenfull'
  *
  * @author Berlin
  *******************************************************************************/
-import {notification} from "@/ploutos";
+import {message} from "@/ploutos";
 import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
 
 namespace Screen {
@@ -51,7 +51,7 @@ namespace Screen {
    */
   function enabled(): boolean {
     if (!screenfull.isEnabled) {
-      notification.error('当前浏览器不支持全屏操作')
+      message.error('当前浏览器不支持全屏操作')
       return false
     }
     return true;

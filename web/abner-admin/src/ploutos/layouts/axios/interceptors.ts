@@ -7,7 +7,7 @@
  * @author Berlin
  *******************************************************************************/
 import type {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from "axios";
-import {notification, dialog} from "@/ploutos";
+import {notification, dialog, message} from "@/ploutos";
 import {TOKEN_NAME} from '@/ploutos/layouts/types';
 import {useRouter} from "vue-router";
 
@@ -38,7 +38,7 @@ export function useResponseInterceptor(client: AxiosInstance) {
 
     // 检查是否有code字段，不为200则提示报错
     if (response.data.code && response.data.code != 200) {
-      notification.warning(response.data.message);
+      message.warning(response.data.message);
       return Promise.reject(response);
     }
     return response;

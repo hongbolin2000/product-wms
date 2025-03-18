@@ -1,3 +1,9 @@
 baron:
   resources:
     package: com.hongyou.abner
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB

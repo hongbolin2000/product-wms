@@ -16,6 +16,7 @@ import TimeWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/TimeWidgetFac
 import EnumWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/EnumWidgetFactory.ts";
 import CheckWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetFactory.ts";
 import SuggestorWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/SuggestorWidgetFactory.ts";
+import UploadWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/UploadWidgetFactory.ts";
 
 export default class WidgetFactories {
 
@@ -39,7 +40,8 @@ export default class WidgetFactories {
 		this.registry(new TimeWidgetFactory());
 		this.registry(new EnumWidgetFactory());
 		this.registry(new CheckWidgetFactory());
-		this.registry(new SuggestorWidgetFactory())
+		this.registry(new SuggestorWidgetFactory());
+		this.registry(new UploadWidgetFactory());
 	}
 
 	/**

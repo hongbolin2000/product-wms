@@ -8,6 +8,7 @@
       :maxlength="widget.maxLength"
       show-count
       show-password-on="mousedown"
+      :input-props="{autocomplete: false}"
   >
     <template #prefix v-if="widget.prefix">
       <SvgIcon :name="props.widget.prefixIcon" v-if="props.widget.prefixIcon"/>

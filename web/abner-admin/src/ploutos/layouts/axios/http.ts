@@ -33,13 +33,19 @@ namespace http {
   let client: AxiosInstance;
 
   /**
+   * 服务器根地址
+   */
+  export let basePath = '';
+
+  /**
    * 初始化HTTP配置
    */
   export async function init(config: AxiosConfig) {
+    basePath = config.baseURL;
 
     // 创建axios
     client = axios.create({
-      baseURL: config.baseURL,
+      baseURL: basePath,
       timeout: config.timeout ? config.timeout : 30 * 1000,
     });
 
