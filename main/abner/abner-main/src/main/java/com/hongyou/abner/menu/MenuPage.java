@@ -3,12 +3,12 @@
  */
 package com.hongyou.abner.menu;
 
-import cn.hutool.cache.Cache;
-import cn.hutool.cache.CacheUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.util.StrUtil;
+import com.hongyou.baron.cache.FIFOCache;
+import com.hongyou.baron.cache.CacheUtil;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import com.hongyou.baron.util.ResourceUtil;
+import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.util.XmlUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +37,7 @@ public class MenuPage {
     /**
      * 缓存
      */
-    private final Cache<String, List<MenuOption>> menuCaches = CacheUtil.newFIFOCache(1);
+    private final FIFOCache<String, List<MenuOption>> menuCaches = CacheUtil.newFIFOCache(1);
 
     /**
      * 缓存的key
@@ -89,7 +89,7 @@ public class MenuPage {
 
             // 递归检查是否有子菜单
             if (menu.hasChildNodes()) {
-                String parentIcons = StrUtil.isBlank(icon) ? parentIcon : icon;
+                String parentIcons = StringUtil.isBlank(icon) ? parentIcon : icon;
                 List<Element> childMenus = XmlUtil.getChildElements(menu, MENU_KEY);
                 menuOption.children(this.loadMenu(childMenus, parentIcons));
             }

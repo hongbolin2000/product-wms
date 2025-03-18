@@ -6,15 +6,15 @@ package com.hongyou.abner.login;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Oprtms;
 import com.hongyou.abner.utils.AesUtil;
-import com.hongyou.abner.utils.CaptchaUtil;
+import com.hongyou.baron.util.CaptchaUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import com.hongyou.baron.util.ObjectUtil;
+import com.hongyou.baron.util.StringUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -75,10 +75,10 @@ public class Login extends DataProvider {
 
         try {
             // 校验传入参数
-            if (StrUtil.isBlank(param.getUsername())) {
+            if (StringUtil.isBlank(param.getUsername())) {
                 return LoginResult.builder().loginCode(LoginCode.LG001.getValue()).message("用户名不能为空").build();
             }
-            if (StrUtil.isBlank(param.getPassword())) {
+            if (StringUtil.isBlank(param.getPassword())) {
                 return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("密码不能为空").build();
             }
 
@@ -110,7 +110,7 @@ public class Login extends DataProvider {
             this.stpLogin(oprtms.getOprtid(), param.isAutoLogin());
             return LoginResult.builder().
                     loginCode(LoginCode.LG200.getValue()).
-                    nikeName(StrUtil.blankToDefault(oprtms.getFulnam(), param.getUsername())).build();
+                    nikeName(StringUtil.blankToDefault(oprtms.getFulnam(), param.getUsername())).build();
         } catch (Exception e) {
             logger.error("用户登录认证失败", e);
             throw new RestRuntimeException("用户登录认证失败");

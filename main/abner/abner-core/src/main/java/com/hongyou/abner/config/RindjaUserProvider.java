@@ -4,12 +4,12 @@
 package com.hongyou.abner.config;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.cache.Cache;
-import cn.hutool.cache.CacheUtil;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Oprtms;
 import com.hongyou.baron.RindjaUserDetail;
 import com.hongyou.baron.RindjaUserLoader;
+import com.hongyou.baron.cache.CacheUtil;
+import com.hongyou.baron.cache.TimedCache;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,9 +21,9 @@ import org.springframework.stereotype.Service;
 public class RindjaUserProvider extends DataProvider implements RindjaUserLoader {
 
     /**
-     * 缓存24小时用户
+     * 缓存7天内用户(7天未使用自动清除)
      */
-    private final Cache<Long, RindjaUserDetail> userCaches = CacheUtil.newTimedCache(1000 * 60 * 60 * 24);
+    private final TimedCache<Long, RindjaUserDetail> userCaches = CacheUtil.newTimedCache(1000 * 60 * 60 * 24 * 7);
 
     /**
      * 加载用户信息
