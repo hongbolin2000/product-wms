@@ -11,7 +11,6 @@ import type {FormItemRule} from "naive-ui/es/form/src/interface";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import NumberWidget from "@/ploutos/graces/ag01/faces/widgets/NumberWidget.vue";
 import type NumberWidgetProps from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetProps.ts";
-import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class NumberWidgetFactory implements WidgetFactory {
 
@@ -39,7 +38,7 @@ export default class NumberWidgetFactory implements WidgetFactory {
 	/**
 	 * 数字输入控件校验规则
 	 */
-	getRule(widget: CheckWidgetProps): FormItemRule {
+	getRule(widget: NumberWidgetProps): FormItemRule {
 		return {
 			required: true,
 			type: 'number',

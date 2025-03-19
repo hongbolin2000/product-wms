@@ -26,10 +26,10 @@
    *
    * @author Berlin
    ********************************************************************************/
+  import type SuggestorWidgetProps from "@/ploutos/graces/ag01/faces/widgets/SuggestorWidgetProps.ts";
   import type ValueModel from "@/ploutos/graces/ag01/faces/ValueModel.ts";
   import {WidgetUtil} from "@/ploutos/graces/ag01/faces/widgets/WidgetUtil.ts";
   import {http} from '@/ploutos';
-  import type SuggestorWidgetProps from "@/ploutos/graces/ag01/faces/widgets/SuggestorWidgetProps.ts";
 
   /**
    * 父组件传入的属性

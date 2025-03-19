@@ -4,13 +4,13 @@
 package com.hongyou.abner.upload;
 
 import com.hongyou.baron.ProjectProperties;
-import com.hongyou.baron.RindjaUserLoader;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.web.ResponseEntity;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +21,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 /**
- * 文件上传
+ * 文件
  *
  * @author Hong Bo Lin
  */
@@ -42,7 +42,7 @@ public class Document {
     /**
      * @param properties 项目配置参数
      */
-    public Document(final ProjectProperties properties, final RindjaUserLoader userLoader) {
+    public Document(final ProjectProperties properties) {
         this.properties = properties;
     }
 
@@ -52,7 +52,7 @@ public class Document {
      * @param multipart 文件信息
      * @param group 图片存储分组路径
      */
-    @PostMapping("/file/upload")
+    @PostMapping("/upload")
     public ResponseEntity fileUpload(
         @RequestParam("file") MultipartFile multipart, @RequestParam("group") final String group
     ) {
@@ -98,6 +98,38 @@ public class Document {
             }
         } catch (Exception e) {
             logger.error("图片加载失败", e);
+            return org.springframework.http.ResponseEntity.internalServerError().build();
+        }
+    }
+
+    /**
+     * 文件下载
+     *
+     * @param file 文件存储名
+     */
+    @GetMapping(value = "/download", produces = MediaType.IMAGE_JPEG_VALUE)
+    public org.springframework.http.ResponseEntity<Resource> download(@RequestParam("file") final String file) {
+
+        try {
+            Path path = Paths.get(this.properties.getUploadFilePath()).resolve(file);
+            Resource resource = new UrlResource(path.toUri());
+
+            // 文件下载头信息
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + path.getFileName().toString());
+            headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
+
+            if (resource.exists() || resource.isReadable()) {
+                return org.springframework.http.ResponseEntity.
+                        ok().
+                        headers(headers).
+                        contentType(MediaType.APPLICATION_OCTET_STREAM).
+                        body(resource);
+            } else {
+                throw new RestRuntimeException("文件加载失败");
+            }
+        } catch (Exception e) {
+            logger.error("文件加载失败", e);
             return org.springframework.http.ResponseEntity.internalServerError().build();
         }
     }

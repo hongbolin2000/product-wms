@@ -11,7 +11,6 @@ import type {FormItemRule} from "naive-ui/es/form/src/interface";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import type AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
 import TimeWidget from "@/ploutos/graces/ag01/faces/widgets/TimeWidget.vue";
-import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class TimeWidgetFactory implements WidgetFactory {
 
@@ -39,7 +38,7 @@ export default class TimeWidgetFactory implements WidgetFactory {
 	/**
 	 * 时间输入控件校验规则
 	 */
-	getRule(widget: CheckWidgetProps): FormItemRule {
+	getRule(widget: AbstractWidget): FormItemRule {
 		return {
 			required: true,
 			message: '请选择' + widget.title,

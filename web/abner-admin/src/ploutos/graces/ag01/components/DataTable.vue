@@ -448,6 +448,7 @@ import {Parser} from "expr-eval";
       column.width = item.width ? item.width : 100;
       column.resizable = TagColumnFactory.TYPE != item.type;
       column.ellipsis = TagColumnFactory.TYPE != item.type;
+      column.align = item.align
 
       // 列属性
       column.cellProps = (rowData: object, rowIndex: number): HTMLAttributes => {

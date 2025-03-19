@@ -1,7 +1,7 @@
 <template>
   <span style="display: none">{{widget.rowData[widget.name]}}</span>
   <n-upload
-      :action="http.basePath + '/doc/file/upload'"
+      :action="http.basePath + '/doc/upload'"
       :file-list="fileList"
       :list-type="listType"
       :data="{
@@ -10,7 +10,10 @@
       :headers="headers"
       @finish="handleFinish"
       @change="handleChange"
+      @download="handleDownload"
+      @preview="handlePreview"
       :accept="widget.accept"
+      show-download-button
   >
     <n-button v-if="widget.mode == 'text' || widget.mode == 'image'">
       点击上传
@@ -143,6 +146,29 @@
     if (options.file.status == 'error') {
       const error = (options.event?.target as XMLHttpRequest).response;
       message.error(props.widget.title + '上传失败！' + error);
+    }
+  }
+
+  /**
+   * 下载文件
+   */
+  function handleDownload() {
+    const value: string = props.widget.rowData[props.widget.name];
+    location.href = http.basePath + '/doc/download?file=' + value;
+    return false;
+  }
+
+  /**
+   * 图片预览
+   */
+  function handlePreview(file: any, detail: { event: MouseEvent }) {
+    // 文件下载/图片预览
+    detail.event.preventDefault();
+    if (props.widget.mode == 'text' || props.widget.mode == 'dragger') {
+      handleDownload();
+    } else {
+      const value: string = props.widget.rowData[props.widget.name];
+      window.open(http.basePath + '/doc/image?file=' + value);
     }
   }
 </script>

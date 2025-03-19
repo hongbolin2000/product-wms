@@ -48,6 +48,7 @@
 
         <columns>
             <column type="check" name="storeId" expr="streid" disabled="storeCode == 'GP-SH003'"/>
+            <column type="file" name="installImage" expr="eqisim" title="@STREMS.EQISIM" width="120" align="center"/>
             <column type="tag" name="enabled" expr="enabld" width="70" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
                     filter="@enabled" success="enabled == '可用'" error="enabled != '可用'"/>
             <column type="label" name="orderQty" expr="ordqty" width="140" title="@STREMS.ENABLD" format="%#.###" filter="text"/>
@@ -76,89 +77,89 @@
         </columns>
     </datatable>
 
-    <subtable name="detail" width="30%">
-        <statement>
-            <table name="vstrems"/>
-            <param column="strenm" expr="storeName"/>
-<!--            <param column="streid" type="in" expr="storeIds"/>-->
-        </statement>
+<!--    <subtable name="detail" width="30%">-->
+<!--        <statement>-->
+<!--            <table name="vstrems"/>-->
+<!--            <param column="strenm" expr="storeName"/>-->
+<!--&lt;!&ndash;            <param column="streid" type="in" expr="storeIds"/>&ndash;&gt;-->
+<!--        </statement>-->
 
-        <columns>
-            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
-                    filter="@enabled"/>
-            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>
-            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>
-            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>
-            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>
-            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>
-            <column type="label" name="provinceName" expr="prvcnm" width="120" title="@STREMS.PRVCNM" filter="text"/>
-            <column type="label" name="cityName" expr="citynm" width="120" title="@STREMS.CITYNM" filter="text"/>
-            <column type="label" name="storeAddress" expr="stread" width="150" title="@STREMS.STREAD" filter="text"/>
-            <column type="label" name="businessStartTime" expr="bssttm" width="120" title="@STREMS.BSSTTM"
-                    format="!HH:mm"/>
-            <column type="label" name="businessEndTime" expr="bsedtm" width="120" title="@STREMS.BSEDTM"
-                    format="!HH:mm"/>
-            <column type="label" name="operatorBy" expr="oprtby" width="90" title="@AREAMS.OPRTBY"/>
-            <column type="label" name="operatorTime" expr="oprttm" width="120" title="@AREAMS.OPRTTM"
-                    format="!yyyy-MM-dd HH:mm"/>
-        </columns>
-    </subtable>
+<!--        <columns>-->
+<!--            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"-->
+<!--                    filter="@enabled"/>-->
+<!--            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>-->
+<!--            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>-->
+<!--            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>-->
+<!--            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>-->
+<!--            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>-->
+<!--            <column type="label" name="provinceName" expr="prvcnm" width="120" title="@STREMS.PRVCNM" filter="text"/>-->
+<!--            <column type="label" name="cityName" expr="citynm" width="120" title="@STREMS.CITYNM" filter="text"/>-->
+<!--            <column type="label" name="storeAddress" expr="stread" width="150" title="@STREMS.STREAD" filter="text"/>-->
+<!--            <column type="label" name="businessStartTime" expr="bssttm" width="120" title="@STREMS.BSSTTM"-->
+<!--                    format="!HH:mm"/>-->
+<!--            <column type="label" name="businessEndTime" expr="bsedtm" width="120" title="@STREMS.BSEDTM"-->
+<!--                    format="!HH:mm"/>-->
+<!--            <column type="label" name="operatorBy" expr="oprtby" width="90" title="@AREAMS.OPRTBY"/>-->
+<!--            <column type="label" name="operatorTime" expr="oprttm" width="120" title="@AREAMS.OPRTTM"-->
+<!--                    format="!yyyy-MM-dd HH:mm"/>-->
+<!--        </columns>-->
+<!--    </subtable>-->
 
-    <subtable name="detail1">
-        <statement>
-            <table name="vstrems"/>
-            <param column="strenm" expr="storeName"/>
-            <!--            <param column="streid" type="in" expr="storeIds"/>-->
-        </statement>
+<!--    <subtable name="detail1">-->
+<!--        <statement>-->
+<!--            <table name="vstrems"/>-->
+<!--            <param column="strenm" expr="storeName"/>-->
+<!--            &lt;!&ndash;            <param column="streid" type="in" expr="storeIds"/>&ndash;&gt;-->
+<!--        </statement>-->
 
-        <columns>
-            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
-                    filter="@enabled"/>
-            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>
-            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>
-            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>
-            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>
-            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>
-            <column type="label" name="provinceName" expr="prvcnm" width="120" title="@STREMS.PRVCNM" filter="text"/>
-            <column type="label" name="cityName" expr="citynm" width="120" title="@STREMS.CITYNM" filter="text"/>
-            <column type="label" name="storeAddress" expr="stread" width="150" title="@STREMS.STREAD" filter="text"/>
-            <column type="label" name="businessStartTime" expr="bssttm" width="120" title="@STREMS.BSSTTM"
-                    format="!HH:mm"/>
-            <column type="label" name="businessEndTime" expr="bsedtm" width="120" title="@STREMS.BSEDTM"
-                    format="!HH:mm"/>
-            <column type="label" name="operatorBy" expr="oprtby" width="90" title="@AREAMS.OPRTBY"/>
-            <column type="label" name="operatorTime" expr="oprttm" width="120" title="@AREAMS.OPRTTM"
-                    format="!yyyy-MM-dd HH:mm"/>
-        </columns>
-    </subtable>
+<!--        <columns>-->
+<!--            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"-->
+<!--                    filter="@enabled"/>-->
+<!--            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>-->
+<!--            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>-->
+<!--            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>-->
+<!--            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>-->
+<!--            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>-->
+<!--            <column type="label" name="provinceName" expr="prvcnm" width="120" title="@STREMS.PRVCNM" filter="text"/>-->
+<!--            <column type="label" name="cityName" expr="citynm" width="120" title="@STREMS.CITYNM" filter="text"/>-->
+<!--            <column type="label" name="storeAddress" expr="stread" width="150" title="@STREMS.STREAD" filter="text"/>-->
+<!--            <column type="label" name="businessStartTime" expr="bssttm" width="120" title="@STREMS.BSSTTM"-->
+<!--                    format="!HH:mm"/>-->
+<!--            <column type="label" name="businessEndTime" expr="bsedtm" width="120" title="@STREMS.BSEDTM"-->
+<!--                    format="!HH:mm"/>-->
+<!--            <column type="label" name="operatorBy" expr="oprtby" width="90" title="@AREAMS.OPRTBY"/>-->
+<!--            <column type="label" name="operatorTime" expr="oprttm" width="120" title="@AREAMS.OPRTTM"-->
+<!--                    format="!yyyy-MM-dd HH:mm"/>-->
+<!--        </columns>-->
+<!--    </subtable>-->
 
-    <subtable name="detail1">
-        <statement>
-            <table name="vstrems"/>
-            <param column="strenm" expr="storeName"/>
-            <!--            <param column="streid" type="in" expr="storeIds"/>-->
-        </statement>
+<!--    <subtable name="detail1">-->
+<!--        <statement>-->
+<!--            <table name="vstrems"/>-->
+<!--            <param column="strenm" expr="storeName"/>-->
+<!--            &lt;!&ndash;            <param column="streid" type="in" expr="storeIds"/>&ndash;&gt;-->
+<!--        </statement>-->
 
-        <columns>
-            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
-                    filter="@enabled"/>
-            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>
-            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>
-            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>
-            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>
-            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>
-            <column type="label" name="provinceName" expr="prvcnm" width="120" title="@STREMS.PRVCNM" filter="text"/>
-            <column type="label" name="cityName" expr="citynm" width="120" title="@STREMS.CITYNM" filter="text"/>
-            <column type="label" name="storeAddress" expr="stread" width="150" title="@STREMS.STREAD" filter="text"/>
-            <column type="label" name="businessStartTime" expr="bssttm" width="120" title="@STREMS.BSSTTM"
-                    format="!HH:mm"/>
-            <column type="label" name="businessEndTime" expr="bsedtm" width="120" title="@STREMS.BSEDTM"
-                    format="!HH:mm"/>
-            <column type="label" name="operatorBy" expr="oprtby" width="90" title="@AREAMS.OPRTBY"/>
-            <column type="label" name="operatorTime" expr="oprttm" width="120" title="@AREAMS.OPRTTM"
-                    format="!yyyy-MM-dd HH:mm"/>
-        </columns>
-    </subtable>
+<!--        <columns>-->
+<!--            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"-->
+<!--                    filter="@enabled"/>-->
+<!--            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>-->
+<!--            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>-->
+<!--            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>-->
+<!--            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>-->
+<!--            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>-->
+<!--            <column type="label" name="provinceName" expr="prvcnm" width="120" title="@STREMS.PRVCNM" filter="text"/>-->
+<!--            <column type="label" name="cityName" expr="citynm" width="120" title="@STREMS.CITYNM" filter="text"/>-->
+<!--            <column type="label" name="storeAddress" expr="stread" width="150" title="@STREMS.STREAD" filter="text"/>-->
+<!--            <column type="label" name="businessStartTime" expr="bssttm" width="120" title="@STREMS.BSSTTM"-->
+<!--                    format="!HH:mm"/>-->
+<!--            <column type="label" name="businessEndTime" expr="bsedtm" width="120" title="@STREMS.BSEDTM"-->
+<!--                    format="!HH:mm"/>-->
+<!--            <column type="label" name="operatorBy" expr="oprtby" width="90" title="@AREAMS.OPRTBY"/>-->
+<!--            <column type="label" name="operatorTime" expr="oprttm" width="120" title="@AREAMS.OPRTTM"-->
+<!--                    format="!yyyy-MM-dd HH:mm"/>-->
+<!--        </columns>-->
+<!--    </subtable>-->
 
     <intl>
         <lang code="zh-CN">

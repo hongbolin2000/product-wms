@@ -25,4 +25,4 @@ server:
 baron:
   debug: true
   upload:
-    file-path: B:/images
+    file-path: C:/images

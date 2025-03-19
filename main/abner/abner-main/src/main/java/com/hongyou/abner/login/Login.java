@@ -50,7 +50,6 @@ public class Login extends DataProvider {
      */
     @GetMapping("/captcha")
     public void captcha(final HttpServletResponse response) {
-
         try {
             CaptchaUtil.createCaptcha(response);
         } catch (Exception e) {

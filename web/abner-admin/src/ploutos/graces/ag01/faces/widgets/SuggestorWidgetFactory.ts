@@ -9,9 +9,8 @@ import type {FormItemRule} from "naive-ui/es/form/src/interface";
  * @author Berlin
  *******************************************************************************/
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
-import SuggestorWidget from "@/ploutos/graces/ag01/faces/widgets/SuggestorWIdget.vue";
+import SuggestorWidget from "@/ploutos/graces/ag01/faces/widgets/SuggestorWidget.vue";
 import type SuggestorWidgetProps from "@/ploutos/graces/ag01/faces/widgets/SuggestorWidgetProps.ts";
-import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class SuggestorWidgetFactory implements WidgetFactory {
 
@@ -39,7 +38,7 @@ export default class SuggestorWidgetFactory implements WidgetFactory {
 	/**
 	 * 查询建议器输入控件校验规则
 	 */
-	getRule(widget: CheckWidgetProps): FormItemRule {
+	getRule(widget: SuggestorWidgetProps): FormItemRule {
 		return {
 			required: true,
 			message: '请选择' + widget.title,

@@ -9,8 +9,8 @@ import type {FormItemRule} from "naive-ui/es/form/src/interface";
  * @author Berlin
  *******************************************************************************/
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
-import type CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 import UploadWidget from "@/ploutos/graces/ag01/faces/widgets/UploadWidget.vue";
+import type UploadWidgetProps from "@/ploutos/graces/ag01/faces/widgets/UploadWidgetProps.ts";
 
 export default class UploadWidgetFactory implements WidgetFactory {
 
@@ -31,14 +31,14 @@ export default class UploadWidgetFactory implements WidgetFactory {
 	 *
 	 * @param widget 选择输入控件定义属性
 	 */
-	create(widget: CheckWidgetProps): VNode {
+	create(widget: UploadWidgetProps): VNode {
 		return h(UploadWidget, {widget: widget});
 	}
 
 	/**
 	 * 查询建议器输入控件校验规则
 	 */
-	getRule(widget: CheckWidgetProps): FormItemRule {
+	getRule(widget: UploadWidgetProps): FormItemRule {
 		return {
 			required: true,
 			message: '请上传' + widget.title,

@@ -39,7 +39,7 @@
         <input type="check" name="enabled1" expr="enabld" title="@STREMS.ENABLD"
                checked="Y" unchecked="N"/>
         <input type="suggestor" name="store" expr="streid" title="@STREMS.STRECD" module="ba01" suggestor="storeSuggestor"/>
-        <input type="upload" mode="text" name="image" expr="eqisim" title="设备安装图示" group="strems/eqisim" required="true"
+        <input type="upload" name="image" expr="eqisim" title="设备安装图示" group="strems/eqisim" required="true"
                accept="images/*"
         />
     </editor>

@@ -12,6 +12,7 @@ import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
 import LinkColumnFactory from "@/ploutos/graces/ag01/faces/columns/LinkColumnFactory.ts";
 import ScriptLinkColumnFactory from "@/ploutos/graces/ag01/faces/columns/ScriptLinkColumnFactory.ts";
 import TagColumnFactory from "@/ploutos/graces/ag01/faces/columns/TagColumnFactory.ts";
+import FileColumnFactory from "@/ploutos/graces/ag01/faces/columns/FileColumnFactory.ts";
 
 export default class ColumnFactories {
 
@@ -32,6 +33,7 @@ export default class ColumnFactories {
 		this.registry(new LinkColumnFactory());
 		this.registry(new ScriptLinkColumnFactory());
 		this.registry(new TagColumnFactory());
+		this.registry(new FileColumnFactory());
 	}
 
 	/**

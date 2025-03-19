@@ -11,7 +11,6 @@ import type {FormItemRule} from "naive-ui/es/form/src/interface";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import DateWidget from "@/ploutos/graces/ag01/faces/widgets/DateWidget.vue";
 import DateWidgetProps from "@/ploutos/graces/ag01/faces/widgets/DateWidgetProps.ts";
-import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class DateWidgetFactory implements WidgetFactory {
 
@@ -39,7 +38,7 @@ export default class DateWidgetFactory implements WidgetFactory {
 	/**
 	 * 日期输入控件校验规则
 	 */
-	getRule(widget: CheckWidgetProps): FormItemRule {
+	getRule(widget: DateWidgetProps): FormItemRule {
 		return {
 			required: true,
 			type: new RegExp('range').test(widget.mode) ? 'array' : null,

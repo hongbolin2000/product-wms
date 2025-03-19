@@ -24,6 +24,11 @@ export default class AbstractComponent {
 	title: string;
 
 	/**
+	 * 对其方式
+	 */
+	align: 'left' | 'center' | 'right'
+
+	/**
 	 * 是否隐藏
 	 */
 	hidden: boolean;

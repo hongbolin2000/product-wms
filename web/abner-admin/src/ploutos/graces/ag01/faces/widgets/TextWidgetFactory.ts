@@ -11,7 +11,6 @@ import type {FormItemRule} from "naive-ui/es/form/src/interface";
 import TextWidget from "@/ploutos/graces/ag01/faces/widgets/TextWidget.vue";
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import type TextWidgetProps from "@/ploutos/graces/ag01/faces/widgets/TextWidgetProps.ts";
-import CheckWidgetProps from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetProps.ts";
 
 export default class TextWidgetFactory implements WidgetFactory {
 
@@ -39,7 +38,7 @@ export default class TextWidgetFactory implements WidgetFactory {
 	/**
 	 * 文本输入控件校验规则
 	 */
-	getRule(widget: CheckWidgetProps): FormItemRule {
+	getRule(widget: TextWidgetProps): FormItemRule {
 		return {
 			required: true,
 			message: '请输入' + widget.title,
