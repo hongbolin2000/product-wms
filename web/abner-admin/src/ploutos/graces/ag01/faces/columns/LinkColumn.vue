@@ -1,7 +1,18 @@
 <template>
-  <n-tag checkable class="tag-item" @click="onHandelClick" :disabled="props.column.isDisabled">
+  <n-button text @click="onHandelClick" :disabled="props.column.isDisabled" v-if="!column.option">
+    <template #icon>
+      <n-icon>
+        <SvgIcon :name="column.icon"/>
+      </n-icon>
+    </template>
+    {{column.title}}
+  </n-button>
+
+  <n-tag checkable class="tag-item" @click="onHandelClick" :disabled="props.column.isDisabled"
+         v-if="column.option"
+  >
     <template #icon v-if="column.icon">
-      <SvgIcon :name="column.icon" style="margin-right: 5px"/>
+      <SvgIcon :name="column.icon" style="margin-right: 5px}"/>
     </template>
     {{column.title}}
   </n-tag>
@@ -114,6 +125,9 @@
 </script>
 
 <style scoped lang="scss">
+  :deep(.n-button__icon) {
+    margin: 0 4px 0 0;
+  }
   .tag-item {
     padding: 17px 9.5px;
     margin: 0 4px;

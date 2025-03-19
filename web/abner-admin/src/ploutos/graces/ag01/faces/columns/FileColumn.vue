@@ -1,6 +1,5 @@
 <template>
   <n-upload
-      :action="http.basePath + '/doc/file/upload'"
       :file-list="fileList"
       :list-type="column.mode == 'text' ? 'text' : 'image-card'"
       :file-list-style="column.mode == 'text' ? 'width: 400px' : 'height: 48px;'"

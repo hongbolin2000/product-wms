@@ -19,7 +19,7 @@
   import {h, type HTMLAttributes, type PropType} from "vue";
   import type Sheeter from "@/ploutos/graces/ag01/faces/Sheeter.ts";
   import type {TableBaseColumn} from "naive-ui/es/data-table/src/interface";
-  import SheeterOption from "@/ploutos/graces/ag01/form-editor/components/SheeterOption.vue";
+  import SheeterActions from "@/ploutos/graces/ag01/form-editor/components/SheeterActions.vue";
   import {message} from "@/ploutos";
 
   /**
@@ -85,7 +85,7 @@
     column.align = 'center';
     column.fixed = 'right';
     column.render = (rowData, index) => {
-      return h(SheeterOption, {
+      return h(SheeterActions, {
         sheeter: sheeter,
         onUpdateClick: () => {
           emit('onUpdateClick', rowData, index);

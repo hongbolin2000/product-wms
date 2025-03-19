@@ -73,7 +73,7 @@
       size="small"
       @update:sorter="onSort"
       :pagination="needPagination ? pagination : false"
-      :scroll-x="0"
+      :scroll-x="tableWidth"
       :remote="true"
       :row-props="rowProps"
       :max-height="maxHeight"
@@ -145,6 +145,7 @@ import {
 } from "vue";
   import {type DataTableSortState, type DropdownOption, NIcon} from "naive-ui";
   import {ChevronDown, Expand, RefreshOutline} from '@vicons/ionicons5'
+import {Parser} from "expr-eval";
   /********************************************************************************
    * 数据表格
    *
@@ -164,7 +165,7 @@ import {
   import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction.ts";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-import {Parser} from "expr-eval";
+  import ColumnActions from "@/ploutos/graces/ag01/components/ColumnActions.vue";
 
   /**
    * 父组件传入的属性
@@ -368,6 +369,17 @@ import {Parser} from "expr-eval";
   });
 
   /**
+   * 表格总宽度
+   */
+  const tableWidth = computed(() => {
+    let width = 0;
+    props.datatable.columns.forEach(column => {
+      width += column.width ? parseInt(column.width) : 100;
+    });
+    return width;
+  });
+
+  /**
    * 表格行属性
    */
   let doubleRowIndex = ref(-1);
@@ -407,38 +419,40 @@ import {Parser} from "expr-eval";
     const columns: TableBaseColumn[] = [];
     const menuOptions = [];
 
+    // 展示在右键的操作按钮
+    datatable.columns.filter(i => ColumnFactories.isLink(i) && i.option).forEach(column => {
+      column.rowData = selectRowData;
+      column.datatableTitle = datatable.title;
+      menuOptions.push({
+        key: column.name,
+        type: 'render',
+        render: () => {
+          return ColumnFactories.getInstance().create({...column});
+        },
+      });
+    });
+    contextMenuOptions.value = menuOptions;
+
+    // 选择列
+    datatable.columns.filter(i => i.type == CheckColumnFactory.TYPE).forEach(item => {
+      const checkColumn: CheckColumnProps = <CheckColumnProps>{...item};
+
+      const column: TableSelectionColumn = <TableSelectionColumn>{};
+      column.type = 'selection';
+      column.disabled = (row: any) => {
+        if (checkColumn.disabled) {
+          return Parser.parse(checkColumn.disabled).evaluate(row);
+        }
+      }
+      column.multiple = !checkColumn.single;
+      datatable.checkRowKey = checkColumn.name;
+      // @ts-ignore
+      columns.push(column);
+    });
+
     // 生成表格列
     datatable.columns.forEach(item => {
-      item.datatableTitle = datatable.title;
-      item.rowData = selectRowData;
-
-      // 操作按钮
-      if (ColumnFactories.isLink(item)) {
-        menuOptions.push({
-          key: item.name,
-          type: 'render',
-          render: () => {
-            return ColumnFactories.getInstance().create({...item});
-          },
-        });
-        return;
-      }
-
-      // 选择列
-      if (item.type == CheckColumnFactory.TYPE) {
-        const checkColumn: CheckColumnProps = <CheckColumnProps>{...item};
-
-        const column: TableSelectionColumn = <TableSelectionColumn>{};
-        column.type = 'selection';
-        column.disabled = (row: any) => {
-          if (checkColumn.disabled) {
-            return Parser.parse(checkColumn.disabled).evaluate(row);
-          }
-        }
-        column.multiple = !checkColumn.single;
-        datatable.checkRowKey = checkColumn.name;
-        // @ts-ignore
-        columns.push(column);
+      if (ColumnFactories.isLink(item) || item.type == CheckColumnFactory.TYPE) {
         return;
       }
 
@@ -450,18 +464,6 @@ import {Parser} from "expr-eval";
       column.ellipsis = TagColumnFactory.TYPE != item.type;
       column.align = item.align
 
-      // 列属性
-      column.cellProps = (rowData: object, rowIndex: number): HTMLAttributes => {
-        if (rowIndex != doubleRowIndex.value) {
-          return;
-        }
-        return {
-          style: {
-            'background-color': 'var(--n-td-color-hover)'
-          }
-        }
-      }
-
       // 渲染表格标题
       if (item.filter) {
         column.title = () => {
@@ -470,6 +472,7 @@ import {Parser} from "expr-eval";
       } else {
         column.title = item.title;
       }
+      column.cellProps = (rowData: object, rowIndex: number) => columnProps(rowIndex);
 
       // 表格排序
       if (currentSorter.value && currentSorter.value.columnKey == item.name) {
@@ -482,8 +485,40 @@ import {Parser} from "expr-eval";
       }
       columns.push(column);
     });
-    contextMenuOptions.value = menuOptions;
+
+    // 展示在表格的操作按钮
+    const column: TableBaseColumn = <TableBaseColumn>{width: 0};
+    const columnActions = datatable.columns.filter(i => ColumnFactories.isLink(i) && !i.option);
+    if (columnActions.length > 0) {
+      columnActions.forEach(item => {
+        column.width += item.width ? parseInt(item.width): 70;
+      });
+      column.key = 'option';
+      column.title = '操作';
+      column.align = 'center';
+      column.fixed = 'right';
+      column.render = (rowData, rowIndex) => {
+        return h(ColumnActions, { rowData: rowData, rowIndex, columnActions: columnActions });
+      }
+      column.cellProps = (rowData: object, rowIndex: number) => columnProps(rowIndex);
+      columns.push(column);
+    }
+
     return columns;
+  }
+
+  /**
+   * 列属性
+   */
+  function columnProps(rowIndex: number): HTMLAttributes {
+    if (rowIndex != doubleRowIndex.value) {
+      return;
+    }
+    return {
+      style: {
+        'background-color': 'var(--n-td-color-hover)'
+      }
+    }
   }
 
   /**

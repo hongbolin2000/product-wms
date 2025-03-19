@@ -14,7 +14,7 @@ export default class AbstractColumn extends AbstractComponent {
 	/**
 	 * 列宽度
 	 */
-	width: number;
+	width: string;
 
 	/**
 	 * 过滤器
@@ -30,6 +30,11 @@ export default class AbstractColumn extends AbstractComponent {
 	 * 当前表格标题
 	 */
 	datatableTitle: string;
+
+	/**
+	 * 操作按钮是否显示在右键选项中
+	 */
+	option: boolean;
 
 	/********************************************************************************
 	 * 以下为前端计算内容

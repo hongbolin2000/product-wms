@@ -48,7 +48,7 @@
 
         <columns>
             <column type="check" name="storeId" expr="streid" disabled="storeCode == 'GP-SH003'"/>
-            <column type="file" name="installImage" expr="eqisim" title="@STREMS.EQISIM" width="120" align="center"/>
+            <column type="file" name="installImage" expr="eqisim" title="@STREMS.EQISIM" width="120" align="center" hidden="true"/>
             <column type="tag" name="enabled" expr="enabld" width="70" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
                     filter="@enabled" success="enabled == '可用'" error="enabled != '可用'"/>
             <column type="label" name="orderQty" expr="ordqty" width="140" title="@STREMS.ENABLD" format="%#.###" filter="text"/>
@@ -66,13 +66,13 @@
             <column type="label" name="operatorBy" expr="oprtby" width="160" title="@AREAMS.OPRTBY"/>
             <column type="label" name="operatorTime" expr="oprttm" width="160" title="@AREAMS.OPRTTM"
                     format="!yyyy-MM-dd HH:mm" filter="date"/>
-            <column type="link" name="edit" icon="edit" expr="streid" title="编辑" link="/list/editor"/>
-            <column type="link" name="editDialog" icon="edit" expr="streid" title="编辑" link="/list/editor" mode="dialog"/>
+            <column type="link" name="edit" icon="edit" expr="streid" title="详情" link="/list/editor"/>
+            <column type="link" name="editDialog" icon="edit" expr="streid" title="审核" link="/list/editor" mode="dialog"/>
             <column type="link" name="editDrawer" icon="edit" expr="streid" title="编辑" link="/list/editor" mode="drawer"
-                    disabled="storeCode == 'GP-SH003'"
+                    disabled="storeCode == 'GP-SH003'" option="false"
             />
             <column type="scriptLink" name="delete" icon="delete" expr="streid" title="删除" link="/ba01/deleteBatch"
-                    labelColumn="storeName" danger="true"
+                    labelColumn="storeName" danger="true" option="false"
             />
         </columns>
     </datatable>
