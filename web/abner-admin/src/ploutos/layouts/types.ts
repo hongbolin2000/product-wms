@@ -9,11 +9,6 @@ import type {VNodeChild} from "vue";
  ********************************************************************************/
 
 /**
- * token名称
- */
-export const TOKEN_NAME = "authorization";
-
-/**
  * 菜单属性
  */
 export type MenuOption = {

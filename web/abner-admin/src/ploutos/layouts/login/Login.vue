@@ -88,7 +88,6 @@
   import useUserStore from "@/ploutos/layouts/store/user-store";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import {CryptoHelper} from "@/ploutos/layouts/helps/crypto-helper";
-  import {TOKEN_NAME} from "@/ploutos/layouts/types";
   import type {MessageReactive} from "naive-ui/es/message/src/MessageProvider";
   import {http, message} from '@/ploutos/index';
   import {storeToRefs} from "pinia";
@@ -263,9 +262,9 @@
       }
 
       // 将token存入localStorage
-      const token = response.headers[TOKEN_NAME];
+      const token = response.headers[http.TOKEN_NAME];
       if (token) {
-        localStorage.setItem(TOKEN_NAME, token);
+        http.setToken(token);
       }
 
       // 关闭提示

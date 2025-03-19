@@ -27,7 +27,6 @@
    ********************************************************************************/
   import Avatar from './avatar.gif';
   import {http, dialog, message} from "@/ploutos";
-  import {TOKEN_NAME} from '@/ploutos/layouts/types';
   import useUserStore from "@/ploutos/layouts/store/user-store";
 
   /**
@@ -98,7 +97,7 @@
 
             setTimeout(() => {
               loadingBar.finish();
-              localStorage.removeItem(TOKEN_NAME);
+              http.remoteToken();
               router.replace("/login");
             }, 1000);
           }, 1000);

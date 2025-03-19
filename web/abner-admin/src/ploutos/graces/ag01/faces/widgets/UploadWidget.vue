@@ -7,6 +7,7 @@
       :data="{
         group: widget.group
       }"
+      :headers="headers"
       @finish="handleFinish"
       @change="handleChange"
       :accept="widget.accept"
@@ -33,6 +34,7 @@
 <script setup lang="ts">
   import {onBeforeUpdate, onBeforeMount, type PropType, ref, computed} from 'vue'
   import { ArchiveOutline as ArchiveIcon } from '@vicons/ionicons5'
+  import type {UploadFileInfo} from "naive-ui";
   /********************************************************************************
    * 文件上传输入控件
    *
@@ -41,7 +43,6 @@
   import {WidgetUtil} from "@/ploutos/graces/ag01/faces/widgets/WidgetUtil.ts";
   import type UploadWidgetProps from "@/ploutos/graces/ag01/faces/widgets/UploadWidgetProps.ts";
   import {http, message} from '@/ploutos';
-  import type {UploadFileInfo} from "naive-ui";
 
   /**
    * 父组件传入的属性
@@ -52,6 +53,12 @@
       required: true
     }
   });
+
+  /**
+   * 传入的header
+   */
+  const headers = {};
+  headers[http.TOKEN_NAME] = http.getToken();
 
   /**
    * 文件列表
@@ -120,13 +127,22 @@
   }
 
   /**
-   * 文件列表改变
+   * 文件列表状态改变
    */
   function handleChange(options: {file: UploadFileInfo, fileList: Array<UploadFileInfo>, event?: Event}) {
-    // 只允许上传一个文件
-    fileList.value = options.fileList.length > 0 ? [options.fileList[options.fileList.length - 1]] : [];
-    if (fileList.value.length <= 0) {
+    // 移除
+    if (options.file.status == 'removed') {
       props.widget.rowData[props.widget.name] = '';
+      fileList.value = [];
+      return;
+    }
+    // 只允许上传一个文件，除了removed其他状态都更新文件列表
+    fileList.value = [options.file];
+
+    // 上传失败
+    if (options.file.status == 'error') {
+      const error = (options.event?.target as XMLHttpRequest).response;
+      message.error(props.widget.title + '上传失败！' + error);
     }
   }
 </script>

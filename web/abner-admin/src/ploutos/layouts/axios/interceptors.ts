@@ -8,22 +8,17 @@
  *******************************************************************************/
 import type {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from "axios";
 import {notification, dialog, message} from "@/ploutos";
-import {TOKEN_NAME} from '@/ploutos/layouts/types';
+import http from './http';
 import {useRouter} from "vue-router";
-
-/**
- * token前缀
- */
-const tokenPrefix = "Hongyou ";
 
 /**
  * 请求式拦截下
  */
 export function useRequestInterceptor(client: AxiosInstance) {
   client.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem(TOKEN_NAME)
+    const token = http.getToken();
     if (token) {
-      config.headers[TOKEN_NAME] = tokenPrefix + token;
+      config.headers[http.TOKEN_NAME] = token;
     }
     return config;
   });

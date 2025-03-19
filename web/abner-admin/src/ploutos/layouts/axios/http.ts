@@ -28,6 +28,16 @@ type AxiosConfig = {
 namespace http {
 
   /**
+   * token名称
+   */
+  export const TOKEN_NAME = "authorization";
+
+  /**
+   * token前缀
+   */
+  const tokenPrefix = "Hongyou ";
+
+  /**
    * HTTP示例
    */
   let client: AxiosInstance;
@@ -66,6 +76,27 @@ namespace http {
    */
   export function post(url: string, data?: any) {
     return client.post(url, data);
+  }
+
+  /**
+   * 获取token
+   */
+  export function getToken() {
+    return localStorage.getItem(http.TOKEN_NAME);
+  }
+
+  /**
+   * 设置token
+   */
+  export function setToken(token: string) {
+    localStorage.setItem(http.TOKEN_NAME, tokenPrefix + token);
+  }
+
+  /**
+   * 移除token
+   */
+  export function remoteToken() {
+    localStorage.removeItem(http.TOKEN_NAME);
   }
 }
 export default http;

@@ -36,6 +36,7 @@
             <action type="checkLink" option="true" icon="delete" title="批量删除" labelColumn="storeName"
                     link="/ba01/deleteBatch" danger="true"
             />
+            <action type="upload" icon="upload" title="导入" link="/ba01/import" />
         </actions>
 
         <statement>

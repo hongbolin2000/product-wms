@@ -12,6 +12,7 @@ import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction.ts";
 import LinkActionFactory from "@/ploutos/graces/ag01/faces/actions/LinkActionFactory";
 import ScriptLinkActionFactory from "@/ploutos/graces/ag01/faces/actions/ScriptLinkActionFactory.ts";
 import CheckLinkActionFactory from "@/ploutos/graces/ag01/faces/actions/CheckLinkActionFactory.ts";
+import UploadActionFactory from "@/ploutos/graces/ag01/faces/actions/UploadActionFactory.ts";
 
 export default class ActionFactories {
 
@@ -31,7 +32,8 @@ export default class ActionFactories {
 	constructor() {
 		this.registry(new LinkActionFactory());
 		this.registry(new ScriptLinkActionFactory());
-		this.registry(new CheckLinkActionFactory())
+		this.registry(new CheckLinkActionFactory());
+		this.registry(new UploadActionFactory());
 	}
 
 	/**
