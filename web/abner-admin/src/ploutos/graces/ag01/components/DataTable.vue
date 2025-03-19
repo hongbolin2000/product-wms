@@ -374,7 +374,7 @@ import {Parser} from "expr-eval";
   const tableWidth = computed(() => {
     let width = 0;
     props.datatable.columns.forEach(column => {
-      width += column.width ? parseInt(column.width) : 100;
+      width += column.width ? parseInt(column.width.toString()) : 100;
     });
     return width;
   });
@@ -491,7 +491,8 @@ import {Parser} from "expr-eval";
     const columnActions = datatable.columns.filter(i => ColumnFactories.isLink(i) && !i.option);
     if (columnActions.length > 0) {
       columnActions.forEach(item => {
-        column.width += item.width ? parseInt(item.width): 70;
+        const width = item.width ? parseInt(item.width.toString()): 70;
+        column.width = parseInt(column.width.toString()) + width;
       });
       column.key = 'option';
       column.title = '操作';

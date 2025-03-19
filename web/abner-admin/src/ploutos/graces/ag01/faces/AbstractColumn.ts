@@ -14,7 +14,7 @@ export default class AbstractColumn extends AbstractComponent {
 	/**
 	 * 列宽度
 	 */
-	width: string;
+	width: number;
 
 	/**
 	 * 过滤器
