@@ -64,7 +64,7 @@
     Repeat,
     Unlink
   } from '@vicons/ionicons5';
-  import {h, onMounted, type Ref, ref, watch} from "vue";
+  import {h, type Ref, ref, watch} from "vue";
   import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
   import {type DropdownOption, NIcon, NScrollbar} from "naive-ui";
   /********************************************************************************
@@ -171,29 +171,22 @@
   }
 
   /**
-   * 组件加载
+   * 菜单加载
    */
-  onMounted(() => {
-    // 等待菜单加载完成后再做事情
-    const interval = setInterval(() => {
-      if (appStore.menus.length < 0) {
-        return;
-      }
-      clearInterval(interval);
+  const { menus } = storeToRefs(appStore);
+  watch(menus, () => {
+    // 将当前选项卡加入路由（用于第一次登录系统或者浏览器手动输入地址）
+    addVisitedRouter({...route});
 
-      // 将当前选项卡加入路由（用于第一次登录系统或者浏览器手动输入地址）
-      addVisitedRouter({...route});
+    // 计算右键菜单选项
+    getContextMenuOptions(false);
 
-      // 计算右键菜单选项
-      getContextMenuOptions(false);
-
-      // 滚动条溢出时滚动到当前选项卡
-      // 由于选项卡加载时使用了动画（动画时长1s）导致元素位置不准确，所以做延时滚动
-      setTimeout(() => {
-        calScrollbarProps();
-        scrollToCurrentTab();
-      }, 1050);
-    }, 100);
+    // 滚动条溢出时滚动到当前选项卡
+    // 由于选项卡加载时使用了动画（动画时长1s）导致元素位置不准确，所以做延时滚动
+    setTimeout(() => {
+      calScrollbarProps();
+      scrollToCurrentTab();
+    }, 1050);
   });
 
   /**
@@ -210,14 +203,16 @@
       return;
     }
 
+    // 没有菜单的界面（编辑、详情等等）
     let menu = appStore.expandMenus.find(i => i.key == to.path);
     if (!menu) {
+      const parent = appStore.expandMenus.find(i => i.key == currentPath.value);
       menu = {
         key: to.path,
+        fullPath: parent.fullPath,
       }
       appStore.expandMenus.push(menu);
     }
-
     if (!menu.icons) {
       menu.icons = menu.parentIcon;
     }

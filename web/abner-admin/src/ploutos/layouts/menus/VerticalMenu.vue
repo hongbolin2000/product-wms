@@ -151,9 +151,13 @@
    * 计算展开的菜单
    */
   function handleExpandPath() {
+    if (appStore.expandMenus.length <= 0) {
+      return;
+    }
 
     // 分隔出每一级路由菜单
-    const paths = currentPath.value.split('/');
+    const menu = appStore.expandMenus.find(i => i.key == currentPath.value);
+    const paths = menu.fullPath.split('/');
     let expands: string[] = paths.filter((item) => !!item);
 
     // 将每一级路由菜单进行拼接

@@ -33,7 +33,8 @@
    ********************************************************************************/
   import useAppStore from "@/ploutos/layouts/store/app-store";
   import type {MenuOption} from "@/ploutos/layouts/types";
-  import {routerHelper} from "@/ploutos";;
+  import {routerHelper} from "@/ploutos";
+  import {storeToRefs} from "pinia";
 
   /**
    * 路由对象
@@ -56,16 +57,11 @@
   const breadcrumbs = ref([] as MenuOption[] );
 
   /**
-   * 组件加载
+   * 菜单加载
    */
-  onMounted(() => {
-    // 获取菜单后再做事情
-    const interval = setInterval(() => {
-      if (appStore.menus.length > 0) {
-        clearInterval(interval);
-        generateBreadcrumb();
-      }
-    }, 50);
+  const { menus } = storeToRefs(appStore);
+  watch(menus, () => {
+    generateBreadcrumb();
   });
 
   /**
@@ -85,16 +81,12 @@
    * 解析每层路由路径
    */
   function splitPath(): string[] {
-    const paths = route.path.split('/');
+    const menu = appStore.expandMenus.find(i => i.key == route.path);
+    const paths = menu.fullPath.split('/');
     const expireKeys: string[] = paths.filter((item) => !!item);
 
     return expireKeys.reduce((prev: string[], current: string) => {
-      const lastItem = prev[prev.length - 1]
-      if (!lastItem) {
-        prev.push('/' + current)
-      } else {
-        prev.push(lastItem + '/' + current)
-      }
+      prev.push('/' + current)
       return prev;
     }, [] as string[]);
   }
