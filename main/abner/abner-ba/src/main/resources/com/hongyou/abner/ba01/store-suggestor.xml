@@ -8,12 +8,13 @@
         门店查询建议器
     </description>
 
-    <maxRows>-1</maxRows>
+    <maxRows>20</maxRows>
 
     <statement>
         <table name="strems"/>
         <param column="streid" type="=" expr="fieldValue"/>
         <param column="strecd" expr="searchValue"/>
+        <param condition="or" column="strenm" expr="searchValue"/>
         <order by="strecd desc"/>
     </statement>
 
