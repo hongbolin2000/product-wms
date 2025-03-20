@@ -1,32 +1,83 @@
 <template>
-  <n-upload
-      multiple
-      action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
-      :max="5"
-  >
-    <n-upload-dragger>
-      <div style="margin-bottom: 12px">
-        <n-icon size="48" :depth="3">
-          <ArchiveIcon />
-        </n-icon>
-      </div>
-      <n-text style="font-size: 16px">
-        点击或者拖动文件到该区域来上传
-      </n-text>
-      <n-p depth="3" style="margin: 8px 0 0 0">
-        请不要上传敏感数据，比如你的银行卡号和密码，信用卡号有效期和安全码
-      </n-p>
-    </n-upload-dragger>
-  </n-upload>
+  <n-space vertical>
+    <n-select
+        placeholder="选择歌曲"
+        :options="options"
+        @update:value="handleUpdateValue"
+    />
+    <n-select
+        multiple
+        placeholder="选择歌曲"
+        :options="options"
+        @update:value="handleUpdateValue"
+    />
+  </n-space>
 </template>
 
 <script lang="ts">
-import { ArchiveOutline as ArchiveIcon } from '@vicons/ionicons5'
+import type { SelectOption } from 'naive-ui'
+import { useMessage } from 'naive-ui'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: {
-    ArchiveIcon
+  setup() {
+    const message = useMessage()
+    return {
+      handleUpdateValue(value: string, option: SelectOption) {
+        message.info(`value: ${JSON.stringify(value)}`)
+        message.info(`option: ${JSON.stringify(option)}`)
+      },
+      options: [
+        {
+          label: 'Drive My Car',
+          value: 'song1'
+        },
+        {
+          label: 'Norwegian Wood',
+          value: 'song2'
+        },
+        {
+          label: 'You Won\'t See',
+          value: 'song3'
+        },
+        {
+          label: 'Nowhere Man',
+          value: 'song4'
+        },
+        {
+          label: 'Think For Yourself',
+          value: 'song5'
+        },
+        {
+          label: 'The Word',
+          value: 'song6'
+        },
+        {
+          label: 'Michelle',
+          value: 'song7'
+        },
+        {
+          label: 'What goes on',
+          value: 'song8'
+        },
+        {
+          label: 'Girl',
+          value: 'song9'
+        },
+        {
+          label: 'I\'m looking through you',
+          value: 'song10'
+        },
+        {
+          label: 'In My Life',
+          value: 'song11'
+        },
+        {
+          label: 'Wait',
+          value: 'song12'
+        }
+      ]
+    }
   }
 })
 </script>

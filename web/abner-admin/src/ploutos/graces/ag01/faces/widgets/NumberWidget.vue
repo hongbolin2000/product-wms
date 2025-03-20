@@ -32,6 +32,7 @@
   import {WidgetUtil} from "@/ploutos/graces/ag01/faces/widgets/WidgetUtil.ts";
   import type NumberWidgetProps from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetProps.ts";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+  import type {SelectOption} from "naive-ui";
 
   /**
    * 父组件传入的属性
@@ -59,6 +60,7 @@
     value = !value ? 0 : parseFloat(value);
     props.widget.rowData[props.widget.name] = value;
 
+    executeScript();
     WidgetUtil.disabled(props.widget);
   });
 
@@ -66,8 +68,16 @@
    * 组件更新前
    */
   onBeforeUpdate(() => {
+    executeScript();
     WidgetUtil.disabled(props.widget);
   });
+
+  function executeScript() {
+    if (props.widget.script) {
+      const func = new Function( 'row', 'script', 'return eval(script)');
+      func(props.widget.rowData, props.widget.script);
+    }
+  }
 </script>
 
 <style scoped lang="scss">

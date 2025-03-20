@@ -10,12 +10,14 @@
       remote
       @search="handleSearch"
       @clear="() => handleSearch('')"
+      @update:value="handleUpdateValue"
   />
   <n-select
       v-else
       v-model:value="widget.rowData[widget.name]"
       :placeholder="'选择' + widget.title"
       :options="options"
+      @update-value="handleUpdateValue"
   />
 </template>
 
@@ -30,6 +32,7 @@
   import type ValueModel from "@/ploutos/graces/ag01/faces/ValueModel.ts";
   import {WidgetUtil} from "@/ploutos/graces/ag01/faces/widgets/WidgetUtil.ts";
   import {http} from '@/ploutos';
+  import type {SelectOption} from "naive-ui";
 
   /**
    * 父组件传入的属性
@@ -105,6 +108,16 @@
       limited.value = response.data.maxRows == -1;
     } finally {
       loading.value = false
+    }
+  }
+
+  /**
+   * 选择
+   */
+  function handleUpdateValue(value: string, option: SelectOption) {
+    if (props.widget.script) {
+      const func = new Function( 'row', 'option', 'script', 'return eval(script)');
+      func(props.widget.rowData, option, props.widget.script);
     }
   }
 </script>

@@ -20,5 +20,6 @@
     <fields>
         <field name="value" expr="streid" />
         <field name="label" expr="strenm" />
+        <field name="storeCode" expr="strecd" />
     </fields>
 </rindja-generic-suggestor>
