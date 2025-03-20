@@ -29,9 +29,9 @@
     <datatable title="门店" bordered="true" striped="true">
         <actions>
             <action type="link" icon="add" title="@add" link="/add/@{_companyId}" hidden="storeType == 'AAA'" />
-            <action type="link" icon="add" title="@add" link="/list/editor" />
-            <action type="link" mode="dialog" icon="add" title="@add" link="/list/editor" />
-            <action type="link" mode="drawer" icon="add" title="@add" link="/list/editor" />
+            <action type="link" icon="add" title="@add" link="/sy99/editor" />
+            <action type="link" mode="dialog" icon="add" title="@add" link="/sy99/editor" />
+            <action type="link" mode="drawer" icon="add" title="@add" link="/sy99/editor" />
             <action type="scriptLink" option="true" icon="delete" title="取消订单" link="ba01Cancel" danger="true"/>
             <action type="checkLink" option="true" icon="delete" title="批量删除" labelColumn="storeName"
                     link="/ba01/deleteBatch" danger="true"
@@ -66,9 +66,9 @@
             <column type="label" name="operatorBy" expr="oprtby" width="160" title="@AREAMS.OPRTBY"/>
             <column type="label" name="operatorTime" expr="oprttm" width="160" title="@AREAMS.OPRTTM"
                     format="!yyyy-MM-dd HH:mm" filter="date"/>
-            <column type="link" name="edit" icon="edit" expr="streid" title="详情" link="/list/editor"/>
-            <column type="link" name="editDialog" icon="edit" expr="streid" title="审核" link="/list/editor" mode="dialog"/>
-            <column type="link" name="editDrawer" icon="edit" expr="streid" title="编辑" link="/list/editor" mode="drawer"
+            <column type="link" name="edit" icon="edit" expr="streid" title="详情" link="/sy99/editor"/>
+            <column type="link" name="editDialog" icon="edit" expr="streid" title="审核" link="/sy99/editor" mode="dialog"/>
+            <column type="link" name="editDrawer" icon="edit" expr="streid" title="编辑" link="/sy99/editor" mode="drawer"
                     disabled="storeCode == 'GP-SH003'" option="false"
             />
             <column type="scriptLink" name="delete" icon="delete" expr="streid" title="删除" link="/ba01/deleteBatch"

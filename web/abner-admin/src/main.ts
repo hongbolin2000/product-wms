@@ -23,7 +23,7 @@ function create() {
    */
   routerHelper.initRouter({
     router: router,
-    rootPath: "/index/home",
+    rootPath: "/sy99",
   });
 
   // 创建pinia

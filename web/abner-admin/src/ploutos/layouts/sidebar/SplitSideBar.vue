@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, onMounted, ref, type Ref} from "vue";
+  import {computed, ref, type Ref, watch} from "vue";
   import {useRoute, useRouter} from "vue-router";
   import {darkTheme} from "naive-ui";
   /********************************************************************************
@@ -58,6 +58,7 @@
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
   import useAppStore from "@/ploutos/layouts/store/app-store";
+  import {storeToRefs} from "pinia";
 
   /**
    * 全局应用状态
@@ -112,16 +113,11 @@
   });
 
   /**
-   * 组件加载
+   * 菜单加载
    */
-  onMounted(() => {
-    // 等待菜单加载完成后再做事情
-    const interval = setInterval(() => {
-      if (appStore.menus.length > 0) {
-        clearInterval(interval);
-        matchTab();
-      }
-    }, 50);
+  const { menus } = storeToRefs(appStore);
+  watch(menus, () => {
+    matchTab();
   });
 
   /**

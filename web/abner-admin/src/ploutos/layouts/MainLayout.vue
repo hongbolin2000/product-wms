@@ -130,7 +130,7 @@
    * 加载菜单
    */
   onBeforeMount(async () => {
-    const response = await http.get("/menu/load");
+    const response = await http.get("/menu/load/pc");
     const menus: MenuOption[] = response.data;
     renderMenu(menus);
     layoutHelper.initialMenu(menus);
@@ -142,6 +142,7 @@
   function renderMenu(menus: MenuOption[]) {
     menus.forEach((menu) => {
       menu.icon = renderIcon(menu.icons);
+      menu.key = menu.path;
       if (menu.children && menu.children.length > 0) {
         renderMenu(menu.children);
       } else {

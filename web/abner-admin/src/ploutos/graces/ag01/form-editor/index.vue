@@ -410,7 +410,7 @@
       }
       clearInterval(interval);
       appStore.changeTabTitle(title + (suffix ? ' - ' + suffix : ''));
-    }, 100);
+    }, 50);
   }
 
   /**

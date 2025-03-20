@@ -8,115 +8,20 @@ import {ThemeLayout} from '@/ploutos';
  *
  * @author Berlin
  *******************************************************************************/
+import SY01 from '@/views/sy/sy01/routes.ts';
+import SY99 from '@/views/sy/sy99/routes.ts';
 
 /**
  * 路由配置
  */
-const routes: RouteRecordRaw[] = [
+const index: RouteRecordRaw[] = [
   {
-    path: '/index',
+    path: '/theme/layout',
     component: () => ThemeLayout,
     children: [
-      {
-        path: '/index/home',
-        component: () => import('@/views/index/main-control.vue'),
-      },
-      {
-        path: '/index/work-place',
-        component: () => import("@/views/index/work-space.vue"),
-      },
+      ...SY01,
+      ...SY99
     ]
-  },
-  {
-    path: '/system',
-    component: () => ThemeLayout,
-    children: [
-      {
-        path: '/system/index',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index3',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index4',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index5',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index6',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index7',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index8',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index9',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index10',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index11',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index12',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index13',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index14',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index15',
-        component: () => import("@/views/index/work-space.vue"),
-      },
-      {
-        path: '/system/index2',
-        children: [
-          {
-            path: '/system/index2/index',
-            component: () => import("@/views/index/work-space.vue"),
-          }
-        ]
-      }
-    ]
-  }, {
-    path: '/list',
-    component: () => ThemeLayout,
-    children: [
-      {
-        path: "/list/grider",
-        component: () => import('@/views/graces-sample/grider.vue')
-      },
-      {
-        path: "/list/editor",
-        component: () => import('@/views/graces-sample/editor.vue'),
-      },
-      {
-        path: "/list/editor/:id",
-        component: () => import('@/views/graces-sample/editor.vue'),
-      }
-    ]
-  }, {
-    path:'/function',
-    component: () => ThemeLayout
   }
 ]
 
@@ -125,5 +30,5 @@ const routes: RouteRecordRaw[] = [
  */
 export const router: Router = createRouter({
   history: createWebHashHistory(),
-  routes: routes,
+  routes: index,
 });

@@ -1,7 +1,7 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.abner.upload;
+package com.hongyou.abner.pages;
 
 import com.hongyou.baron.ProjectProperties;
 import com.hongyou.baron.exceptions.RestRuntimeException;
@@ -27,12 +27,12 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/doc")
-public class Document {
+public class DocumentPage {
 
     /**
      * logger
      */
-    private static final Log logger = LogFactory.getLog(Document.class);
+    private static final Log logger = LogFactory.getLog(DocumentPage.class);
 
     /**
      * 项目配置参数
@@ -42,7 +42,7 @@ public class Document {
     /**
      * @param properties 项目配置参数
      */
-    public Document(final ProjectProperties properties) {
+    public DocumentPage(final ProjectProperties properties) {
         this.properties = properties;
     }
 

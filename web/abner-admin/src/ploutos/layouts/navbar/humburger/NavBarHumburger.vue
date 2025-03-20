@@ -3,7 +3,7 @@
       class="fold-wrapper iconfont"
       :class="[layoutStore.isCollapse ? 'fold-close-status' : 'fold-open-status']"
   >
-    <SvgIcon name="list_expand_right"/>
+    <SvgIcon name="expand"/>
   </n-button>
 </template>
 

@@ -1,12 +1,11 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-package com.hongyou.abner.menu;
+package com.hongyou.abner.navigation;
 
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,9 +16,19 @@ import java.util.List;
 public class MenuOption {
 
     /**
-     * 菜单路径
+     * 菜单key
      */
     private String key;
+
+    /**
+     * 菜单访问路径
+     */
+    private String path;
+
+    /**
+     * 菜单全路径(从父菜单到子菜单拼接)
+     */
+    private String fullPath;
 
     /**
      * 菜单标签

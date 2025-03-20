@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "10944074",
+      "name": "system",
+      "font_class": "system",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
       "icon_id": "240135",
       "name": "upload",
       "font_class": "upload",
@@ -35,8 +42,8 @@
     },
     {
       "icon_id": "33493875",
-      "name": "list_expand_right",
-      "font_class": "list_expand_right",
+      "name": "expand",
+      "font_class": "expand",
       "unicode": "e689",
       "unicode_decimal": 59017
     },

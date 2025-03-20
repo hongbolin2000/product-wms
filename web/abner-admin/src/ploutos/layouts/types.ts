@@ -19,6 +19,16 @@ export type MenuOption = {
   key: string,
 
   /**
+   * 菜单访问路径
+   */
+  path?: string;
+
+  /**
+   * 菜单全路径(从父菜单到子菜单拼接)
+   */
+  fullPath?: string;
+
+  /**
    * 标签
    */
   label?: string,

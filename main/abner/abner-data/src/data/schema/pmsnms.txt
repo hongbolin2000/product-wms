@@ -4,21 +4,29 @@ S
 L	Permission Master Table
 C	系统可使用的所有权限
 Y	Permission
-@	登记系统可使用的所以权限，由程序员和开发者手工维护，不需要单独程序来维护。
+@	登记系统可使用的所有权限，由程序员和开发者手工维护，不需要单独程序来维护。
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 N	PMSNID,		ID,			NOT NULL,		,						id,				ID,						主键
 *****************************************************************************************************************************************************
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		Company,				公司
 *****************************************************************************************************************************************************
-N	PMSNAM,		VC(32),		NOT NULL, 		,						name,			Permission Name,		许可名称
-N	ACTNAM,		VC(16),		NOT NULL,		'',						action,			Action Name,			操作名称
-N   LICENS,     VC(1024),   NOT NULL,       '',                     license,        License,                许可码
+N 	LANGUG,		VC(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
+	B 	en-US 	English 	English
+	B 	zh-CN   Chinese 	中文
 *****************************************************************************************************************************************************
-N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
+N   PMSNCD,     VC(16),     NOT NULL,       '',                     permissionCode, Permission Code,        许可编号
+    # 权限组的编号，存放功能模块号，并且需与菜单定义的key对应
+N	ACTCDE,		VC(16),		NOT NULL,		'',						actionCode,		Action Code,			操作编号
+    # 权限组下的动作编号，用来在程序中判定是否有操作权限，比如定义为：list,add,delete等
+N	ACTNAM,		VC(16),		NOT NULL,		'',						actionName,		Action Name,			操作名称
+    # 权限组下的动作名称，用来显示在用户界面中，与程序无关
+*****************************************************************************************************************************************************
 N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P 	PMSNID
-U	01 getByNameAndAction CMPNID, PMSNAM, ACTNAM
+U	01 getByCode CMPNID, LANGUG, PMSNCD, ACTCDE
+I   01 listByCompany CMPNID, LANGUG
+I   02 listByPermission CMPNID, LANGUG, PMSNCD
 F   01 (CMPNID) CMPNMS (CMPNID)
 =====================================================================================================================================================

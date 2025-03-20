@@ -20,6 +20,7 @@
         <module>abner-core</module>
         <module>abner-data</module>
         <module>abner-main</module>
+        <module>abner-sy</module>
         <module>abner-ba</module>
     </modules>
 

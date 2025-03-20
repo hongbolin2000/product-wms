@@ -4,7 +4,7 @@
         <n-menu
           mode="horizontal"
           :value="currentPath"
-          :options="menus"
+          :options="parentMenus"
           @update:value="onMenuClick"
         />
     </n-scrollbar>
@@ -49,7 +49,7 @@
   /**
    * 一级菜单
    */
-  const menus: Ref<MenuOption[]> = ref([]);
+  const parentMenus: Ref<MenuOption[]> = ref([]);
 
   /**
    * 布局模式
@@ -57,17 +57,11 @@
   const { layoutMode } = storeToRefs(layoutStore);
 
   /**
-   * 组件加载
+   * 菜单加载
    */
-  onMounted(() => {
-    // 等待菜单加载完成后再做事情
-    const interval = setInterval(() => {
-      if (appStore.menus.length <= 0) {
-        return;
-      }
-      clearInterval(interval);
-      renderMenus();
-    }, 50);
+  const { menus } = storeToRefs(appStore);
+  watch(menus, () => {
+    renderMenus();
   });
 
   /**
@@ -83,7 +77,7 @@
         delete topMenu.children;
         topMenus.push(topMenu);
       });
-      menus.value = topMenus;
+      parentMenus.value = topMenus;
 
       // 当前激活的菜单
       currentPath.value = "/" + route.path.split("/")[1];
@@ -92,7 +86,7 @@
 
     // 其他模式
     if (layoutStore.layoutMode != LayoutMode.TopLeft) {
-      menus.value = appStore.menus;
+      parentMenus.value = appStore.menus;
       currentPath.value = route.path;
     }
   }

@@ -11,7 +11,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {Graces} from '@/ploutos/index.ts';
+  import {Graces} from '@/ploutos';
 
   function ba01Cancel(data: string) {
     alert("aaa");

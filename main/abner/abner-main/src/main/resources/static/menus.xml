@@ -1,45 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menus>
-    <menu path="/index" label="Dashboard" icon="dashboard">
-        <menu path="/index/home" label="主控台" fixed="true"/>
-        <menu path="/index/work-place" label="工作台" fixed="true"/>
-    </menu>
-    <menu path="/system" label="系统管理" icon="setting">
-        <menu path="/system/index" label="系统管理"/>
-        <menu path="/system/index3" label="系统管理3"/>
-        <menu path="/system/index4" label="系统管理4"/>
-        <menu path="/system/index5" label="系统管理5"/>
-        <menu path="/system/index6" label="系统管理6"/>
-        <menu path="/system/index7" label="系统管理7"/>
-        <menu path="/system/index8" label="系统管理8"/>
-        <menu path="/system/index9" label="系统管理9"/>
-        <menu path="/system/index10" label="系统管理10"/>
-        <menu path="/system/index11" label="系统管理11"/>
-        <menu path="/system/index12" label="系统管理12"/>
-        <menu path="/system/index13" label="系统管理13"/>
-        <menu path="/system/index14" label="系统管理14"/>
-        <menu path="/system/index15" label="系统管理15"/>
-        <menu path="/system/index2" label="系统管理2">
-            <menu path="/system/index2/index" label="系统管理2.2"/>
+    <family name="pc" label="PC端">
+        <menu key="sy" path="/sy" label="系统管理" icon="system">
+            <menu key="sy01" path="/sy01" label="角色管理"/>
+            <menu key="sy99" path="/sy99" label="动态列表"/>
         </menu>
-    </menu>
-    <menu path="/list" label="列表页面" icon="detail">
-        <menu path="/list/grider" label="动态列表"/>
-    </menu>
-    <menu path="/form" label="表单页面" icon="file-text">
-    </menu>
-    <menu path="/function" label="功能/组件" icon="appstore">
-    </menu>
-    <menu path="/result" label="结果页面" icon="file-unknown">
-    </menu>
-    <menu path="/editor" label="编辑器" icon="edit">
-    </menu>
-    <menu path="/tuozhai" label="拖拽" icon="interation">
-    </menu>
-    <menu path="/multiply" label="多级菜单" icon="Partition">
-    </menu>
-    <menu path="/map" label="地图" icon="location">
-    </menu>
-    <menu path="/dependence" label="项目依赖" icon="menu">
-    </menu>
+    </family>
 </menus>

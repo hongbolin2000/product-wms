@@ -1,6 +1,6 @@
 <template>
-  <transition name="opacity-transform" v-if="grider">
-    <div v-if="grider.datatable">
+  <transition name="opacity-transform">
+    <div v-if="grider && grider.datatable">
       <n-card>
         <DataTable
             :static="static"
@@ -188,8 +188,10 @@
    * 组件加载
    */
   onMounted(async () => {
-    await loadDefine();
-    getMaxHeight();
+    setTimeout(async() => {
+      await loadDefine();
+      getMaxHeight();
+    }, 300);
   });
 
   /**

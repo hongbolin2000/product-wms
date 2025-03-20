@@ -14,7 +14,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {Graces} from '@/ploutos/index.ts';
+  import {Graces} from '@/ploutos';
   import {useRoute} from "vue-router";
 
   /**

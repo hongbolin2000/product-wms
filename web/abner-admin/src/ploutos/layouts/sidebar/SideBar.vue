@@ -11,7 +11,7 @@
       ]"
     >
       <Logo/>
-      <ScrollerMenu :menus="menus"/>
+      <ScrollerMenu :menus="sideMenus"/>
       <div class="mobile-shadow"/>
     </n-card>
   </n-config-provider>
@@ -41,7 +41,7 @@ import {computed, onMounted, type Ref, ref, watch} from "vue";
   /**
    * 菜单
    */
-  const menus: Ref<MenuOption[]> = ref([]);
+  const sideMenus: Ref<MenuOption[]> = ref([]);
 
   /**
    * 顶部+左侧模式子菜单
@@ -49,22 +49,15 @@ import {computed, onMounted, type Ref, ref, watch} from "vue";
   const { topLeftChildMenus } = storeToRefs(appStore);
 
   /**
-   * 组件加载
+   * 菜单加载
    */
-  onMounted(() => {
-    // 等待菜单加载完成后再做事情
-    const interval = setInterval(() => {
-      if (appStore.menus.length <= 0) {
-        return;
-      }
-      clearInterval(interval);
-
-      if (layoutStore.layoutMode == LayoutMode.TopLeft) {
-        menus.value = appStore.topLeftChildMenus;
-      } else {
-        menus.value = appStore.menus;
-      }
-    });
+  const { menus } = storeToRefs(appStore);
+  watch(menus, () => {
+    if (layoutStore.layoutMode == LayoutMode.TopLeft) {
+      sideMenus.value = appStore.topLeftChildMenus;
+    } else {
+      sideMenus.value = appStore.menus;
+    }
   });
 
   /**
@@ -82,7 +75,7 @@ import {computed, onMounted, type Ref, ref, watch} from "vue";
    */
   watch(topLeftChildMenus, () => {
     if (layoutStore.layoutMode == LayoutMode.TopLeft) {
-      menus.value = appStore.topLeftChildMenus;
+      sideMenus.value = appStore.topLeftChildMenus;
     }
   });
 </script>
