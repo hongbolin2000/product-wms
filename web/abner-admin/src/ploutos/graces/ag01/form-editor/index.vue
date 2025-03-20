@@ -209,7 +209,6 @@
   import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTable.vue";
   import type SheeterRow from "@/ploutos/graces/ag01/faces/SheeterRow.ts";
   import {SettingsOutline} from "@vicons/ionicons5";
-  import NumberWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetFactory.ts";
 
   /**
    * 应用状态

@@ -21,9 +21,10 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, ref, watch, watchEffect} from "vue";
+  import {computed, ref, watch} from "vue";
   import {useRoute, useRouter} from "vue-router";
   import {darkTheme} from "naive-ui";
+  import {storeToRefs} from "pinia";
   /********************************************************************************
    * 垂直菜单
    *
@@ -141,9 +142,10 @@
   });
 
   /**
-   * 加载
+   * 菜单加载
    */
-  watchEffect(() => {
+  const { menus } = storeToRefs(appStore);
+  watch(menus, () => {
     handleExpandPath();
   });
 

@@ -56,12 +56,7 @@
 
     // 跳转页面
     setTimeout(() => {
-      const redirect: string[] = route.query.redirect!.toString().split("redirect=");
-      let path = redirect[redirect.length - 1];
-      if (path.indexOf('login') != -1) {
-        path = "/";
-      }
-      router.replace(path);
+      router.replace("/");
     }, 1000);
   });
 </script>

@@ -142,7 +142,6 @@
   function renderMenu(menus: MenuOption[]) {
     menus.forEach((menu) => {
       menu.icon = renderIcon(menu.icons);
-      menu.key = menu.path;
       if (menu.children && menu.children.length > 0) {
         renderMenu(menu.children);
       } else {
