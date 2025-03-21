@@ -19,9 +19,14 @@ export type MenuOption = {
   key: string,
 
   /**
+   * 菜单访问路径
+   */
+  url?: string;
+
+  /**
    * 菜单全路径(从父菜单到子菜单拼接)
    */
-  fullPath?: string;
+  fullUrl: string;
 
   /**
    * 标签
@@ -54,7 +59,7 @@ export type MenuOption = {
   children?: MenuOption[],
 
   /**
-   * 是否选中
+   * 是否选中(顶+左混合模式)
    */
   checked?: boolean,
 };

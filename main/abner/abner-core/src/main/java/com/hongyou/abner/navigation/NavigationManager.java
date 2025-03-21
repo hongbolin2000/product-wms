@@ -81,29 +81,29 @@ public class NavigationManager {
     /**
      * 从xml中解析菜单
      */
-    private List<MenuOption> loadMenu(final List<Element> menus, final String parentIcon, final String parentPath) {
+    private List<MenuOption> loadMenu(final List<Element> menus, final String parentIcon, final String parentUrl) {
         List<MenuOption> menuOptions = new ArrayList<>();
         for (Element menu: menus) {
             MenuOption.MenuOptionBuilder menuOption = MenuOption.builder();
 
             // 解析菜单属性
-            String key = XmlUtil.getAttribute(menu, "key");
-            String path = XmlUtil.getAttribute(menu, "path");
+            String id = XmlUtil.getAttribute(menu, "id");
+            String url = XmlUtil.getAttribute(menu, "url");
             String label = XmlUtil.getAttribute(menu, "label");
             String icon = XmlUtil.getAttribute(menu, "icon");
 
             // 递归检查是否有子菜单
             if (menu.hasChildNodes()) {
-                String parentPaths = parentPath + path;
+                String parentPaths = parentUrl + url;
                 String parentIcons = StringUtil.isBlank(icon) ? parentIcon : icon;
                 List<Element> childMenus = XmlUtil.getChildElements(menu, "menu");
                 menuOption.children(this.loadMenu(childMenus, parentIcons, parentPaths));
             }
 
             boolean fixed = XmlUtil.getAttributeAsBool(menu, "fixed", false);
-            menuOption.key(key).
-                    path(path).
-                    fullPath(parentPath + path).
+            menuOption.id(id).
+                    url(url).
+                    fullUrl(parentUrl + url).
                     label(label).
                     icons(icon).
                     parentIcon(parentIcon).

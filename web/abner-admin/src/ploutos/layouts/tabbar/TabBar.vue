@@ -175,6 +175,11 @@
    */
   const { menus } = storeToRefs(appStore);
   watch(menus, () => {
+    const menu = appStore.expandMenus.find(i => i.key == currentPath.value);
+    if (!menu) {
+      return;
+    }
+
     // 将当前选项卡加入路由（用于第一次登录系统或者浏览器手动输入地址）
     addVisitedRouter({...route});
 
@@ -209,7 +214,7 @@
       const parent = appStore.expandMenus.find(i => i.key == currentPath.value);
       menu = {
         key: to.path,
-        fullPath: parent.fullPath,
+        fullUrl: parent.fullUrl,
       }
       appStore.expandMenus.push(menu);
     }

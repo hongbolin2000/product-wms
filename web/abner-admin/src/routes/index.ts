@@ -16,7 +16,7 @@ import SY99 from '@/views/sy/sy99/routes.ts';
  */
 const index: RouteRecordRaw[] = [
   {
-    path: '/theme/layout',
+    path: '/index',
     component: () => ThemeLayout,
     children: [
       ...SY01,

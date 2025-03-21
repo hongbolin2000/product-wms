@@ -31,6 +31,12 @@
 
         <dependency>
             <groupId>com.hongyou</groupId>
+            <artifactId>abner-sy</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hongyou</groupId>
             <artifactId>abner-ba</artifactId>
             <version>${project.version}</version>
         </dependency>

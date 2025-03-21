@@ -82,7 +82,11 @@
    */
   function splitPath(): string[] {
     const menu = appStore.expandMenus.find(i => i.key == route.path);
-    const paths = menu.fullPath.split('/');
+    if (!menu) {
+      return [];
+    }
+
+    const paths = menu.fullUrl.split('/');
     const expireKeys: string[] = paths.filter((item) => !!item);
 
     return expireKeys.reduce((prev: string[], current: string) => {

@@ -40,6 +40,6 @@
     });
 
     // 进入开屏页面
-    router.replace("/splash?redirect=" + router.options.history.location);
+    router.replace("/splash");
   });
 </script>

@@ -16,19 +16,19 @@ import java.util.List;
 public class MenuOption {
 
     /**
-     * 菜单key
+     * 菜单ID
      */
-    private String key;
+    private String id;
 
     /**
-     * 菜单访问路径
+     * 菜单访问地址
      */
-    private String path;
+    private String url;
 
     /**
      * 菜单全路径(从父菜单到子菜单拼接)
      */
-    private String fullPath;
+    private String fullUrl;
 
     /**
      * 菜单标签

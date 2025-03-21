@@ -5,7 +5,7 @@
       <TabBar/>
     </section>
 
-    <section class="main-section">
+    <section class="main-section" style="height: calc(100vh - var(--logo-height) - var(--tab-height))">
       <MainContent id="layout-main-content"/>
     </section>
   </div>
@@ -142,6 +142,7 @@
   function renderMenu(menus: MenuOption[]) {
     menus.forEach((menu) => {
       menu.icon = renderIcon(menu.icons);
+      menu.key = menu.url;
       if (menu.children && menu.children.length > 0) {
         renderMenu(menu.children);
       } else {

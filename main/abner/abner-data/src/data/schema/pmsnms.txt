@@ -15,7 +15,7 @@ N 	LANGUG,		VC(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
 	B 	zh-CN   Chinese 	中文
 *****************************************************************************************************************************************************
 N   PMSNCD,     VC(16),     NOT NULL,       '',                     permissionCode, Permission Code,        许可编号
-    # 权限组的编号，存放功能模块号，并且需与菜单定义的key对应
+    # 权限组的编号，存放功能模块号，并且需与菜单定义的功能ID对应
 N	ACTCDE,		VC(16),		NOT NULL,		'',						actionCode,		Action Code,			操作编号
     # 权限组下的动作编号，用来在程序中判定是否有操作权限，比如定义为：list,add,delete等
 N	ACTNAM,		VC(16),		NOT NULL,		'',						actionName,		Action Name,			操作名称
