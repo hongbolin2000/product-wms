@@ -91,7 +91,7 @@
       :columns="renderColumns(datatable)"
       :data="datatable.data"
       size="small"
-      :scroll-x="0"
+      :scroll-x="tableWidth"
       :row-props="rowProps"
       :max-height="maxHeight"
       :row-key="rowKey"
