@@ -119,12 +119,12 @@
       :style="{width: selectColumn?.dialogWidth}"
       preset="dialog"
   >
-    <component :is="component" :value="componentValue" :is-dialog="true" @on-close="showModal = false"/>
+    <component :is="component" :params="componentParams" :is-dialog="true" @on-close="showModal = false"/>
   </n-modal>
 
   <n-drawer v-model:show="showDrawer" :width="400" placement="right">
     <n-drawer-content :title="selectColumn.title" closable>
-      <component :is="component" :value="componentValue" :is-drawer="true" @on-close="showDrawer = false"/>
+      <component :is="component" :params="componentParams" :is-drawer="true" @on-close="showDrawer = false"/>
     </n-drawer-content>
   </n-drawer>
 </template>
@@ -152,7 +152,7 @@ import {Parser} from "expr-eval";
    * @author Berlin
    ********************************************************************************/
   import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
-  import type {TableBaseColumn, TableSelectionColumn} from "naive-ui/es/data-table/src/interface";
+  import type {TableBaseColumn, TableColumn, TableSelectionColumn} from "naive-ui/es/data-table/src/interface";
   import ColumnFactories from "@/ploutos/graces/ag01/faces/ColumnFactories.ts";
   import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
   import HeaderColumn from "@/ploutos/graces/ag01/components/HeaderColumn.vue";
@@ -288,9 +288,9 @@ import {Parser} from "expr-eval";
   const component = shallowRef(undefined);
 
   /**
-   * 右键link执行传出的值
+   * 右键link执行传出的参数
    */
-  const componentValue: Ref = ref(undefined);
+  const componentParams: Ref = ref(undefined);
 
   /**
    * 表格Ref
@@ -415,19 +415,21 @@ import {Parser} from "expr-eval";
   /**
    * 生成表格列
    */
-  function renderColumns(datatable: Datatable): TableBaseColumn[] {
-    const columns: TableBaseColumn[] = [];
+  function renderColumns(datatable: Datatable): TableColumn[] {
+    const columns: TableColumn[] = [];
     const menuOptions = [];
 
-    // 展示在右键的操作按钮
-    datatable.columns.filter(i => ColumnFactories.isLink(i) && i.option).forEach(column => {
+    // 右键操作按钮（所有按钮列都能在右键中使用）
+    datatable.columns.filter(i => ColumnFactories.isLink(i)).forEach(column => {
       column.rowData = selectRowData;
       column.datatableTitle = datatable.title;
       menuOptions.push({
         key: column.name,
         type: 'render',
         render: () => {
-          return ColumnFactories.getInstance().create({...column});
+          const actionColumn = {...column};
+          actionColumn.option = true;
+          return ColumnFactories.getInstance().create(actionColumn);
         },
       });
     });
@@ -446,7 +448,7 @@ import {Parser} from "expr-eval";
       }
       column.multiple = !checkColumn.single;
       datatable.checkRowKey = checkColumn.name;
-      // @ts-ignore
+      column.cellProps = (rowData: object, rowIndex: number) => columnProps(rowIndex);
       columns.push(column);
     });
 
@@ -487,11 +489,12 @@ import {Parser} from "expr-eval";
     });
 
     // 展示在表格的操作按钮
+    const defaultWidth = menuOptions.length > 0 ? 25 : 0;
     const column: TableBaseColumn = <TableBaseColumn>{width: 0};
     const columnActions = datatable.columns.filter(i => ColumnFactories.isLink(i) && !i.option);
     if (columnActions.length > 0) {
       columnActions.forEach(item => {
-        const width = item.width ? parseInt(item.width.toString()): 70;
+        const width = item.width ? parseInt(item.width.toString()): 80 + defaultWidth;
         column.width = parseInt(column.width.toString()) + width;
       });
       column.key = 'option';
@@ -499,7 +502,9 @@ import {Parser} from "expr-eval";
       column.align = 'center';
       column.fixed = 'right';
       column.render = (rowData, rowIndex) => {
-        return h(ColumnActions, { rowData: rowData, rowIndex, columnActions: columnActions });
+        return h(ColumnActions, {
+          rowData: rowData, rowIndex: rowIndex, columnActions: columnActions, datatable: datatable
+        });
       }
       column.cellProps = (rowData: object, rowIndex: number) => columnProps(rowIndex);
       columns.push(column);
@@ -581,11 +586,11 @@ import {Parser} from "expr-eval";
   /**
    * 打开模态弹框
    */
-  function onShowModal(column: LinkColumnProps, components: any, value: string) {
+  function onShowModal(column: LinkColumnProps, components: any, params: string) {
     showModal.value = true;
     selectColumn.value = column;
     component.value = components;
-    componentValue.value = value;
+    componentParams.value = params;
     onCloseContextMenu();
   }
   provide('onShowModal', onShowModal);
@@ -593,11 +598,14 @@ import {Parser} from "expr-eval";
   /**
    * 打开抽屉
    */
-  function onShowDrawer(column: LinkColumnProps, components: any, value: string) {
+  function onShowDrawer(
+      column: LinkColumnProps, components: any,
+      params: {value: string, module: string, name: string}
+  ) {
     showDrawer.value = true;
     selectColumn.value = column;
     component.value = components;
-    componentValue.value = value;
+    componentParams.value = params;
     onCloseContextMenu();
   }
   provide('onShowDrawer', onShowDrawer);

@@ -49,5 +49,10 @@ namespace layoutHelper {
      */
     appStore.configMenu(menus);
   }
+
+  /**
+   * 计算主题内容最大高度
+   */
+  export const maxHeight = '100vh - var(--logo-height) - var(--tab-height)'
 }
 export default layoutHelper;

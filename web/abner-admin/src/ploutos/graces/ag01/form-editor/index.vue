@@ -269,6 +269,11 @@
   }>();
 
   /**
+   * 是否加载数据
+   */
+  let fill = props.fill;
+
+  /**
    * 表单数据/校验规则/ref
    */
   const formValue: Ref = ref(new Object({}));
@@ -357,13 +362,16 @@
       }
 
       // 加载数据
-      if (props.fill) {
+      if (Object.getOwnPropertyNames(props.params).length > 0) {
+        fill = true;
+      }
+      if (fill) {
         await loadData();
       }
 
       // 更改选型卡标题
       if (!props.isDialog && !props.isDrawer) {
-        if (props.fill) {
+        if (fill) {
           changeTabTitle(editor.value.etitle, formValue.value[tabTitleName.value]);
         } else {
           changeTabTitle(editor.value.atitle, '');
@@ -441,7 +449,7 @@
     }
 
     // 编辑表格
-    const title = props.fill ? editor.value.etitle : editor.value.atitle;
+    const title = fill ? editor.value.etitle : editor.value.atitle;
     const titleValue = formValue.value[tabTitleName.value];
     dialog.warning({
       content: '是否确认' + title + (titleValue ? ' - ' + titleValue : '') + '？',

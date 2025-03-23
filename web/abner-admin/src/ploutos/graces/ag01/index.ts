@@ -8,7 +8,12 @@
  *******************************************************************************/
 import createGridViewer from '@/ploutos/graces/ag01/grid-viewer/index.vue';
 import createFormEditor from '@/ploutos/graces/ag01/form-editor/index.vue';
-import SorterProps from "@/ploutos/graces/ag01/faces/Sorter.ts";
+import createDataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
+
+import Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
+import LabelColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
+import CheckColumn from "@/ploutos/graces/ag01/faces/columns/CheckColumnProps.ts";
+import Sorter from "@/ploutos/graces/ag01/faces/Sorter.ts";
 
 export namespace Graces {
 
@@ -23,8 +28,20 @@ export namespace Graces {
 	export const FormEditor = createFormEditor;
 
 	/**
+	 * 数据表格
+	 */
+	export const DataTable = createDataTable;
+
+	/**
+	 * 数据表格属性
+	 */
+	export type DatatableProps = Datatable;
+	export type LabelColumnProps = LabelColumn;
+	export type CheckColumnProps = CheckColumn;
+
+	/**
 	 * 排序类型
 	 */
-	export type Sorter = SorterProps;
+	export type SorterProps = Sorter;
 }
 export default Graces;

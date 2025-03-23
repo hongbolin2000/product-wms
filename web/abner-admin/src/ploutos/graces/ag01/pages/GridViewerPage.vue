@@ -1,0 +1,41 @@
+<template>
+  <Graces.GridViewer :module="module" :name="name"/>
+</template>
+
+<script setup lang="ts" name="GridViewerPage">
+  import {useRoute} from "vue-router";
+  /********************************************************************************
+   * 通用浏览表格加载页面
+   *
+   * @author Berlin
+   ********************************************************************************/
+  import {Graces} from '../index.ts';
+  import {onBeforeMount, shallowRef} from "vue";
+
+  /**
+   * 当前路由
+   */
+  const route = useRoute();
+
+  /**
+   * 通用浏览表格定义模块号
+   */
+  const module = shallowRef('');
+
+  /**
+   * 通用浏览表格定义名称
+   */
+  const name = shallowRef('');
+
+  /**
+   * 组件加载前
+   */
+  onBeforeMount(() => {
+    module.value = route.params.module.toString();
+    name.value = route.params.name.toString();
+  });
+</script>
+
+<style scoped lang="scss">
+
+</style>

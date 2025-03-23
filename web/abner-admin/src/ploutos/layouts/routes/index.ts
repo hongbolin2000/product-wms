@@ -18,6 +18,24 @@ export const layoutRoutes: RouteRecordRaw[] = [
   { path: '/login', name: 'Login', component: () => import('@/ploutos/layouts/login/Login.vue') },
   { path: '/splash', name: 'Splash', component: () => import('@/ploutos/layouts/splash/Splash.vue') },
   {
+    path: "/graces",
+    component: () => ThemeLayout,
+    children: [
+      {
+        path: "/graces/grider/:module/:name",
+        component: () => import('@/ploutos/graces/ag01/pages/GridViewerPage.vue'),
+      },
+      {
+        path: "/graces/editor/:module/:name/:id",
+        component: () => import('@/ploutos/graces/ag01/pages/FormEditorPage.vue'),
+      },
+      {
+        path: "/graces/editor/:module/:name",
+        component: () => import('@/ploutos/graces/ag01/pages/FormEditorPage.vue'),
+      }
+    ]
+  },
+  {
     path: '/refresh',
     component: () => ThemeLayout,
     children: [

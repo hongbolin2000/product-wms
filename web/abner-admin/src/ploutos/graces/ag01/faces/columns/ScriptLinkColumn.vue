@@ -1,10 +1,11 @@
 <template>
   <n-button
-      text
+      :text="column.danger"
+      size="small"
       @click="onHandelClick"
       :disabled="props.column.isDisabled"
       v-if="!column.option"
-      :type="column.danger && 'error'"
+      :type="column.danger ? 'error' : 'primary'"
   >
     <template #icon>
       <n-icon>
@@ -134,9 +135,6 @@
 </script>
 
 <style scoped lang="scss">
-  :deep(.n-button__icon) {
-    margin: 0;
-  }
   .tag-item {
     padding: 17px 9.5px;
     margin: 0 4px;

@@ -1,5 +1,5 @@
 <template>
-  <n-button text @click="onHandelClick" :disabled="props.column.isDisabled" v-if="!column.option">
+  <n-button size="small" @click="onHandelClick" :disabled="props.column.isDisabled" v-if="!column.option">
     <template #icon>
       <n-icon>
         <SvgIcon :name="column.icon"/>
@@ -12,7 +12,7 @@
          v-if="column.option"
   >
     <template #icon v-if="column.icon">
-      <SvgIcon :name="column.icon" style="margin-right: 5px}"/>
+      <SvgIcon :name="column.icon" style="margin-right: 5px"/>
     </template>
     {{column.title}}
   </n-tag>
@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
   import {inject, onBeforeMount, onBeforeUpdate, type PropType, shallowRef} from 'vue'
-  import {useRouter} from "vue-router";
+  import {type RouteLocationResolved, type RouteRecord, useRouter} from "vue-router";
   /********************************************************************************
    * 路由列
    *
@@ -39,6 +39,12 @@
    * link执行的组件
    */
   const component = shallowRef(undefined);
+
+  /**
+   * link中的通用界面模块号和名称
+   */
+  const module = shallowRef('');
+  const name = shallowRef('');
 
   /**
    * 父组件传入的属性
@@ -72,7 +78,15 @@
     disabled();
 
     if (props.column?.mode != 'router') {
-      const route: any = router.getRoutes().find(i => i.path == props.column?.link);
+      let route: any = router.getRoutes().find(i => i.path == props.column?.link);
+
+      // 找不到路由时使用路由匹配（通用界面模式）
+      if (!route) {
+        const resolved: RouteLocationResolved = router.resolve(props.column?.link);
+        route = resolved.matched[resolved.matched.length - 1];
+        module.value = resolved.params.module.toString();
+        name.value = resolved.params.name.toString();
+      }
 
       // 路由组件未加载时进行加载
       if (typeof(route?.components!.default) == 'function') {
@@ -107,27 +121,28 @@
     if (props.column.isDisabled) {
       return;
     }
-
     const column = props.column;
     const value = column.rowData[column.name];
+    const params = {
+      value: value, module: module.value, name: name.value
+    }
 
     if (column.mode == 'dialog') {
-      onShowModal(column, component.value, value);
+      onShowModal(column, component.value, params);
       return;
     }
     if (column.mode == 'drawer') {
-      onShowDrawer(column, component.value, value);
+      onShowDrawer(column, component.value, params);
       return;
     }
-    onCloseContextMenu();
-    router.push(column?.link! + "/" + value);
+    if (column.mode == 'router') {
+      onCloseContextMenu();
+      router.push(column?.link! + "/" + value);
+    }
   }
 </script>
 
 <style scoped lang="scss">
-  :deep(.n-button__icon) {
-    margin: 0 4px 0 0;
-  }
   .tag-item {
     padding: 17px 9.5px;
     margin: 0 4px;

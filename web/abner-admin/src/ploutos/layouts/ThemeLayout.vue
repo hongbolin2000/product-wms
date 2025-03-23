@@ -74,15 +74,22 @@
     return {
       common: common,
       Button: {
-        textColorPrimary: 'white', // 按钮文字颜色
-        textColorHoverPrimary: 'white', // 鼠标经过按钮文字颜色
-        textColorPressedPrimary: 'white', // 鼠标按下按钮文字颜色
-        colorPressedPrimary: layoutStore.themeColor, // 鼠标按下按钮背景颜色
+        // primary类型按钮
+        colorPrimary: layoutStore.themeColor, // 背景颜色
+        colorHoverPrimary: layoutStore.themeColor, // 鼠标经过背景颜色
+        colorPressedPrimary: layoutStore.themeColor, // 按下背景颜色
+        textColorPrimary: 'white', // 文字颜色
+        textColorHoverPrimary: 'white', // 鼠标经过文字颜色
+        textColorPressedPrimary: 'white', // 按下文字颜色
+        textColorFocusPrimary: 'white', // 聚焦文字颜色
         borderPressedPrimary: layoutStore.themeColor, // 鼠标按下边框颜色
-        borderPressed: layoutStore.themeColor,
-        textColorFocusPrimary: 'white', // 按钮聚焦文字颜色
 
-        textColorTextPressed: layoutStore.themeColor, // 鼠标按下按钮文字颜色（文本按钮）
+        // default类型按钮
+        textColorPressed: layoutStore.themeColor, // 鼠标按下文字颜色
+        borderPressed: layoutStore.themeColor, // 鼠标按下边框颜色
+
+        // text类型按钮
+        textColorTextPressed: layoutStore.themeColor, // 鼠标按下文字颜色
         textColorTextPressedPrimary: layoutStore.themeColor, // 鼠标按下按钮文字颜色（文本Primary按钮）
       },
       Card: {

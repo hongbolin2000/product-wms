@@ -198,6 +198,7 @@
   watch(() => currentRoute.path, (value) => {
     if (appStore.expandMenus.find(i => i.key == value)?.label) {
       currentPath.value = value;
+      handleExpandPath();
     }
   });
 </script>
