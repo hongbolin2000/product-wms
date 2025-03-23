@@ -1,22 +1,39 @@
 =====================================================================================================================================================
-T	SUPLMS
+T	PROJMS
 S
-L	Supplier Master Table
-C	供应商主信息表
-Y	Supplier
-@	保留所有的供应商的信息，包括联系方式、电话等基本信息。
+L	Project Master Table
+C	项目主信息表
+Y	Project
+@	保留所有的项目的信息，包括联系方式、电话等基本信息。
 ====1===========2===========3===============4=======================5===================6=======================7====================================
-N	SUPLID,		ID,			NOT NULL,		,						id,					ID,						主键
+N	PROJID,		ID,			NOT NULL,		,						id,					ID,						主键
 *****************************************************************************************************************************************************
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,			Company,				公司
 *****************************************************************************************************************************************************
-N	SUPLCD,		VC(64),		NOT NULL,		,						supplierCode,		Supplier Code,			供应商编号
-N	SUPLNM,		VC(64),		NOT NULL,		,						supplierName,		Supplier Name,			供应商名称
+N	SUPLID,		BIGINT,		, 		        ,						supplierId,			Supplier,			    客户
 *****************************************************************************************************************************************************
-N	ADDRES,		VC(254),	NOT NULL,		'',						address,			Address,				联系地址
+N	PROJCD,		VC(64),		NOT NULL,		,						supplierCode,		Supplier Code,			项目编号
+N	PROJNM,		VC(64),		NOT NULL,		,						supplierName,		Supplier Name,			项目名称
+*****************************************************************************************************************************************************
+N	SOURCE,		VC(16),		NOT NULL,		'',					    source,				Source,					项目来源
+N 	PRJLDR,		VC(32),		NOT NULL,		'',						disableBy,			Project Leader,			项目负责人
+N	CNTRCD,		VC(64),		NOT NULL,		'',						contractCode,		Contract Code,			合同编号
+N	SIGNDT,		DATE,		,				,						signingDate,		Signing Date,			签订日期
+N	STATDT,		DATE,		,				,						startDate,		    Start Date,			    启动日期
+N	FNSHDT,		DATE,		,				,						finishedDate,		Finished Date,			完成日期
+*****************************************************************************************************************************************************
+N	STATUS,		VC(1),		NOT NULL,		'I',					status,			    Status,				    状态
+	E	I		Intended	有意向
+	E	N		Normal	    正常
+	E	P		Processing	进行中
+	E	C		Cancel		取消
+	E	S		Success		完成
+*****************************************************************************************************************************************************
 N	CONTCS,		VC(32),		NOT NULL,		'',						contacts,			Contacts,				联系人
 N	PHONNO,		VC(16),		NOT NULL,		'',						phoneNo,			Telephone NO,			联系电话
 N	EMAIL,		VC(32),		NOT NULL,		'',						email,				email,					电子邮件
+N	ADDRES,		VC(254),	NOT NULL,		'',						address,			Address,				地址
+N	ZIPCDE,		VC(12),		NOT NULL,		'',						zipCode,			ZIP Code,				邮政编码
 *****************************************************************************************************************************************************
 N	TXDF01,		VC(64),		NOT NULL,		'',						define01,			define 1,				自定义值1
 N	TXDF02,		VC(64),		NOT NULL,		'',						define02,			define 2,				自定义值2
@@ -34,8 +51,9 @@ N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,			Create Time,			创
 N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
-P 	SUPLID
-U	01 getByCode CMPNID, SUPLCD
-U	02 getByName CMPNID, SUPLNM
+P 	PROJID
+U	01 getByCode CMPNID, PROJCD
+U	02 getByName CMPNID, PROJNM
 F	01 listByCompany (CMPNID) CMPNMS (CMPNID)
+F	02 listBySupplier (SUPLID) SUPLMS (SUPLID)
 =====================================================================================================================================================

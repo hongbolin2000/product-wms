@@ -6,15 +6,16 @@ package com.hongyou.abner.login;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
-import com.hongyou.abner.data.DataProvider;
+import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Oprtms;
 import com.hongyou.abner.util.AesUtil;
-import com.hongyou.baron.util.CaptchaUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import com.hongyou.baron.util.CaptchaUtil;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/auth")
-public class Login extends DataProvider {
+public class Login extends UserDataProvider {
 
     /**
      * logger
@@ -70,7 +71,9 @@ public class Login extends DataProvider {
      */
     @PostMapping("/login")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public LoginResult login(@RequestBody final LoginParam param) {
+    public LoginResult login(
+            @RequestBody final LoginParam param, final HttpServletRequest request
+    ) {
 
         try {
             // 校验传入参数
@@ -107,6 +110,8 @@ public class Login extends DataProvider {
 
             // 登录
             this.stpLogin(oprtms.getOprtid(), param.isAutoLogin());
+            oprtms.lslgtm(this.getCurrentTime()).
+                    lslgip(request.getRemoteAddr());
             return LoginResult.builder().
                     loginCode(LoginCode.LG200.getValue()).
                     nikeName(StringUtil.blankToDefault(oprtms.getFulnam(), param.getUsername())).build();

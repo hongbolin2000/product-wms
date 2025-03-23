@@ -7,6 +7,8 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Oprtms;
 
+import java.sql.Timestamp;
+
 /**
  * 注入系统数据库以及当前登录用户信息，功能代码继承此类可获取用户以及数据库组件
  *
@@ -48,5 +50,12 @@ public class UserDataProvider extends DataProvider {
      */
     protected Long getUserCompanyId() {
         return this.getLoginUser().getCmpnid();
+    }
+
+    /**
+     * 获取当前时间
+     */
+    protected Timestamp getCurrentTime() {
+        return new Timestamp(System.currentTimeMillis());
     }
 }

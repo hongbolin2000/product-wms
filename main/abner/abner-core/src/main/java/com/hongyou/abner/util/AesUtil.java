@@ -1,7 +1,7 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-package com.hongyou.abner.utils;
+package com.hongyou.abner.util;
 
 import com.hongyou.baron.crypto.AesManager;
 

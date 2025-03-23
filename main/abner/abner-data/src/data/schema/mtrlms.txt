@@ -9,14 +9,23 @@ N	MTRLID,		ID,			NOT NULL, 		,						id,				ID,						主键
 *****************************************************************************************************************************************************
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		Company,				公司
 *****************************************************************************************************************************************************
-N	PRODID,		BIGINT,		NOT NULL, 		,						productId,		Product,				产品
-K   PRODMS      - PRODNM, SEASON, PRDIMG
+N	MTTYID,		BIGINT,		NOT NULL, 		,						materialType,	Material Type,			物料类型
+K   MTRTYP      - MTRCTG, MTTYCD, MTSRHD
 *****************************************************************************************************************************************************
 N	SKUNO,		VC(32),		NOT NULL,		'',						skuNo,			SKU NO,					物料号
 N	SKUNAM,		VC(64),		NOT NULL,		'',						skuName,		SKU Name,				物料名称
-N   SIZENO,     VC(16),     NOT NULL,       '',                     sizeNo,         Size No,                尺码
+N   MTRIMG,     VC(254),    NOT NULL,       '',                     mateiralImage,  Material Image,         物料图片
+*****************************************************************************************************************************************************
+N   STYLNO,     VC(32),     NOT NULL,       '',                     styleNo,        Style No,               款式
+N   COLOR,      VC(32),     NOT NULL,       '',                     color,          Color,                  颜色
+N   SPCFCT,     VC(32),     NOT NULL,       '',                     specifications, Specifications,         规格
 N   UPCNO,      VC(32),     NOT NULL,       '',                     upcNo,          UPC No,                 UPC码
 N   PRICE,      N(24.5),    NOT NULL,       0,                      price,          Price,                  价格
+*****************************************************************************************************************************************************
+N	MNSTQT,		N(24.5),	NOT NULL,		0,						minStockQty,	Minimum Stock Qty,		最小保留库存
+	# 最小库存，即当前仓库的库存量小于这个数后，将触发库存预警，采购新物料
+N	STPERD,		INT,		NOT NULL,		0,						storePeriod,	Store Period,			存储期限
+    # 物料最大存储期限(天), 超过这个期限, 标识物料过期而不能使用. 如果是0或小于0, 表示无期限。将会有一个报表，查询物料的存储期限。
 *****************************************************************************************************************************************************
 N	TXDF01,		VC(64),		NOT NULL,		'',						define01,		define 1,				自定义值1
 N	TXDF02,		VC(64),		NOT NULL,		'',						define02,		define 2,				自定义值2
@@ -36,5 +45,5 @@ N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,
 P	MTRLID
 U	01 getBySkuNo CMPNID, SKUNO
 F	01 listByCompany (CMPNID) CMPNMS (CMPNID)
-F	02 listByProduct (PRODID) PRODMS (PRODID)
+F	02 listByMaterialType (MTTYID) MTRTYP (MTTYID)
 =====================================================================================================================================================

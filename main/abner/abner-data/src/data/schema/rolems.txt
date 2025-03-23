@@ -11,15 +11,15 @@ N	ROLEID,		ID,			NOT NULL,		,						id,				ID,						主键
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		Company,				公司
 N	ROLENM,		VC(32),		NOT NULL,		,						name,			Name,					角色名称
 *****************************************************************************************************************************************************
-N	TXRL01,		VC(64),		NOT NULL,		'',						define01,		define 1,				自定义值1
-N	TXRL02,		VC(64),		NOT NULL,		'',						define02,		define 2,				自定义值2
-N	TXRL03,		VC(64),		NOT NULL,		'',						define03,		define 3,				自定义值3
-N	TXRL04,		VC(64),		NOT NULL,		'',						define04,		define 4,				自定义值4
-N	TXRL05,		VC(64),		NOT NULL,		'',						define05,		define 5,				自定义值5
-N	TXRL06,		VC(64),		NOT NULL,		'',						define06,		define 6,				自定义值6
-N	TXRL07,		VC(64),		NOT NULL,		'',						define07,		define 7,				自定义值7
-N	TXRL08,		VC(64),		NOT NULL,		'',						define08,		define 8,				自定义值8
-N	TXRL09,		VC(64),		NOT NULL,		'',						define09,		define 9,				自定义值9
+N	TXDF01,		VC(64),		NOT NULL,		'',						define01,		define 1,				自定义值1
+N	TXDF02,		VC(64),		NOT NULL,		'',						define02,		define 2,				自定义值2
+N	TXDF03,		VC(64),		NOT NULL,		'',						define03,		define 3,				自定义值3
+N	TXDF04,		VC(64),		NOT NULL,		'',						define04,		define 4,				自定义值4
+N	TXDF05,		VC(64),		NOT NULL,		'',						define05,		define 5,				自定义值5
+N	TXDF06,		VC(64),		NOT NULL,		'',						define06,		define 6,				自定义值6
+N	TXDF07,		VC(64),		NOT NULL,		'',						define07,		define 7,				自定义值7
+N	TXDF08,		VC(64),		NOT NULL,		'',						define08,		define 8,				自定义值8
+N	TXDF09,		VC(64),		NOT NULL,		'',						define09,		define 9,				自定义值9
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
 *****************************************************************************************************************************************************
