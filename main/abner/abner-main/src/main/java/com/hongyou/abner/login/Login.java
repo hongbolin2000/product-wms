@@ -8,7 +8,7 @@ import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Oprtms;
-import com.hongyou.abner.utils.AesUtil;
+import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.util.CaptchaUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;

@@ -13,12 +13,13 @@ N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		Company,				公司
 N 	LANGUG,		VC(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
 	B 	en-US 	English 	English
 	B 	zh-CN   Chinese 	中文
+N	SORTNG,		INT,		NOT NULL,		1,						sorting,		Sorting,				显示顺序
 *****************************************************************************************************************************************************
-N   PMSNCD,     VC(16),     NOT NULL,       '',                     permissionCode, Permission Code,        许可编号
+N   PMSNCD,     VC(16),     NOT NULL,       '',                     permissionCode, Permission Code,        权限许可编号
     # 权限组的编号，存放功能模块号，并且需与菜单定义的功能ID对应
-N	ACTCDE,		VC(16),		NOT NULL,		'',						actionCode,		Action Code,			操作编号
+N	ACTCDE,		VC(16),		NOT NULL,		'',						actionCode,		Action Code,			权限动作编号
     # 权限组下的动作编号，用来在程序中判定是否有操作权限，比如定义为：list,add,delete等
-N	ACTNAM,		VC(16),		NOT NULL,		'',						actionName,		Action Name,			操作名称
+N	ACTNAM,		VC(16),		NOT NULL,		'',						actionName,		Action Name,			权限动作名称
     # 权限组下的动作名称，用来显示在用户界面中，与程序无关
 *****************************************************************************************************************************************************
 N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人

@@ -3,8 +3,8 @@
  */
 package com.hongyou.abner.pages;
 
-import com.hongyou.abner.navigation.MenuOption;
-import com.hongyou.abner.navigation.NavigationManager;
+import com.hongyou.baron.web.navigation.Navigate;
+import com.hongyou.baron.web.navigation.NavigationManager;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.*;
@@ -48,10 +48,10 @@ public class MenuPage {
      * @param familyName 需加载的导航族
      */
     @GetMapping("/load/{familyName}")
-    public List<MenuOption> load(@PathVariable final String familyName) {
+    public List<Navigate> load(@PathVariable final String familyName) {
 
         try {
-            List<MenuOption> menus = this.navigationManager.load(familyName);
+            List<Navigate> menus = this.navigationManager.load(familyName);
             if (ListUtil.isEmpty(menus)) {
                 logger.error("未加载到平台菜单: {}", familyName);
                 return new ArrayList<>();

@@ -3,7 +3,13 @@
     <family name="pc" label="PC端">
         <menu id="sy" url="/sy" label="系统管理" icon="system">
             <menu id="sy01" url="/sy01" label="角色管理"/>
-            <menu id="sy99" url="/sy99" label="动态列表"/>
+            <menu id="sy99" url="/graces/grider/ba01/storeGrider" label="动态列表"/>
+        </menu>
+    </family>
+    <family name="pda" label="手持端">
+        <menu id="sy" url="/sy" label="收货" icon="system">
+            <menu id="sy10" url="/sy10" label="采购收货"/>
+            <menu id="sy11" url="/sy10" label="其他收货"/>
         </menu>
     </family>
 </menus>

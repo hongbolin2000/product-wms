@@ -14,7 +14,7 @@
 
     <statement>
         <table name="vstrems"/>
-        <param column="streid" type="=" expr="storeId"/>
+        <param column="streid" type="=" expr="id"/>
     </statement>
 
     <editor title="门店信息" spans="1" formWidth="50%" placement="left">
