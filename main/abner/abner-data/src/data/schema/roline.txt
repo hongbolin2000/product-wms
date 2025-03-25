@@ -1,0 +1,50 @@
+=====================================================================================================================================================
+T	ROLINE
+S
+L	Receive Order Line
+C	收货单行
+Y	Receive Line
+====1===========2===========3===============4=======================5===================6=======================7====================================
+N	ROLNID,		ID,			NOT NULL,       ,               		id,					ID,                     主键
+*****************************************************************************************************************************************************
+N	ROHDID,		BIGINT,		NOT NULL,       ,               		roHeadId,			RO Head,				收货单
+N	ROLNNO,		INT,		NOT NULL,		1,						roLineNo,			RO Line NO,				收货单行号
+N   RDOCID,     INT,                        ,       ,               refDocId,           Ref Doc ID,             参考主键
+*****************************************************************************************************************************************************
+N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,               物料
+K   MTRLMS                  - SKUNO, SKUNAM, MODEL, MTRIMG
+K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD, STKMDE
+N   PRICE,      N(24.5),    NOT NULL,       0,                      price,              Price,                  单价
+*****************************************************************************************************************************************************
+N	BTCHNO,		VC(16),	NOT NULL,		'',					        batchNo,		    Batch No,				库存批次
+N	BINCDE,		VC(32),		NOT NULL,		,						binCode,		    Bin Code,				存放货位
+N	CARTNO,		VC(128),		NOT NULL,		,					cartonNo,		    Carton No,				存放箱号
+*****************************************************************************************************************************************************
+N	ORDQTY,		N(24.5),	NOT NULL,		,						orderQty,			Order Qty,				订单数量
+N 	RCVQTY,		N(24.5),	NOT NULL,		0,						receiveQty,	        Receive Qty,		    收货数量
+*****************************************************************************************************************************************************
+N	STATUS,		VC(2),		NOT NULL,		'10',					status,			    Status,					状态
+	B	10		No			未收货
+	B	20		Taking		正在收货
+	B	60		Finished	完成收货
+*****************************************************************************************************************************************************
+N	TXDF01,		VC(64),		NOT NULL,		'',						define01,		    User Define 1,			自定义1
+N	TXDF02,		VC(64),		NOT NULL,		'',						define02,		    User Define 2,			自定义2
+N	TXDF03,		VC(64),		NOT NULL,		'',						define03,		    User Define 3,			自定义3
+N	TXDF04,		VC(64),		NOT NULL,		'',						define04,		    User Define 4,			自定义4
+N	TXDF05,		VC(64),		NOT NULL,		'',						define05,		    User Define 5,			自定义5
+N	TXDF06,		VC(64),		NOT NULL,		'',						define06,		    User Define 6,			自定义6
+N	TXDF07,		VC(64),		NOT NULL,		'',						define07,		    User Define 7,			自定义7
+N	TXDF08,		VC(64),		NOT NULL,		'',						define08,		    User Define 8,			自定义8
+N	TXDF09,		VC(64),		NOT NULL,		'',						define09,		    User Define 9,			自定义9
+*****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
+N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		    Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,	    Operate Time,			操作时间
+====1===========2===========3===============4=======================5===============6=======================7========================================
+P 	ROLNID
+U	01 getByROLineNo ROHDID, ROLNNO
+I	02 listByRefDocID RDOCID
+F	01 listByROHead (ROHDID) ROHEAD (ROHDID)
+F 	02 (MTRLID) MTRLMS (MTRLID)
+=====================================================================================================================================================

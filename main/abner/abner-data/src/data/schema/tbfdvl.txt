@@ -13,12 +13,11 @@ K   TBFDDS                  - FLDNAM, LANGUG
 K   TBFDDS:TBDFMS           - TBLNAM
 *****************************************************************************************************************************************************
 N	VALCDE,		VC(32),		NOT NULL,		'',						valueCode,		Value Code,				字典代码
-N	VALUE,		VC(32),		NOT NULL,		'',						value,		    Value,			        字典值
-N	DSPVAL,		VC(64),		NOT NULL,		'',						displayValue,	Display Value,			显示值
+N	VALUE,		VC(16),		NOT NULL,		'',						value,		    Value,			        字典值
+N	DSPVAL,		VC(32),		NOT NULL,		'',						displayValue,	Display Value,			显示值
 N	SORTNG,		INT,		NOT NULL,		1,						sorting,		Sorting,				显示顺序
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
-*****************************************************************************************************************************************************
 N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================

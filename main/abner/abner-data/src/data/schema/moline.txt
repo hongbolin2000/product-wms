@@ -1,0 +1,44 @@
+=====================================================================================================================================================
+T	MOLINE
+S	
+L	Manufacture Order Line
+C	生产单行
+Y	Manufacture Order Line
+====1===========2===========3===============4=======================5===================6=======================7====================================
+N	MOLNID,		ID,			NOT NULL,       ,               		id,					ID,                     主键
+*****************************************************************************************************************************************************
+N	MOHDID,		BIGINT,		NOT NULL,       ,               		moHeadId,			MO Head,				生产单
+N	MOLNNO,		INT,		NOT NULL,		1,						moLineNo,			MO Line NO,				生产单行号
+*****************************************************************************************************************************************************
+N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,               生产物料
+K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
+K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
+*****************************************************************************************************************************************************
+N	ORDQTY,		N(24.5),	NOT NULL,		,						orderQty,			Order Qty,				生产数量
+N   RCVCNT,     INT,        NOT NULL,       1,                      receiveCount,       Receive Count,          收货次数
+N	RCVQTY,		N(24.5),	NOT NULL,		,						receiveQty,			Receive Qty,			收货数量
+*****************************************************************************************************************************************************
+N	STATUS,		VC(2),		NOT NULL,		'00',					status,		        Status,			        状态
+    B   00      New         未生产
+    B   10      Producing   生产中
+    B   20      Produced    生产完成
+*****************************************************************************************************************************************************
+N	TXDF01,		VC(64),		NOT NULL,		'',						define1,			User Define 1,			自定义1
+N	TXDF02,		VC(64),		NOT NULL,		'',						define2,			User Define 2,			自定义2
+N	TXDF03,		VC(64),		NOT NULL,		'',						define3,			User Define 3,			自定义3
+N	TXDF04,		VC(64),		NOT NULL,		'',						define4,			User Define 4,			自定义4
+N	TXDF05,		VC(64),		NOT NULL,		'',						define5,			User Define 5,			自定义5
+N	TXDF06,		VC(64),		NOT NULL,		'',						define6,			User Define 6,			自定义6
+N	TXDF07,		VC(64),		NOT NULL,		'',						define7,			User Define 7,			自定义7
+N	TXDF08,		VC(64),		NOT NULL,		'',						define8,			User Define 8,			自定义8
+N	TXDF09,		VC(64),		NOT NULL,		'',						define9,			User Define 9,			自定义9
+*****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
+N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			操作时间
+====1===========2===========3===============4=======================5===================6=======================7====================================
+P 	MOLNID
+U	01 getByMOLineNo MOHDID, MOLNNO
+F	01 listByMOHead (MOHDID) MOHEAD (MOHDID)
+F 	02 listByMaterial (MTRLID) MTRLMS (MTRLID)
+=====================================================================================================================================================

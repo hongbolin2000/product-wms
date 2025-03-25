@@ -10,23 +10,21 @@ N	SUPLID,		ID,			NOT NULL,		,						id,					ID,						主键
 *****************************************************************************************************************************************************
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,			Company,				公司
 *****************************************************************************************************************************************************
-N	SUPLCD,		VC(64),		NOT NULL,		,						supplierCode,		Supplier Code,			供应商编号
-N	SUPLNM,		VC(64),		NOT NULL,		,						supplierName,		Supplier Name,			供应商名称
+N	SUPLCD,		VC(16),		NOT NULL,		,						supplierCode,		Supplier Code,			供应商编号
+N	SUPLNM,		VC(32),		NOT NULL,		,						supplierName,		Supplier Name,			供应商名称
 *****************************************************************************************************************************************************
-N	ADDRES,		VC(254),	NOT NULL,		'',						address,			Address,				联系地址
+N	ISSUPL,		VC(1),		NOT NULL,		'N',					isSupplier,			Is Supplier,			供应商
+	B	Y		Yes			是
+	B	N		No			否
+N	ISCSTM,		VC(1),		NOT NULL,		'N',					isBuyer,			Is Customer,			客户
+	B	Y		Yes			是
+	B	N		No			否
+*****************************************************************************************************************************************************
+N	ADDRES,		VC(128),	NOT NULL,		'',						address,			Address,				联系地址
 N	CONTCS,		VC(32),		NOT NULL,		'',						contacts,			Contacts,				联系人
-N	PHONNO,		VC(16),		NOT NULL,		'',						phoneNo,			Telephone NO,			联系电话
-N	EMAIL,		VC(32),		NOT NULL,		'',						email,				email,					电子邮件
-*****************************************************************************************************************************************************
-N	TXDF01,		VC(64),		NOT NULL,		'',						define01,			define 1,				自定义值1
-N	TXDF02,		VC(64),		NOT NULL,		'',						define02,			define 2,				自定义值2
-N	TXDF03,		VC(64),		NOT NULL,		'',						define03,			define 3,				自定义值3
-N	TXDF04,		VC(64),		NOT NULL,		'',						define04,			define 4,				自定义值4
-N	TXDF05,		VC(64),		NOT NULL,		'',						define05,			define 5,				自定义值5
-N	TXDF06,		VC(64),		NOT NULL,		'',						define06,			define 6,				自定义值6
-N	TXDF07,		VC(64),		NOT NULL,		'',						define07,			define 7,				自定义值7
-N	TXDF08,		VC(64),		NOT NULL,		'',						define08,			define 8,				自定义值8
-N	TXDF09,		VC(64),		NOT NULL,		'',						define09,			define 9,				自定义值9
+N	PHONNO,		VC(11),		NOT NULL,		'',						phoneNo,			Phone NO,			    联系电话
+N	EMAIL,		VC(32),		NOT NULL,		'',					    email,			    Email,					电子邮件
+N	ZIPCDE,		VC(6),		NOT NULL,		'',						zipCode,			Zip Code,				邮政编码
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
 N	CRETBY,		VC(32),		NOT NULL,		'',						createBy,			Create By,				创建人
@@ -36,6 +34,5 @@ N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			�
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	SUPLID
 U	01 getByCode CMPNID, SUPLCD
-U	02 getByName CMPNID, SUPLNM
 F	01 listByCompany (CMPNID) CMPNMS (CMPNID)
 =====================================================================================================================================================

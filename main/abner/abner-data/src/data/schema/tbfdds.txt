@@ -8,15 +8,15 @@ Y	TableField
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 N	TFDSID,		ID,			NOT NULL, 		,						id,				ID,						主键
 *****************************************************************************************************************************************************
-N	TBMSID,		BIGINT,		NOT NULL, 		,						tableID,		Table ID,				表定义主键
+N	TBMSID,		BIGINT,		NOT NULL, 		,						tableId,		Table,				    表
 K   TBDFMS      - TBLNAM
 *****************************************************************************************************************************************************
-N	FLDNAM,		VC(32),		NOT NULL,		,						fieldName,		Field Name,				字段名
+N	FLDNAM,		VC(128),	NOT NULL,		,						fieldName,		Field Name,				字段名
 	# 表的字段名
-N	FLDALS,		VC(64),		NOT NULL,		,						fieldAlias,		Field Alias,			字段别名
+N	FLDALS,		VC(32),		NOT NULL,		'',						fieldAlias,		Field Alias,			字段别名
 	# 表的字段别名，作为json格式字段名
 *****************************************************************************************************************************************************
-N	TITLE,		VC(64),	    NOT NULL, 		'',						title,			Title,					标题
+N	TITLE,		VC(32),	    NOT NULL, 		'',						title,			Title,					标题
 N 	LANGUG,		VC(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
 	B 	en-US 	English 	English
 	B 	zh-CN   Chinese 	中文
@@ -25,7 +25,7 @@ N	DTATYP,		VC(16),		NOT NULL,		'',						dataType,		Data Type,				字段类型
     # SQL语句中的数据类型，如：VARCHAR，INTEGER等
 N	LENGTH,		INT,		NOT NULL,		-1,						length,			Length,					数值长度
 N	SCLLEN,		INT,		NOT NULL,		0,						scaleLength,	Scale Length,			小数点长度
-N	DFTVAL,		VC(254),	NOT NULL,		'',						defaultValue,	Default Value,			缺省值
+N	DFTVAL,		VC(16),	    NOT NULL,		'',						defaultValue,	Default Value,			缺省值
 N	REQURD,		VC(1),		NOT NULL,		'Y',					required, 		Required, 				是否必须有值
     B   Y       Yes         必须有值
     B   N       No          可选

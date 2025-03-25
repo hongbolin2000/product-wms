@@ -1,0 +1,45 @@
+=====================================================================================================================================================
+T	SOLINE
+S	
+L	Sales Order Line
+C	销售单行
+Y	Sales Order Line
+====1===========2===========3===============4=======================5===================6=======================7====================================
+N	SOLNID,		ID,			NOT NULL,       ,               		id,					ID,                     主键
+*****************************************************************************************************************************************************
+N	SOHDID,		BIGINT,		NOT NULL,       ,               		soHeadId,			SO Head,				销售单
+N	SOLNNO,		INT,		NOT NULL,		1,						soLineNo,			SO Line NO,				销售单行号
+*****************************************************************************************************************************************************
+N	MTRLID,		BIGINT,		NOT NULL,       ,               		material,			Material,               物料
+K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
+K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
+N   PRICE,      N(24.5),    NOT NULL,       0,                      price,              Price,                  单价
+*****************************************************************************************************************************************************
+N	STATUS,		VC(2),		NOT NULL,		'00',					status,				Status,					状态
+    B   00      New         新销售单
+    B	10		Receiving	正在发货
+    B   20      Finish      发货完成
+*****************************************************************************************************************************************************
+N	ORDQTY,		N(24.5),	NOT NULL,		,						orderQty,			Order Qty,				订单数量
+N   DLVCNT,     INT,        NOT NULL,       1,                      deliverCount,       Deliver Count,          发货次数
+N	DLVQTY,		N(24.5),	NOT NULL,		,						deliverQty,			Deliver Qty,			发货数量
+*****************************************************************************************************************************************************
+N	TXDF01,		VC(64),		NOT NULL,		'',						define1,			User Define 1,			自定义1
+N	TXDF02,		VC(64),		NOT NULL,		'',						define2,			User Define 2,			自定义2
+N	TXDF03,		VC(64),		NOT NULL,		'',						define3,			User Define 3,			自定义3
+N	TXDF04,		VC(64),		NOT NULL,		'',						define4,			User Define 4,			自定义4
+N	TXDF05,		VC(64),		NOT NULL,		'',						define5,			User Define 5,			自定义5
+N	TXDF06,		VC(64),		NOT NULL,		'',						define6,			User Define 6,			自定义6
+N	TXDF07,		VC(64),		NOT NULL,		'',						define7,			User Define 7,			自定义7
+N	TXDF08,		VC(64),		NOT NULL,		'',						define8,			User Define 8,			自定义8
+N	TXDF09,		VC(64),		NOT NULL,		'',						define9,			User Define 9,			自定义9
+*****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
+N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			操作时间
+====1===========2===========3===============4=======================5===================6=======================7====================================
+P 	SOLNID
+U	01 getBySOLineNo SOHDID, SOLNNO
+F	01 listBySOHead (SOHDID) SOHEAD (SOHDID)
+F 	02 listByMaterial (MTRLID) MTRLMS (MTRLID)
+=====================================================================================================================================================

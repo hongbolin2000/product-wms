@@ -1,0 +1,58 @@
+=====================================================================================================================================================
+T	USERMS
+S
+L	User Master Table
+C	用户信息表
+Y	User Info
+====1===========2===========3===============4=======================5=======================6=======================7========================================
+N	USERID,		ID,			NOT NULL,		,						id,						ID,						主键
+*************************************************************************************************************************************************************
+N	CMPNID,		BIGINT,		NOT NULL,		,						companyId,		        Company,				公司
+*************************************************************************************************************************************************************
+N	USERNM,		VC(32),		NOT NULL,		,						username,				User Name,			    用户名
+N	PASWRD,		VC(256),	NOT NULL,		'',						password,				Password,			    密码
+*************************************************************************************************************************************************************
+N	GENDER,		VC(1),		NOT NULL,		'U',					gender,					Gender,					性别
+	E	F		Female		女				女
+	E	M		Male		男				男
+	E	U		NA			不公开			不公开
+*************************************************************************************************************************************************************
+N	AVATAR,		VC(254),	NOT NULL,		'',						avatar,				    Avatar,			        用户头像
+N	FULNAM,		VC(32),		NOT NULL,		'',						fullName,				Full Name,				全名
+N	POSITN,		VC(32),		NOT NULL,		'',						position,				Position,				职位
+N	PHONNO,		VC(11),		NOT NULL,		'',						phoneNo,				Phone No,			    联系电话
+N	EMAIL,		VC(32),		NOT NULL,		'',						email,			        Email,					电子邮件
+*************************************************************************************************************************************************************
+N	STATUS,		VC(2),		NOT NULL,		'00',					status,					Status,					状态
+	B	00		Normal		正常
+	B	90		Frozen		冻结
+	B	99		Deleted		软删除
+N	LGNSTS,		VC(2),		NOT NULL,		'00',					loginStatus,			Login Status,			登录状态
+	B	ON		Online		在线
+	B	OF		Offline		离线
+*************************************************************************************************************************************************************
+N	RGSTIM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		Registration,			Registration Time,		注册时间
+N	LSLGTM,		TS,			,		        ,		                lastLoginTime,			Last Login Time,		最后登录时间
+N	LGERCT,		INT,		NOT NULL,		0,						loginErrorCount,		Login Error Count,		登陆错误次数
+*************************************************************************************************************************************************************
+N	TXDF01,		VC(64),		NOT NULL,		'',						define01,				User Define 1,			自定义值1
+N	TXDF02,		VC(64),		NOT NULL,		'',						define02,				User Define 2,			自定义值2
+N	TXDF03,		VC(64),		NOT NULL,		'',						define03,				User Define 3,			自定义值3
+N	TXDF04,		VC(64),		NOT NULL,		'',						define04,				User Define 4,			自定义值4
+N	TXDF05,		VC(64),		NOT NULL,		'',						define05,				User Define 5,			自定义值5
+N	TXDF06,		VC(64),		NOT NULL,		'',						define06,				User Define 6,			自定义值6
+N	TXDF07,		VC(64),		NOT NULL,		'',						define07,				User Define 7,			自定义值7
+N	TXDF08,		VC(64),		NOT NULL,		'',						define08,				User Define 8,			自定义值8
+N	TXDF09,		VC(64),		NOT NULL,		'',						define09,				User Define 9,			自定义值9
+*************************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,					Remark,					备注
+N	CRETBY,		VC(32),		NOT NULL,		'',						createBy,				Create By,				创建人
+N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,				Create Time,			创建时间
+N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,				Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,			Operate Time,			操作时间
+====1===========2===========3===============4=======================5===============6=======================7========================================
+P 	USERID
+U	01 getByUserName USERNM
+F	01 listByCompany (CMPNID) CMPNMS (CMPNID)
+I	01 listByStatus CMPNID, STATUS
+=====================================================================================================================================================

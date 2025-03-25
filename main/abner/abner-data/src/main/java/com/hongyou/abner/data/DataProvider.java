@@ -15,20 +15,20 @@ public class DataProvider {
     /**
      * 数据库组件
      */
-    private MOMDB momdb;
+    private WMSDB wmsdb;
 
     /**
      * 注入数据库组件
      */
     @Autowired
-    public void setMOMDB(MOMDB momdb) {
-        this.momdb = momdb;
+    public void setMOMDB(WMSDB wmsdb) {
+        this.wmsdb = wmsdb;
     }
 
     /**
      * 获取数据库组件
      */
-    public MOMDB db() {
-        return momdb;
+    public WMSDB db() {
+        return wmsdb;
     }
 }

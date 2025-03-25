@@ -3,18 +3,18 @@ T	TBDFMS
 S
 L	Table Define Master
 C	数据库表定义
-Y	TableDefine
+Y	Table Define
 @	保存数据库表定义
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 N	TBMSID,		ID,			NOT NULL, 		,						id,				ID,						主键
 *****************************************************************************************************************************************************
 N	TBLNAM,		VC(32),		NOT NULL,		,						tableName,		Table Name,				表名
 	# 数据库表名(对应T)
-N	TBLALS,		VC(64),		NOT NULL,		,						tableAlias,		Table Alias,			表别名
+N	TBLALS,		VC(64),		NOT NULL,		'',						tableAlias,		Table Alias,			表别名
 	# 数据库表别名(对应L)
-N   CTITLE,     VC(64),     NOT NULL,       ,                       chineseLabel,   Chinese Label,          中文标题
+N   CTITLE,     VC(64),     NOT NULL,       '',                     chineseLabel,   Chinese Label,          中文标题
     # 数据库表中文标题(对应C)
-N   ETITLE,     VC(64),     NOT NULL,       ,                       englishLabel,   English Label,          英文标题
+N   ETITLE,     VC(64),     NOT NULL,       '',                     englishLabel,   English Label,          英文标题
     # 数据库表英文标题(对应Y)
 *****************************************************************************************************************************************************
 N	REMARK,		VC(1024),	NOT NULL,		'',						remark,			Remark,					表描述

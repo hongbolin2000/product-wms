@@ -1,0 +1,65 @@
+=====================================================================================================================================================
+T	SOHEAD
+S
+L	Sales Order Head
+C	销售单
+Y	Sales Order
+====1===========2===========3===============4=======================5===================6=======================7====================================
+N	SOHDID,		ID,			NOT NULL,       ,               		id,					ID,                     主键
+*****************************************************************************************************************************************************
+N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		    Company,				公司
+*****************************************************************************************************************************************************
+N	SOHDNO,		VC(32),		NOT NULL,		,						soHeadNo,			SO Head NO,				销售单号
+*****************************************************************************************************************************************************
+N 	PROJID,		BIGINT,		        ,		,					    projectId,			Project,			    项目
+K 	PROJMS		- PROJNM
+N	CSTMID,		BIGINT,		        , 		,						customerId,		    Customer,			    客户
+K 	SUPLMS		- SUPLNM
+*****************************************************************************************************************************************************
+N	STATUS,		VC(2),		NOT NULL,		'00',					status,				Status,					状态
+    B   00      New         待审核
+    B   10      Audited     审核通过
+    B	20		Receiving	正在发货
+    B   30      Finish      发货完成
+*****************************************************************************************************************************************************
+N	ORDRDT,		DATE,		NOT NULL,		,				        orderDate,	        Order Date,		        订单日期
+ N	DEMDDT,		DATE,		        ,		,				        demandDate,	        Demand Date,		    需求日期
+ N	DUEDAT,		DATE,		        ,		,						planDueDate,	    Plan Due Date,		    计划交期
+*****************************************************************************************************************************************************
+N	STDLDT,		DATE,		,				,						startDeliverDate,	Start Deliver Date,		开始发货日期
+N	FNDLDT,		DATE,		,				,						finishDeliverDate,	Finish Deliver Date,	完成发货日期
+N   STDLBY,     VC(32),     NOT NULL,       '',                     startDeliverBy,     Start Deliver By,       开始发货人
+N   FNDLBY,     VC(32),     NOT NULL,       '',                     finishDeliverBy,    finish Deliver By,      完成发货人
+*****************************************************************************************************************************************************
+N	SOCTNO,		VC(32),		,		        ,						contractNo,	        Contract No,	        销售合同号
+N   AMOUNT,     N(24.5),    NOT NULL,       0,                      Amount,             Amount,                 订单金额
+N   PAYCNT,     INT,        NOT NULL,       1,                      payCount,           Pay Count,              收款次数
+N   PAYAMT,     INT,        NOT NULL,       1,                      payAmount,          Pay Amount,             收款金额
+N	PAYSTS,		VC(2),		NOT NULL,		'00',					payStatus,			Pay Status,				收款状态
+	B	00		No			未收款
+	B	10		Part		部分收款
+	B	20		Finished	收款完成
+*****************************************************************************************************************************************************
+N	TXDF01,		VC(64),		NOT NULL,		'',						define1,			User Define 1,			自定义1
+N	TXDF02,		VC(64),		NOT NULL,		'',						define2,			User Define 2,			自定义2
+N	TXDF03,		VC(64),		NOT NULL,		'',						define3,			User Define 3,			自定义3
+N	TXDF04,		VC(64),		NOT NULL,		'',						define4,			User Define 4,			自定义4
+N	TXDF05,		VC(64),		NOT NULL,		'',						define5,			User Define 5,			自定义5
+N	TXDF06,		VC(64),		NOT NULL,		'',						define6,			User Define 6,			自定义6
+N	TXDF07,		VC(64),		NOT NULL,		'',						define7,			User Define 7,			自定义7
+N	TXDF08,		VC(64),		NOT NULL,		'',						define8,			User Define 8,			自定义8
+N	TXDF09,		VC(64),		NOT NULL,		'',						define9,			User Define 9,			自定义9
+*****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
+N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
+N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,			Create Time,			创建时间
+N	OPRTBY,		VC(64),		NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			操作时间
+====1===========2===========3===============4=======================5===================6=======================7====================================
+P 	SOHDID
+U	01 getBySOHeadNo CMPNID, SOHDNO
+I	01 listByStatus CMPNID, STATUS
+F	01 listByCompany (CMPNID) CMPNMS (CMPNID)
+F 	02 listByProject (PROJID) PROJMS (PROJID)
+F 	03 listByCustomer (CSTMID) SUPLMS (SUPLID)
+=====================================================================================================================================================
