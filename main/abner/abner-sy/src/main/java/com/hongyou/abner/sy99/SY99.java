@@ -1,7 +1,7 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.abner.ba01;
+package com.hongyou.abner.sy99;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.abner.data.DataProvider;
@@ -12,11 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
-@RequestMapping("/ba01")
-public class BA01 extends DataProvider {
+@RequestMapping("/sy99")
+public class SY99 extends DataProvider {
 
     @PostMapping("/deleteBatch")
     public ResponseEntry deleteBatch(@RequestBody final List<Long> ids) {

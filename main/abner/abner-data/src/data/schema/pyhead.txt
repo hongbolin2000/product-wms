@@ -21,6 +21,6 @@ N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
 N	OPRTBY,		VC(64),		NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
-P 	POHDID
+P 	PYHDID
 F	01 listByPOHead (POHDID) POHEAD (POHDID)
 =====================================================================================================================================================

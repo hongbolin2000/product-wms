@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        角色列表
+    </description>
+
+    <filters>
+    </filters>
+
+    <support-statements>
+    </support-statements>
+
+    <datatable title="@title">
+        <actions>
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/模块号/roleEdit" />
+        </actions>
+
+        <statement>
+            <table name="rolems"/>
+            <order by="XXX desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="id" expr="roleid" title="@ROLEMS.ROLEID" width="100" filter="text"/>
+            <column type="label" name="companyId" expr="cmpnid" title="@ROLEMS.CMPNID" width="100" filter="text"/>
+            <column type="label" name="name" expr="rolenm" title="@ROLEMS.ROLENM" width="100" filter="text"/>
+            <column type="label" name="define01" expr="txdf01" title="@ROLEMS.TXDF01" width="100" filter="text"/>
+            <column type="label" name="define02" expr="txdf02" title="@ROLEMS.TXDF02" width="100" filter="text"/>
+            <column type="label" name="define03" expr="txdf03" title="@ROLEMS.TXDF03" width="100" filter="text"/>
+            <column type="label" name="define04" expr="txdf04" title="@ROLEMS.TXDF04" width="100" filter="text"/>
+            <column type="label" name="define05" expr="txdf05" title="@ROLEMS.TXDF05" width="100" filter="text"/>
+            <column type="label" name="define06" expr="txdf06" title="@ROLEMS.TXDF06" width="100" filter="text"/>
+            <column type="label" name="define07" expr="txdf07" title="@ROLEMS.TXDF07" width="100" filter="text"/>
+            <column type="label" name="define08" expr="txdf08" title="@ROLEMS.TXDF08" width="100" filter="text"/>
+            <column type="label" name="define09" expr="txdf09" title="@ROLEMS.TXDF09" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@ROLEMS.REMARK" width="100" filter="text"/>
+            <column type="label" name="createBy" expr="cretby" title="@ROLEMS.CRETBY" width="100" filter="text"/>
+            <column type="label" name="createTime" expr="crettm" title="@ROLEMS.CRETTM" width="100" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="operateBy" expr="oprtby" title="@ROLEMS.OPRTBY" width="100" filter="text"/>
+            <column type="label" name="operateTime" expr="oprttm" title="@ROLEMS.OPRTTM" width="100" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="link" name="edit" icon="edit" expr="roleid" title="@edit" link="/graces/editor/模块号/roleEdit"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="roleid" title="@edit" link="" labelColumn="" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="title">角色</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="add">Role</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

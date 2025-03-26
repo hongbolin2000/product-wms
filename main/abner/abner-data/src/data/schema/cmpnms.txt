@@ -9,7 +9,7 @@ N	CMPNID,		ID,			NOT NULL, 		,					id,				    ID,						主键
 *****************************************************************************************************************************************************
 N	CMPNCD,		VC(32),		NOT NULL,		,					companyCode,	    Company Code,			公司编号
 N	CMPNNM,		VC(64),		NOT NULL,		,					companyName,	    Company Name,			公司名称
-N	CMPNTY,		VC(16),		NOT NULL,		,					companyType,	    Company Type,			公司类型
+N	CMPNTY,		VC(16),		NOT NULL,		'',					companyType,	    Company Type,			公司类型
 *****************************************************************************************************************************************************
 N   CMPMPF,     VC(512),    NOT NULL,       '',                 companyProfile,     Company Profile,        公司简介
 N   INDSTY,     VC(32),     NOT NULL,       '',                 industry,           Industry,               所属行业

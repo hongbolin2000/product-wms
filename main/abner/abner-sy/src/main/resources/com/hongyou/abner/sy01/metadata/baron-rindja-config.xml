@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 角色列表 -->
+    <generic-grider-descriptor name="roleList">role-grider.xml</generic-grider-descriptor>
+
+    <!-- 角色编辑 -->
+    <generic-editor-descriptor name="roleEdit">role-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

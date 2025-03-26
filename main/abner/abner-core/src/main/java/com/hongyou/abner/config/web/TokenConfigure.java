@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Token配置类
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Component
 public class TokenConfigure implements TokenConfigureLoader {

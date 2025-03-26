@@ -1,6 +1,6 @@
 <template>
   <Graces.FormEditor
-      module="ba01"
+      module="sy99"
       name="storeEditor"
       @on-save="(value) => console.log(value)"
       :fill="!!id"

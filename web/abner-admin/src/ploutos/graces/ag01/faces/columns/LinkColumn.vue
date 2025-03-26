@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
   import {inject, onBeforeMount, onBeforeUpdate, type PropType, shallowRef} from 'vue'
-  import {type RouteLocationResolved, type RouteRecord, useRouter} from "vue-router";
+  import {type RouteLocationResolved, useRouter} from "vue-router";
   /********************************************************************************
    * 路由列
    *

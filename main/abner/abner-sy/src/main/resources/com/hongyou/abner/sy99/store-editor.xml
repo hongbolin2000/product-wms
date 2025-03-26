@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rindja-generic-editor version="1.0">
     <developer>
-        <name>Hong Bo Lin</name>
+        <name>Berlin</name>
     </developer>
 
     <description>
@@ -10,10 +10,10 @@
 
     <atitle>@add</atitle>
     <etitle>@edit</etitle>
-    <url>/ba01/save</url>
+    <url>/sy99/save</url>
 
     <statement>
-        <table name="vstrems"/>
+        <table name="strems"/>
         <param column="streid" type="=" expr="id"/>
     </statement>
 
@@ -39,7 +39,7 @@
                default="Y" required="true"/>
         <input type="check" name="enabled1" expr="enabld" title="@STREMS.ENABLD"
                checked="Y" unchecked="N"/>
-        <input type="suggestor" name="store" expr="streid" title="@STREMS.STRECD" module="ba01"
+        <input type="suggestor" name="store" expr="streid" title="@STREMS.STRECD" module="sy99"
                suggestor="storeSuggestor" script="row.storeCode = option.storeCode;row.storeName = option.label;"
         >
             <script>
@@ -114,8 +114,8 @@
 
     <sheeter name="orderLine" title="@editor01.title" tab="true" row="1">
         <statement>
-            <table name="vstrems"/>
-            <param column="areaid" type="=" expr="areaId"/>
+            <table name="strems"/>
+            <param column="strety" type="=" expr="storeType"/>
         </statement>
 
         <inputs>
@@ -137,8 +137,8 @@
 
     <sheeter name="orderLine1" title="@editor01.title" tab="true" row="1" required="false">
         <statement>
-            <table name="vstrems"/>
-            <param column="areaid" type="=" expr="areaId"/>
+            <table name="strems"/>
+            <param column="strety" type="=" expr="storeType"/>
         </statement>
 
         <inputs>
@@ -160,8 +160,8 @@
 
     <sheeter name="orderLine2" title="@editor01.title" row="1" required="false">
         <statement>
-            <table name="vstrems"/>
-            <param column="areaid" type="=" expr="areaId"/>
+            <table name="strems"/>
+            <param column="strety" type="=" expr="storeType"/>
         </statement>
 
         <inputs>
@@ -183,8 +183,8 @@
 
     <sheeter name="orderLine2" title="@editor01.title" row="3" required="false">
         <statement>
-            <table name="vstrems"/>
-            <param column="areaid" type="=" expr="areaId"/>
+            <table name="strems"/>
+            <param column="strety" type="=" expr="storeType"/>
         </statement>
 
         <inputs>

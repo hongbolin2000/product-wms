@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!--  <Graces.GridViewer module="ba01" name="storeGrider" @onSearch="onSearch" :query="false" @onSubSearch="onSearch" :query-sub="false"/>-->
-    <Graces.GridViewer module="ba01" name="storeGrider" @onSearch="onSearch"/>
+    <!--  <Graces.GridViewer module="sy99" name="storeGrider" @onSearch="onSearch" :query="false" @onSubSearch="onSearch" :query-sub="false"/>-->
+    <Graces.GridViewer module="sy99" name="storeGrider" @onSearch="onSearch"/>
   </div>
 </template>
 
@@ -13,10 +13,10 @@
    ********************************************************************************/
   import {Graces} from '@/ploutos';
 
-  function ba01Cancel(data: string) {
+  function sy99Cancel(data: string) {
     alert("aaa");
   }
-  window['ba01Cancel'] = ba01Cancel;
+  window['sy99Cancel'] = sy99Cancel;
 
   function onSearch(params: object, sorter: Graces.Sorter, pageNumber?: number, pageSize?: number) {
     debugger;

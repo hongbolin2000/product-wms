@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rindja-generic-grider version="1.0">
     <developer>
-        <name>Hong Bo Lin</name>
+        <name>Berlin</name>
     </developer>
 
     <description>
@@ -21,7 +21,7 @@
 
         <statement name="storeType" result="value">
             <column expr="strety"/>
-            <table name="vstrems"/>
+            <table name="strems"/>
             <param column="strenm" type="=" expr="storeName"/>
         </statement>
     </support-statements>
@@ -29,18 +29,18 @@
     <datatable title="门店" bordered="true" striped="true">
         <actions>
             <action type="link" icon="add" title="@add" link="/add/@{_companyId}" hidden="storeType == 'AAA'" />
-            <action type="link" icon="add" title="@add" link="/graces/editor/ba01/storeEditor" />
-            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/ba01/storeEditor" />
-            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/ba01/storeEditor" />
-            <action type="scriptLink" option="true" icon="delete" title="取消订单" link="ba01Cancel" danger="true"/>
+            <action type="link" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" />
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" />
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" />
+            <action type="scriptLink" option="true" icon="delete" title="取消订单" link="sy99Cancel" danger="true"/>
             <action type="checkLink" option="true" icon="delete" title="批量删除" labelColumn="storeName"
-                    link="/ba01/deleteBatch" danger="true"
+                    link="/sy99/deleteBatch" danger="true"
             />
-            <action type="upload" icon="upload" title="导入" link="/ba01/import" />
+            <action type="upload" icon="upload" title="导入" link="/sy99/import" />
         </actions>
 
         <statement>
-            <table name="vstrems"/>
+            <table name="strems"/>
             <order by="oprttm desc"/>
         </statement>
 
@@ -52,7 +52,6 @@
             <column type="tag" name="enabled" expr="enabld" width="70" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
                     filter="@enabled" success="enabled == '可用'" error="enabled != '可用'"/>
             <column type="label" name="orderQty" expr="ordqty" width="140" title="@STREMS.ENABLD" format="%#.###" filter="text"/>
-            <column type="label" name="area" expr="areanm" width="140" title="@STREMS.AREAID" filter="text"/>
             <column type="label" name="storeType" expr="strety" width="160" title="@STREMS.STRETY" filter="text"/>
             <column type="label" name="storeCode" expr="strecd" width="160" title="@STREMS.STRECD" filter="text"/>
             <column type="label" name="storeName" expr="strenm" width="160" title="@STREMS.STRENM" filter="text"/>
@@ -66,12 +65,12 @@
             <column type="label" name="operatorBy" expr="oprtby" width="160" title="@AREAMS.OPRTBY"/>
             <column type="label" name="operatorTime" expr="oprttm" width="160" title="@AREAMS.OPRTTM"
                     format="!yyyy-MM-dd HH:mm" filter="date" option="true"/>
-            <column type="link" name="edit" icon="edit" expr="streid" title="详情" link="/graces/editor/ba01/storeEditor" option="true"/>
-            <column type="link" name="editDialog" icon="edit" expr="streid" title="审核" link="/graces/editor/ba01/storeEditor" mode="dialog" option="true"/>
-            <column type="link" name="editDrawer" icon="edit" expr="streid" title="编辑" link="/graces/editor/ba01/storeEditor" mode="drawer"
+            <column type="link" name="edit" icon="edit" expr="streid" title="详情" link="/graces/editor/sy99/storeEditor" option="true"/>
+            <column type="link" name="editDialog" icon="edit" expr="streid" title="审核" link="/graces/editor/sy99/storeEditor" mode="dialog" option="true"/>
+            <column type="link" name="editDrawer" icon="edit" expr="streid" title="编辑" link="/graces/editor/sy99/storeEditor" mode="drawer"
                     disabled="storeCode == 'GP-SH003'"
             />
-            <column type="scriptLink" name="delete" icon="delete" expr="streid" title="删除" link="/ba01/deleteBatch"
+            <column type="scriptLink" name="delete" icon="delete" expr="streid" title="删除" link="/sy99/deleteBatch"
                     labelColumn="storeName" danger="true"
             />
         </columns>
@@ -79,7 +78,7 @@
 
 <!--    <subtable name="detail" width="30%">-->
 <!--        <statement>-->
-<!--            <table name="vstrems"/>-->
+<!--            <table name="strems"/>-->
 <!--            <param column="strenm" expr="storeName"/>-->
 <!--&lt;!&ndash;            <param column="streid" type="in" expr="storeIds"/>&ndash;&gt;-->
 <!--        </statement>-->
@@ -88,7 +87,7 @@
 <!--            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"-->
 <!--                    filter="@enabled"/>-->
 <!--            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>-->
-<!--            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>-->
+<!--            <column type="label" name="area" expr="areanm" width="120" title="@STREMS." filter="text"/>-->
 <!--            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>-->
 <!--            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>-->
 <!--            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>-->
@@ -107,7 +106,7 @@
 
 <!--    <subtable name="detail1">-->
 <!--        <statement>-->
-<!--            <table name="vstrems"/>-->
+<!--            <table name="strems"/>-->
 <!--            <param column="strenm" expr="storeName"/>-->
 <!--            &lt;!&ndash;            <param column="streid" type="in" expr="storeIds"/>&ndash;&gt;-->
 <!--        </statement>-->
@@ -116,7 +115,6 @@
 <!--            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"-->
 <!--                    filter="@enabled"/>-->
 <!--            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>-->
-<!--            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>-->
 <!--            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>-->
 <!--            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>-->
 <!--            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>-->
@@ -135,7 +133,7 @@
 
 <!--    <subtable name="detail1">-->
 <!--        <statement>-->
-<!--            <table name="vstrems"/>-->
+<!--            <table name="strems"/>-->
 <!--            <param column="strenm" expr="storeName"/>-->
 <!--            &lt;!&ndash;            <param column="streid" type="in" expr="storeIds"/>&ndash;&gt;-->
 <!--        </statement>-->
@@ -144,7 +142,6 @@
 <!--            <column type="label" name="enabled" expr="enabld" width="120" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"-->
 <!--                    filter="@enabled"/>-->
 <!--            <column type="label" name="orderQty" expr="ordqty" width="120" title="@STREMS.ENABLD" format="%#.###" filter="text"/>-->
-<!--            <column type="label" name="area" expr="areanm" width="120" title="@STREMS.AREAID" filter="text"/>-->
 <!--            <column type="label" name="storeType" expr="strety" width="120" title="@STREMS.STRETY" filter="text"/>-->
 <!--            <column type="label" name="storeCode" expr="strecd" width="120" title="@STREMS.STRECD" filter="text"/>-->
 <!--            <column type="label" name="storeName" expr="strenm" width="120" title="@STREMS.STRENM" filter="text"/>-->

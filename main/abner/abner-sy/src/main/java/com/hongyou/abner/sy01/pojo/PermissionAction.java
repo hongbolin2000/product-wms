@@ -9,7 +9,7 @@ import lombok.Data;
 /**
  * 菜单权限动作类型定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 @Builder

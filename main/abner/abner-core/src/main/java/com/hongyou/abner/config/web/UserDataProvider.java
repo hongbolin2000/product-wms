@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 /**
  * 注入系统数据库以及当前登录用户信息，功能代码继承此类可获取用户以及数据库组件
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public class UserDataProvider extends DataProvider {
 

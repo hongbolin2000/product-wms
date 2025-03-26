@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>XXX</name>
+    </developer>
+
+    <description>
+        角色编辑
+    </description>
+
+    <atitle>@add</atitle>
+    <etitle>@edit</etitle>
+    <url>XXX</url>
+
+    <statement>
+        <table name="rolems"/>
+        <param column="roleid" type="=" expr="id"/>
+    </statement>
+
+    <editor title="@title">
+        <input type="text" name="id" expr="roleid" title="@ROLEMS.ROLEID" required="true" length="0"/>
+        <input type="text" name="companyId" expr="cmpnid" title="@ROLEMS.CMPNID" required="true" length="0"/>
+        <input type="text" name="name" expr="rolenm" title="@ROLEMS.ROLENM" required="true" length="32"/>
+        <input type="text" name="define01" expr="txdf01" title="@ROLEMS.TXDF01" required="true" length="64"/>
+        <input type="text" name="define02" expr="txdf02" title="@ROLEMS.TXDF02" required="true" length="64"/>
+        <input type="text" name="define03" expr="txdf03" title="@ROLEMS.TXDF03" required="true" length="64"/>
+        <input type="text" name="define04" expr="txdf04" title="@ROLEMS.TXDF04" required="true" length="64"/>
+        <input type="text" name="define05" expr="txdf05" title="@ROLEMS.TXDF05" required="true" length="64"/>
+        <input type="text" name="define06" expr="txdf06" title="@ROLEMS.TXDF06" required="true" length="64"/>
+        <input type="text" name="define07" expr="txdf07" title="@ROLEMS.TXDF07" required="true" length="64"/>
+        <input type="text" name="define08" expr="txdf08" title="@ROLEMS.TXDF08" required="true" length="64"/>
+        <input type="text" name="define09" expr="txdf09" title="@ROLEMS.TXDF09" required="true" length="64"/>
+        <input type="text" name="remark" expr="remark" title="@ROLEMS.REMARK" required="true" length="254"/>
+        <input type="text" name="createBy" expr="cretby" title="@ROLEMS.CRETBY" required="true" length="32"/>
+        <input type="text" name="createTime" expr="crettm" title="@ROLEMS.CRETTM" required="true" length="0"/>
+        <input type="text" name="operateBy" expr="oprtby" title="@ROLEMS.OPRTBY" required="true" length="32"/>
+        <input type="text" name="operateTime" expr="oprttm" title="@ROLEMS.OPRTTM" required="true" length="0"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="add">角色新增</item>
+            <item key="edit">角色编辑</item>
+            <item key="title">角色信息</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="add">角色 Add</item>
+            <item key="edit">角色 Edit</item>
+            <item key="title">角色 Info</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

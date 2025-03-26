@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 权限菜单树类型定义
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 @Builder

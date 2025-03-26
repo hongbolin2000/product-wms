@@ -1,5 +1,5 @@
 <template>
-  <Graces.FormEditor :module="module" :name="name" :params="params"/>
+  <Graces.FormEditor :module="module" :name="name" :params="params" :fill="fill"/>
 </template>
 
 <script setup lang="ts" name="FormEditorPage">
@@ -37,9 +37,14 @@
   const name = shallowRef('');
 
   /**
-   * 函数
+   * 参数
    */
   const params: Ref = shallowRef({});
+
+  /**
+   * 是否查询数据
+   */
+  const fill = shallowRef(false);
 
   /**
    * 组件加载前
@@ -52,12 +57,17 @@
     if (props.params) {
       module.value = props.params.module;
       name.value = props.params.name;
-      params.value = {id: props.params.value};
+
+      if (props.params && props.params.value) {
+        params.value = {id: props.params.value};
+        fill.value = true;
+      }
     }
 
     // 使用router跳转模式
     if (!props.params && route.params.id) {
       params.value = {id: route.params.id};
+      fill.value = true;
     }
   });
 </script>

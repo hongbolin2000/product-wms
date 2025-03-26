@@ -13,19 +13,19 @@
       :style="{width: props.action?.dialogWidth}"
       preset="dialog"
     >
-      <component :is="component" :is-dialog="true" @on-close="showModal = false"/>
+      <component :is="component" :params="{module: module, name: name}" :is-dialog="true" @on-close="showModal = false"/>
     </n-modal>
 
     <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right">
       <n-drawer-content :title="action.title" closable :body-content-style="{padding: 0}">
-        <component :is="component" :is-drawer="true" @on-close="showDrawer = false"/>
+        <component :is="component" :params="{module: module, name: name}" :is-drawer="true" @on-close="showDrawer = false"/>
       </n-drawer-content>
     </n-drawer>
 </template>
 
 <script setup lang="ts">
 import {computed, onMounted, type PropType, ref, shallowRef} from 'vue'
-  import {useRouter} from "vue-router";
+import {type RouteLocationResolved, useRouter} from "vue-router";
   /********************************************************************************
    * 路由动作按钮
    *
@@ -55,6 +55,12 @@ import {computed, onMounted, type PropType, ref, shallowRef} from 'vue'
   const showDrawer = ref(false);
 
   /**
+   * link中的通用界面模块号和名称
+   */
+  const module = shallowRef('');
+  const name = shallowRef('');
+
+  /**
    * 父组件传入的属性
    */
   const props = defineProps({
@@ -76,7 +82,15 @@ import {computed, onMounted, type PropType, ref, shallowRef} from 'vue'
    */
   onMounted(async () => {
     if (props.action?.mode != 'router') {
-      const route: any = router.getRoutes().find(i => i.path == props.action?.link);
+      let route: any = router.getRoutes().find(i => i.path == props.action?.link);
+
+      // 找不到路由时使用路由匹配（通用界面模式）
+      if (!route) {
+        const resolved: RouteLocationResolved = router.resolve(props.action?.link);
+        route = resolved.matched[resolved.matched.length - 1];
+        module.value = resolved.params.module.toString();
+        name.value = resolved.params.name.toString();
+      }
 
       // 路由组件未加载时进行加载
       if (typeof(route?.components!.default) == 'function') {
