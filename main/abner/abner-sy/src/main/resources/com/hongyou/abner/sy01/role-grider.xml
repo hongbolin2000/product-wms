@@ -10,7 +10,7 @@
 
     <datatable title="@title">
         <actions>
-            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/sy01/roleEdit" />
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy01/roleEdit" />
         </actions>
 
         <statement>

@@ -103,9 +103,11 @@
     let menus = appStore.expandMenus;
 
     paths.forEach((path) => {
-      const selectMenu = menus.find((item: MenuOption) => item.key === path);
+      const selectMenu = menus.find((item: MenuOption) => item.key === path || "/" + item.id == path);
       if (selectMenu) {
-        menus = selectMenu.children;
+        if (selectMenu.children) {
+          menus = selectMenu.children;
+        }
         selectMenus.push(selectMenu);
       }
     })

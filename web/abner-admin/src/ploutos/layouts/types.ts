@@ -14,6 +14,11 @@ import type {VNodeChild} from "vue";
 export type MenuOption = {
 
   /**
+   * 菜单ID
+   */
+  id: string;
+
+  /**
    * 菜单Key
    */
   key: string,

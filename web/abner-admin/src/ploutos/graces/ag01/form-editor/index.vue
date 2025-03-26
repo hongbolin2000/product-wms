@@ -11,29 +11,29 @@
       <div v-for="(row, index) of editor.editorRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
         <!-- 非选项卡表单 -->
         <n-card
-            :title="editor.title"
+            :title="formEditor.title"
             :segmented="{content: true}"
-            v-for="editor of row.noTabEditors" :key="editor.name"
-            :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, editor)}"
-            :bordered="!props.isDrawer"
+            v-for="formEditor of row.noTabEditors" :key="formEditor.name"
+            :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, formEditor)}"
+            :bordered="!props.isDrawer && editor.allEditors.length > 1"
             :content-style="{paddingBottom: props.isDrawer && 0}"
         >
           <template #header-extra>
             <n-button @click="onCollapse(row)" text>
-              {{editor.collapse ? '展开' : '折叠'}}
+              {{formEditor.collapse ? '展开' : '折叠'}}
             </n-button>
           </template>
 
-          <n-collapse-transition :show="!editor.collapse">
+          <n-collapse-transition :show="!formEditor.collapse">
             <n-form
                 :model="formValue"
                 :rules="formRules"
                 ref="formRefs"
-                :style="{width: editor.formWidth, margin: 'auto'}"
-                :label-placement="editor.placement"
+                :style="{width: formEditor.formWidth, margin: 'auto'}"
+                :label-placement="formEditor.placement"
                 label-width="auto"
             >
-              <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount"/>
+              <form-grid :editor="formEditor" :form-value="formValue" :editor-count="row.editorCount"/>
             </n-form>
           </n-collapse-transition>
         </n-card>
