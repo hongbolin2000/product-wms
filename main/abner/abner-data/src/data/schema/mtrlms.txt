@@ -17,10 +17,10 @@ N	SKUNAM,		VC(64),		NOT NULL,		'',						skuName,		SKU Name,				物料名称
 N   MTRIMG,     VC(254),    NOT NULL,       '',                     materialImage,  Material Image,         物料图片
 *****************************************************************************************************************************************************
 N   MODEL,      VC(32),     NOT NULL,       '',                     model,          model,                  规格型号
-N   PCSPRC,     N(24.5),    NOT NULL,       0,                      purchasePrice,  Purchase Price,         采购单价
-N   SLSPRC,     N(24.5),    NOT NULL,       0,                      salesPrice,     Sales Price,            销售单价
+N   PCSPRC,     N(24.3),    NOT NULL,       0,                      purchasePrice,  Purchase Price,         采购单价
+N   SLSPRC,     N(24.3),    NOT NULL,       0,                      salesPrice,     Sales Price,            销售单价
 *****************************************************************************************************************************************************
-N	MNSTQT,		N(24.5),	NOT NULL,		0,						minStockQty,	Min Stock Qty,		    最小保留库存
+N	MNSTQT,		N(24.3),	NOT NULL,		0,						minStockQty,	Min Stock Qty,		    最小保留库存
 *****************************************************************************************************************************************************
 N	TXDF01,		VC(64),		NOT NULL,		'',						define01,		User Define 1,			自定义值1
 N	TXDF02,		VC(64),		NOT NULL,		'',						define02,		User Define 2,			自定义值2

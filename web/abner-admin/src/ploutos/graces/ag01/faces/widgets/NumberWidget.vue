@@ -32,7 +32,6 @@
   import {WidgetUtil} from "@/ploutos/graces/ag01/faces/widgets/WidgetUtil.ts";
   import type NumberWidgetProps from "@/ploutos/graces/ag01/faces/widgets/NumberWidgetProps.ts";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-  import type {SelectOption} from "naive-ui";
 
   /**
    * 父组件传入的属性

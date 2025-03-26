@@ -14,7 +14,7 @@ N	MTRLID, 	BIGINT,		NOT NULL,		,						materialId,			Material,			    物料
 K   MTRLMS                  - SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
 *****************************************************************************************************************************************************
-N	ONHDQT,		N(24.5),	NOT NULL,		0,						onhandQty,		    Onhand Qty,				总在库库存
+N	ONHDQT,		N(24.3),	NOT NULL,		0,						onhandQty,		    Onhand Qty,				总在库库存
 *****************************************************************************************************************************************************
 N	TXDF01,		VC(64),		NOT NULL,		'',						tsdesc01,		    User Define 1,			自定义1
 N	TXDF02,		VC(64),		NOT NULL,		'',						tsdesc02,		    User Define 2,			自定义2

@@ -5,7 +5,7 @@ package com.hongyou.abner.config.web;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.data.DataProvider;
-import com.hongyou.abner.data.model.Oprtms;
+import com.hongyou.abner.data.model.Userms;
 
 import java.sql.Timestamp;
 
@@ -19,7 +19,7 @@ public class UserDataProvider extends DataProvider {
     /**
      * 当前登录的用户
      */
-    private Oprtms oprtms;
+    private Userms userms;
 
     /**
      * 获取当前登录用户ID
@@ -32,17 +32,17 @@ public class UserDataProvider extends DataProvider {
      * 获取当前登录用户名
      */
     protected String getLoginUserName() {
-        return this.getLoginUser().getAccunt();
+        return this.getLoginUser().getUsernm();
     }
 
     /**
      * 获取当前登录的用户
      */
-    protected Oprtms getLoginUser() {
-        if (this.oprtms == null) {
-            this.oprtms = this.db().oprtms().get(getLoginUserId());
+    protected Userms getLoginUser() {
+        if (this.userms == null) {
+            this.userms = this.db().userms().get(getLoginUserId());
         }
-        return this.oprtms;
+        return this.userms;
     }
 
     /**

@@ -13,7 +13,7 @@ N	RQLNNO,		INT,		NOT NULL,		1,						rqLineNo,			RQ Line NO,				请购单行号
 N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,               物料
 K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
-N   PRICE,      N(24.5),    NOT NULL,       0,                      price,              Price,                  单价
+N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
 *****************************************************************************************************************************************************
 N	STATUS,		VC(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         新请购

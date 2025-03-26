@@ -7,7 +7,7 @@ import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.config.web.UserDataProvider;
-import com.hongyou.abner.data.model.Oprtms;
+import com.hongyou.abner.data.model.Userms;
 import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
@@ -15,7 +15,6 @@ import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.CaptchaUtil;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -71,9 +70,7 @@ public class Login extends UserDataProvider {
      */
     @PostMapping("/login")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public LoginResult login(
-            @RequestBody final LoginParam param, final HttpServletRequest request
-    ) {
+    public LoginResult login(@RequestBody final LoginParam param) {
 
         try {
             // 校验传入参数
@@ -96,25 +93,24 @@ public class Login extends UserDataProvider {
             }
 
             // 检查用户名是否存在
-            Oprtms oprtms = this.db().oprtms().getByAccount(param.getUsername());
-            if (ObjectUtil.isNull(oprtms)) {
+            Userms userms = this.db().userms().getByUserName(param.getUsername());
+            if (ObjectUtil.isNull(userms)) {
                 return LoginResult.builder().loginCode(LoginCode.LG003.getValue()).message("用户名或密码不正确").build();
             }
 
             // 密码解密，对比数据库密码
             String password = AesUtil.ecbDecrypt(param.getKey(), param.getPassword());
-            String userPassword = AesUtil.decrypt(oprtms.getPaswrd());
+            String userPassword = AesUtil.decrypt(userms.getPaswrd());
             if (!password.equals(userPassword)) {
                 return LoginResult.builder().loginCode(LoginCode.LG003.getValue()).message("用户名或密码不正确").build();
             }
 
             // 登录
-            this.stpLogin(oprtms.getOprtid(), param.isAutoLogin());
-            oprtms.lslgtm(this.getCurrentTime()).
-                    lslgip(request.getRemoteAddr());
+            this.stpLogin(userms.getUserid(), param.isAutoLogin());
+            userms.lslgtm(this.getCurrentTime());
             return LoginResult.builder().
                     loginCode(LoginCode.LG200.getValue()).
-                    nikeName(StringUtil.blankToDefault(oprtms.getFulnam(), param.getUsername())).build();
+                    nikeName(StringUtil.blankToDefault(userms.getFulnam(), param.getUsername())).build();
         } catch (Exception e) {
             logger.error("用户登录认证失败", e);
             throw new RestRuntimeException("用户登录认证失败");

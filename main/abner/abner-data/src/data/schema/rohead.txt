@@ -33,7 +33,7 @@ N	ORDRDT,		DATE,		        ,				,						orderDate,		Order Date,				订单日期
 N	RECVDT,		DATE,		        ,				,						receiveDate,	Receive Date,		    收货日期
 N   RECVBY,     VC(32),             NOT NULL,       '',                     receiveBy,      Receive By,             收货人
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		        NOT NULL,		'00',					status,			Status,					状态
+N	STATUS,		C(2),		        NOT NULL,		'00',					status,			Status,					状态
 	B	00		New			        待审核
     B   10      Audited             已审核
 	B	30		Receiving		    正在收货

@@ -2,9 +2,8 @@
 T	PRDMTR
 S
 L	Production Raw Materials
-C	产品生产原料清单
+C	生产原料清单
 Y	Production Raw Materials
-@	定义产品生产时所需的原料
 ====1===========2===========3===============4=======================5===================6=======================7================================
 N	PRDMID,		ID,			NOT NULL,       ,               		id,				    ID,                    	主键
 *************************************************************************************************************************************************
@@ -13,7 +12,7 @@ N	PDMTID,		BIGINT,		NOT NULL,       ,               		productMaterial,    Produc
 N 	MTRLID,		BIGINT,		NOT NULL,		,						materialId,	        Material,		        原料
 K 	MTRLMS				    - SKUNO, SKUNAM, MODEL, PCSPRC, MTRIMG
 K 	MTRLMS:MTRTYP 		    - MTTYP1, MTTYCD
-N   QUANTY,     N(24.5),    NOT NULL,       0,                      quantity,           Quantity,               需求数量
+N   QUANTY,     N(24.3),    NOT NULL,       0,                      quantity,           Quantity,               需求数量
 *************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL, 		'',						remark,			    Remark,					备注
 N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		    Operate By,				操作人

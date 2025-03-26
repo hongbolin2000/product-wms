@@ -13,16 +13,16 @@ N	SOLNNO,		INT,		NOT NULL,		1,						soLineNo,			SO Line NO,				销售单行号
 N	MTRLID,		BIGINT,		NOT NULL,       ,               		material,			Material,               物料
 K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
-N   PRICE,      N(24.5),    NOT NULL,       0,                      price,              Price,                  单价
+N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
 *****************************************************************************************************************************************************
 N	STATUS,		VC(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         新销售单
     B	10		Receiving	正在发货
     B   20      Finish      发货完成
 *****************************************************************************************************************************************************
-N	ORDQTY,		N(24.5),	NOT NULL,		,						orderQty,			Order Qty,				订单数量
-N   DLVCNT,     INT,        NOT NULL,       1,                      deliverCount,       Deliver Count,          发货次数
-N	DLVQTY,		N(24.5),	NOT NULL,		,						deliverQty,			Deliver Qty,			发货数量
+N	ORDQTY,		N(24.3),	NOT NULL,		0,						orderQty,			Order Qty,				订单数量
+N   DLVCNT,     INT,        NOT NULL,       0,                      deliverCount,       Deliver Count,          发货次数
+N	DLVQTY,		N(24.3),	NOT NULL,		0,						deliverQty,			Deliver Qty,			发货数量
 *****************************************************************************************************************************************************
 N	TXDF01,		VC(64),		NOT NULL,		'',						define1,			User Define 1,			自定义1
 N	TXDF02,		VC(64),		NOT NULL,		'',						define2,			User Define 2,			自定义2

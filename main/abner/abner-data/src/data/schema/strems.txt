@@ -9,10 +9,10 @@ N	STREID,		ID,			NOT NULL, 		,						id,				    ID,						主键
 **********************************************************************************************************************************************************
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		    Company,				公司
 *****************************************************************************************************************************************************
-N	ENABLD,		VC(1),		NOT NULL,		'Y',					enabled,		    Enabled,				可用
+N	ENABLD,		C(1),		NOT NULL,		'Y',					enabled,		    Enabled,				可用
 	B	Y		Yes			可用
 	B	N		No			不可用
-N	ORDQTY,		N(24.5),	NOT NULL,		,						orderQty,		Order Qty,				订单数量
+N	ORDQTY,		N(24.3),	NOT NULL,		0,						orderQty,		Order Qty,				订单数量
 N	ORDRDT,		DATE,		,				,						orderDate,		Order Date,				订单日期
 *****************************************************************************************************************************************************
 N   STRETY,     VC(16),     NOT NULL,       '',                     storeType,          Store Type,             门店类型

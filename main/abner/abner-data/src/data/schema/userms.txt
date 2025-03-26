@@ -23,11 +23,11 @@ N	POSITN,		VC(32),		NOT NULL,		'',						position,				Position,				职位
 N	PHONNO,		VC(11),		NOT NULL,		'',						phoneNo,				Phone No,			    联系电话
 N	EMAIL,		VC(32),		NOT NULL,		'',						email,			        Email,					电子邮件
 *************************************************************************************************************************************************************
-N	STATUS,		VC(2),		NOT NULL,		'00',					status,					Status,					状态
+N	STATUS,		C(2),		NOT NULL,		'00',					status,					Status,					状态
 	B	00		Normal		正常
 	B	90		Frozen		冻结
 	B	99		Deleted		软删除
-N	LGNSTS,		VC(2),		NOT NULL,		'00',					loginStatus,			Login Status,			登录状态
+N	LGNSTS,		C(2),		NOT NULL,		'00',					loginStatus,			Login Status,			登录状态
 	B	ON		Online		在线
 	B	OF		Offline		离线
 *************************************************************************************************************************************************************

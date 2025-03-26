@@ -14,16 +14,16 @@ N   RDOCID,     INT,                        ,       ,               refDocId,   
 N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,               物料
 K   MTRLMS                  - SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD, STKMDE
-N   PRICE,      N(24.5),    NOT NULL,       0,                      price,              Price,                  单价
+N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
 *****************************************************************************************************************************************************
 N	BTCHNO,		VC(16),	NOT NULL,		'',					        batchNo,		    Batch No,				库存批次
 N	BINCDE,		VC(32),		NOT NULL,		,						binCode,		    Bin Code,				存放货位
 N	CARTNO,		VC(128),		NOT NULL,		,					cartonNo,		    Carton No,				存放箱号
 *****************************************************************************************************************************************************
-N	ORDQTY,		N(24.5),	NOT NULL,		,						orderQty,			Order Qty,				订单数量
-N 	RCVQTY,		N(24.5),	NOT NULL,		0,						receiveQty,	        Receive Qty,		    收货数量
+N	ORDQTY,		N(24.3),	NOT NULL,		0,						orderQty,			Order Qty,				订单数量
+N 	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,	        Receive Qty,		    收货数量
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		NOT NULL,		'10',					status,			    Status,					状态
+N	STATUS,		C(2),		NOT NULL,		'10',					status,			    Status,					状态
 	B	10		No			未收货
 	B	20		Taking		正在收货
 	B	60		Finished	完成收货

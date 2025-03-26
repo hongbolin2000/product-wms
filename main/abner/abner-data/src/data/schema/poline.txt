@@ -15,16 +15,16 @@ N	RQLNID,		BIGINT,		        ,		,						requisitionLineId,	Requisition Line,		请�
 N	MTRLID,		BIGINT,		NOT NULL,       ,               		material,			Material,               物料
 K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
-N   PRICE,      N(24.5),    NOT NULL,       0,                      price,              Price,                  单价
+N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
 *****************************************************************************************************************************************************
 N	STATUS,		VC(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         新采购单
     B	20		Receiving	正在收货
     B   30      Finish      采购完成
 *****************************************************************************************************************************************************
-N	ORDQTY,		N(24.5),	NOT NULL,		,						orderQty,			Order Qty,				采购数量
-N   RCVCNT,     INT,        NOT NULL,       1,                      receiveCount,       Receive Count,          收货次数
-N	RCVQTY,		N(24.5),	NOT NULL,		,						receiveQty,			Receive Qty,			收货数量
+N	ORDQTY,		N(24.3),	NOT NULL,		0,						orderQty,			Order Qty,				采购数量
+N   RCVCNT,     INT,        NOT NULL,       0,                      receiveCount,       Receive Count,          收货次数
+N	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,			Receive Qty,			收货数量
 *****************************************************************************************************************************************************
 N	TXDF01,		VC(64),		NOT NULL,		'',						define1,			User Define 1,			自定义1
 N	TXDF02,		VC(64),		NOT NULL,		'',						define2,			User Define 2,			自定义2

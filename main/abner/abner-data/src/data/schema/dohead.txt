@@ -31,7 +31,7 @@ N	ORDRDT,		DATE,		    NOT NULL,		,						orderDate,			Order Date,				订单日期
 N	DELVDT,		DATE,		    ,				,						deliverDate,	    deliver Date,		    发货日期
 N   DELVBY,     VC(32),         NOT NULL,       '',                     deliverBy,          Deliver By,             发货人
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		    NOT NULL,		'00',					status,				Status,					状态
+N	STATUS,		C(2),		    NOT NULL,		'00',					status,				Status,					状态
 	B	00		No			    待审核
     B   10      Audited         已审核
 	B 	10		Delivering	    正在发货

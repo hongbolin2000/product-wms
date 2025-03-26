@@ -15,7 +15,7 @@ N   TASKRM,     VC(128),    NOT NULL,       '',                     taskRemark, 
 N 	TASKLD,		VC(32),		NOT NULL,		'',						taskLeader,		    Task Leader,			负责人
 N   PCSPCT,     VC(16),     NOT NULL,       '',                     processPercent,     Process Percent,        完成比例%
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		NOT NULL,		'00',			        status,			    Status,					状态
+N	STATUS,		C(2),		NOT NULL,		'00',			        status,			    Status,					状态
 	B	N		No			未开始
     B   P       Processing  进行中
 	B	F		Finished	已完成

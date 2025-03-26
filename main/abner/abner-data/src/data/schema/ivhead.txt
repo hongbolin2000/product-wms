@@ -17,7 +17,7 @@ K   MTRLMS      - SKUNO, SKUNAM, MODEL
 N	MTTYID,		BIGINT,		        , 		,						materialType,	    Material Type,			盘点物料类型
 K   MTRTYP      - MTRCTG, MTTYP1, MTTYCD
 *****************************************************************************************************************************************************
-N	STATUS,		VC(1),		NOT NULL,		'N',					status,				Status,					状态
+N	STATUS,		C(1),		NOT NULL,		'N',					status,				Status,					状态
 	B	N		New			新盘点单
 	B	R		Ready		准备盘点
 	B	C		Checking	正盘点

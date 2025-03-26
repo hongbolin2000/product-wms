@@ -10,7 +10,7 @@ N	STIMID,		ID,			NOT NULL,		,						id,					ID,						主键
 N	STCKID,		BIGINT,		NOT NULL,       ,               		stockId,			Stock,				    库存
 K 	STCKMS:MTRLMS 			- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	STCKMS:MTRLMS:MTRTYP 	- MTTYP1, MTTYCD
-N   PRICE,      N(24.5),    NOT NULL,       0,                      price,              Price,                  单价
+N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
 *****************************************************************************************************************************************************
 N	WRHSID,		BIGINT,		NOT NULL,		,						warehouseId,		Warehouse,			    仓库
 K 	WRHSMS 		- WRHSNM
@@ -39,7 +39,7 @@ N	BATHNO,		VC(16),		NOT NULL,		'',						batchNo,			Batch No,				库存批次
 N	BINCDE,		VC(32),		NOT NULL,		,						binCode,		    Bin Code,				存放货位
 N	CARTNO,		VC(32),		NOT NULL,		,						cartonNo,		    Carton No,				存放箱号
 *****************************************************************************************************************************************************
-N	ONHDQT,		N(24.5),	NOT NULL,		0,						onhandQty,			Onhand Qty,				在库库存
+N	ONHDQT,		N(24.3),	NOT NULL,		0,						onhandQty,			Onhand Qty,				在库库存
 *****************************************************************************************************************************************************
 N	TXDF01,		VC(64),		NOT NULL,		'',						tsdesc01,		    User Define 1,			自定义1
 N	TXDF02,		VC(64),		NOT NULL,		'',						tsdesc02,		    User Define 2,			自定义2

@@ -5,7 +5,7 @@ package com.hongyou.abner.config.web;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.data.DataProvider;
-import com.hongyou.abner.data.model.Oprtms;
+import com.hongyou.abner.data.model.Userms;
 import com.hongyou.baron.RindjaUserDetail;
 import com.hongyou.baron.RindjaUserLoader;
 import com.hongyou.baron.cache.CacheUtil;
@@ -33,10 +33,10 @@ public class RindjaUserProvider extends DataProvider implements RindjaUserLoader
         // 将登录用户进行缓存，避免每次从数据库拿取
         long userid = StpUtil.getLoginIdAsLong();
         if (!this.userCaches.containsKey(userid)) {
-            Oprtms oprtms = this.db().oprtms().get(userid);
+            Userms userms = this.db().userms().get(userid);
             RindjaUserDetail userDetail = RindjaUserDetail.builder().
-                    companyId(oprtms.getCmpnid()).
-                    username(oprtms.getAccunt()).
+                    companyId(userms.getCmpnid()).
+                    username(userms.getUsernm()).
                     build();
             this.userCaches.put(userid, userDetail);
         }

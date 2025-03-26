@@ -10,7 +10,7 @@ N	STTNID,		ID,			        NOT NULL,		,						id,					ID,						主键
 N	WRHSID,		BIGINT,		        NOT NULL,		,						warehouseId,		Warehouse,			    仓库
 K 	WRHSMS 		- WRHSNM
 *****************************************************************************************************************************************************
-N	TRNTYP,		VC(8),		        NOT NULL,		,						transactType,		Transact Type,			事务类型
+N	TRNTYP,		VC(8),		        NOT NULL,		'RC',					transactType,		Transact Type,			事务类型
     B   RC      Receive 	        收货
     B   DL      Deliver             发货
     B   SP      Surplus             盘盈
@@ -36,7 +36,7 @@ N	STIMNO,		VC(64),		        NOT NULL,		,						stockItemNo,	    Stock Item No,		 
 N	MTRLID,		BIGINT,		        NOT NULL,       ,               		materialId,			Material,               物料
 K   MTRLMS      - SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD, STKMDE
-N   PRICE,      N(24.5),    NOT NULL,       0,                              price,              Price,                  单价
+N   PRICE,      N(24.3),    NOT NULL,       0,                              price,              Price,                  单价
 *****************************************************************************************************************************************************
 N	RVODNO,		VC(32),		        NOT NULL,		'',						roHeadNo,			RO Head NO,				收货单号
 N	DLODNO,		VC(32),		        NOT NULL,		'',					    doHeadNo,			DO Head NO,				发货单号
@@ -44,8 +44,8 @@ N	BATHNO,		VC(16),		        NOT NULL,		'',						batchNo,			Batch No,				库存�
 N	BINCDE,		VC(32),		        NOT NULL,		,						binCode,		    Bin Code,				存放货位
 N	CARTNO,		VC(32),		        NOT NULL,		,						cartonNo,		    Carton No,				存放箱号
 *****************************************************************************************************************************************************
-N	OOHDQT,		N(24.5),	NOT NULL,		0,						        oldOnhandQty,		Old Onhand Qty,			原库存
-N	NOHDQT,		N(24.5),	NOT NULL,		0,						        newOnhandQty,		New Onhand Qty,			新库存
+N	OOHDQT,		N(24.3),	NOT NULL,		0,						        oldOnhandQty,		Old Onhand Qty,			原库存
+N	NOHDQT,		N(24.3),	NOT NULL,		0,						        newOnhandQty,		New Onhand Qty,			新库存
 *****************************************************************************************************************************************************
 N	TXDF01,		VC(64),		NOT NULL,		'',						        tsdesc01,		    User Define 1,			自定义1
 N	TXDF02,		VC(64),		NOT NULL,		'',						        tsdesc02,		    User Define 2,			自定义2

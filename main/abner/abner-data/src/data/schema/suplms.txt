@@ -13,10 +13,10 @@ N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,			Company,				公司
 N	SUPLCD,		VC(16),		NOT NULL,		,						supplierCode,		Supplier Code,			供应商编号
 N	SUPLNM,		VC(32),		NOT NULL,		,						supplierName,		Supplier Name,			供应商名称
 *****************************************************************************************************************************************************
-N	ISSUPL,		VC(1),		NOT NULL,		'N',					isSupplier,			Is Supplier,			供应商
+N	ISSUPL,		C(1),		NOT NULL,		'N',					isSupplier,			Is Supplier,			供应商
 	B	Y		Yes			是
 	B	N		No			否
-N	ISCSTM,		VC(1),		NOT NULL,		'N',					isBuyer,			Is Customer,			客户
+N	ISCSTM,		C(1),		NOT NULL,		'N',					isBuyer,			Is Customer,			客户
 	B	Y		Yes			是
 	B	N		No			否
 *****************************************************************************************************************************************************

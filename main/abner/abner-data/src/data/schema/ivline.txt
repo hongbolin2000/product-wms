@@ -19,13 +19,13 @@ N 	MTRLID,		BIGINT,		NOT NULL,		,						materialId,		Material,			    物料
 K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD, STKMDE
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		NOT NULL,		'00',					status,			Status,					状态
+N	STATUS,		C(2),		NOT NULL,		'00',					status,			Status,					状态
 	B	00		None		还未盘点
 	B	10		Checking	正盘点
 	B	90		Finished	盘完结束
 *****************************************************************************************************************************************************
-N	ITMQTY,		N(24.5),	NOT NULL,		0,						itemQty,		Item Qty,				库存数量
-N	EXSQTY,		N(24.5),	NOT NULL,		0,						existQty,		Exist Qty,				盘点数量
+N	ITMQTY,		N(24.3),	NOT NULL,		0,						itemQty,		Item Qty,				库存数量
+N	EXSQTY,		N(24.3),	NOT NULL,		0,						existQty,		Exist Qty,				盘点数量
 *****************************************************************************************************************************************************
 N	INVTTM,		TS,			,				,						inventoryTime,	Inventory Time,			盘点时间
 N	INVTBY,		VC(32),		NOT NULL,		'',						inventoryBy,	Inventory BY,			盘点人
