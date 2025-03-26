@@ -47,16 +47,6 @@ N	CARTNO,		VC(32),		        NOT NULL,		,						cartonNo,		    Carton No,				存�
 N	OOHDQT,		N(24.3),	NOT NULL,		0,						        oldOnhandQty,		Old Onhand Qty,			原库存
 N	NOHDQT,		N(24.3),	NOT NULL,		0,						        newOnhandQty,		New Onhand Qty,			新库存
 *****************************************************************************************************************************************************
-N	TXDF01,		VC(64),		NOT NULL,		'',						        tsdesc01,		    User Define 1,			自定义1
-N	TXDF02,		VC(64),		NOT NULL,		'',						        tsdesc02,		    User Define 2,			自定义2
-N	TXDF03,		VC(64),		NOT NULL,		'',						        tsdesc03,		    User Define 3,			自定义3
-N	TXDF04,		VC(64),		NOT NULL,		'',						        tsdesc04,		    User Define 4,			自定义4
-N	TXDF05,		VC(64),		NOT NULL,		'',						        tsdesc05,		    User Define 5,			自定义5
-N	TXDF06,		VC(64),		NOT NULL,		'',						        tsdesc06,		    User Define 6,			自定义6
-N	TXDF07,		VC(64),		NOT NULL,		'',						        tsdesc07,		    User Define 7,			自定义7
-N	TXDF08,		VC(64),		NOT NULL,		'',						        tsdesc08,		    User Define 8,			自定义8
-N	TXDF09,		VC(64),		NOT NULL,		'',						        tsdesc09,		    User Define 9,			自定义9
-*****************************************************************************************************************************************************
 N	OPRTBY,		VC(64),		        NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
 N	OPRTTM,		TS,			        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================

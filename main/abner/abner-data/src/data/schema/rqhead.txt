@@ -25,16 +25,6 @@ N	APLCDT,		DATE,		NOT NULL,		,						applicationDate,	Application Date,		申请�
 N   APLCBY,     VC(32),     NOT NULL,       '',                     applicationBy,      application By,         申请人
 N	DEMDDT,		DATE,		        ,		,				        demandDate,	        Demand Date,		    需求日期
 *****************************************************************************************************************************************************
-N	TXDF01,		VC(64),		NOT NULL,		'',						define1,			User Define 1,			自定义1
-N	TXDF02,		VC(64),		NOT NULL,		'',						define2,			User Define 2,			自定义2
-N	TXDF03,		VC(64),		NOT NULL,		'',						define3,			User Define 3,			自定义3
-N	TXDF04,		VC(64),		NOT NULL,		'',						define4,			User Define 4,			自定义4
-N	TXDF05,		VC(64),		NOT NULL,		'',						define5,			User Define 5,			自定义5
-N	TXDF06,		VC(64),		NOT NULL,		'',						define6,			User Define 6,			自定义6
-N	TXDF07,		VC(64),		NOT NULL,		'',						define7,			User Define 7,			自定义7
-N	TXDF08,		VC(64),		NOT NULL,		'',						define8,			User Define 8,			自定义8
-N	TXDF09,		VC(64),		NOT NULL,		'',						define9,			User Define 9,			自定义9
-*****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
 N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
 N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,			Create Time,			创建时间

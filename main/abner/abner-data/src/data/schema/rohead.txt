@@ -45,16 +45,6 @@ N	VHCLNO,		VC(16),		        NOT NULL,		'',						vehicleNo,		Vehicle Plate No,		�
 N   CONTCS,     VC(32),             NOT NULL,       '',                     contacts,       Contacts,               联系人
 N	PHONNO,		VC(11),		        NOT NULL,		'',						phoneNo,		Phone No,			    联系电话
 *****************************************************************************************************************************************************
-N	TXDF01,		VC(64),		        NOT NULL,		'',						define01,		User Define 1,			自定义1
-N	TXDF02,		VC(64),		        NOT NULL,		'',						define02,		User Define 2,			自定义2
-N	TXDF03,		VC(64),		        NOT NULL,		'',						define03,		User Define 3,			自定义3
-N	TXDF04,		VC(64),		        NOT NULL,		'',						define04,		User Define 4,			自定义4
-N	TXDF05,		VC(64),		        NOT NULL,		'',						define05,		User Define 5,			自定义5
-N	TXDF06,		VC(64),		        NOT NULL,		'',						define06,		User Define 6,			自定义6
-N	TXDF07,		VC(64),		        NOT NULL,		'',						define07,		User Define 7,			自定义7
-N	TXDF08,		VC(64),		        NOT NULL,		'',						define08,		User Define 8,			自定义8
-N	TXDF09,		VC(64),		        NOT NULL,		'',						define09,		User Define 9,			自定义9
-*****************************************************************************************************************************************************
 N	REMARK,		VC(254),	        NOT NULL,		'',						remark,			Remark,					备注
 N	CRETBY,		VC(64),		        NOT NULL,		'',						createBy,		Create By,				创建人
 N	CRETTM,		TS,			        NOT NULL,		CURRENT_TIMESTAMP,		createTime,		Create Time,			创建时间
