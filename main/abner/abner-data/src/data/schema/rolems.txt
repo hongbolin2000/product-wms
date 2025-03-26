@@ -12,7 +12,7 @@ N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		Company,				公司
 N	ROLENM,		VC(32),		NOT NULL,		,						name,			Name,					角色名称
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
-N	CRETBY,		VC(32),		NOT NULL,		,						createBy,		Create by,				创建人
+N	CRETBY,		VC(32),		NOT NULL,		'',						createBy,		Create by,				创建人
 N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,		Create Time,			创建时间
 N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
