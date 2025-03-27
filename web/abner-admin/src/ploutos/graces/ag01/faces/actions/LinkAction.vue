@@ -12,11 +12,12 @@
       :draggable="{bounds: 'none'}"
       :style="{width: props.action?.dialogWidth}"
       preset="dialog"
+      :mask-closable="false"
     >
       <component :is="component" :params="{module: module, name: name}" :is-dialog="true" @on-close="showModal = false"/>
     </n-modal>
 
-    <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right">
+    <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right" :mask-closable="false">
       <n-drawer-content :title="action.title" closable :body-content-style="{padding: 0}">
         <component :is="component" :params="{module: module, name: name}" :is-drawer="true" @on-close="showDrawer = false"/>
       </n-drawer-content>

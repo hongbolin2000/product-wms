@@ -118,11 +118,12 @@
       :draggable="{bounds: 'none'}"
       :style="{width: selectColumn?.dialogWidth}"
       preset="dialog"
+      :mask-closable="false"
   >
     <component :is="component" :params="componentParams" :is-dialog="true" @on-close="showModal = false"/>
   </n-modal>
 
-  <n-drawer v-model:show="showDrawer" :width="400" placement="right">
+  <n-drawer v-model:show="showDrawer" :width="400" placement="right" :mask-closable="false">
     <n-drawer-content :title="selectColumn.title" closable>
       <component :is="component" :params="componentParams" :is-drawer="true" @on-close="showDrawer = false"/>
     </n-drawer-content>
