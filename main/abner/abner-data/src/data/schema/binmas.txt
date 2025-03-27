@@ -13,7 +13,7 @@ N	BNARID,		BIGINT,		NOT NULL,		,						binAreaId,		    Bin Area,			    库区
 K 	BINARA 	    - BNARNM
 N	BINCDE,		VC(32),		NOT NULL,		,						binCode,		    Bin Code,				货位编号
 *****************************************************************************************************************************************************
-N   STATUS,     VC(1),      NOT NULL,       'N',                    status,             Status,                 状态
+N   STATUS,     C(1),      NOT NULL,       'N',                     status,             Status,                 状态
     B   N       Normal      正常
     B   L       Locked      锁定
     B   D       Disabled    不可用

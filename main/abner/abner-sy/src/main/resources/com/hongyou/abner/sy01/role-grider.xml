@@ -25,7 +25,8 @@
             <column type="label" name="createTime" expr="crettm" title="@ROLEMS.CRETTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
             <column type="label" name="operateBy" expr="oprtby" title="@ROLEMS.OPRTBY" width="100" filter="text"/>
             <column type="label" name="operateTime" expr="oprttm" title="@ROLEMS.OPRTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
-            <column type="link" name="edit" icon="edit" expr="roleid" title="@edit" width="80" link="/graces/editor/sy01/roleEdit"/>
+            <column type="link" name="assign" icon="permission" expr="roleid" title="@assign" width="120" link="/sy01/permission/assign"/>
+            <column type="link" name="edit" icon="edit" expr="roleid" title="@edit" width="80" link="/graces/editor/sy01/roleEdit" mode="drawer"/>
             <column type="scriptLink" name="delete" icon="delete" expr="roleid" title="@delete" width="80" link="/sy01/delete"
                     labelColumn="name" danger="true"/>
         </columns>
@@ -35,6 +36,7 @@
         <lang code="zh-CN">
             <item key="title">角色</item>
             <item key="add">新增</item>
+            <item key="assign">权限分配</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
@@ -42,6 +44,7 @@
         <lang code="en-US">
             <item key="add">Role</item>
             <item key="add">Add</item>
+            <item key="assign">Permission Assign</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

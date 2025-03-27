@@ -17,7 +17,7 @@ N	FLDALS,		VC(32),		NOT NULL,		'',						fieldAlias,		Field Alias,			字段别名
 	# 表的字段别名，作为json格式字段名
 *****************************************************************************************************************************************************
 N	TITLE,		VC(32),	    NOT NULL, 		'',						title,			Title,					标题
-N 	LANGUG,		VC(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
+N 	LANGUG,		C(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
 	B 	en-US 	English 	English
 	B 	zh-CN   Chinese 	中文
 *****************************************************************************************************************************************************
@@ -26,7 +26,7 @@ N	DTATYP,		VC(16),		NOT NULL,		'',						dataType,		Data Type,				字段类型
 N	LENGTH,		INT,		NOT NULL,		-1,						length,			Length,					数值长度
 N	SCLLEN,		INT,		NOT NULL,		0,						scaleLength,	Scale Length,			小数点长度
 N	DFTVAL,		VC(16),	    NOT NULL,		'',						defaultValue,	Default Value,			缺省值
-N	REQURD,		VC(1),		NOT NULL,		'Y',					required, 		Required, 				是否必须有值
+N	REQURD,		C(1),		NOT NULL,		'Y',					required, 		Required, 				是否必须有值
     B   Y       Yes         必须有值
     B   N       No          可选
 *****************************************************************************************************************************************************

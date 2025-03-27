@@ -456,20 +456,18 @@
   /**
    * 确认提交
    */
-  function onConfirm(data: object, title: string, titleValue: string) {
+  async function onConfirm(data: object, title: string, titleValue: string) {
     if (editor.value.url) {
-      (async () => {
-        try {
-          spin(true);
-          await http.post(editor.value.url, data);
-          message.success(title + (titleValue ? '[ ' + titleValue + ' ]' : '') + '成功');
+      try {
+        spin(true);
+        await http.post(editor.value.url, data);
+        message.success(title + (titleValue ? '[ ' + titleValue + ' ]' : '') + '成功');
 
-          emit('onClose');
-          emit('onRefresh');
-        } finally {
-          spin(false);
-        }
-      })();
+        emit('onClose');
+        emit('onRefresh');
+      } finally {
+        spin(false);
+      }
     } else {
       emit('onSave', data);
     }

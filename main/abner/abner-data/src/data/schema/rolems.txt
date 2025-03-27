@@ -10,6 +10,9 @@ N	ROLEID,		ID,			NOT NULL,		,						id,				ID,						主键
 *****************************************************************************************************************************************************
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		Company,				公司
 N	ROLENM,		VC(32),		NOT NULL,		,						name,			Name,					角色名称
+N   SUPADM,     C(1),       NOT NULL,       'N',                    superAdmin,     Super Admin,            超级管理员
+    B   Y       Yes         是
+    B   N       No          否
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
 N	CRETBY,		VC(32),		NOT NULL,		'',						createBy,		Create by,				创建人

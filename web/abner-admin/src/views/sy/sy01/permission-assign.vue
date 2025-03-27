@@ -9,14 +9,19 @@
               v-model:value="family"
               :options="familyOptions"
               @update:value="loadPermissions"
-              style="width: 200px"
+              style="padding-right: 10px"
           />
         </template>
 
         <template #header-extra>
-          <n-button type="primary">
-            提交
-          </n-button>
+          <n-space :size="10">
+            <n-button @click="layoutHelper.closeCurrentTab()">
+              关闭
+            </n-button>
+            <n-button type="primary" @click="onSave">
+              提交
+            </n-button>
+          </n-space>
         </template>
 
         <div style="display: flex; align-items: center;margin-bottom: 10px">
@@ -80,9 +85,15 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {http, loading, layoutHelper} from '@/ploutos';
+  import {http, loading, layoutHelper, dialog, message} from '@/ploutos';
   import type {PermissionMenu} from "@/views/sy/sy01/types.ts";
   import ActionCheck from "@/views/sy/sy01/ActionCheck.vue";
+  import {useRoute} from "vue-router";
+
+  /**
+   * 当前路由
+   */
+  const route = useRoute();
 
   /**
    * 导航族选项
@@ -93,6 +104,16 @@
    * 选择的导航族
    */
   const family = shallowRef('');
+
+  /**
+   * 角色名称
+   */
+  const roleName = shallowRef('');
+
+  /**
+   * 是否超管
+   */
+  const superAdmin = shallowRef(false);
 
   /**
    * 树形菜单权限
@@ -144,10 +165,13 @@
     try {
       loading(true);
       const response = await http.get(
-          "/sy01/loadPermissions/" + family.value + "/" + navigator.language
+          "/sy01/loadPermissions/" + family.value + "/" + navigator.language + "/" + route.params.roleId
       );
-      permissionMenus.value = response.data.body;
+      permissionMenus.value = response.data.body.permissionMenus;
+      roleName.value = response.data.body.roleName;
+      superAdmin.value = response.data.body.superAdmin;
 
+      layoutHelper.changeTabTitle("权限分配 - " + roleName.value);
       calCheckedKeys();
       showAllPermissions();
     } finally {
@@ -156,12 +180,45 @@
   }
 
   /**
+   * 提交
+   */
+  async function onSave() {
+      // 超级管理员
+      if (superAdmin.value) {
+        showAllPermissions();
+        if (!isAllAssigned()) {
+          message.warning("超级管理员必须分配全部权限");
+        }
+        return;
+      }
+
+      // 每个功能的权限
+      const data = [];
+      permissionMenus.value.forEach(permission => {
+        data.push(...getPermissions(permission));
+      });
+
+      dialog.warning({
+        content: '是否确认将权限分配给' + roleName.value + '？',
+        onConfirmClick: async () => {
+          try {
+            loading(true);
+            await http.post('/sy01/assign/' + route.params.roleId, data);
+            message.success('[ ' + roleName.value + ' ]权限分配成功');
+          } finally {
+            loading(false);
+          }
+        }
+      });
+  }
+
+  /**
    * 显示全部菜单权限表格数据
    */
   function showAllPermissions() {
     const data = []
     permissionMenus.value.forEach(permission => {
-      getPermissions(permission, data);
+      data.push(...getPermissions(permission));
     });
     permissions.value = data;
   }
@@ -170,19 +227,19 @@
    * 计算已分配的树形key
    */
   function calCheckedKeys() {
-    const keys: string[] = []
-    getCheckedKeys(permissionMenus.value, keys);
-    checkedKeys.value = keys;
+    checkedKeys.value = getCheckedKeys(permissionMenus.value);
   }
 
   /**
    * 获取已分配的树形key
    */
-  function getCheckedKeys(permissionMenus: PermissionMenu[], keys: string[]) {
+  function getCheckedKeys(permissionMenus: PermissionMenu[]) {
+    const keys = [];
     for (let permissionMenu of permissionMenus) {
       // 有子节点并且子节点为菜单节点
       if (permissionMenu.children && permissionMenu.children[0].menu) {
-        getCheckedKeys(permissionMenu.children, keys);
+        keys.push(...getCheckedKeys(permissionMenu.children));
+        continue;
       }
 
       // 有子节点并且子节点为权限节点时将菜单权限带入
@@ -193,8 +250,9 @@
       }
       // 当前菜单所分配的权限
       const assignedActions = permissionMenu.permissionActions.filter(i => i.assigned);
-      assignedActions.forEach(action => keys.push(action.permissionCode + '@' + action.actionCode))
+      assignedActions.forEach(action => keys.push(action.permissionCode + '@' + action.actionCode));
     }
+    return keys;
   }
 
   /**
@@ -247,7 +305,7 @@
    */
   function renderRowCheck(rowData: PermissionMenu) {
     return h(NCheckbox, {
-      checked: rowData.permissionActions.filter(action => !action.assigned).length <= 0,
+      checked: isRowAllChecked(rowData),
       indeterminate: isRowPartAssign(rowData),
       onUpdateChecked: (checked: boolean) => {
         rowData.permissionActions.forEach(i => i.assigned = checked);
@@ -262,7 +320,12 @@
   function isAllAssigned() {
     let isAllAssign = permissions.value.length > 0;
     for (let permission of permissions.value) {
-      // 只有有未分配的权限动作则非权限
+      // 未配置权限
+      if (permission.permissionActions.length <= 0) {
+        return false;
+      }
+
+      // 有未分配的权限
       if (permission.permissionActions.filter(action => !action.assigned).length > 0) {
         return false;
       }
@@ -276,6 +339,12 @@
   function isPartAssigned() {
     let hasNoAssign = false, hasAssign = false;
     for (let permission of permissions.value) {
+      // 未配置权限
+      if (permission.permissionActions.length <= 0) {
+        hasNoAssign = true;
+        continue;
+      }
+
       // 有未分配的权限动作并且也有已分配的权限动，则算部分分配
       if (permission.permissionActions.filter(action => !action.assigned).length > 0) {
         hasNoAssign = true;
@@ -288,7 +357,17 @@
   }
 
   /**
-   * 检查当前表格当前行表数据是否分配了部分菜单权限
+   * 检查表格当前菜单是否分配了全部权限
+   */
+  function isRowAllChecked(rowData: PermissionMenu) {
+    if (rowData.permissionActions.length <= 0) {
+      return false;
+    }
+    return rowData.permissionActions.filter(action => !action.assigned).length <= 0
+  }
+
+  /**
+   * 检查表格当前行表数据是否分配了部分菜单权限
    */
   function isRowPartAssign(permission: PermissionMenu): boolean {
     const hasNoAssign = permission.permissionActions.filter(action => !action.assigned).length > 0;
@@ -354,9 +433,7 @@
         if (info.option.permission) {
           return;
         }
-        const data = [];
-        getPermissions(info.option, data);
-        permissions.value = data;
+        permissions.value = getPermissions(info.option);
       }
     }
   }
@@ -364,13 +441,15 @@
   /**
    * 点击树形菜单选项
    */
-  function getPermissions(permissionMenu: PermissionMenu, data: PermissionMenu[]) {
+  function getPermissions(permissionMenu: PermissionMenu) {
+    const permissions: PermissionMenu[] = [];
     // 有子节点并且子节点为菜单节点
     if (permissionMenu.children && permissionMenu.children[0].menu) {
-      permissionMenu.children.forEach(child => getPermissions(child, data));
+      permissionMenu.children.forEach(child => permissions.push(...getPermissions(child)));
     } else {
-      data.push(permissionMenu);
+      permissions.push(permissionMenu);
     }
+    return permissions;
   }
 
   /**

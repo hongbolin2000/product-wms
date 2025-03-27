@@ -19,7 +19,7 @@ K 	PROJMS		- PROJNM
 N	CSTMID,		BIGINT,		        , 		,						customerId,		    Customer,			    客户
 K   POHEAD05    - SUPLNM as CSTMNM alias customerName
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		NOT NULL,		'00',					status,				Status,					状态
+N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         新采购单
     B   10      Audited     审核通过
     B	20		Receiving	正在收货

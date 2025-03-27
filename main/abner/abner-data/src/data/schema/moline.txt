@@ -18,7 +18,7 @@ N	ORDQTY,		N(24.3),	NOT NULL,		0,						orderQty,			Order Qty,				生产数量
 N   RCVCNT,     INT,        NOT NULL,       0,                      receiveCount,       Receive Count,          收货次数
 N	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,			Receive Qty,			收货数量
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		NOT NULL,		'00',					status,		        Status,			        状态
+N	STATUS,		C(2),		NOT NULL,		'00',					status,		        Status,			        状态
     B   00      New         未生产
     B   10      Producing   生产中
     B   20      Produced    生产完成

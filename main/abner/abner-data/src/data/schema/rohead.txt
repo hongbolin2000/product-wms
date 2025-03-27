@@ -14,7 +14,7 @@ N	RVODNO,		VC(32),		        NOT NULL,		,						roHeadNo,		RO Head NO,				收货�
 N   RDOCNO,     VC(32),             NOT NULL,       '',                     refDocNo,       Ref Doc No,             参考单据
 N   RDOCID,     INT,                        ,       ,                       refDocId,       Ref Doc ID,             参考主键
 *****************************************************************************************************************************************************
-N	RDOCTY,		VC(8),		        NOT NULL,		'RPO',					refDocType,		Ref Document Type,		单据类型
+N	RDOCTY,		C(8),		        NOT NULL,		'RPO',					refDocType,		Ref Document Type,		单据类型
     B   RPO     PurchaseReceive 	采购收货
     B   RMO     ProduceReceive      生产入库
     B   RRT     ReturnReceive       退货收货

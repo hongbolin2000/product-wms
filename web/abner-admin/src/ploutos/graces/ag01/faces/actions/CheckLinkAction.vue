@@ -82,16 +82,14 @@
   /**
    * 调用后台
    */
-  function onConfirm(datatable: Datatable) {
-    (async () => {
-      try {
-        loading(true);
-        await http.post(props.action.link, datatable.checkedKeys);
-        message.success(datatable.title + props.action.title + '成功');
-      } finally {
-        loading(false);
-      }
-    })();
+  async function onConfirm(datatable: Datatable) {
+    try {
+      loading(true);
+      await http.post(props.action.link, datatable.checkedKeys);
+      message.success(datatable.title + props.action.title + '成功');
+    } finally {
+      loading(false);
+    }
   }
 </script>
 

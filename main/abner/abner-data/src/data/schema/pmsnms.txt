@@ -9,7 +9,7 @@ N	PMSNID,		ID,			NOT NULL,		,						id,				ID,						主键
 *****************************************************************************************************************************************************
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		Company,				公司
 *****************************************************************************************************************************************************
-N 	LANGUG,		VC(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
+N 	LANGUG,		C(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
 	B 	en-US 	English 	English
 	B 	zh-CN   Chinese 	中文
 N	SORTNG,		INT,		NOT NULL,		1,						sorting,		Sorting,				显示顺序

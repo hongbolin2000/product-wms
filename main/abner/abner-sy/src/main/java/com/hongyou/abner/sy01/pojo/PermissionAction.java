@@ -16,6 +16,11 @@ import lombok.Data;
 public class PermissionAction {
 
     /**
+     * 权限主键
+     */
+    private Long permissionId;
+
+    /**
      * 权限许可编号
      */
     private String permissionCode;

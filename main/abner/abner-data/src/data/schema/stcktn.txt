@@ -10,12 +10,12 @@ N	STTNID,		ID,			        NOT NULL,		,						id,					ID,						主键
 N	WRHSID,		BIGINT,		        NOT NULL,		,						warehouseId,		Warehouse,			    仓库
 K 	WRHSMS 		- WRHSNM
 *****************************************************************************************************************************************************
-N	TRNTYP,		VC(8),		        NOT NULL,		'RC',					transactType,		Transact Type,			事务类型
+N	TRNTYP,		C(2),		        NOT NULL,		'RC',					transactType,		Transact Type,			事务类型
     B   RC      Receive 	        收货
     B   DL      Deliver             发货
     B   SP      Surplus             盘盈
     B   LS      Loss                盘亏
-N	RDOCTY,		VC(4),              NOT NULL,		'RPO',					refDocType,			Ref Doc Type,			单据类型
+N	RDOCTY,		C(3),               NOT NULL,		'RPO',					refDocType,			Ref Doc Type,			单据类型
     B   IV      Inventory           盘点
     B   RPO     PurchaseReceive 	采购收货
     B   RMO     ProduceReceive      生产入库

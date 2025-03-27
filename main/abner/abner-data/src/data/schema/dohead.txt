@@ -14,7 +14,7 @@ N	DLODNO,		VC(32),		    NOT NULL,		,						doHeadNo,			DO Head NO,				发货单�
 N   RDOCNO,     VC(32),         NOT NULL,       '',                     refDocNo,           Ref Doc NO,             参考单据
 N   RDOCID,     INT,                        ,       ,                   refDocId,           Ref Doc ID,             参考主键
 *****************************************************************************************************************************************************
-N	RDOCTY,		VC(4),          NOT NULL,		'DSO',					refDocType,			Ref Doc Type,			单据类型
+N	RDOCTY,		C(4),           NOT NULL,		'DSO',					refDocType,			Ref Doc Type,			单据类型
 	B 	DSO 	SalesDeliver 	销售发货
 	B   DRT     ReturnDeliver   退货发货
 	B   DMO     ProduceDeliver 	领料出库

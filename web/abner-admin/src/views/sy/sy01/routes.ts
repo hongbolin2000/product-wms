@@ -14,8 +14,8 @@ import {ThemeLayout} from '@/ploutos';
  */
 const routes: RouteRecordRaw[] = [
   {
-    path: '/sy01',
-    component: () => import('@/views/sy/sy01/index.vue')
+    path: '/sy01/permission/assign/:roleId',
+    component: () => import('@/views/sy/sy01/permission-assign.vue')
   },
 ]
 export default routes;

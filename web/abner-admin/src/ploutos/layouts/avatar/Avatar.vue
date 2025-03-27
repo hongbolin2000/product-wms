@@ -82,26 +82,24 @@
       content: '是否要退出当前账号？',
       confirmText: '退出',
       cancelText: '再想想',
-      onConfirmClick: () => {
-        (async () => {
-          let tooltip = message.loading("退出登录中...", {duration: 0});
+      onConfirmClick: async () => {
+        let tooltip = message.loading("退出登录中...", {duration: 0});
 
-          // 调用后台退出登录
-          await http.post("/auth/logout");
+        // 调用后台退出登录
+        await http.post("/auth/logout");
+        tooltip.destroy();
+        tooltip = message.success("退出登录成功，即将退出系统");
+
+        setTimeout(() => {
           tooltip.destroy();
-          tooltip = message.success("退出登录成功，即将退出系统");
+          loadingBar.start();
 
           setTimeout(() => {
-            tooltip.destroy();
-            loadingBar.start();
-
-            setTimeout(() => {
-              loadingBar.finish();
-              http.remoteToken();
-              router.replace("/login");
-            }, 1000);
+            loadingBar.finish();
+            http.remoteToken();
+            router.replace("/login");
           }, 1000);
-        })();
+        }, 1000);
       },
     })
   }

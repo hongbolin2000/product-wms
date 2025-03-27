@@ -3,23 +3,29 @@
  */
 package com.hongyou.abner.sy01;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Pmsnms;
+import com.hongyou.abner.data.model.Rolems;
+import com.hongyou.abner.data.model.Rolpms;
+import com.hongyou.abner.data.pojo.RolemsPojo;
 import com.hongyou.abner.sy01.pojo.FamilyOption;
 import com.hongyou.abner.sy01.pojo.PermissionAction;
 import com.hongyou.abner.sy01.pojo.PermissionMenu;
+import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import com.hongyou.baron.util.JsonUtil;
 import com.hongyou.baron.util.ListUtil;
+import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.web.ResponseEntry;
 import com.hongyou.baron.web.navigation.Family;
 import com.hongyou.baron.web.navigation.Navigate;
 import com.hongyou.baron.web.navigation.NavigationManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +58,117 @@ public class SY01 extends UserDataProvider {
     }
 
     /**
+     * 保存角色
+     */
+    @PostMapping("/save")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry save(@RequestBody final RolemsPojo rolemsPojo) {
+
+        try {
+            Long userCompanyId = this.getUserCompanyId();
+            String operatorBy = this.getOperatorBy();
+            Timestamp currentTime = this.getCurrentTime();
+
+            // 新增
+            Rolems rolems = null;
+            if (ObjectUtil.isNotNull(rolemsPojo.getId())) {
+                rolems = this.db().rolems().get(rolemsPojo.getId());
+            }
+            if (ObjectUtil.isNull(rolems)) {
+                rolems = new Rolems();
+                rolems.cretby(operatorBy).
+                        crettm(currentTime);
+            }
+
+            // 检查是否已存在
+            if (!ObjectUtil.equal(rolemsPojo.getName(), rolems.getRolenm())) {
+                Rolems existed = this.db().rolems().getByName(userCompanyId, rolemsPojo.getName());
+                if (ObjectUtil.isNotNull(existed)) {
+                    return ResponseEntry.builder().code(-1).message("角色名称已存在").build();
+                }
+            }
+
+            rolems.cmpnid(userCompanyId).
+                    rolenm(rolemsPojo.getName()).
+                    remark(rolemsPojo.getRemark()).
+                    oprtby(operatorBy).
+                    oprttm(currentTime);
+            this.db().rolems().save(rolems);
+
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("角色保存失败", e);
+            throw new RestRuntimeException("角色保存失败");
+        }
+    }
+
+    /**
+     * 删除角色
+     */
+    @PostMapping("/delete")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry delete(@RequestBody final List<Long> ids) {
+
+        try {
+            this.db().rolems().deleteIds(ids);
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("角色删除失败", e);
+            throw new RestRuntimeException("角色已被使用");
+        }
+    }
+
+    /**
+     * 权限分配
+     */
+    @PostMapping("/assign/{roleId}")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry assign(
+            @PathVariable final Long roleId, @RequestBody final List<PermissionMenu> permissionMenus
+    ) {
+        try {
+            String operatorBy = this.getOperatorBy();
+            Timestamp currentTime = this.getCurrentTime();
+
+            // 给角色已经分配的权限
+            List<Rolpms> rolpmss = this.db().rolpms().listByRole(roleId);
+            List<Long> assignedIds = rolpmss.stream().map(Rolpms::getPmsnid).toList();
+
+            // 取消分配的权限
+            List<Long> deleteIds = new ArrayList<>();
+            List<Rolpms> assignRolpmss = new ArrayList<>();
+
+            permissionMenus.forEach(menu -> menu.getPermissionActions().forEach(action -> {
+                // 分配权限
+                if (action.isAssigned() && !assignedIds.contains(action.getPermissionId())) {
+                    assignRolpmss.add(new Rolpms().
+                            roleid(roleId).
+                            pmsnid(action.getPermissionId()).
+                            oprtby(operatorBy).
+                            oprttm(currentTime)
+                    );
+                }
+                // 取消权限
+                if (!action.isAssigned() && assignedIds.contains(action.getPermissionId())) {
+                    deleteIds.add(action.getPermissionId());
+                }
+            }));
+
+            if (ListUtil.isNotEmpty(assignRolpmss)) {
+                this.db().rolpms().insertBatch(assignRolpmss);
+            }
+            if (ListUtil.isNotEmpty(deleteIds)) {
+                this.db().rolpms().deleteIds(deleteIds);
+            }
+
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("权限分配失败", e);
+            throw new RestRuntimeException("权限分配失败");
+        }
+    }
+
+    /**
      * 加载导航族
      */
     @GetMapping("/loadFamilies")
@@ -62,8 +179,8 @@ public class SY01 extends UserDataProvider {
             List<Family> families = this.navigationManager.getFamilies();
             List<FamilyOption> familyOptions = new ArrayList<>();
             families.forEach(i -> familyOptions.add(
-                    new FamilyOption(i.getFamilyLabel(), i.getFamilyName()))
-            );
+                    new FamilyOption(i.getFamilyLabel(), i.getFamilyName())
+            ));
 
             return ResponseEntry.builder().body(familyOptions).build();
         } catch (Exception e) {
@@ -75,9 +192,9 @@ public class SY01 extends UserDataProvider {
     /**
      * 加载航族菜单权限
      */
-    @GetMapping("/loadPermissions/{family}/{local}")
+    @GetMapping("/loadPermissions/{family}/{local}/{roleId}")
     public ResponseEntry getPermissions(
-            @PathVariable final String family, @PathVariable final String local
+            @PathVariable final String family, @PathVariable final String local, @PathVariable final Long roleId
     ) {
 
         try {
@@ -92,9 +209,19 @@ public class SY01 extends UserDataProvider {
             Map<String, List<Pmsnms>> permissions = pmsnmss.stream().collect(
                     Collectors.groupingBy(Pmsnms::getPmsncd));
 
+            // 给角色分配的权限
+            Rolems rolems = this.db().rolems().get(roleId);
+            List<Rolpms> rolpmss = this.db().rolpms().listByRole(roleId);
+            List<Long> assignedIds = rolpmss.stream().map(Rolpms::getPmsnid).toList();
+
             // 递归加载菜单权限
-            List<PermissionMenu> permissionMenus = this.getPermissionMenus(menus, permissions);
-            return ResponseEntry.builder().body(permissionMenus).build();
+            List<PermissionMenu> permissionMenus = this.getPermissionMenus(menus, permissions, assignedIds);
+
+            ObjectNode result = JsonUtil.createObjectNode();
+            result.put("roleName", rolems.getRolenm());
+            result.put("superAdmin", Rolems.SUPADM.YES.equals(rolems.getSupadm()));
+            result.set("permissionMenus", JsonUtil.convertValue(permissionMenus));
+            return ResponseEntry.builder().body(result).build();
         } catch (Exception e) {
             logger.error("查询导航族菜单权限失败", e);
             return ResponseEntry.builder().code(-1).message("查询导航族菜单权限失败").build();
@@ -105,9 +232,12 @@ public class SY01 extends UserDataProvider {
      * 递归加载菜单权限
      *
      * @param menus 菜单集合
+     * @param permissions 系统定义的权限
+     * @param assignedIds 当前角色已分配的权限
      */
     private List<PermissionMenu> getPermissionMenus(
-            final List<Navigate> menus, final Map<String, List<Pmsnms>> permissions
+            final List<Navigate> menus, final Map<String, List<Pmsnms>> permissions,
+            final List<Long> assignedIds
     ) {
         List<PermissionMenu> permissionMenus = new ArrayList<>();
         for (Navigate menu : menus) {
@@ -115,7 +245,7 @@ public class SY01 extends UserDataProvider {
 
             // 有子菜单
             if (ListUtil.isNotEmpty(menu.getChildren())) {
-                permissionMenu.children(this.getPermissionMenus(menu.getChildren(), permissions));
+                permissionMenu.children(this.getPermissionMenus(menu.getChildren(), permissions, assignedIds));
             }
             List<PermissionAction> permissionActions = new ArrayList<>();
 
@@ -126,11 +256,12 @@ public class SY01 extends UserDataProvider {
                 pmsnmss.forEach(pmsnms -> {
                     // 当前菜单的权限
                     permissionActions.add(PermissionAction.builder().
+                            permissionId(pmsnms.getPmsnid()).
                             permissionCode(pmsnms.getPmsncd()).
                             permissionName(menu.getLabel()).
                             actionCode(pmsnms.getActcde()).
                             actionName(pmsnms.getActnam()).
-                            assigned(true).
+                            assigned(assignedIds.contains(pmsnms.getPmsnid())).
                             build()
                     );
 

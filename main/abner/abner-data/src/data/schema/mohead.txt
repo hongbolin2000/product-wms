@@ -26,7 +26,7 @@ N 	PRDLDR,		VC(32),		NOT NULL,		'',						produceLeader,		Produce Leader,			生�
 N 	PRDMBR,		VC(64),		NOT NULL,		'',						produceMember,		Produce Member,			生产组员
 N 	ISPTOR,		VC(32),		NOT NULL,		'',						inspector,		    Inspector,			    质检员
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		NOT NULL,		'00',					status,		        Status,			        状态
+N	STATUS,		C(2),		NOT NULL,		'00',					status,		        Status,			        状态
     B   00      New         新订单
     B   10      Producing   生产中
     B   20      Produced    生产完成

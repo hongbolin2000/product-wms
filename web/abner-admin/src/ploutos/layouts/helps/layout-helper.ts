@@ -51,7 +51,39 @@ namespace layoutHelper {
   }
 
   /**
-   * 计算主题内容最大高度
+   * 关闭当前选项卡
+   */
+  export async function closeCurrentTab() {
+
+    /**
+     * 全局应用状态
+     */
+    const appStore = useAppStore();
+
+    /**
+     * 关闭当前选项卡
+     */
+    await appStore.closeCurrentTab();
+  }
+
+  /**
+   * 更改选项卡标题
+   */
+  export function changeTabTitle(title: string) {
+
+    /**
+     * 全局应用状态
+     */
+    const appStore = useAppStore();
+
+    /**
+     * 更改选项卡标题
+     */
+    appStore.changeTabTitle(title);
+  }
+
+  /**
+   * 计算主内容最大高度
    */
   export const maxHeight = '100vh - var(--logo-height) - var(--tab-height)'
 }
