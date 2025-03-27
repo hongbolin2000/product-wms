@@ -14,18 +14,22 @@
       preset="dialog"
       :mask-closable="false"
     >
-      <component :is="component" :params="{module: module, name: name}" :is-dialog="true" @on-close="showModal = false"/>
+      <component :is="component" :params="{module: module, name: name}" :is-dialog="true"
+                 @on-close="showModal = false" @on-refresh="handleRefresh"
+      />
     </n-modal>
 
     <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right" :mask-closable="false">
       <n-drawer-content :title="action.title" closable :body-content-style="{padding: 0}">
-        <component :is="component" :params="{module: module, name: name}" :is-drawer="true" @on-close="showDrawer = false"/>
+        <component :is="component" :params="{module: module, name: name}" :is-drawer="true"
+                   @on-close="showDrawer = false" @on-refresh="handleRefresh"
+        />
       </n-drawer-content>
     </n-drawer>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, type PropType, ref, shallowRef} from 'vue'
+import {computed, inject, onMounted, type PropType, ref, shallowRef} from 'vue'
 import {type RouteLocationResolved, useRouter} from "vue-router";
   /********************************************************************************
    * 路由动作按钮
@@ -79,6 +83,11 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
   });
 
   /**
+   * 注入查询函数
+   */
+  const onSearch = inject<Function>('onSearch');
+
+  /**
    * 组件加载
    */
   onMounted(async () => {
@@ -116,6 +125,13 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
       return;
     }
     router.push(props.action?.link!);
+  }
+
+  /**
+   * 查询
+   */
+  function handleRefresh() {
+    onSearch();
   }
 </script>
 

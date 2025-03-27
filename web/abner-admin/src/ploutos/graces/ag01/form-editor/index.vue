@@ -190,6 +190,7 @@
 
 <script setup lang="ts">
   import {computed, onMounted, ref, type Ref, type ShallowRef, shallowRef} from "vue";
+  import {SettingsOutline} from "@vicons/ionicons5";
   /********************************************************************************
    * 通用编辑界面
    *
@@ -208,7 +209,6 @@
   import FormGrid from "@/ploutos/graces/ag01/form-editor/components/FormGrid.vue";
   import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTable.vue";
   import type SheeterRow from "@/ploutos/graces/ag01/faces/SheeterRow.ts";
-  import {SettingsOutline} from "@vicons/ionicons5";
 
   /**
    * 应用状态
@@ -266,6 +266,11 @@
      * 关闭弹框(dialog和drawer)
      */
     (e: 'onClose'): void;
+
+    /**
+     * 刷新表格数据
+     */
+    (e: 'onRefresh'): void;
   }>();
 
   /**
@@ -458,6 +463,9 @@
           spin(true);
           await http.post(editor.value.url, data);
           message.success(title + (titleValue ? '[ ' + titleValue + ' ]' : '') + '成功');
+
+          emit('onClose');
+          emit('onRefresh');
         } finally {
           spin(false);
         }

@@ -24,7 +24,7 @@
             update-value-on-close
         />
 
-        <n-button @click="handleQuery">
+        <n-button @click="handleSearch">
           查询
         </n-button>
         <n-button @click="handleClear">
@@ -39,7 +39,7 @@
       :options="column?.filterOptions!"
       trigger="hover"
       v-if="column?.filterOptions"
-      :onUpdate:value="handleQuery"
+      :onUpdate:value="handleSearch"
   >
     <span :class="{'title-active' : value[column?.name]}">
       {{column.title}}
@@ -96,7 +96,7 @@
   /**
    * 查询
    */
-  function handleQuery() {
+  function handleSearch() {
     onSearch();
   }
 
