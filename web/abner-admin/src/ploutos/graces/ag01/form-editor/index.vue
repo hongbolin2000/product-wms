@@ -33,7 +33,7 @@
                 :label-placement="formEditor.placement"
                 label-width="auto"
             >
-              <form-grid :editor="formEditor" :form-value="formValue" :editor-count="row.editorCount"/>
+              <form-grid :editor="formEditor" :form-value="formValue" :editor-count="row.editorCount" :is-drawer="isDrawer"/>
             </n-form>
           </n-collapse-transition>
         </n-card>
@@ -63,7 +63,7 @@
                     :label-placement="editor.placement"
                     label-width="auto"
                 >
-                  <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount"/>
+                  <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount" :is-drawer="isDrawer"/>
                 </n-form>
               </n-collapse-transition>
             </n-tab-pane>

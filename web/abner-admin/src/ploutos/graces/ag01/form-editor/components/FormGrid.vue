@@ -1,5 +1,5 @@
 <template>
-    <n-grid :cols="24 / editorCount" :x-gap="20">
+    <n-grid :cols="24 / editorCount" :x-gap="isDrawer ? 0 : 20">
       <n-form-item-gi
           :span="24 / editorCount / editor.spans * widget.spans"
           :label="widget.title"
@@ -38,6 +38,10 @@
     editorCount: {
       type: Number,
       required: true
+    },
+    isDrawer: {
+      type: Boolean,
+      required: true,
     }
   });
 
