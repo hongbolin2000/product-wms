@@ -126,7 +126,7 @@
   </n-modal>
 
   <n-drawer v-model:show="showDrawer" :width="400" placement="right" :mask-closable="false">
-    <n-drawer-content :title="selectColumn.title" closable>
+    <n-drawer-content :title="selectColumn.title" closable :body-content-style="{padding: 0}">
       <component :is="component" :params="componentParams" :is-drawer="true"
                  @on-close="showDrawer = false" @on-refresh="onSearch"
       />
@@ -135,22 +135,22 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  h,
-  type HTMLAttributes,
-  nextTick,
-  type PropType,
-  provide,
-  ref,
-  type Ref,
-  shallowRef,
-  type VNode,
-  onBeforeMount
-} from "vue";
-  import {type DataTableSortState, type DropdownOption, NIcon} from "naive-ui";
-  import {ChevronDown, Expand, RefreshOutline} from '@vicons/ionicons5'
-import {Parser} from "expr-eval";
+  import {
+    computed,
+    h,
+    type HTMLAttributes,
+    nextTick,
+    type PropType,
+    provide,
+    ref,
+    type Ref,
+    shallowRef,
+    type VNode,
+    onBeforeMount
+  } from "vue";
+    import {type DataTableSortState, type DropdownOption, NIcon} from "naive-ui";
+    import {ChevronDown, Expand, RefreshOutline} from '@vicons/ionicons5'
+  import {Parser} from "expr-eval";
   /********************************************************************************
    * 数据表格
    *

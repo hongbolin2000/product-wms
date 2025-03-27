@@ -167,8 +167,8 @@
         </n-card>
 
         <template #action>
-          <n-button type="primary" @click="onSaveSheeterForm">保存</n-button>
           <n-button @click="showFormModal = false">关闭</n-button>
+          <n-button type="primary" @click="onSaveSheeterForm">保存</n-button>
         </template>
       </n-modal>
     </n-scrollbar>
@@ -181,8 +181,8 @@
         :bordered="!props.isDialog && !props.isDrawer"
     >
       <n-space :size="10">
-        <n-button type="primary" @click="handelSave">提交</n-button>
         <n-button @click="onClose()">关闭</n-button>
+        <n-button type="primary" @click="handelSave">提交</n-button>
       </n-space>
     </n-card>
   </n-spin>
