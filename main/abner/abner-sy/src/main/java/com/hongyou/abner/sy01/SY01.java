@@ -120,6 +120,9 @@ public class SY01 extends UserDataProvider {
 
     /**
      * 权限分配
+     *
+     * @param roleId 角色ID
+     * @param permissionMenus 菜单权限
      */
     @PostMapping("/assign/{roleId}")
     @Transactional(rollbackFor = RestRuntimeException.class)
@@ -130,11 +133,11 @@ public class SY01 extends UserDataProvider {
             String operatorBy = this.getOperatorBy();
             Timestamp currentTime = this.getCurrentTime();
 
-            // 给角色已经分配的权限
+            // 角色已经分配的权限ID
             List<Rolpms> rolpmss = this.db().rolpms().listByRole(roleId);
             List<Long> assignedIds = rolpmss.stream().map(Rolpms::getPmsnid).toList();
 
-            // 取消分配的权限
+            // 记录分配与取消分配的权限
             List<Long> deleteIds = new ArrayList<>();
             List<Rolpms> assignRolpmss = new ArrayList<>();
 
@@ -160,7 +163,6 @@ public class SY01 extends UserDataProvider {
             if (ListUtil.isNotEmpty(deleteIds)) {
                 this.db().rolpms().deleteIds(deleteIds);
             }
-
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("权限分配失败", e);
@@ -204,7 +206,7 @@ public class SY01 extends UserDataProvider {
                 return ResponseEntry.builder().body(new ArrayList<>()).build();
             }
 
-            // 从缓存中加载系统定义的权限
+            // 加载系统定义的权限
             List<Pmsnms> pmsnmss = this.db().pmsnms().listByCompany(this.getUserCompanyId(), local);
             Map<String, List<Pmsnms>> permissions = pmsnmss.stream().collect(
                     Collectors.groupingBy(Pmsnms::getPmsncd));
