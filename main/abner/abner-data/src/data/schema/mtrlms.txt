@@ -25,7 +25,7 @@ N	MNSTQT,		N(24.3),	NOT NULL,		0,						minStockQty,	Min Stock Qty,		    最小�
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
 N	CRETBY,		VC(32),		NOT NULL,		'',						createBy,		Create By,				创建人
 N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,		Create Time,			创建时间
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
+N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P	MTRLID

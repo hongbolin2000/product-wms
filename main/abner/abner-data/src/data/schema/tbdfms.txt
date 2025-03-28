@@ -20,7 +20,7 @@ N   ETITLE,     VC(64),     NOT NULL,       '',                     englishLabel
 N	REMARK,		VC(1024),	NOT NULL,		'',						remark,			Remark,					表描述
     # 数据库表描述(对应@)
 *****************************************************************************************************************************************************
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
+N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P	TBMSID

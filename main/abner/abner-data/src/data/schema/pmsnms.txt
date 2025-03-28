@@ -24,7 +24,7 @@ N	ACTNAM,		VC(16),		NOT NULL,		'',						actionName,		Action Name,			权限动作
 N	REMARK,		VC(254),	NOT NULL, 		'',					    remark,			Remark,					备注
     # 在初始化时填入权限的中文描述，提供给开发人员辨认，不涉及任何业务
 *****************************************************************************************************************************************************
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
+N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P 	PMSNID

@@ -12,7 +12,7 @@ K   ROLEMS                  - ROLENM
 N	USERID,		BIGINT,		NOT NULL,		,						userId,		    User,			        用户
 K   USERMS                  - USERNM, FULNAM, POSITN, PHONNO, EMAIL
 *****************************************************************************************************************************************************
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
+N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P 	USRLID

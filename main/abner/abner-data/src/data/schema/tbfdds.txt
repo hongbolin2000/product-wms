@@ -33,7 +33,7 @@ N	REQURD,		C(1),		NOT NULL,		'Y',					required, 		Required, 				是否必须有�
 N	REMARK,		VC(1024),	NOT NULL,		'',						remark,			Remark,					备注
     # 字段的描述内容
 *****************************************************************************************************************************************************
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate by,				操作人
+N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P	TFDSID

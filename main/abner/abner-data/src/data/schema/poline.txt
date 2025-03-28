@@ -27,7 +27,7 @@ N   RCVCNT,     INT,        NOT NULL,       0,                      receiveCount
 N	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,			Receive Qty,			收货数量
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
+N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,			Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	POLNID

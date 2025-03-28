@@ -16,7 +16,7 @@ N   INVCNO,     VC(64),     NOT NULL,       '',                     invoiceNo,  
 N   INVCIM,     VC(64),     NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
-N	OPRTBY,		VC(64),		NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
+N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,			Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	RPLNID

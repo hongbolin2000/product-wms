@@ -30,7 +30,7 @@ N	EXSQTY,		N(24.3),	NOT NULL,		0,						existQty,		Exist Qty,				盘点数量
 N	INVTTM,		TS,			,				,						inventoryTime,	Inventory Time,			盘点时间
 N	INVTBY,		VC(32),		NOT NULL,		'',						inventoryBy,	Inventory BY,			盘点人
 *****************************************************************************************************************************************************
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		Operate By,				操作人
+N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,	Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P 	IVLNID

@@ -15,7 +15,7 @@ K 	MTRLMS:MTRTYP 		    - MTTYP1, MTTYCD
 N   QUANTY,     N(24.3),    NOT NULL,       0,                      quantity,           Quantity,               需求数量
 *************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL, 		'',						remark,			    Remark,					备注
-N	OPRTBY,		VC(32),		NOT NULL,		'anonymous',			operateBy,		    Operate By,				操作人
+N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		    Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,	    Operate Time,			操作时间
 *************************************************************************************************************************************************
 P 	PRDMID

@@ -3,7 +3,7 @@
  */
 package com.hongyou.abner.pages;
 
-import com.hongyou.baron.ProjectProperties;
+import com.hongyou.baron.Application;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
@@ -36,15 +36,15 @@ public class DocumentPage {
     private static final Log logger = LogFactory.getLog(DocumentPage.class);
 
     /**
-     * 项目配置参数
+     * 应用配置
      */
-    private final ProjectProperties properties;
+    private final Application application;
 
     /**
-     * @param properties 项目配置参数
+     * @param application 项目配置参数
      */
-    public DocumentPage(final ProjectProperties properties) {
-        this.properties = properties;
+    public DocumentPage(final Application application) {
+        this.application = application;
     }
 
     /**
@@ -62,7 +62,7 @@ public class DocumentPage {
             fileName = group + "/" + fileName;
 
             // 检查文件夹是否存在
-            File file = new File(this.properties.getUploadFilePath(), fileName);
+            File file = new File(this.application.getUploadFilePath(), fileName);
             if (file.getParentFile() != null && !file.getParentFile().exists()) {
                 if (!file.getParentFile().mkdirs()) {
                     return ResponseEntry.builder().code(-1).message("文件创建失败").build();
@@ -89,7 +89,7 @@ public class DocumentPage {
     public ResponseEntity<Resource> gallery(@RequestParam("file") final String file) {
 
         try {
-            Path path = Paths.get(this.properties.getUploadFilePath()).resolve(file);
+            Path path = Paths.get(this.application.getUploadFilePath()).resolve(file);
             Resource resource = new UrlResource(path.toUri());
 
             if (resource.exists() || resource.isReadable()) {
@@ -112,7 +112,7 @@ public class DocumentPage {
     public ResponseEntity<Resource> download(@RequestParam("file") final String file) {
 
         try {
-            Path path = Paths.get(this.properties.getUploadFilePath()).resolve(file);
+            Path path = Paths.get(this.application.getUploadFilePath()).resolve(file);
             Resource resource = new UrlResource(path.toUri());
 
             // 文件下载头信息

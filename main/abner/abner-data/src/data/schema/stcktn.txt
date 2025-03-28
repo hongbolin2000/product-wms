@@ -47,7 +47,7 @@ N	CARTNO,		VC(32),		        NOT NULL,		,						cartonNo,		    Carton No,				存�
 N	OOHDQT,		N(24.3),	NOT NULL,		0,						        oldOnhandQty,		Old Onhand Qty,			原库存
 N	NOHDQT,		N(24.3),	NOT NULL,		0,						        newOnhandQty,		New Onhand Qty,			新库存
 *****************************************************************************************************************************************************
-N	OPRTBY,		VC(64),		        NOT NULL,		'anonymous',			operateBy,			Operate By,				操作人
+N	OPRTBY,		VC(64),		        NOT NULL,		'',			            operateBy,			Operate By,				操作人
 N	OPRTTM,		TS,			        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	STTNID
