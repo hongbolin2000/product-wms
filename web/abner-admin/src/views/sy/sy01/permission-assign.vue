@@ -94,6 +94,7 @@
    * 当前路由
    */
   const route = useRoute();
+  const roleId = route.params.roleId;
 
   /**
    * 导航族选项
@@ -165,7 +166,7 @@
     try {
       loading(true);
       const response = await http.get(
-          "/sy01/loadPermissions/" + family.value + "/" + navigator.language + "/" + route.params.roleId
+          "/sy01/loadPermissions/" + family.value + "/" + navigator.language + "/" + roleId
       );
       permissionMenus.value = response.data.body.permissionMenus;
       roleName.value = response.data.body.roleName;
@@ -203,7 +204,7 @@
         onConfirmClick: async () => {
           try {
             loading(true);
-            await http.post('/sy01/assign/' + route.params.roleId, data);
+            await http.post('/sy01/assign/' + roleId, data);
             message.success('[ ' + roleName.value + ' ]权限分配成功');
           } finally {
             loading(false);
