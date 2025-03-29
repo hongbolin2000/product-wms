@@ -2,7 +2,7 @@
   <router-view v-slot="{ Component, route }">
     <transition name="opacity-transform" mode="out-in" appear>
       <keep-alive :include="cacheComponentNames">
-        <component :is="renderComponent(Component, route.path)" :key="route.path" />
+        <component :is="renderComponent(Component, route.fullPath)" :key="route.fullPath" />
       </keep-alive>
     </transition>
   </router-view>
@@ -42,24 +42,28 @@
    * 包裹路由组件生成新的组件, 使用路由路径作为组件名
    *
    * @param routerComponent 需渲染的路由组件
-   * @param path 路由路径
+   * @param fullPath 路由路径
    */
-  function renderComponent(routerComponent, path) {
+  function renderComponent(routerComponent, fullPath) {
+    if (!routerComponent) {
+      return routerComponent;
+    }
+
     // 组件已经创建
     let component;
-    if (components.has(path)) {
-      component = components.get(path);
+    if (components.has(fullPath)) {
+      component = components.get(fullPath);
     }
 
     // 创建新的组件
     if (!component) {
       component = {
-        name: path,
+        name: fullPath,
         render() {
           return h(routerComponent);
         },
       };
-      components.set(path, component);
+      components.set(fullPath, component);
     }
     return h(component);
   }

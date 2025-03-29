@@ -34,7 +34,7 @@
       <div :class="layoutStore.isCollapse ? 'tab-split-menu-close-wrapper' : 'tab-split-menu-open-wrapper'">
         <Logo :show-logo="false" v-if="!layoutStore.isCollapse"/>
         <VerticalMenu
-            :menus="childMenus"
+            :vertical-menus="childMenus"
             :class="[layoutStore.sideTheme == SideTheme.IMAGE ? 'sidebar-bg-img' : '']"
         />
       </div>
@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, ref, type Ref, watch} from "vue";
+  import {computed, ref, type Ref, watch, onMounted} from "vue";
   import {useRoute, useRouter} from "vue-router";
   import {darkTheme} from "naive-ui";
   /********************************************************************************
@@ -113,6 +113,15 @@
   });
 
   /**
+   * 组件加载
+   */
+  onMounted(() => {
+    if (appStore.menus.length > 0) {
+      matchTab();
+    }
+  });
+
+  /**
    * 菜单加载
    */
   const { menus } = storeToRefs(appStore);
@@ -126,14 +135,20 @@
   function matchTab() {
     // 获取匹配到的路由
     const menus: MenuOption[] = [];
-    const matchedRoutes = route.matched;
-    if (matchedRoutes && matchedRoutes.length <= 0) {
+    const currentMenu: MenuOption = appStore.expandMenus.find(i => i.key == route.fullPath);
+
+    // 未找到菜单
+    if (!currentMenu) {
+      if (appStore.menus.length > 0) {
+        appStore.menus[0].checked = true;
+        childMenus.value.push(...appStore.menus[0].children);
+      }
       return;
     }
 
     // 找到子路由
     appStore.menus.forEach((menu) => {
-      if (menu.key === matchedRoutes[0].path) {
+      if (menu.key == '/' + currentMenu.fullUrl.split("/")[1]) {
         menu.checked = true
         if (menu.children) {
           menus.push(...menu.children);
@@ -144,7 +159,7 @@
         menu.checked = false
       }
     })
-    childMenus.value.push(...menus);
+    childMenus.value = menus;
   }
 
   /**
@@ -207,6 +222,13 @@
       }
     }
   }
+
+  /**
+   * 路由改变
+   */
+  watch(() => route.fullPath, () => {
+    matchTab();
+  });
 </script>
 
 <style scoped lang="scss">

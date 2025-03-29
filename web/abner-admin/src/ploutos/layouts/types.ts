@@ -16,7 +16,7 @@ export type MenuOption = {
   /**
    * 菜单ID
    */
-  id: string;
+  id?: string;
 
   /**
    * 菜单Key

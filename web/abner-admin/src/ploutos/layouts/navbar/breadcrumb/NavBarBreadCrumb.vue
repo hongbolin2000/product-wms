@@ -57,6 +57,15 @@
   const breadcrumbs = ref([] as MenuOption[] );
 
   /**
+   * 组件加载
+   */
+  onMounted(() => {
+    if (appStore.menus.length > 0) {
+      generateBreadcrumb();
+    }
+  });
+
+  /**
    * 菜单加载
    */
   const { menus } = storeToRefs(appStore);
@@ -81,7 +90,7 @@
    * 解析每层路由路径
    */
   function splitPath(): string[] {
-    const menu = appStore.expandMenus.find(i => i.key == route.path);
+    const menu = appStore.expandMenus.find(i => i.key == route.fullPath);
     if (!menu) {
       return [];
     }
@@ -103,7 +112,13 @@
     let menus = appStore.expandMenus;
 
     paths.forEach((path) => {
-      const selectMenu = menus.find((item: MenuOption) => item.key === path || "/" + item.id == path);
+      let selectMenu = menus.find(item => item.key === path || "/" + item.id == path);
+
+      // 带查询参数的菜单(不同的菜单使用同一个模块，但是查询参数不一样)
+      const last = paths[paths.length - 1];
+      if (last.includes('?')) {
+        selectMenu = menus.find(item => item.key === path || ("/" + item.id == path && item.key.includes(last)));
+      }
       if (selectMenu) {
         if (selectMenu.children) {
           menus = selectMenu.children;
@@ -124,7 +139,7 @@
   /**
    * 侦听菜单变化
    */
-  watch(() => route.path, () => {
+  watch(() => route.fullPath, () => {
     if (routerHelper.isIgnoreRoute(route)) {
       return;
     }

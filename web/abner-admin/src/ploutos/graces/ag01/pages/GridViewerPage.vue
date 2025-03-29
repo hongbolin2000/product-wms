@@ -1,5 +1,5 @@
 <template>
-  <Graces.GridViewer :module="module" :name="name"/>
+  <Graces.GridViewer :module="module" :name="name" :params="params"/>
 </template>
 
 <script setup lang="ts">
@@ -10,7 +10,7 @@
    * @author Berlin
    ********************************************************************************/
   import {Graces} from '../index.ts';
-  import {onBeforeMount, shallowRef} from "vue";
+  import {onBeforeMount, type Ref, shallowRef} from "vue";
 
   /**
    * 当前路由
@@ -28,11 +28,19 @@
   const name = shallowRef('');
 
   /**
+   * 参数
+   */
+  const params: Ref = shallowRef({});
+
+  /**
    * 组件加载前
    */
   onBeforeMount(() => {
     module.value = route.params.module.toString();
     name.value = route.params.name.toString();
+    if (route.query) {
+      params.value = route.query;
+    }
   });
 </script>
 

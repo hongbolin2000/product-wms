@@ -85,7 +85,7 @@ import {ThemeMode} from "@/ploutos/layouts/types";
    * 刷新路由
    */
   function onRefreshRoute() {
-    router.replace("/refresh/fresh?redirect=" + route.path);
+    router.replace("/refresh/fresh?redirect=" + route.fullPath);
   }
 
   /**

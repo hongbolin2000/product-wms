@@ -6,7 +6,7 @@
           mode="vertical"
           :value="currentPath"
           :collapsed="layoutStore.isCollapse"
-          :options="menus"
+          :options="verticalMenus"
           :expanded-keys="expandKeys"
           :collapsed-icon-size="16"
           :collapsed-width="63"
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, ref, watch} from "vue";
+  import {computed, ref, watch, onMounted} from "vue";
   import {useRoute, useRouter} from "vue-router";
   import {darkTheme} from "naive-ui";
   import {storeToRefs} from "pinia";
@@ -42,7 +42,7 @@
     /**
      * 菜单
      */
-    menus: {
+    verticalMenus: {
       type: Array<MenuOption>,
       required: true
     }
@@ -67,7 +67,7 @@
   /**
    * 当前路由地址
    */
-  const currentPath = ref(currentRoute.path);
+  const currentPath = ref(currentRoute.fullPath);
 
   /**
    * 展开的菜单
@@ -142,6 +142,15 @@
   });
 
   /**
+   * 组件加载
+   */
+  onMounted(() => {
+    if (appStore.menus.length > 0) {
+      handleExpandPath();
+    }
+  });
+
+  /**
    * 菜单加载
    */
   const { menus } = storeToRefs(appStore);
@@ -195,7 +204,7 @@
   /**
    * 监听路由变化
    */
-  watch(() => currentRoute.path, (value) => {
+  watch(() => currentRoute.fullPath, (value) => {
     if (appStore.expandMenus.find(i => i.key == value)?.label) {
       currentPath.value = value;
       handleExpandPath();

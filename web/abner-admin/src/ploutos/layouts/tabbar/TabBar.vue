@@ -94,7 +94,7 @@
   /**
    * 当前路由路径
    */
-  const currentPath = ref(route.path);
+  const currentPath = ref(route.fullPath);
 
   /**
    * 滚动条容器元素
@@ -204,16 +204,16 @@
     if (routerHelper.isIgnoreRoute(to)) {
       return;
     }
-    if (appStore.visitedMenus.findIndex(i => i.key == to.path) != -1) {
+    if (appStore.visitedMenus.findIndex(i => i.key == to.fullPath) != -1) {
       return;
     }
 
     // 没有菜单的界面（编辑、详情等等）
-    let menu = appStore.expandMenus.find(i => i.key == to.path);
+    let menu = appStore.expandMenus.find(i => i.key == to.fullPath);
     if (!menu) {
       const parent = appStore.expandMenus.find(i => i.key == currentPath.value);
       menu = {
-        key: to.path,
+        key: to.fullPath,
         fullUrl: parent.fullUrl,
       }
       appStore.expandMenus.push(menu);
@@ -288,11 +288,11 @@
   /**
    * 侦听路由
    */
-  watch(() => route.path, () => {
+  watch(() => route.fullPath, () => {
     if (routerHelper.isIgnoreRoute(route)) {
       return;
     }
-    currentPath.value = route.path;
+    currentPath.value = route.fullPath;
 
     // 路由改变，重新计算右键菜单并滚动到当前路由
     getContextMenuOptions(false);
@@ -590,7 +590,7 @@
    * 刷新页面
    */
   function refreshRoute() {
-    router.replace("/refresh/fresh?redirect=" + route.path);
+    router.replace("/refresh/fresh?redirect=" + route.fullPath);
   }
 
   /**

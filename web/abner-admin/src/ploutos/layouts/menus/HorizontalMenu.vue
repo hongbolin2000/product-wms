@@ -52,9 +52,13 @@
   const parentMenus: Ref<MenuOption[]> = ref([]);
 
   /**
-   * 布局模式
+   * 组件加载
    */
-  const { layoutMode } = storeToRefs(layoutStore);
+  onMounted(() => {
+    if (appStore.menus.length > 0) {
+      renderMenus();
+    }
+  });
 
   /**
    * 菜单加载
@@ -80,14 +84,14 @@
       parentMenus.value = topMenus;
 
       // 当前激活的菜单
-      currentPath.value = "/" + route.path.split("/")[1];
+      currentPath.value = "/" + route.fullPath.split("/")[1];
       matchChildMenus(currentPath.value);
     }
 
     // 其他模式
     if (layoutStore.layoutMode != LayoutMode.TopLeft) {
       parentMenus.value = appStore.menus;
-      currentPath.value = route.path;
+      currentPath.value = route.fullPath;
     }
   }
 
@@ -136,9 +140,14 @@
    */
   function matchChildMenus(key: string) {
     const parentMenu = appStore.expandMenus.find(i => i.key == key);
-    let topLeftChildMenus = [];
+    if (!parentMenu) {
+      appStore.topLeftChildMenus = appStore.menus[0].children;
+      currentPath.value = '/' + appStore.menus[0].fullUrl.split("/")[1];
+      return;
+    }
 
     // 没有子菜单
+    let topLeftChildMenus = [];
     if (!parentMenu?.children) {
       topLeftChildMenus.push(parentMenu);
     } else{
@@ -172,15 +181,12 @@
   /**
    * 监听路由变化
    */
-  watch(() => route.path, (value) => {
-    if (!appStore.expandMenus.find(i => i.key == value)?.label) {
-      return;
-    }
+  watch(() => route.fullPath, (value) => {
+    const menu = appStore.expandMenus.find(i => i.key == value);
 
     // 顶部+左侧菜单模式
     if (layoutStore.layoutMode == LayoutMode.TopLeft) {
-      currentPath.value = "/" + route.path.split("/")[1];
-      onMenuClick(currentPath.value);
+      currentPath.value = '/' + menu.fullUrl.split("/")[1];
     } else {
       currentPath.value = value;
     }
@@ -189,6 +195,7 @@
   /**
    * 侦听布局变化
    */
+  const { layoutMode } = storeToRefs(layoutStore);
   watch(layoutMode, () => {
     renderMenus();
   });

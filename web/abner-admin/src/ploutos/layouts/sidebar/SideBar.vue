@@ -11,14 +11,14 @@
       ]"
     >
       <Logo/>
-      <ScrollerMenu :menus="sideMenus"/>
+      <VerticalMenu :vertical-menus="sideMenus"/>
       <div class="mobile-shadow"/>
     </n-card>
   </n-config-provider>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, type Ref, ref, watch} from "vue";
+  import {computed, onMounted, type Ref, ref, watch} from "vue";
   import {darkTheme} from "naive-ui";
   import {storeToRefs} from 'pinia';
   /********************************************************************************
@@ -28,7 +28,7 @@ import {computed, onMounted, type Ref, ref, watch} from "vue";
    ********************************************************************************/
   import {LayoutMode, type MenuOption, SideTheme, ThemeMode} from '@/ploutos/layouts/types'
   import Logo from '@/ploutos/layouts/logo/Logo.vue'
-  import ScrollerMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
+  import VerticalMenu from "@/ploutos/layouts/menus/VerticalMenu.vue";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
   import useAppStore from "@/ploutos/layouts/store/app-store";
 
@@ -49,16 +49,32 @@ import {computed, onMounted, type Ref, ref, watch} from "vue";
   const { topLeftChildMenus } = storeToRefs(appStore);
 
   /**
+   * 组件加载
+   */
+  onMounted(() => {
+    if (appStore.menus.length > 0) {
+      renderMenus();
+    }
+  });
+
+  /**
    * 菜单加载
    */
   const { menus } = storeToRefs(appStore);
   watch(menus, () => {
+    renderMenus();
+  });
+
+  /**
+   * 菜单
+   */
+  function renderMenus() {
     if (layoutStore.layoutMode == LayoutMode.TopLeft) {
       sideMenus.value = appStore.topLeftChildMenus;
     } else {
       sideMenus.value = appStore.menus;
     }
-  });
+  }
 
   /**
    * 主题
