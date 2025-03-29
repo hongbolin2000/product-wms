@@ -23,5 +23,5 @@ N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P	TFVLID
 U	01 getByFiledCode TFDSID, VALCDE
-F	01 listByCompany (TFDSID) TBFDDS (TFDSID)
+F	01 listTableFiled (TFDSID) TBFDDS (TFDSID)
 =====================================================================================================================================================

@@ -4,6 +4,10 @@
 package com.hongyou.abner.config.web;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.hongyou.abner.config.event.EventLogManager;
+import com.hongyou.abner.config.event.EventLogManagerImpl;
+import com.hongyou.abner.config.internation.InternationalManager;
+import com.hongyou.abner.config.internation.InternationalManagerImpl;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Userms;
 import com.hongyou.baron.util.StringUtil;
@@ -11,6 +15,7 @@ import com.mybatisflex.core.query.QueryMethods;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.row.Row;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -28,6 +33,16 @@ public class UserDataProvider extends DataProvider {
      * 当前登录的用户
      */
     private Userms userms;
+
+    /**
+     * 系统消息日志管理器
+     */
+    protected EventLogManager eventLogManager;
+
+    /**
+     * 国际化语言
+     */
+    protected InternationalManager international;
 
     /**
      * 获取当前登录用户ID
@@ -80,5 +95,21 @@ public class UserDataProvider extends DataProvider {
         Row row = Db.selectOneByQuery(wrapper);
         LocalDateTime localDateTime = row.getLocalDateTime("CURRENT_TIMESTAMP()");
         return Timestamp.valueOf(localDateTime);
+    }
+
+    /**
+     * 注入数据库组件
+     */
+    @Autowired
+    public void setEventLogManager(final EventLogManagerImpl eventLogManager) {
+        this.eventLogManager = eventLogManager;
+    }
+
+    /**
+     * 注入数据库国际化语言
+     */
+    @Autowired
+    public void setInternationalManager(final InternationalManagerImpl international) {
+        this.international = international;
     }
 }
