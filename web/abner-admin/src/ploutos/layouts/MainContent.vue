@@ -2,14 +2,14 @@
   <router-view v-slot="{ Component, route }">
     <transition name="opacity-transform" mode="out-in" appear>
       <keep-alive :include="cacheComponentNames">
-        <component :is="Component" :key="route.path" />
+        <component :is="renderComponent(Component, route.path)" :key="route.path" />
       </keep-alive>
     </transition>
   </router-view>
 </template>
 
 <script setup lang="ts">
-  import {ref} from "vue";
+  import {h, ref} from "vue";
   /********************************************************************************
    * 主内容
    *
@@ -34,6 +34,37 @@
   const cacheComponentNames = ref([]);
 
   /**
+   * 存放已经创建的组件
+   */
+  const components = new Map();
+
+  /**
+   * 包裹路由组件生成新的组件, 使用路由路径作为组件名
+   *
+   * @param routerComponent 需渲染的路由组件
+   * @param path 路由路径
+   */
+  function renderComponent(routerComponent, path) {
+    // 组件已经创建
+    let component;
+    if (components.has(path)) {
+      component = components.get(path);
+    }
+
+    // 创建新的组件
+    if (!component) {
+      component = {
+        name: path,
+        render() {
+          return h(routerComponent);
+        },
+      };
+      components.set(path, component);
+    }
+    return h(component);
+  }
+
+  /**
    * 监听选项卡变化
    */
   let visitedMenus = [];
@@ -46,21 +77,7 @@
 
     // 从路由选项卡中获取组件名
     state.visitedMenus.forEach(async (menu) => {
-      let route: any = router.getRoutes().find(i => i.path == menu.key);
-
-      // 手动匹配路由（主要是带参数的路由）
-      if (route == undefined) {
-        const resolved = router.resolve(menu.key);
-        route = resolved.matched[resolved.matched.length - 1];
-      }
-
-      // 路由组件未加载时进行加载
-      if (typeof(route?.components!.default) == 'function') {
-        const components = await route?.components.default();
-        cacheNames.push(components.default.name);
-      } else {
-        cacheNames.push(route!.components!.default.name);
-      }
+      cacheNames.push(menu.key);
     });
     cacheComponentNames.value = cacheNames;
   });
