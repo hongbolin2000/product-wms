@@ -4,6 +4,7 @@
 package com.hongyou.abner.sy01;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Pmsnms;
 import com.hongyou.abner.data.model.Rolems;
@@ -18,10 +19,12 @@ import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.JsonUtil;
 import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.ObjectUtil;
+import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
 import com.hongyou.baron.web.navigation.Family;
 import com.hongyou.baron.web.navigation.Navigate;
 import com.hongyou.baron.web.navigation.NavigationManager;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,21 +65,27 @@ public class SY01 extends UserDataProvider {
      */
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry save(@RequestBody final RolemsPojo rolemsPojo) {
+    public ResponseEntry save(
+            @RequestBody final RolemsPojo rolemsPojo, final HttpServletRequest request
+    ) {
 
         try {
             Long userCompanyId = this.getUserCompanyId();
             String operatorBy = this.getOperatorBy();
             Timestamp currentTime = this.getCurrentTime();
 
-            // 新增
-            Rolems rolems = null;
+            // 修改
+            Rolems rolems = null; Rolems oldRolems = null;
             if (ObjectUtil.isNotNull(rolemsPojo.getId())) {
                 rolems = this.db().rolems().get(rolemsPojo.getId());
+                oldRolems = (Rolems) rolems.clone();
             }
+
+            // 新增
             if (ObjectUtil.isNull(rolems)) {
                 rolems = new Rolems();
-                rolems.cretby(operatorBy).
+                rolems.cmpnid(userCompanyId).
+                        cretby(operatorBy).
                         crettm(currentTime);
             }
 
@@ -88,12 +97,27 @@ public class SY01 extends UserDataProvider {
                 }
             }
 
-            rolems.cmpnid(userCompanyId).
-                    rolenm(rolemsPojo.getName()).
+            rolems.rolenm(rolemsPojo.getName()).
                     remark(rolemsPojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().rolems().save(rolems);
+
+            // 记录日志
+            String action = oldRolems == null ? "新增" : "修改";
+            Map<String, String> displays = this.international.getTableValuesDisplay(request, "rolems");
+            EventLog event = EventLog.builder().
+                    domain(userCompanyId).
+                    operator(operatorBy).
+                    module(SY01.class.getSimpleName()).
+                    name("角色维护").
+                    action(action).
+                    message(StringUtil.format("角色[{}]{}成功", rolems.getRolenm(), action)).
+                    oldValue(oldRolems).
+                    newValue(rolems).
+                    enumsDisplay(displays).
+                    build();
+            this.eventLogManager.info(event);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
@@ -221,7 +245,7 @@ public class SY01 extends UserDataProvider {
 
             ObjectNode result = JsonUtil.createObjectNode();
             result.put("roleName", rolems.getRolenm());
-            result.put("superAdmin", Rolems.SUPADM.YES.equals(rolems.getSupadm()));
+            result.put("superAdmin", Rolems.SUPADM.Yes.equals(rolems.getSupadm()));
             result.set("permissionMenus", JsonUtil.convertValue(permissionMenus));
             return ResponseEntry.builder().body(result).build();
         } catch (Exception e) {

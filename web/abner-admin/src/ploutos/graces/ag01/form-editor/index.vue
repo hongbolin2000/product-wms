@@ -1,190 +1,192 @@
 <template>
-  <n-spin :show="spining" v-if="editor">
+  <n-spin :show="spining" style="height: 100%">
     <template #icon>
       <n-icon>
         <SettingsOutline />
       </n-icon>
     </template>
 
-    <n-scrollbar :style="style">
-      <!-- 编辑表单 -->
-      <div v-for="(row, index) of editor.editorRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
-        <!-- 非选项卡表单 -->
-        <n-card
-            :title="formEditor.title"
-            :segmented="{content: true}"
-            v-for="formEditor of row.noTabEditors" :key="formEditor.name"
-            :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, formEditor)}"
-            :bordered="!props.isDrawer && editor.allEditors.length > 1"
-            :content-style="{paddingBottom: props.isDrawer && 0}"
-        >
-          <template #header-extra>
-            <n-button @click="onCollapse(row)" text>
-              {{formEditor.collapse ? '展开' : '折叠'}}
-            </n-button>
-          </template>
-
-          <n-collapse-transition :show="!formEditor.collapse">
-            <n-form
-                :model="formValue"
-                :rules="formRules"
-                ref="formRefs"
-                :style="{width: formEditor.formWidth, margin: 'auto'}"
-                :label-placement="formEditor.placement"
-                label-width="auto"
-            >
-              <form-grid :editor="formEditor" :form-value="formValue" :editor-count="row.editorCount" :is-drawer="isDrawer"/>
-            </n-form>
-          </n-collapse-transition>
-        </n-card>
-
-        <!-- 选项卡表单 -->
-        <n-card
-            v-if="row.tabEditors.length > 0"
-            class="n-card-tab"
-            :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false)}"
-            :bordered="!props.isDrawer"
-            :content-style="{paddingBottom: props.isDrawer && 0}"
-        >
-          <n-tabs type="line" animated>
-            <template #suffix>
+    <div v-if="editor">
+      <n-scrollbar :style="style">
+        <!-- 编辑表单 -->
+        <div v-for="(row, index) of editor.editorRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
+          <!-- 非选项卡表单 -->
+          <n-card
+              :title="formEditor.title"
+              :segmented="{content: true}"
+              v-for="formEditor of row.noTabEditors" :key="formEditor.name"
+              :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, formEditor)}"
+              :bordered="!props.isDrawer && editor.allEditors.length > 1"
+              :content-style="{paddingBottom: props.isDrawer && 0}"
+          >
+            <template #header-extra>
               <n-button @click="onCollapse(row)" text>
-                {{row.tabEditors[0].collapse ? '展开' : '折叠'}}
+                {{formEditor.collapse ? '展开' : '折叠'}}
               </n-button>
             </template>
 
-            <n-tab-pane :name="editor.name" :tab="editor.title" v-for="editor of row.tabEditors" :key="editor.name">
-              <n-collapse-transition :show="!editor.collapse">
-                <n-form
-                    :model="formValue"
-                    :rules="formRules"
-                    ref="formRefs"
-                    :style="{width: editor.formWidth, margin: 'auto'}"
-                    :label-placement="editor.placement"
-                    label-width="auto"
-                >
-                  <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount" :is-drawer="isDrawer"/>
-                </n-form>
-              </n-collapse-transition>
-            </n-tab-pane>
-          </n-tabs>
-        </n-card>
-      </div>
+            <n-collapse-transition :show="!formEditor.collapse">
+              <n-form
+                  :model="formValue"
+                  :rules="formRules"
+                  ref="formRefs"
+                  :style="{width: formEditor.formWidth, margin: 'auto'}"
+                  :label-placement="formEditor.placement"
+                  label-width="auto"
+              >
+                <form-grid :editor="formEditor" :form-value="formValue" :editor-count="row.editorCount" :is-drawer="isDrawer"/>
+              </n-form>
+            </n-collapse-transition>
+          </n-card>
 
-      <!-- 编辑表格 -->
-      <div v-for="(row, index) of editor.sheeterRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
+          <!-- 选项卡表单 -->
+          <n-card
+              v-if="row.tabEditors.length > 0"
+              class="n-card-tab"
+              :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false)}"
+              :bordered="!props.isDrawer"
+              :content-style="{paddingBottom: props.isDrawer && 0}"
+          >
+            <n-tabs type="line" animated>
+              <template #suffix>
+                <n-button @click="onCollapse(row)" text>
+                  {{row.tabEditors[0].collapse ? '展开' : '折叠'}}
+                </n-button>
+              </template>
 
-        <!-- 非选项卡表格 -->
-        <n-card
-            :title="sheeter.title"
-            v-for="sheeter of row.noTabSheeters" :key="sheeter.name"
-            :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true, sheeter)}"
-            :bordered="!props.isDrawer"
-            :content-style="{paddingBottom: props.isDrawer && 0}"
-            :segmented="{content: true}"
-        >
-          <template #header-extra>
-            <n-space :size="10">
-              <n-button @click="onShowSheetModal(sheeter)" type="primary" text v-if="sheeter.added">
-                添加
-              </n-button>
+              <n-tab-pane :name="editor.name" :tab="editor.title" v-for="editor of row.tabEditors" :key="editor.name">
+                <n-collapse-transition :show="!editor.collapse">
+                  <n-form
+                      :model="formValue"
+                      :rules="formRules"
+                      ref="formRefs"
+                      :style="{width: editor.formWidth, margin: 'auto'}"
+                      :label-placement="editor.placement"
+                      label-width="auto"
+                  >
+                    <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount" :is-drawer="isDrawer"/>
+                  </n-form>
+                </n-collapse-transition>
+              </n-tab-pane>
+            </n-tabs>
+          </n-card>
+        </div>
 
-              <n-button @click="onSheeterCollapse(row)" text>
-                {{sheeter.collapse ? '展开' : '折叠'}}
-              </n-button>
-            </n-space>
-          </template>
+        <!-- 编辑表格 -->
+        <div v-for="(row, index) of editor.sheeterRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
 
-          <SheeterTable
-              :row-index="sheeterRowIndex"
-              :sheeter="sheeter"
-              @on-double-click="onSheeterDoubleClick"
-              @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
-          />
-        </n-card>
-
-        <!-- 选项卡表格 -->
-        <n-card
-            v-if="row.tabSheeters.length > 0"
-            :class="['n-card-tab', props.isDrawer ? 'editor-row-drawer' : 'editor-row']"
-            :bordered="!props.isDrawer"
-            :content-style="{paddingBottom: props.isDrawer && 0}"
-            :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true)}"
-        >
-          <n-tabs type="line" animated @update:value="(value) => onSheeterTabsChange(row, value)">
-            <template #suffix>
+          <!-- 非选项卡表格 -->
+          <n-card
+              :title="sheeter.title"
+              v-for="sheeter of row.noTabSheeters" :key="sheeter.name"
+              :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true, sheeter)}"
+              :bordered="!props.isDrawer"
+              :content-style="{paddingBottom: props.isDrawer && 0}"
+              :segmented="{content: true}"
+          >
+            <template #header-extra>
               <n-space :size="10">
-                <n-button @click="onShowSheetModal(currentTabSheeter)" type="primary" text v-if="currentTabSheeter.added">
+                <n-button @click="onShowSheetModal(sheeter)" type="primary" text v-if="sheeter.added">
                   添加
                 </n-button>
 
                 <n-button @click="onSheeterCollapse(row)" text>
-                  {{row.tabSheeters[0].collapse ? '展开' : '折叠'}}
+                  {{sheeter.collapse ? '展开' : '折叠'}}
                 </n-button>
               </n-space>
             </template>
 
-            <n-tab-pane :name="sheeter.name" :tab="sheeter.title" v-for="sheeter of row.tabSheeters" :key="sheeter.name">
-              <SheeterTable
-                  :row-index="sheeterRowIndex"
-                  :sheeter="sheeter"
-                  @on-double-click="onSheeterDoubleClick"
-                  @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
-              />
-            </n-tab-pane>
-          </n-tabs>
-        </n-card>
-      </div>
+            <SheeterTable
+                :row-index="sheeterRowIndex"
+                :sheeter="sheeter"
+                @on-double-click="onSheeterDoubleClick"
+                @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
+            />
+          </n-card>
 
-      <!-- 编辑表格弹框 -->
-      <n-modal
-          v-model:show="showFormModal"
-          :title="(sheeterRowIndex == -1 ?'添加' : '修改') + (selectSheeter && selectSheeter.title)"
-          :draggable="{bounds: 'none'}"
-          :style="{width: '60%'}"
-          preset="dialog"
-      >
-        <n-card style="max-height: 60vh;overflow-y: auto" :bordered="false">
-          <n-form
-              :model="sheeterFormValue"
-              :rules="sheeterFormRules"
-              ref="sheeterFormRef"
-              label-placement="left"
-              label-width="auto"
+          <!-- 选项卡表格 -->
+          <n-card
+              v-if="row.tabSheeters.length > 0"
+              :class="['n-card-tab', props.isDrawer ? 'editor-row-drawer' : 'editor-row']"
+              :bordered="!props.isDrawer"
+              :content-style="{paddingBottom: props.isDrawer && 0}"
+              :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true)}"
           >
-            <n-grid :cols="24" :x-gap="20">
-              <n-form-item-gi
-                  :span="8"
-                  :label="widget.title"
-                  v-for="widget of selectSheeter.widgets"
-                  :path="widget.name"
-                  :key="widget.name"
-              >
-                <sheeter-widget :widget="widget"/>
-              </n-form-item-gi>
-            </n-grid>
-          </n-form>
-        </n-card>
+            <n-tabs type="line" animated @update:value="(value) => onSheeterTabsChange(row, value)">
+              <template #suffix>
+                <n-space :size="10">
+                  <n-button @click="onShowSheetModal(currentTabSheeter)" type="primary" text v-if="currentTabSheeter.added">
+                    添加
+                  </n-button>
 
-        <template #action>
-          <n-button @click="showFormModal = false">关闭</n-button>
-          <n-button type="primary" @click="onSaveSheeterForm">保存</n-button>
-        </template>
-      </n-modal>
-    </n-scrollbar>
+                  <n-button @click="onSheeterCollapse(row)" text>
+                    {{row.tabSheeters[0].collapse ? '展开' : '折叠'}}
+                  </n-button>
+                </n-space>
+              </template>
 
-    <n-card
-        class="form-btn-option"
-        :class="isDialog || isDrawer ? '' : 'form-btn-option-page'"
-        :style="{width: layoutMainSectionWidth, borderRadius: 0, marginTop: isDialog || isDrawer ? '20px' : ''}"
-        :content-style="{display: 'flex', alignItems: 'center', padding: 0}"
-        :bordered="!props.isDialog && !props.isDrawer"
-    >
-      <n-space :size="10">
-        <n-button @click="onClose()">关闭</n-button>
-        <n-button type="primary" @click="handelSave">提交</n-button>
-      </n-space>
-    </n-card>
+              <n-tab-pane :name="sheeter.name" :tab="sheeter.title" v-for="sheeter of row.tabSheeters" :key="sheeter.name">
+                <SheeterTable
+                    :row-index="sheeterRowIndex"
+                    :sheeter="sheeter"
+                    @on-double-click="onSheeterDoubleClick"
+                    @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
+                />
+              </n-tab-pane>
+            </n-tabs>
+          </n-card>
+        </div>
+
+        <!-- 编辑表格弹框 -->
+        <n-modal
+            v-model:show="showFormModal"
+            :title="(sheeterRowIndex == -1 ?'添加' : '修改') + (selectSheeter && selectSheeter.title)"
+            :draggable="{bounds: 'none'}"
+            :style="{width: '60%'}"
+            preset="dialog"
+        >
+          <n-card style="max-height: 60vh;overflow-y: auto" :bordered="false">
+            <n-form
+                :model="sheeterFormValue"
+                :rules="sheeterFormRules"
+                ref="sheeterFormRef"
+                label-placement="left"
+                label-width="auto"
+            >
+              <n-grid :cols="24" :x-gap="20">
+                <n-form-item-gi
+                    :span="8"
+                    :label="widget.title"
+                    v-for="widget of selectSheeter.widgets"
+                    :path="widget.name"
+                    :key="widget.name"
+                >
+                  <sheeter-widget :widget="widget"/>
+                </n-form-item-gi>
+              </n-grid>
+            </n-form>
+          </n-card>
+
+          <template #action>
+            <n-button @click="showFormModal = false">关闭</n-button>
+            <n-button type="primary" @click="onSaveSheeterForm">保存</n-button>
+          </template>
+        </n-modal>
+      </n-scrollbar>
+
+      <n-card
+          class="form-btn-option"
+          :class="isDialog || isDrawer ? '' : 'form-btn-option-page'"
+          :style="{width: layoutMainSectionWidth, borderRadius: 0, marginTop: isDialog || isDrawer ? '20px' : ''}"
+          :content-style="{display: 'flex', alignItems: 'center', padding: 0}"
+          :bordered="!props.isDialog && !props.isDrawer"
+      >
+        <n-space :size="10">
+          <n-button @click="onClose()">关闭</n-button>
+          <n-button type="primary" @click="handelSave">提交</n-button>
+        </n-space>
+      </n-card>
+    </div>
   </n-spin>
 </template>
 

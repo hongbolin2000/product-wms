@@ -20,6 +20,7 @@
 
         <columns>
             <column type="label" name="name" expr="rolenm" title="@ROLEMS.ROLENM" width="100" filter="text"/>
+            <column type="tag" name="superAdmin" expr="supadm" title="@ROLEMS.SUPADM" width="110" format="@@ROLEMS.SUPADM"/>
             <column type="label" name="remark" expr="remark" title="@ROLEMS.REMARK" filter="text"/>
             <column type="label" name="createBy" expr="cretby" title="@ROLEMS.CRETBY" width="100" filter="text"/>
             <column type="label" name="createTime" expr="crettm" title="@ROLEMS.CRETTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
