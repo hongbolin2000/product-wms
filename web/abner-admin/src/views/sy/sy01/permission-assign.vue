@@ -70,7 +70,7 @@
   </n-grid>
 </template>
 
-<script setup lang="ts" name="sy01/assign">
+<script setup lang="ts">
   import {ref, shallowRef, onMounted, type Ref, h} from "vue";
   import {
     DataTableColumn,

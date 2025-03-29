@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="GridViewerSample">
+<script setup lang="ts">
   /********************************************************************************
    * 通用浏览表格示例界面
    *

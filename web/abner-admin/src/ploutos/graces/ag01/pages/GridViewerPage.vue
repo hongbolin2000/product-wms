@@ -2,7 +2,7 @@
   <Graces.GridViewer :module="module" :name="name"/>
 </template>
 
-<script setup lang="ts" name="GridViewerPage">
+<script setup lang="ts">
   import {useRoute} from "vue-router";
   /********************************************************************************
    * 通用浏览表格加载页面

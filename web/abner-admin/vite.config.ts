@@ -10,7 +10,6 @@ import ViteComponents from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from "path";
-import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite';
 /********************************************************************************
  * Vite配置文件 https://vite.dev/config/
  *
@@ -28,7 +27,6 @@ export default defineConfig({
       iconDirs: [path.resolve(process.cwd(), 'src/ploutos/layouts/icons')],
       symbolId: 'icon-[dir]-[name]',
     }),
-    vueSetupExtend({})
   ],
   css: {
     preprocessorOptions: {

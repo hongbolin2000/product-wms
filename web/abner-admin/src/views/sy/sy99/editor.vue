@@ -8,7 +8,7 @@
   />
 </template>
 
-<script setup lang="ts" name="FormEditorSample">
+<script setup lang="ts">
   /********************************************************************************
    * 通用编辑表单示例界面
    *

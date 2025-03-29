@@ -2,7 +2,7 @@
   <Graces.FormEditor :module="module" :name="name" :params="params" :fill="fill"/>
 </template>
 
-<script setup lang="ts" name="FormEditorPage">
+<script setup lang="ts">
   import {useRoute} from "vue-router";
   import {onBeforeMount, type PropType, type Ref, shallowRef} from "vue";
   /********************************************************************************
