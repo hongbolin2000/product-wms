@@ -131,10 +131,28 @@ public class SY01 extends UserDataProvider {
      */
     @PostMapping("/delete")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry delete(@RequestBody final List<Long> ids) {
+    public ResponseEntry delete(@RequestBody final List<Long> ids, final HttpServletRequest request) {
 
         try {
-            this.db().rolems().deleteIds(ids);
+            Long userCompanyId = this.getUserCompanyId();
+            String operatorBy = this.getOperatorBy();
+
+            for (Long id : ids) {
+                Rolems rolems = this.db().rolems().get(id);
+                Map<String, String> displays = this.international.getTableValuesDisplay(request, "rolems");
+                EventLog event = EventLog.builder().
+                        domain(userCompanyId).
+                        operator(operatorBy).
+                        module(SY01.class.getSimpleName()).
+                        name("角色维护").
+                        action("删除").
+                        message(StringUtil.format("角色[{}]删除成功", rolems.getRolenm())).
+                        newValue(rolems).
+                        enumsDisplay(displays).
+                        build();
+                this.eventLogManager.info(event);
+                this.db().rolems().deleteIds(ids);
+            }
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("角色删除失败", e);
