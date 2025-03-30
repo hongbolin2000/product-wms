@@ -88,6 +88,7 @@
     align-items: center;
     .logo-img {
       height: 32px;
+      border-radius: 4px;
     }
     .logo-title {
       font-weight: bold;
