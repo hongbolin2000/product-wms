@@ -9,7 +9,7 @@ import {useRoute, useRouter} from "vue-router";
  *
  * @author Berlin
  ********************************************************************************/
-import type {MenuOption, WebsiteOption} from "@/ploutos/layouts/types";
+import type {MenuOption, PlatformConfigure} from "@/ploutos/layouts/types";
 
 /**
  * 创建APP全局应用状态
@@ -23,10 +23,11 @@ const useAppStore = defineStore('appStore', () => {
     menus: ref([]),
     expandMenus: ref([]),
     topLeftChildMenus: ref([]),
-    websiteOption: ref({
+    platformOption: ref({
       companyName: '',
-      websiteTitle: '',
-      websiteSubtitle: '',
+      platformTitle: '',
+      platformSubtitle: '',
+      platformSimpleTitle: '',
       captchaVerify: true,
       autoLogin: true,
       rememberAccount: true,
@@ -127,7 +128,7 @@ const useAppStore = defineStore('appStore', () => {
   return { ...store, configMenu, closeCurrentTab, changeTabTitle }
 }, {
   persist: {
-    pick: ['visitedMenus', 'websiteOption']
+    pick: ['visitedMenus', 'platformOption']
   }
 });
 export default useAppStore;
@@ -153,9 +154,9 @@ type AppStoreOption = {
   topLeftChildMenus: Ref<MenuOption[]>,
 
   /**
-   * 网站信息
+   * 平台信息
    */
-  websiteOption: Ref<WebsiteOption>,
+  platformOption: Ref<PlatformConfigure>,
 
   /**
    * 选项卡路由

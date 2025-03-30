@@ -7,7 +7,7 @@
     >
       <span class="logo-title">
         <n-ellipsis :style="'max-width:' + maxWidth">
-          {{ appStore.websiteOption.websiteTitle }}
+          {{ appStore.platformOption.platformSimpleTitle }}
         </n-ellipsis>
       </span>
     </div>
@@ -49,7 +49,7 @@
     },
 
     /**
-     * 是否显示网站标题
+     * 是否显示平台标题
      */
     showTitle: {
       type: Boolean,

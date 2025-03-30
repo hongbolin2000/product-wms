@@ -13,7 +13,7 @@ N	CMPNTY,		VC(16),		NOT NULL,		'',					companyType,	    Company Type,			公司�
 *****************************************************************************************************************************************************
 N   CMPMPF,     VC(512),    NOT NULL,       '',                 companyProfile,     Company Profile,        公司简介
 N   INDSTY,     VC(32),     NOT NULL,       '',                 industry,           Industry,               所属行业
-N	OFCWBS,		VC(128),	NOT NULL,		'',					officialWebsite,    Official Website,	    官方网站
+N	OFCWBS,		VC(128),	NOT NULL,		'',					officialWebsite,    Official Website,	    官方网址
 *****************************************************************************************************************************************************
 N	ADDRES,		VC(128),	NOT NULL,		'',					address,		    Address,				联系地址
 N	CONTCS,		VC(32),		NOT NULL,		'',					contacts,		    Contacts,				联系人
@@ -21,19 +21,20 @@ N	PHONNO,		VC(11),		NOT NULL,		'',					phoneNo,		    Phone No,			    联系电�
 N	EMAIL,		VC(32),		NOT NULL,		'',					email,			    Email,					电子邮件
 N	ZIPCDE,		VC(6),		NOT NULL,		'',					zipCode,			Zip Code,				邮政编码
 *****************************************************************************************************************************************************
-N   WSTITL,     VC(64),     NOT NULL,       '',                 websiteTitle,       Website Title,          网站标题
-N   WSSTIL,     VC(64),     NOT NULL,       '',                 websiteSubtitle,    Website Subtitle,       网站副标题
+N   PFTITL,     VC(64),     NOT NULL,       '',                 platformTitle,       Platform Title,        平台标题
+N   PFSTIL,     VC(64),     NOT NULL,       '',                 platformSubtitle,    Platform Subtitle,     平台副标题
+N   PFSPTL,     VC(16),     NOT NULL,       '',                 platformSimpleTitle, Platform Simple Title, 平台简称
 *****************************************************************************************************************************************************
-N   capvrf,     C(1),       NOT NULL,       'O',                captchaVerify,      Captcha Verify,         登录验证码
+N   CAPVRF,     C(1),       NOT NULL,       'O',                captchaVerify,      Captcha Verify,         登录验证码
     B   O       Open        打开
     B   C       Close       关闭
-N   autlgn,     C(1),       NOT NULL,       'O',                autoLogin,          Auto Login,             7天免登录
+N   AUTLGN,     C(1),       NOT NULL,       'O',                autoLogin,          Auto Login,             7天免登录
     B   O       Open        打开
     B   C       Close       关闭
-N   rmbusn,     C(1),       NOT NULL,       'O',                rememberUsername,   Remember Username,      记住账号
+N   RMBUSN,     C(1),       NOT NULL,       'O',                rememberUsername,   Remember Username,      记住账号
     B   O       Open        打开
     B   C       Close       关闭
-N   rmbpsw,     C(1),       NOT NULL,       'O',                rememberPassword,   Remember Password,      记住密码
+N   RMBPSW,     C(1),       NOT NULL,       'O',                rememberPassword,   Remember Password,      记住密码
     B   O       Open        打开
     B   C       Close       关闭
 *****************************************************************************************************************************************************

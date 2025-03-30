@@ -50,10 +50,10 @@ public class Login extends UserDataProvider {
     }
 
     /**
-     * 查询网站配置参数
+     * 查询平台配置参数
      */
-    @GetMapping("/getWebsiteConfigure")
-    public WebsiteConfigure getProperties() {
+    @GetMapping("/getPlatformConfigure")
+    public PlatformConfigure getProperties() {
 
         try {
             // 如果用户已登录则拿取登录用户所属公司配置否则拿取一个创建公司的配置
@@ -70,10 +70,11 @@ public class Login extends UserDataProvider {
                 cmpnms = cmpnmss.get(0);
             }
 
-            return WebsiteConfigure.builder().
+            return PlatformConfigure.builder().
                     companyName(cmpnms.getCmpnnm()).
-                    websiteTitle(cmpnms.getWstitl()).
-                    websiteSubtitle(cmpnms.getWsstil()).
+                    platformTitle(cmpnms.getPftitl()).
+                    platformSubtitle(cmpnms.getPfstil()).
+                    platformSimpleTitle(cmpnms.getPfsptl()).
                     captchaVerify(Cmpnms.CAPVRF.Open.equals(cmpnms.getCapvrf())).
                     autoLogin(Cmpnms.AUTLGN.Open.equals(cmpnms.getCapvrf())).
                     rememberAccount(Cmpnms.RMBUSN.Open.equals(cmpnms.getCapvrf())).
@@ -82,8 +83,8 @@ public class Login extends UserDataProvider {
                     avatar(avatar).
                     build();
         } catch (Exception e) {
-            logger.error("查询网站配置参数失败", e);
-            throw new RestRuntimeException("查询网站配置参数失败");
+            logger.error("查询平台配置参数失败", e);
+            throw new RestRuntimeException("查询平台配置参数失败");
         }
     }
 

@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class WebsiteConfigure {
+public class PlatformConfigure {
 
     /**
      * 公司名称
@@ -21,14 +21,19 @@ public class WebsiteConfigure {
     private String companyName;
 
     /**
-     * 网站标题
+     * 平台标题
      */
-    private String websiteTitle;
+    private String platformTitle;
 
     /**
-     * 网站副标题
+     * 平台副标题
      */
-    private String websiteSubtitle;
+    private String platformSubtitle;
+
+    /**
+     * 平台简称
+     */
+    private String platformSimpleTitle;
 
     /**
      * 是否打开验证码

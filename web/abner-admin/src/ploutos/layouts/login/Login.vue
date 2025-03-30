@@ -9,17 +9,17 @@
               <img src="./logo.png" alt="logo"/>
             </div>
 
-            <div class="title">{{appStore.websiteOption.websiteTitle}}</div>
-            <div class="sub-title">{{appStore.websiteOption.websiteSubtitle}}</div>
-            <div class="ttppii"> {{appStore.websiteOption.companyName}} </div>
-            <div class="bottom-wrapper">System Version · {{appStore.websiteOption.version}}</div>
+            <div class="title">{{appStore.platformOption.platformTitle}}</div>
+            <div class="sub-title">{{appStore.platformOption.platformSubtitle}}</div>
+            <div class="ttppii"> {{appStore.platformOption.companyName}} </div>
+            <div class="bottom-wrapper">System Version · {{appStore.version}}</div>
           </div>
         </div>
 
         <div class="right" :class="isMobile ? ['is-mobile'] : ''">
           <div v-if="isMobile" style="margin-bottom: 10px">
-            <div class="title">{{appStore.websiteOption.websiteTitle}}</div>
-            <div class="sub-title">{{appStore.websiteOption.websiteSubtitle}}</div>
+            <div class="title">{{appStore.platformOption.platformTitle}}</div>
+            <div class="sub-title">{{appStore.platformOption.platformSubtitle}}</div>
           </div>
 
           <div class="form-wrapper" :style="isMobile ? 'width: 80%;background-color: white' : ''">
@@ -41,7 +41,7 @@
               placeholder="请输入验证码"
               style="margin-top: 10px"
               clearable
-              v-if="appStore.websiteOption.captchaVerify"
+              v-if="appStore.platformOption.captchaVerify"
             >
               <template #suffix>
                 <img :src="captchaObject" alt="验证码" @click="generateCaptcha" style="cursor: pointer">
@@ -50,13 +50,13 @@
             <span class="error" v-if="errorMessage">{{errorMessage}}</span>
 
             <div style="margin-top: 20px;display: flex;justify-content: space-between">
-              <n-checkbox v-model:checked="userStore.isRememberAccount" color="#fff" v-if="appStore.websiteOption.rememberAccount">
+              <n-checkbox v-model:checked="userStore.isRememberAccount" color="#fff" v-if="appStore.platformOption.rememberAccount">
                 记住账号
               </n-checkbox>
-              <n-checkbox v-model:checked="userStore.isRememberPassword" color="#fff" v-if="appStore.websiteOption.rememberAccount">
+              <n-checkbox v-model:checked="userStore.isRememberPassword" color="#fff" v-if="appStore.platformOption.rememberAccount">
                 记住密码
               </n-checkbox>
-              <n-checkbox v-model:checked="userStore.isAutoLogin" color="#fff" v-if="appStore.websiteOption.autoLogin">
+              <n-checkbox v-model:checked="userStore.isAutoLogin" color="#fff" v-if="appStore.platformOption.autoLogin">
                 7天内自动登录
               </n-checkbox>
             </div>
@@ -67,7 +67,7 @@
           </div>
 
           <div class="ttppii" v-if="isMobile" style="display: block;flex: 0;font-size: 25px;margin-top: 50px">
-            {{appStore.websiteOption.companyName}}
+            {{appStore.platformOption.companyName}}
           </div>
         </div>
       </div>
@@ -153,25 +153,29 @@
    * 组件加载
    */
   onMounted(async () => {
-    // 用户未登录过才查询网站配置
+    // 用户未登录过才查询平台配置
     if (!localStorage.getItem("userStore")) {
-      const response = await http.get("/auth/getWebsiteConfigure");
-      appStore.websiteOption = response.data;
+      const response = await http.get("/auth/getPlatformConfigure");
+      appStore.platformOption = response.data;
     }
 
+    // 更改浏览器标题
+    const simpleTitle = appStore.platformOption.platformSimpleTitle;
+    document.title = simpleTitle ? simpleTitle + ' | 用户登录' : '用户登录';
+
     // 记住账号/密码
-    if (userStore.isRememberAccount && appStore.websiteOption.rememberAccount) {
+    if (userStore.isRememberAccount && appStore.platformOption.rememberAccount) {
       username.value = userStore.username;
     }
-    if (userStore.isRememberPassword && appStore.websiteOption.rememberPassword) {
+    if (userStore.isRememberPassword && appStore.platformOption.rememberPassword) {
       password.value = CryptoHelper.decrypt(userStore.key, userStore.password);
     }
-    if (!appStore.websiteOption.autoLogin) {
+    if (!appStore.platformOption.autoLogin) {
       userStore.isAutoLogin = false;
     }
 
     // 生成验证码
-    if (appStore.websiteOption.captchaVerify) {
+    if (appStore.platformOption.captchaVerify) {
       await generateCaptcha();
     }
 
@@ -223,7 +227,7 @@
         errorMessage.value = "请输入密码";
         return;
       }
-      if (appStore.websiteOption.captchaVerify && !captchaValue.value) {
+      if (appStore.platformOption.captchaVerify && !captchaValue.value) {
         errorMessage.value = "请输入验证码";
         return;
       }

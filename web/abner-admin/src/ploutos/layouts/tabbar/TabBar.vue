@@ -177,6 +177,8 @@
   watch(menus, () => {
     const menu = appStore.expandMenus.find(i => i.key == currentPath.value);
     if (!menu) {
+      const simpleTitle = appStore.platformOption.platformSimpleTitle;
+      document.title = simpleTitle ? simpleTitle : 'App';
       return;
     }
 
@@ -204,28 +206,37 @@
     if (routerHelper.isIgnoreRoute(to)) {
       return;
     }
-    if (appStore.visitedMenus.findIndex(i => i.key == to.fullPath) != -1) {
-      return;
-    }
 
-    // 没有菜单的界面（编辑、详情等等）
     let menu = appStore.expandMenus.find(i => i.key == to.fullPath);
-    if (!menu) {
-      const parent = appStore.expandMenus.find(i => i.key == currentPath.value);
-      if (!parent) {
-        return false;
+    if (appStore.visitedMenus.findIndex(i => i.key == to.fullPath) == -1) {
+      // 没有菜单的界面（编辑、详情等等）
+      if (!menu) {
+        const parent = appStore.expandMenus.find(i => i.key == currentPath.value);
+        if (!parent) {
+          return false;
+        }
+        menu = {
+          key: to.fullPath,
+          label: parent.label,
+          fullUrl: parent.fullUrl,
+        }
+        appStore.expandMenus.push(menu);
       }
-      menu = {
-        key: to.fullPath,
-        fullUrl: parent.fullUrl,
+      if (!menu.icons) {
+        menu.icons = menu.parentIcon;
       }
-      appStore.expandMenus.push(menu);
+      appStore.visitedMenus.push({...menu} as MenuOption);
     }
-    if (!menu.icons) {
-      menu.icons = menu.parentIcon;
-    }
-    appStore.visitedMenus.push({...menu} as MenuOption);
+    changeDocumentTitle(menu.label);
     return true;
+  }
+
+  /**
+   * 更改浏览器标题
+   */
+  function changeDocumentTitle(title: string) {
+    const simpleTitle = appStore.platformOption.platformSimpleTitle;
+    document.title = simpleTitle ? simpleTitle + ' | ' + title : title;
   }
 
   /********************************************************************************

@@ -134,7 +134,7 @@
    */
   onBeforeMount( () => {
     loadMenu();
-    loadWebsite();
+    loadPlatformConfigure();
   });
 
   /**
@@ -148,13 +148,13 @@
   }
 
   /**
-   * 加载网站配置
+   * 加载平台配置
    */
-  async function loadWebsite() {
-    const response = await http.get("/auth/getWebsiteConfigure");
+  async function loadPlatformConfigure() {
+    const response = await http.get("/auth/getPlatformConfigure");
     userStore.nikeName = response.data.nikeName;
     userStore.avatar = response.data.avatar;
-    appStore.websiteOption = response.data;
+    appStore.platformOption = response.data;
   }
 
   /**

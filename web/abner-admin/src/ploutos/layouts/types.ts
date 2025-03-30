@@ -70,9 +70,9 @@ export type MenuOption = {
 };
 
 /**
- * 网站信息
+ * 平台信息
  */
-export type WebsiteOption = {
+export type PlatformConfigure = {
 
   /**
    * 公司名称
@@ -80,14 +80,19 @@ export type WebsiteOption = {
   companyName: string,
 
   /**
-   * 网站标题
+   * 平台标题
    */
-  websiteTitle: string,
+  platformTitle: string,
 
   /**
    * 副标题
    */
-  websiteSubtitle: string,
+  platformSubtitle: string,
+
+  /**
+   * 平台简称
+   */
+  platformSimpleTitle: string,
 
   /**
    * 登录验证码

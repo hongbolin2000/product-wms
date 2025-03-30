@@ -7,7 +7,7 @@
  * @author Berlin
  *******************************************************************************/
 import useAppStore from "@/ploutos/layouts/store/app-store";
-import type {WebsiteOption, MenuOption} from "@/ploutos/layouts/types";
+import type {PlatformConfigure, MenuOption} from "@/ploutos/layouts/types";
 
 /**
  * 应用系统的帮助类（提供给功能应用调用）
@@ -15,7 +15,7 @@ import type {WebsiteOption, MenuOption} from "@/ploutos/layouts/types";
 namespace appHelper {
 
   /**
-   * 设置网站版本号
+   * 设置平台版本号
    *
    * @param version 系统版本号
    */
@@ -27,7 +27,7 @@ namespace appHelper {
     const appStore = useAppStore();
 
     /**
-     * 设置网站信息
+     * 设置平台信息
      */
     appStore.version = version;
   }
