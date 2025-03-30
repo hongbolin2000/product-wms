@@ -2,7 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -15,33 +15,48 @@ import path from "path";
  *
  * @author Berlin
  ********************************************************************************/
-export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    vueDevTools(),
-    ViteComponents({
-      resolvers: [NaiveUiResolver()]
-    }),
-    createSvgIconsPlugin({
-      iconDirs: [path.resolve(process.cwd(), 'src/ploutos/layouts/icons')],
-      symbolId: 'icon-[dir]-[name]',
-    }),
-  ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@use "@/ploutos/layouts/styles/variables.scss" as *;',
-        api: 'modern'
+export default defineConfig(({ mode }: any) => {
+
+  /**
+   * 环境变量
+   */
+  const env: Record<string, string> = loadEnv(mode, process.cwd());
+
+  return {
+    plugins: [
+      vue(),
+      vueJsx(),
+      vueDevTools(),
+      ViteComponents({
+        resolvers: [NaiveUiResolver()]
+      }),
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), '@/icons')],
+        symbolId: 'icon-[dir]-[name]',
+      }),
+    ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "@/ploutos/layouts/styles/variables.scss" as *;',
+          api: 'modern'
+        },
       },
     },
-  },
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      },
     },
-  },
-  server: {
-    port: 9090
+    server: {
+      port: 9090,
+      proxy: {
+        '/api': {
+          target: env.VITE_API_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
+    }
   }
 })

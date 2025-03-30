@@ -20,7 +20,7 @@
    * @author Berlin
    ********************************************************************************/
   import packages from '../package.json';
-  import '@/iconfont/iconfont.css';
+  import '@/icons/iconfont/iconfont.css';
 
   /**
    * 路由

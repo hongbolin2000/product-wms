@@ -26,7 +26,7 @@
   onMounted(async () => {
     // 初始化http客户端
     http.init({
-      baseURL: 'http://127.0.0.1:8081'
+      baseURL: '/api'
     });
 
     // 初始化通知消息组件
