@@ -32,9 +32,4 @@ public class LoginResult {
      * 是否已登录
      */
     private boolean isLogin;
-
-    /**
-     * 用户昵称
-     */
-    private String nikeName;
 }

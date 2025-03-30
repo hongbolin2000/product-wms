@@ -21,18 +21,21 @@
    * @author Berlin
    ********************************************************************************/
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
+  import useUserStore from "@/ploutos/layouts/store/user-store.ts";
   import NavBar from "@/ploutos/layouts/navbar/NavBar.vue";
   import {LayoutMode, type MenuOption} from "@/ploutos/layouts/types";
   import MainContent from "@/ploutos/layouts/MainContent.vue";
-  import http from "@/ploutos/layouts/axios/http";
-  import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import TabBar from "@/ploutos/layouts/tabbar/TabBar.vue";
+  import {http, appHelper} from '@/ploutos';
 
   /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
+  const appStore = useAppStore();
+  const userStore = useUserStore();
 
   /**
    * 路由对象
@@ -129,12 +132,30 @@
   /**
    * 加载菜单
    */
-  onBeforeMount(async () => {
-    const response = await http.get("/menu/load/pc");
+  onBeforeMount( () => {
+    loadMenu();
+    loadWebsite();
+  });
+
+  /**
+   * 加载菜单
+   */
+  async function loadMenu() {
+    let response = await http.get("/menu/load/pc");
     const menus: MenuOption[] = response.data;
     renderMenu(menus);
-    layoutHelper.initialMenu(menus);
-  });
+    appHelper.initialMenu(menus);
+  }
+
+  /**
+   * 加载网站配置
+   */
+  async function loadWebsite() {
+    const response = await http.get("/auth/getWebsiteConfigure");
+    userStore.nikeName = response.data.nikeName;
+    userStore.avatar = response.data.avatar;
+    appStore.websiteOption = response.data;
+  }
 
   /**
    * 生成菜单icon

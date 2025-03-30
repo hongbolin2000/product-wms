@@ -21,6 +21,22 @@ N	PHONNO,		VC(11),		NOT NULL,		'',					phoneNo,		    Phone No,			    联系电�
 N	EMAIL,		VC(32),		NOT NULL,		'',					email,			    Email,					电子邮件
 N	ZIPCDE,		VC(6),		NOT NULL,		'',					zipCode,			Zip Code,				邮政编码
 *****************************************************************************************************************************************************
+N   WSTITL,     VC(64),     NOT NULL,       '',                 websiteTitle,       Website Title,          网站标题
+N   WSSTIL,     VC(64),     NOT NULL,       '',                 websiteSubtitle,    Website Subtitle,       网站副标题
+*****************************************************************************************************************************************************
+N   capvrf,     C(1),       NOT NULL,       'O',                captchaVerify,      Captcha Verify,         登录验证码
+    B   O       Open        打开
+    B   C       Close       关闭
+N   autlgn,     C(1),       NOT NULL,       'O',                autoLogin,          Auto Login,             7天免登录
+    B   O       Open        打开
+    B   C       Close       关闭
+N   rmbusn,     C(1),       NOT NULL,       'O',                rememberUsername,   Remember Username,      记住账号
+    B   O       Open        打开
+    B   C       Close       关闭
+N   rmbpsw,     C(1),       NOT NULL,       'O',                rememberPassword,   Remember Password,      记住密码
+    B   O       Open        打开
+    B   C       Close       关闭
+*****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL, 		'',					remark,			    Remark,					备注
 N	CRETBY,		VC(32),		NOT NULL,		'',					createBy,		    Create By,				创建人
 N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,	createTime,		    Create Time,			创建时间

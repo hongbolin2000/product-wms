@@ -7,6 +7,7 @@ import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.config.web.UserDataProvider;
+import com.hongyou.abner.data.model.Cmpnms;
 import com.hongyou.abner.data.model.Userms;
 import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
@@ -15,9 +16,12 @@ import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.CaptchaUtil;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
+import com.mybatisflex.core.query.QueryWrapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 用户登录认证
@@ -34,18 +38,6 @@ public class Login extends UserDataProvider {
     private static final Log logger = LogFactory.getLog(Login.class);
 
     /**
-     * 认证配置参数
-     */
-    private final LoginProperties properties;
-
-    /**
-     * 构造函数
-     */
-    public Login(final LoginProperties properties) {
-        this.properties = properties;
-    }
-
-    /**
      * 生成图形验证码
      */
     @GetMapping("/captcha")
@@ -58,11 +50,41 @@ public class Login extends UserDataProvider {
     }
 
     /**
-     * 认证参数
+     * 查询网站配置参数
      */
-    @GetMapping("/properties")
-    public LoginProperties getProperties() {
-        return properties;
+    @GetMapping("/getWebsiteConfigure")
+    public WebsiteConfigure getProperties() {
+
+        try {
+            // 如果用户已登录则拿取登录用户所属公司配置否则拿取一个创建公司的配置
+            Cmpnms cmpnms; String nikeName = "", avatar = "";
+            if (StpUtil.isLogin()) {
+                cmpnms = this.db().cmpnms().get(this.getUserCompanyId());
+                Userms userms = this.getLoginUser();
+                nikeName = StringUtil.blankToDefault(userms.getFulnam(), userms.getUsernm());
+                avatar = userms.getAvatar();
+            } else {
+                QueryWrapper wrapper = QueryWrapper.create();
+                wrapper.where("1 = 1 order by crettm");
+                List<Cmpnms> cmpnmss = this.db().cmpnms().list(wrapper);
+                cmpnms = cmpnmss.get(0);
+            }
+
+            return WebsiteConfigure.builder().
+                    companyName(cmpnms.getCmpnnm()).
+                    websiteTitle(cmpnms.getWstitl()).
+                    websiteSubtitle(cmpnms.getWsstil()).
+                    captchaVerify(Cmpnms.CAPVRF.Open.equals(cmpnms.getCapvrf())).
+                    autoLogin(Cmpnms.AUTLGN.Open.equals(cmpnms.getCapvrf())).
+                    rememberAccount(Cmpnms.RMBUSN.Open.equals(cmpnms.getCapvrf())).
+                    rememberPassword(Cmpnms.RMBPSW.Open.equals(cmpnms.getCapvrf())).
+                    nikeName(nikeName).
+                    avatar(avatar).
+                    build();
+        } catch (Exception e) {
+            logger.error("查询网站配置参数失败", e);
+            throw new RestRuntimeException("查询网站配置参数失败");
+        }
     }
 
     /**
@@ -82,7 +104,7 @@ public class Login extends UserDataProvider {
             }
 
             // 检查验证码
-            if (properties.isCaptchaVerify()) {
+            if (StringUtil.isNotBlank(param.getCaptchaValue())) {
                 String verify = CaptchaUtil.verify(param.getCaptchaId(), param.getCaptchaValue());
                 if (CaptchaUtil.EXPIRE.equals(verify)) {
                     return LoginResult.builder().loginCode(LoginCode.LG002.getValue()).message("验证码已失效").build();
@@ -110,7 +132,7 @@ public class Login extends UserDataProvider {
             userms.lslgtm(this.getCurrentTime());
             return LoginResult.builder().
                     loginCode(LoginCode.LG200.getValue()).
-                    nikeName(StringUtil.blankToDefault(userms.getFulnam(), param.getUsername())).build();
+                    build();
         } catch (Exception e) {
             logger.error("用户登录认证失败", e);
             throw new RestRuntimeException("用户登录认证失败");

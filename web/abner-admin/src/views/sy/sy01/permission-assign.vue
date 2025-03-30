@@ -15,7 +15,7 @@
 
         <template #header-extra>
           <n-space :size="10">
-            <n-button @click="layoutHelper.closeCurrentTab()">
+            <n-button @click="appHelper.closeCurrentTab()">
               关闭
             </n-button>
             <n-button type="primary" @click="onSave">
@@ -44,7 +44,7 @@
             :node-props="nodeProps"
             @update:checkedKeys="onChecked"
             virtual-scroll
-            :style="{maxHeight: 'calc(' + layoutHelper.maxHeight + ' - 154px)'}"
+            :style="{maxHeight: 'calc(' + appHelper.maxHeight + ' - 154px)'}"
             :override-default-node-click-behavior="override"
         />
       </n-card>
@@ -63,7 +63,7 @@
             size="small"
             children-key="none"
             :row-key="rowKey"
-            :max-height="'calc(' + layoutHelper.maxHeight + ' - 150px)'"
+            :max-height="'calc(' + appHelper.maxHeight + ' - 150px)'"
         />
       </n-card>
     </n-gi>
@@ -85,7 +85,7 @@
    *
    * @author Berlin
    ********************************************************************************/
-  import {http, loading, layoutHelper, dialog, message} from '@/ploutos';
+  import {http, loading, appHelper, dialog, message} from '@/ploutos';
   import type {PermissionMenu} from "@/views/sy/sy01/types.ts";
   import ActionCheck from "@/views/sy/sy01/ActionCheck.vue";
   import {useRoute} from "vue-router";
@@ -172,7 +172,7 @@
       roleName.value = response.data.body.roleName;
       superAdmin.value = response.data.body.superAdmin;
 
-      layoutHelper.changeTabTitle("权限分配 - " + roleName.value);
+      appHelper.changeTabTitle("权限分配 - " + roleName.value);
       calCheckedKeys();
       showAllPermissions();
     } finally {

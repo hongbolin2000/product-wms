@@ -2,7 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {defineStore} from "pinia";
-import {ref} from "vue";
+import {shallowRef} from "vue";
 /********************************************************************************
  * 用户全局应用状态
  *
@@ -27,27 +27,32 @@ const userStore = {
   /**
    * 记住用户名/密码
    */
-  username: ref(''),
-  password: ref(''),
+  username: shallowRef(''),
+  password: shallowRef(''),
 
   /**
    * 记住密码时加密的key
    */
-  key: ref(''),
+  key: shallowRef(''),
 
   /**
    * 是否记住账号/密码
    */
-  isRememberAccount: ref(false),
-  isRememberPassword: ref(false),
+  isRememberAccount: shallowRef(false),
+  isRememberPassword: shallowRef(false),
 
   /**
    * 是否自动登录
    */
-  isAutoLogin: ref(false),
+  isAutoLogin: shallowRef(false),
 
   /**
    * 用户昵称
    */
-  nikeName: ref('')
+  nikeName: shallowRef(''),
+
+  /**
+   * 用户头像
+   */
+  avatar: shallowRef('')
 }

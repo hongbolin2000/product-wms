@@ -75,24 +75,39 @@ export type MenuOption = {
 export type WebsiteOption = {
 
   /**
-   * 网站标题
-   */
-  title: string;
-
-  /**
-   * 副标题
-   */
-  subtitle: string;
-
-  /**
    * 公司名称
    */
   companyName: string,
 
   /**
-   * 应用版本
+   * 网站标题
    */
-  version: string;
+  websiteTitle: string,
+
+  /**
+   * 副标题
+   */
+  websiteSubtitle: string,
+
+  /**
+   * 登录验证码
+   */
+  captchaVerify: true,
+
+  /**
+   * 7天免登录
+   */
+  autoLogin: true,
+
+  /**
+   * 记住账号
+   */
+  rememberAccount: true,
+
+  /**
+   * 记住密码
+   */
+  rememberPassword: true;
 }
 
 /**

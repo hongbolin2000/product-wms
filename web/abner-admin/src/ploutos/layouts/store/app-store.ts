@@ -2,7 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 import {defineStore} from "pinia";
-import {ref, type Ref} from "vue";
+import {ref, type Ref, shallowRef} from "vue";
 import {useRoute, useRouter} from "vue-router";
 /********************************************************************************
  * APP全局应用状态
@@ -24,11 +24,15 @@ const useAppStore = defineStore('appStore', () => {
     expandMenus: ref([]),
     topLeftChildMenus: ref([]),
     websiteOption: ref({
-      title: '',
-      subtitle: '',
       companyName: '',
-      version: ''
+      websiteTitle: '',
+      websiteSubtitle: '',
+      captchaVerify: true,
+      autoLogin: true,
+      rememberAccount: true,
+      rememberPassword: true,
     }),
+    version: shallowRef(''),
     visitedMenus: ref([])
   }
 
@@ -120,17 +124,10 @@ const useAppStore = defineStore('appStore', () => {
     return store.visitedMenus.value.findIndex(i => i.key == route.path);
   }
 
-  /**
-   * 设置网站信息
-   */
-  function configWebsite(websiteOption: WebsiteOption) {
-    store.websiteOption.value = websiteOption;
-  }
-
-  return { ...store, configMenu, configWebsite, closeCurrentTab, changeTabTitle }
+  return { ...store, configMenu, closeCurrentTab, changeTabTitle }
 }, {
   persist: {
-    pick: ['visitedMenus']
+    pick: ['visitedMenus', 'websiteOption']
   }
 });
 export default useAppStore;
@@ -163,5 +160,10 @@ type AppStoreOption = {
   /**
    * 选项卡路由
    */
-  visitedMenus: Ref<MenuOption[]>
+  visitedMenus: Ref<MenuOption[]>,
+
+  /**
+   * 应用版本
+   */
+  version: Ref<string>,
 }

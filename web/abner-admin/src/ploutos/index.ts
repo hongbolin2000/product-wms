@@ -11,7 +11,7 @@
  * 帮助工具类
  */
 import routerHelper from "@/ploutos/layouts/helps/router-helper";
-import layoutHelper from "@/ploutos/layouts/helps/layout-helper";
+import appHelper from "@/ploutos/layouts/helps/app-helper";
 
 /**
  * 反馈组件
@@ -47,7 +47,7 @@ function loading(value: boolean) {
 
 export {
   routerHelper,
-  layoutHelper,
+  appHelper,
   notification,
   message,
   dialog,

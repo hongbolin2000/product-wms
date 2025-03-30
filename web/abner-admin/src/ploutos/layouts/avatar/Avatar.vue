@@ -2,7 +2,8 @@
   <div class="vaw-avatar-container">
     <n-dropdown trigger="hover" :options="options" size="large" @select="handleSelect">
       <div class="action-wrapper">
-        <n-avatar circle size="small" :src="Avatar" />
+        <n-avatar circle size="small" :src="http.basePath + '/doc/image?file=' + userStore.avatar" v-if="userStore.avatar"/>
+        <n-avatar v-else circle size="small" :src="Avatar" />
 
         <span class="nick-name">
           {{userStore.nikeName}}

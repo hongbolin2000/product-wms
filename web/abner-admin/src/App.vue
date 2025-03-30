@@ -13,7 +13,7 @@
 <script setup lang="ts">
   import {onBeforeMount} from 'vue';
   import {useRouter} from 'vue-router';
-  import {layoutHelper} from '@/ploutos';
+  import {appHelper} from '@/ploutos';
   /********************************************************************************
    * APP启动页
    *
@@ -31,15 +31,8 @@
    * 组件加载
    */
   onBeforeMount(() => {
-    // 初始化网站信息
-    layoutHelper.initialWebsite({
-      title: '门店设备数据采集平台',
-      subtitle: 'Store equipment data collection platform',
-      companyName: '上海丞世物联网技术有限公司',
-      version: packages.version
-    });
-
     // 进入开屏页面
+    appHelper.version(packages.version);
     router.replace("/splash");
   });
 </script>

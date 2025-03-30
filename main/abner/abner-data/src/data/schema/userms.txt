@@ -17,7 +17,7 @@ N	GENDER,		VC(1),		NOT NULL,		'U',					gender,					Gender,					性别
 	E	M		Male		男				男
 	E	U		NA			不公开			不公开
 *************************************************************************************************************************************************************
-N	AVATAR,		VC(254),	NOT NULL,		'',						avatar,				    Avatar,			        用户头像
+N	AVATAR,		VC(254),	NOT NULL,		'',						avatar,				    Avatar,			        头像
 N	FULNAM,		VC(32),		NOT NULL,		'',						fullName,				Full Name,				全名
 N	POSITN,		VC(32),		NOT NULL,		'',						position,				Position,				职位
 N	PHONNO,		VC(11),		NOT NULL,		'',						phoneNo,				Phone No,			    联系电话

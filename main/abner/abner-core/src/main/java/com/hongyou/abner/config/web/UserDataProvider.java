@@ -24,15 +24,11 @@ import static com.hongyou.abner.data.model.table.CmpnmsTableDef.CMPNMS;
 
 /**
  * 注入系统数据库以及当前登录用户信息，功能代码继承此类可获取用户以及数据库组件
+ * 此对象全局只有一个实例
  *
  * @author Berlin
  */
 public class UserDataProvider extends DataProvider {
-
-    /**
-     * 当前登录的用户
-     */
-    private Userms userms;
 
     /**
      * 系统消息日志管理器
@@ -62,10 +58,7 @@ public class UserDataProvider extends DataProvider {
      * 获取当前登录的用户
      */
     protected Userms getLoginUser() {
-        if (this.userms == null) {
-            this.userms = this.db().userms().get(getLoginUserId());
-        }
-        return this.userms;
+        return this.db().userms().get(getLoginUserId());
     }
 
     /**

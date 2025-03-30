@@ -2,7 +2,7 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 /********************************************************************************
- * Layout布局框架中的帮助类（提供给功能应用调用）
+ * 应用系统帮助类（提供给功能应用调用）
  *
  * @author Berlin
  *******************************************************************************/
@@ -10,18 +10,16 @@ import useAppStore from "@/ploutos/layouts/store/app-store";
 import type {WebsiteOption, MenuOption} from "@/ploutos/layouts/types";
 
 /**
- * 布局框架中的帮助类（提供给功能应用调用）
- *
- * @param props 传入的属性
+ * 应用系统的帮助类（提供给功能应用调用）
  */
-namespace layoutHelper {
+namespace appHelper {
 
   /**
-   * 初始化网站信息
+   * 设置网站版本号
    *
-   * @param props 传入的属性
+   * @param version 系统版本号
    */
-  export function initialWebsite(props: WebsiteOption) {
+  export function version(version: string) {
 
     /**
      * 全局应用状态
@@ -31,7 +29,7 @@ namespace layoutHelper {
     /**
      * 设置网站信息
      */
-    appStore.configWebsite(props)
+    appStore.version = version;
   }
 
   /**
@@ -87,4 +85,4 @@ namespace layoutHelper {
    */
   export const maxHeight = '100vh - var(--logo-height) - var(--tab-height)'
 }
-export default layoutHelper;
+export default appHelper;

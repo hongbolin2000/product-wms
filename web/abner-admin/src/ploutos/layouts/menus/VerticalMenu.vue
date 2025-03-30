@@ -213,6 +213,11 @@
 </script>
 
 <style scoped lang="scss">
+  :deep(.n-menu-item-content__icon) {
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 16px !important;
+  }
   .vaw-vertical-menu {
     height: calc(100vh - #{$logoHeight}) !important;
   }

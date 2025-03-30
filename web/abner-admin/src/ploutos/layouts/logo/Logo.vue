@@ -7,7 +7,7 @@
     >
       <span class="logo-title">
         <n-ellipsis :style="'max-width:' + maxWidth">
-          {{ appStore.websiteOption.title }}
+          {{ appStore.websiteOption.websiteTitle }}
         </n-ellipsis>
       </span>
     </div>
