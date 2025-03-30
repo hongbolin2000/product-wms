@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 /**
- * 文件
+ * 文档
  *
  * @author Berlin
  */
@@ -51,7 +51,7 @@ public class DocumentPage {
      * 文件上传
      *
      * @param multipart 文件信息
-     * @param group 图片存储分组路径
+     * @param group 文件存储分组路径
      */
     @PostMapping("/upload")
     public ResponseEntry fileUpload(

@@ -31,7 +31,7 @@ public class WebsiteConfigure {
     private String websiteSubtitle;
 
     /**
-     * 是否打开验证
+     * 是否打开验证码
      */
     private boolean captchaVerify;
 

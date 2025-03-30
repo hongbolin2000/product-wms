@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 菜单
+ * 导航菜单
  *
  * @author Berlin
  */
