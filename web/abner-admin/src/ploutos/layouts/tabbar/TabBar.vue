@@ -198,7 +198,7 @@
    * 路由进入前
    */
   router.beforeEach((to: RouteLocationNormalized) => {
-    addVisitedRouter(to);
+    return addVisitedRouter(to);
   });
   function addVisitedRouter(to: RouteLocationNormalized) {
     if (routerHelper.isIgnoreRoute(to)) {
@@ -212,6 +212,9 @@
     let menu = appStore.expandMenus.find(i => i.key == to.fullPath);
     if (!menu) {
       const parent = appStore.expandMenus.find(i => i.key == currentPath.value);
+      if (!parent) {
+        return false;
+      }
       menu = {
         key: to.fullPath,
         fullUrl: parent.fullUrl,
@@ -222,6 +225,7 @@
       menu.icons = menu.parentIcon;
     }
     appStore.visitedMenus.push({...menu} as MenuOption);
+    return true;
   }
 
   /********************************************************************************
