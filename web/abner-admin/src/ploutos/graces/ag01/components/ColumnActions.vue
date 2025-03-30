@@ -28,7 +28,7 @@ import {onMounted, type PropType, shallowRef, type VNode} from "vue";
   import ColumnFactories from "@/ploutos/graces/ag01/faces/ColumnFactories.ts";
   import {ChevronDown} from "@vicons/ionicons5";
   import {NIcon} from "naive-ui";
-  import DataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
+  import {Graces} from "@/ploutos";
 
   /**
    * 更多选项
@@ -52,7 +52,7 @@ import {onMounted, type PropType, shallowRef, type VNode} from "vue";
       required: true,
     },
     datatable: {
-      type: Object as PropType<DataTable>,
+      type: Object as PropType<Graces.DatatableProps>,
       required: true
     }
   });

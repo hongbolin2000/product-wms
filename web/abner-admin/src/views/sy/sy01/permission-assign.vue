@@ -73,7 +73,7 @@
 <script setup lang="ts">
   import {ref, shallowRef, onMounted, type Ref, h} from "vue";
   import {
-    DataTableColumn,
+    type DataTableColumn,
     NCheckbox,
     type SelectOption,
     type TreeOption,

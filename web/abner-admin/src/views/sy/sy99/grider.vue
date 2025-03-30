@@ -18,7 +18,7 @@
   }
   window['sy99Cancel'] = sy99Cancel;
 
-  function onSearch(params: object, sorter: Graces.Sorter, pageNumber?: number, pageSize?: number) {
+  function onSearch(params: object, sorter: Graces.SorterProps, pageNumber?: number, pageSize?: number) {
     debugger;
   }
 </script>
