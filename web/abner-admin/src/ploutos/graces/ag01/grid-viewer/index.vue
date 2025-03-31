@@ -188,6 +188,11 @@
    * 组件加载
    */
   onMounted(async () => {
+
+    // 将刷新事件写入window
+    const name = props.module + props.name.substring(0, 1).toUpperCase() + props.name.substring(1) + "Refresh";
+    window[name] = loadTableData;
+
     setTimeout(async() => {
       await loadDefine();
       getMaxHeight();

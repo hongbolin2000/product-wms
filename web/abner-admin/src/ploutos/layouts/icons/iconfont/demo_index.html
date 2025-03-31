@@ -55,15 +55,21 @@
           <ul class="icon_lists dib-box">
           
             <li class="dib">
-              <span class="icon iconfont">&#xe65c;</span>
-                <div class="name">user</div>
-                <div class="code-name">&amp;#xe65c;</div>
+              <span class="icon iconfont">&#xe95e;</span>
+                <div class="name">frozen-user</div>
+                <div class="code-name">&amp;#xe95e;</div>
               </li>
           
             <li class="dib">
-              <span class="icon iconfont">&#xe619;</span>
-                <div class="name">user1</div>
-                <div class="code-name">&amp;#xe619;</div>
+              <span class="icon iconfont">&#xe95f;</span>
+                <div class="name">unfrozen-user</div>
+                <div class="code-name">&amp;#xe95f;</div>
+              </li>
+          
+            <li class="dib">
+              <span class="icon iconfont">&#xe65c;</span>
+                <div class="name">user</div>
+                <div class="code-name">&amp;#xe65c;</div>
               </li>
           
             <li class="dib">
@@ -144,9 +150,9 @@
 <pre><code class="language-css"
 >@font-face {
   font-family: 'iconfont';
-  src: url('iconfont.woff2?t=1743384460974') format('woff2'),
-       url('iconfont.woff?t=1743384460974') format('woff'),
-       url('iconfont.ttf?t=1743384460974') format('truetype');
+  src: url('iconfont.woff2?t=1743428558463') format('woff2'),
+       url('iconfont.woff?t=1743428558463') format('woff'),
+       url('iconfont.ttf?t=1743428558463') format('truetype');
 }
 </code></pre>
           <h3 id="-iconfont-">第二步：定义使用 iconfont 的样式</h3>
@@ -173,20 +179,29 @@
         <ul class="icon_lists dib-box">
           
           <li class="dib">
+            <span class="icon iconfont icon-frozen-user"></span>
+            <div class="name">
+              frozen-user
+            </div>
+            <div class="code-name">.icon-frozen-user
+            </div>
+          </li>
+          
+          <li class="dib">
+            <span class="icon iconfont icon-unfrozen-user-copy"></span>
+            <div class="name">
+              unfrozen-user
+            </div>
+            <div class="code-name">.icon-unfrozen-user-copy
+            </div>
+          </li>
+          
+          <li class="dib">
             <span class="icon iconfont icon-user"></span>
             <div class="name">
               user
             </div>
             <div class="code-name">.icon-user
-            </div>
-          </li>
-          
-          <li class="dib">
-            <span class="icon iconfont icon-user1"></span>
-            <div class="name">
-              user1
-            </div>
-            <div class="code-name">.icon-user1
             </div>
           </li>
           
@@ -309,18 +324,26 @@
           
             <li class="dib">
                 <svg class="icon svg-icon" aria-hidden="true">
-                  <use xlink:href="#icon-user"></use>
+                  <use xlink:href="#icon-frozen-user"></use>
                 </svg>
-                <div class="name">user</div>
-                <div class="code-name">#icon-user</div>
+                <div class="name">frozen-user</div>
+                <div class="code-name">#icon-frozen-user</div>
             </li>
           
             <li class="dib">
                 <svg class="icon svg-icon" aria-hidden="true">
-                  <use xlink:href="#icon-user1"></use>
+                  <use xlink:href="#icon-unfrozen-user-copy"></use>
                 </svg>
-                <div class="name">user1</div>
-                <div class="code-name">#icon-user1</div>
+                <div class="name">unfrozen-user</div>
+                <div class="code-name">#icon-unfrozen-user-copy</div>
+            </li>
+          
+            <li class="dib">
+                <svg class="icon svg-icon" aria-hidden="true">
+                  <use xlink:href="#icon-user"></use>
+                </svg>
+                <div class="name">user</div>
+                <div class="code-name">#icon-user</div>
             </li>
           
             <li class="dib">

@@ -219,6 +219,7 @@
           key: to.fullPath,
           label: parent.label,
           fullUrl: parent.fullUrl,
+          icons: parent.icons
         }
         appStore.expandMenus.push(menu);
       }
@@ -227,6 +228,7 @@
       }
       appStore.visitedMenus.push({...menu} as MenuOption);
     }
+    currentPath.value = to.fullPath;
     changeDocumentTitle(menu.label);
     return true;
   }
@@ -307,7 +309,6 @@
     if (routerHelper.isIgnoreRoute(route)) {
       return;
     }
-    currentPath.value = route.fullPath;
 
     // 路由改变，重新计算右键菜单并滚动到当前路由
     getContextMenuOptions(false);

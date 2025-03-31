@@ -494,14 +494,16 @@
     });
 
     // 展示在表格的操作按钮
-    const defaultWidth = menuOptions.length > 0 ? 25 : 0;
     const column: TableBaseColumn = <TableBaseColumn>{width: 0};
     const columnActions = datatable.columns.filter(i => ColumnFactories.isLink(i) && !i.option);
     if (columnActions.length > 0) {
+      const optionWidth = datatable.columns.filter(i => i.option).length > 0 ? 80 : 0;
       columnActions.forEach(item => {
-        const width = item.width ? parseInt(item.width.toString()): 80 + defaultWidth;
+        const width = item.width ? parseInt(item.width.toString()): 80;
         column.width = parseInt(column.width.toString()) + width;
       });
+
+      column.width += optionWidth;
       column.key = 'option';
       column.title = '操作';
       column.align = 'center';

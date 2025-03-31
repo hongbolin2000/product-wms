@@ -46,6 +46,7 @@ const useAppStore = defineStore('appStore', () => {
    */
   function configMenu(options: MenuOption[]) {
     store.menus.value = options;
+    store.expandMenus.value = [];
 
     // 展开菜单为平层
     expandMenu(store.menus.value, store.expandMenus.value);

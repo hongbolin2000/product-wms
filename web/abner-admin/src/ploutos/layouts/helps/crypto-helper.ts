@@ -7,7 +7,7 @@ import CryptoJS from 'crypto-js'
  *
  * @author Berlin
  *******************************************************************************/
-export namespace CryptoHelper {
+namespace CryptoHelper {
 
   /**
    * 生成256位密匙
@@ -41,3 +41,4 @@ export namespace CryptoHelper {
     return decrypted.toString(CryptoJS.enc.Utf8);
   }
 }
+export default CryptoHelper;

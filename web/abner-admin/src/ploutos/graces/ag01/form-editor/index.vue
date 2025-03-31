@@ -251,6 +251,12 @@
     },
     isDrawer: {
       type: Boolean
+    },
+    formValue: {
+      type: Object
+    },
+    formRules: {
+      type: Object
     }
   });
 
@@ -311,14 +317,22 @@
   async function loadDefine() {
     try {
       spin(true);
+
+      // 参数
+      const params = props.params ? props.params : {};
+      params.fill = props.fill;
+
+      // 查询界面定义
       const data = {
-        module: props.module, name: props.name, params: props.params, local: 'zh-CN'
+        module: props.module, name: props.name, params: params, local: 'zh-CN'
       }
       const response = await http.post("/ag01/editor/loadDefine", data);
       editor.value = response.data;
 
       // 表单显示行
-      const rules = {}, allEditors = [], value = {};
+      const allEditors = [];
+      const value = props.formValue ? props.formValue : {};
+      const rules = props.formRules ? props.formRules : {};
       editor.value.editorRows.forEach(row => {
         // 选项卡表单
         row.tabEditors = row.editors.filter(i => i.tab);
@@ -337,19 +351,22 @@
       // 表单校验规则
       allEditors.forEach(editor => {
         editor.widgets.forEach(widget => {
-          // 表单校验规则
-          if (!widget.hidden && widget.required) {
+
+          // 字段校验规则
+          if (!widget.hidden && widget.required && !rules[widget.name]) {
             rules[widget.name] = WidgetFactories.getInstance().getRule(widget);
           }
+
           // 初始化值
           if (widget.tabtitle) {
             tabTitleName.value = widget.name;
           }
           value[widget.name] = widget.default ? widget.default : '';
         });
+
         // 过滤掉隐藏的控件
         editor.widgets = editor.widgets.filter(i => !i.hidden);
-      })
+      });
       editor.value.allEditors = allEditors;
       formRules.value = rules;
       formValue.value = value;

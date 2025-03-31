@@ -12,6 +12,7 @@
  */
 import routerHelper from "@/ploutos/layouts/helps/router-helper";
 import appHelper from "@/ploutos/layouts/helps/app-helper";
+import cryptoHelper from "@/ploutos/layouts/helps/crypto-helper";
 
 /**
  * 反馈组件
@@ -48,6 +49,7 @@ function loading(value: boolean) {
 export {
   routerHelper,
   appHelper,
+  cryptoHelper,
   notification,
   message,
   dialog,

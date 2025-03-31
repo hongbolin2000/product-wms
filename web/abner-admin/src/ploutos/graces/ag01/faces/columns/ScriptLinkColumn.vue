@@ -5,9 +5,9 @@
       @click="onHandelClick"
       :disabled="props.column.isDisabled"
       v-if="!column.option"
-      :type="column.danger ? 'error' : 'primary'"
+      :type="column.danger ? 'error' : 'default'"
   >
-    <template #icon>
+    <template #icon v-if="column.icon">
       <n-icon>
         <SvgIcon :name="column.icon"/>
       </n-icon>

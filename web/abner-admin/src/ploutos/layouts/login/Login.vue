@@ -87,7 +87,7 @@
   import useAppStore from "@/ploutos/layouts/store/app-store";
   import useUserStore from "@/ploutos/layouts/store/user-store";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import {CryptoHelper} from "@/ploutos/layouts/helps/crypto-helper";
+  import CryptoHelper from "@/ploutos/layouts/helps/crypto-helper";
   import type {MessageReactive} from "naive-ui/es/message/src/MessageProvider";
   import {http, message} from '@/ploutos/index';
   import {storeToRefs} from "pinia";
