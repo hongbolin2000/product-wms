@@ -467,7 +467,7 @@
       column.key = item.name;
       column.sorter = props.static ? 'default' : true;
       column.width = item.width ? item.width : null;
-      column.resizable = TagColumnFactory.TYPE != item.type;
+      column.resizable = true;
       column.ellipsis = TagColumnFactory.TYPE != item.type;
       column.align = item.align
 

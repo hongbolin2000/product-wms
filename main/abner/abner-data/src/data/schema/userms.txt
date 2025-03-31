@@ -2,7 +2,7 @@
 T	USERMS
 S
 L	User Master Table
-C	用户信息表
+C	用户
 Y	User
 ====1===========2===========3===============4=======================5=======================6=======================7========================================
 N	USERID,		ID,			NOT NULL,		,						id,						ID,						主键
@@ -17,7 +17,7 @@ N	GENDER,		VC(1),		NOT NULL,		'U',					gender,					Gender,					性别
 	E	M		Male		男				男
 	E	U		NA			不公开			不公开
 *************************************************************************************************************************************************************
-N	AVATAR,		VC(254),	NOT NULL,		'',						avatar,				    Avatar,			        头像
+N	AVATAR,		VC(254),	NOT NULL,		'',						avatar,				    Avatar,			        用户头像
 N	FULNAM,		VC(32),		NOT NULL,		'',						fullName,				Full Name,				全名
 N	POSITN,		VC(32),		NOT NULL,		'',						position,				Position,				职位
 N	PHONNO,		VC(11),		NOT NULL,		'',						phoneNo,				Phone No,			    联系电话
@@ -25,13 +25,11 @@ N	EMAIL,		VC(32),		NOT NULL,		'',						email,			        Email,					电子邮件
 *************************************************************************************************************************************************************
 N	STATUS,		C(2),		NOT NULL,		'00',					status,					Status,					状态
 	B	00		Normal		正常
-	B	90		Frozen		冻结
-	B	99		Deleted		软删除
+	B	99		Frozen		冻结
 N	LGNSTS,		C(2),		NOT NULL,		'00',					loginStatus,			Login Status,			登录状态
 	B	ON		Online		在线
 	B	OF		Offline		离线
 *************************************************************************************************************************************************************
-N	RGSTIM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		Registration,			Registration Time,		注册时间
 N	LSLGTM,		TS,			,		        ,		                lastLoginTime,			Last Login Time,		最后登录时间
 N	LGERCT,		INT,		NOT NULL,		0,						loginErrorCount,		Login Error Count,		登陆错误次数
 *************************************************************************************************************************************************************

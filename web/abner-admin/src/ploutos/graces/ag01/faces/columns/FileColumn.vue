@@ -8,6 +8,7 @@
       :show-download-button="column.mode == 'image'"
       @download="handleDownload"
       @preview="handlePreview"
+      v-if="props.column.rowData[props.column.name]"
   />
 </template>
 

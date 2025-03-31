@@ -187,7 +187,13 @@ public class Login extends UserDataProvider {
      */
     @PostMapping("/logout")
     public String logout() {
-        StpUtil.logout();
-        return "Success";
+        try {
+            Userms userms = this.getLoginUser();
+            userms.lgnsts(Userms.LGNSTS.Offline);
+            StpUtil.logout();
+            return "Success";
+        } catch (Exception e) {
+            return "Success";
+        }
     }
 }
