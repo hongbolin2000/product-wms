@@ -130,7 +130,10 @@ public class Login extends UserDataProvider {
 
             // 登录
             this.stpLogin(userms.getUserid(), param.isAutoLogin());
-            userms.lslgtm(this.getCurrentTime());
+            userms.lgnsts(Userms.LGNSTS.Online).
+                    lslgtm(this.getCurrentTime());
+            this.db().userms().save(userms);
+
             return LoginResult.builder().
                     loginCode(LoginCode.LG200.getValue()).
                     build();
@@ -168,9 +171,15 @@ public class Login extends UserDataProvider {
      * 检查是否已经登录
      */
     @PostMapping("/isLogin")
+    @Transactional(rollbackFor = RestRuntimeException.class)
     public LoginResult isLogin() {
         try {
             StpUtil.checkLogin();
+
+            Userms userms = this.getLoginUser();
+            userms.lgnsts(Userms.LGNSTS.Online).
+                    lslgtm(this.getCurrentTime());
+            this.db().userms().save(userms);
         } catch (NotLoginException e) {
             // token被冻结
             if (Integer.parseInt(e.getType()) == -6) {
@@ -186,10 +195,12 @@ public class Login extends UserDataProvider {
      * 退出登录
      */
     @PostMapping("/logout")
+    @Transactional(rollbackFor = RestRuntimeException.class)
     public String logout() {
         try {
             Userms userms = this.getLoginUser();
             userms.lgnsts(Userms.LGNSTS.Offline);
+            this.db().userms().save(userms);
             StpUtil.logout();
             return "Success";
         } catch (Exception e) {

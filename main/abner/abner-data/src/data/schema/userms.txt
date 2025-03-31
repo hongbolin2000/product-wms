@@ -26,7 +26,7 @@ N	EMAIL,		VC(32),		NOT NULL,		'',						email,			        Email,					电子邮件
 N	STATUS,		C(2),		NOT NULL,		'00',					status,					Status,					状态
 	B	00		Normal		正常
 	B	99		Frozen		冻结
-N	LGNSTS,		C(2),		NOT NULL,		'00',					loginStatus,			Login Status,			登录状态
+N	LGNSTS,		C(2),		NOT NULL,		'OF',					loginStatus,			Login Status,			登录状态
 	B	ON		Online		在线
 	B	OF		Offline		离线
 *************************************************************************************************************************************************************

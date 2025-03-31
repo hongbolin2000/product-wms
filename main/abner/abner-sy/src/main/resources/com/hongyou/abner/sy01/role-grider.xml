@@ -19,15 +19,11 @@
         </statement>
 
         <columns>
-            <column type="label" name="name" expr="rolenm" title="@ROLEMS.ROLENM" width="100" filter="text"/>
+            <column type="label" name="name" expr="rolenm" title="@ROLEMS.ROLENM" width="120" filter="text"/>
             <column type="tag" name="superAdmin" expr="supadm" title="@ROLEMS.SUPADM" width="110" format="@@ROLEMS.SUPADM"/>
             <column type="label" name="remark" expr="remark" title="@ROLEMS.REMARK" filter="text"/>
-            <column type="label" name="createBy" expr="cretby" title="@ROLEMS.CRETBY" width="100" filter="text"/>
-            <column type="label" name="createTime" expr="crettm" title="@ROLEMS.CRETTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
-            <column type="label" name="operateBy" expr="oprtby" title="@ROLEMS.OPRTBY" width="100" filter="text"/>
-            <column type="label" name="operateTime" expr="oprttm" title="@ROLEMS.OPRTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
             <column type="link" name="assign" icon="permission" expr="roleid" title="@assign" width="120" link="/sy01/permission/assign"/>
-            <column type="link" name="edit" icon="edit" expr="roleid" title="@edit" width="80" link="/graces/editor/sy01/roleEdit" mode="drawer"/>
+            <column type="link" mode="drawer" name="edit" icon="edit" expr="roleid" title="@edit" width="80" link="/graces/editor/sy01/roleEdit"/>
             <column type="scriptLink" name="delete" icon="delete" expr="roleid" title="@delete" width="80" link="/sy01/delete"
                     labelColumn="name" danger="true"/>
         </columns>

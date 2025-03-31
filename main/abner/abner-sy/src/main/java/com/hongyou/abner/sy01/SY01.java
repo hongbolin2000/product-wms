@@ -110,7 +110,7 @@ public class SY01 extends UserDataProvider {
                     domain(userCompanyId).
                     operator(operatorBy).
                     module(SY01.class.getSimpleName()).
-                    name("角色维护").
+                    name("角色管理").
                     action(action).
                     message(StringUtil.format("角色[{}]{}成功", rolems.getRolenm(), action)).
                     oldValue(oldRolems).
@@ -144,14 +144,14 @@ public class SY01 extends UserDataProvider {
                         domain(userCompanyId).
                         operator(operatorBy).
                         module(SY01.class.getSimpleName()).
-                        name("角色维护").
+                        name("角色管理").
                         action("删除").
                         message(StringUtil.format("角色[{}]删除成功", rolems.getRolenm())).
                         newValue(rolems).
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.info(event);
-                this.db().rolems().deleteIds(ids);
+                this.db().rolems().delete(rolems);
             }
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

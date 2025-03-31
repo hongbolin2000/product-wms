@@ -3,6 +3,7 @@
     <family name="pc" label="管理后台">
         <menu id="sy" url="/sy" label="系统管理" icon="system">
             <menu id="sy01" url="/graces/grider/sy01/roleList" label="角色管理" icon="role"/>
+            <menu id="sy02" url="/graces/grider/sy02/userList" label="用户管理" icon="user"/>
             <menu id="sy99" url="/graces/grider/sy99/storeGrider" label="动态列表"/>
         </menu>
     </family>

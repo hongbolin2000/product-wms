@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 用户列表 -->
+    <generic-grider-descriptor name="userList">user-grider.xml</generic-grider-descriptor>
+
+    <!-- 用户编辑 -->
+    <generic-editor-descriptor name="userEdit">user-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

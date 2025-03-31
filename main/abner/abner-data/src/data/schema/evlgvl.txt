@@ -13,7 +13,7 @@ N	ELPRKY,		VC(32),		NOT NULL,		,						propertyKey,	Property Key,			属性编号
 N	ELPRNM,		VC(32),		NOT NULL,		,						propertyName,	Property Name,			属性名称
 *****************************************************************************************************************************************************
 N	ELODVL,		VC(64),		NOT NULL,		'',						oldValue,		Old Value,			    原有值
-N	ELPRVL,		VC(64),		NOT NULL,		'',						value,			Property value,			现存值
+N	ELPRVL,		VC(254),		NOT NULL,		'',					value,			Property value,			现存值
 *****************************************************************************************************************************************************
 N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间

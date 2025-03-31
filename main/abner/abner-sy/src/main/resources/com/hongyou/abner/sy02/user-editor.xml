@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        用户编辑
+    </description>
+
+    <atitle>@add</atitle>
+    <etitle>@edit</etitle>
+
+    <statement>
+        <table name="userms"/>
+        <param column="userid" type="=" expr="id"/>
+    </statement>
+
+    <editor title="@title" spans="1" formWidth="40%">
+        <input type="text" name="id" expr="userid" hidden="true"/>
+        <input type="text" name="username" expr="usernm" title="@USERMS.USERNM" required="true" length="32"/>
+        <input type="text" mode="password" name="password" expr="paswrd" title="@USERMS.PASWRD" required="true"
+               length="32" hidden="fill == true"/>
+        <input type="text" mode="password" name="confirmPwd" expr="paswrd" title="@confirm.pwd" length="32"
+               required="true" hidden="fill == true"/>
+        <input type="text" name="fullName" expr="fulnam" title="@USERMS.FULNAM" required="true" length="32"/>
+        <input type="enum" name="gender" expr="gender" title="@USERMS.GENDER" options="@@USERMS.GENDER" default="U" required="true"/>
+        <input type="text" name="position" expr="positn" title="@USERMS.POSITN" length="32"/>
+        <input type="text" name="phoneNo" expr="phonno" title="@USERMS.PHONNO" length="11"/>
+        <input type="text" name="email" expr="email" title="@USERMS.EMAIL" length="32"/>
+        <input type="upload" name="avatar" expr="avatar" title="@USERMS.AVATAR" length="254"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@USERMS.REMARK" length="254" accept="images/*"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="add">新增用户</item>
+            <item key="edit">修改用户</item>
+            <item key="title">用户信息</item>
+            <item key="confirm.pwd">确认密码</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="add">Add User</item>
+            <item key="edit">Modify User</item>
+            <item key="title">Info User</item>
+            <item key="confirm.pwd">Confirm Pwd</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

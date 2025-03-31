@@ -78,14 +78,14 @@ public class EventLogManagerImpl extends DataProvider implements EventLogManager
                 continue;
             }
             // Long作为ID、Timestamp作为操作时间不记录日志
-            if (field.getType() == Long.class || field.getType() == Timestamp.class) {
+            if (field.getType() == Long.class) {
                 continue;
             }
             // 设置字段可访问性
             field.setAccessible(true);
 
             // 新值
-            String filedNewValue = field.get(event.getNewValue()).toString();
+            String filedNewValue = ObjectUtil.defaultIfNull(field.get(event.getNewValue()), "").toString();
             if (event.getOldValue() == null && StringUtil.isBlank(filedNewValue)) {
                 continue;
             }
@@ -94,7 +94,7 @@ public class EventLogManagerImpl extends DataProvider implements EventLogManager
             // 如果传入的原始值对象，则对比两个字段是否一致
             String filedOldValue = "";
             if (event.getOldValue() != null) {
-                filedOldValue = field.get(event.getOldValue()).toString();
+                filedOldValue = ObjectUtil.defaultIfNull(field.get(event.getOldValue()), "").toString();
                 filedOldValue = this.getEnumDisplay(event.getEnumsDisplay(), field, filedOldValue);
                 if (ObjectUtil.equal(filedNewValue, filedOldValue)) {
                     continue;

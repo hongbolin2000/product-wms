@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        用户列表
+    </description>
+
+    <filters>
+        <opts name="gender" type="enum" table="USERMS" column="GENDER"/>
+        <opts name="status" type="enum" table="USERMS" column="STATUS"/>
+        <opts name="loginStatus" type="enum" table="USERMS" column="LGNSTS"/>
+    </filters>
+
+    <datatable title="@title">
+        <actions>
+            <action type="link" icon="add" title="@add" link="/sy02/add" />
+        </actions>
+
+        <statement>
+            <table name="userms"/>
+            <order by="crettm desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="loginStatusValue" expr="lgnsts" hidden="true"/>
+            <column type="file" name="avatar" expr="avatar" title="@USERMS.AVATAR" width="115" align="center"/>
+            <column type="label" name="username" expr="usernm" title="@USERMS.USERNM" width="100" filter="text"/>
+            <column type="label" name="fullName" expr="fulnam" title="@USERMS.FULNAM" width="80" filter="text"/>
+            <column type="tag" name="gender" expr="gender" title="@USERMS.GENDER" width="70" format="@@USERMS.GENDER" filter="@gender"/>
+            <column type="tag" name="status" expr="status" title="@USERMS.STATUS" width="70" format="@@USERMS.STATUS" filter="@status"
+                    success="statusValue == '00'" error="statusValue == '99'"/>
+            <column type="tag" name="loginStatus" expr="lgnsts" title="@USERMS.LGNSTS" width="100" format="@@USERMS.LGNSTS"
+                    filter="@loginStatus" success="loginStatusValue == 'ON'" error="loginStatusValue == 'OF'"/>
+            <column type="label" name="position" expr="positn" title="@USERMS.POSITN" width="120" filter="text"/>
+            <column type="label" name="phoneNo" expr="phonno" title="@USERMS.PHONNO" width="100" filter="text" tm="3:7"/>
+            <column type="label" name="email" expr="email" title="@USERMS.EMAIL" width="120" filter="text"/>
+            <column type="label" name="lastLoginTime" expr="lslgtm" title="@USERMS.LSLGTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="remark" expr="remark" title="@USERMS.REMARK" filter="text"/>
+            <column type="link" name="edit" icon="edit" expr="userid" title="@edit" width="80" link="/sy02/edit"
+                    disabled="statusValue == '99'"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="userid" title="@delete" width="80" link="/sy02/delete"
+                    labelColumn="username" danger="true" disabled="statusValue == '99'" option="true"/>
+            <column type="scriptLink" name="frozen" icon="frozen-user" expr="userid" title="@frozen" width="80" link="/sy02/frozen"
+                    labelColumn="username" danger="true" disabled="statusValue == '99'" option="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="title">用户</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+            <item key="frozen">冻结</item>
+            <item key="unfrozen">解除冻结</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="add">User</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+            <item key="frozen">Frozen</item>
+            <item key="unfrozen">Unfrozen</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>
