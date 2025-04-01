@@ -15,7 +15,7 @@ N 	LANGUG,		C(8),		NOT NULL,		'zh-CN',				language,		Language,				语言
 N	SORTNG,		INT,		NOT NULL,		1,						sorting,		Sorting,				显示顺序
 *****************************************************************************************************************************************************
 N   PMSNCD,     VC(16),     NOT NULL,       '',                     permissionCode, Permission Code,        权限许可编号
-    # 权限组的编号，存放功能模块号，并且需与菜单定义的功能ID对应
+    # 权限组的编号
 N	ACTCDE,		VC(16),		NOT NULL,		'',						actionCode,		Action Code,			权限动作编号
     # 权限组下的动作编号，用来在程序中判定是否有操作权限，比如定义为：list,add,delete等
 N	ACTNAM,		VC(16),		NOT NULL,		'',						actionName,		Action Name,			权限动作名称

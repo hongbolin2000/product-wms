@@ -9,7 +9,6 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Cmpnms;
 import com.hongyou.abner.data.model.Userms;
-import com.hongyou.abner.data.model.table.CmpnmsTableDef;
 import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
@@ -23,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.hongyou.abner.data.model.table.CmpnmsTableDef.CMPNMS;
 
 /**
  * 用户登录认证
@@ -66,7 +67,7 @@ public class Login extends UserDataProvider {
                 avatar = loginUser.getAvatar();
             } else {
                 QueryWrapper wrapper = QueryWrapper.create();
-                wrapper.where("1 = 1 order by " + CmpnmsTableDef.CMPNMS.CRETTM.getName());
+                wrapper.where("1 = 1 order by " + CMPNMS.CRETTM.getName());
                 List<Cmpnms> cmpnmss = this.db().cmpnms().list(wrapper);
                 cmpnms = cmpnmss.get(0);
             }
