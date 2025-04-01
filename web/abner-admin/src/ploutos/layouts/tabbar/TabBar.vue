@@ -177,8 +177,13 @@
   watch(menus, () => {
     const menu = appStore.expandMenus.find(i => i.key == currentPath.value);
     if (!menu) {
-      const simpleTitle = appStore.platformOption.platformSimpleTitle;
-      document.title = simpleTitle ? simpleTitle : 'App';
+      // 找不到菜单时跳转到第一个选项卡
+      if (appStore.visitedMenus.length > 0) {
+        router.push(appStore.visitedMenus[0].key);
+      } else {
+        const simpleTitle = appStore.platformOption.platformSimpleTitle;
+        document.title = simpleTitle ? simpleTitle : 'App';
+      }
       return;
     }
 
