@@ -96,7 +96,6 @@ public class MenuPage extends UserDataProvider {
      */
     private List<String> loadPermissions() {
         Userms loginUser = this.getLoginUser();
-
         QueryWrapper wrapper = QueryWrapper.create();
         wrapper.select(QueryMethods.distinct(PMSNMS.PMSNCD)).
                 from(PMSNMS).
@@ -104,6 +103,6 @@ public class MenuPage extends UserDataProvider {
                 innerJoin(USRROL).on(ROLPMS.ROLEID.eq(USRROL.ROLEID)).
                 where(USRROL.USERID.eq(loginUser.getUserid()));
         List<Pmsnms> pmsnmss = this.db().pmsnms().list(wrapper);
-        return pmsnmss.stream().map(Pmsnms::getPmsncd).collect(Collectors.toList());
+        return pmsnmss.stream().map(Pmsnms::getPmsncd).toList();
     }
 }

@@ -16,6 +16,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.hongyou.abner.data.model.table.VTbfdvlTableDef.VTBFDVL;
+
 /**
  * 数据库国际化语言
  *
@@ -49,9 +51,9 @@ public class InternationalManagerImpl extends DataProvider implements Internatio
         }
 
         List<VTbfdvl> vtbfdvls = new VTbfdvl().
-                select("fldnam", "value", "dspval").
-                where("langug = ? and tblnam = ?", local, table).
-                orderBy("sortng").
+                select(VTBFDVL.FLDNAM.getName(), VTBFDVL.VALUE.getName(), VTBFDVL.DSPVAL.getName()).
+                and(VTBFDVL.LANGUG.eq(local)).and(VTBFDVL.TBLNAM.eq(table)).
+                orderBy(VTBFDVL.SORTNG.getName()).
                 list();
         Map<String, String> displays = new LinkedHashMap<>();
         vtbfdvls.forEach(vtbfdvl -> displays.put(

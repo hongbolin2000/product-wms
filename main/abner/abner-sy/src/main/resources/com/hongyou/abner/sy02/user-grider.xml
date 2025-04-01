@@ -30,26 +30,30 @@
             <column type="file" name="avatar" expr="avatar" title="@USERMS.AVATAR" width="115" align="center"/>
             <column type="label" name="username" expr="usernm" title="@USERMS.USERNM" width="100" filter="text"/>
             <column type="label" name="fullName" expr="fulnam" title="@USERMS.FULNAM" width="80" filter="text"/>
-            <column type="tag" name="gender" expr="gender" title="@USERMS.GENDER" width="70" format="@@USERMS.GENDER" filter="@gender"/>
-            <column type="tag" name="status" expr="status" title="@USERMS.STATUS" width="70" format="@@USERMS.STATUS" filter="@status"
+            <column type="tag" name="gender" expr="gender" title="@USERMS.GENDER" width="70" format="@@USERMS.GENDER"
+                    filter="@gender"/>
+            <column type="tag" name="status" expr="status" title="@USERMS.STATUS" width="70" format="@@USERMS.STATUS"
+                    filter="@status"
                     success="statusValue == '00'" error="statusValue == '99'"/>
             <column type="tag" name="loginStatus" expr="lgnsts" title="@USERMS.LGNSTS" width="100" format="@@USERMS.LGNSTS"
                     filter="@loginStatus" success="loginStatusValue == 'ON'" error="loginStatusValue == 'OF'"/>
             <column type="label" name="position" expr="positn" title="@USERMS.POSITN" width="120" filter="text"/>
             <column type="label" name="phoneNo" expr="phonno" title="@USERMS.PHONNO" width="100" filter="text" tm="3:7"/>
             <column type="label" name="email" expr="email" title="@USERMS.EMAIL" width="120" filter="text"/>
-            <column type="label" name="lastLoginTime" expr="lslgtm" title="@USERMS.LSLGTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="lastLoginTime" expr="lslgtm" title="@USERMS.LSLGTM" width="150"
+                    format="!yyyy-MM-dd HH:mm:ss"/>
             <column type="label" name="remark" expr="remark" title="@USERMS.REMARK" filter="text" width="100"/>
             <column type="link" mode="dialog" name="roleAssign" icon="role" expr="userid" title="@assign.role" width="70"
-                    link="/graces/editor/sy02/roleAssignEdit" disabled="statusValue == '99'" dialogWidth="70%"/>
+                    link="/graces/editor/sy02/roleAssignEdit" disabled="statusValue == '99'" dialogWidth="70%"
+                    permission="role.assign"/>
             <column type="link" name="edit" icon="edit" expr="userid" title="@edit" width="70" link="/sy02/edit"
-                    disabled="statusValue == '99'"/>
+                    disabled="statusValue == '99'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="userid" title="@delete" width="80" link="/sy02/delete"
-                    labelColumn="username" danger="true" disabled="statusValue == '99'" option="true"/>
+                    labelColumn="username" danger="true" disabled="statusValue == '99'" option="true" permission="delete"/>
             <column type="scriptLink" name="frozen" icon="frozen-user" expr="userid" title="@frozen" width="80" link="/sy02/frozen"
-                    labelColumn="username" danger="true" disabled="statusValue == '99'" option="true"/>
+                    labelColumn="username" danger="true" disabled="statusValue == '99'" option="true" permission="frozen"/>
             <column type="scriptLink" name="unfrozen" icon="unfrozen-user" expr="userid" title="@unfrozen" width="100" link="/sy02/frozen"
-                    labelColumn="username" disabled="statusValue != '99'" option="true"/>
+                    labelColumn="username" disabled="statusValue != '99'" option="true" permission="unfrozen"/>
         </columns>
     </datatable>
 

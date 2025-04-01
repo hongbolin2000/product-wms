@@ -22,10 +22,12 @@
             <column type="label" name="name" expr="rolenm" title="@ROLEMS.ROLENM" width="120" filter="text"/>
             <column type="tag" name="superAdmin" expr="supadm" title="@ROLEMS.SUPADM" width="110" format="@@ROLEMS.SUPADM"/>
             <column type="label" name="remark" expr="remark" title="@ROLEMS.REMARK" filter="text"/>
-            <column type="link" name="assign" icon="permission" expr="roleid" title="@assign" width="120" link="/sy01/permission/assign"/>
-            <column type="link" mode="drawer" name="edit" icon="edit" expr="roleid" title="@edit" width="80" link="/graces/editor/sy01/roleEdit"/>
+            <column type="link" name="assign" icon="permission" expr="roleid" title="@assign" width="120"
+                    link="/sy01/permission/assign" permission="permission.assign"/>
+            <column type="link" mode="drawer" name="edit" icon="edit" expr="roleid" title="@edit" width="80"
+                    link="/graces/editor/sy01/roleEdit" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="roleid" title="@delete" width="80" link="/sy01/delete"
-                    labelColumn="name" danger="true"/>
+                    labelColumn="name" danger="true" permission="delete"/>
         </columns>
     </datatable>
 
