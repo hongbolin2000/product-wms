@@ -10,7 +10,6 @@
 
     <statement>
         <table name="rolems"/>
-        <param column="roleid" type="=" expr="fieldValue"/>
         <param column="rolenm" expr="searchValue"/>
         <order by="rolenm"/>
     </statement>
