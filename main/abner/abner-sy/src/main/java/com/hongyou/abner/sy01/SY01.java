@@ -173,11 +173,12 @@ public class SY01 extends UserDataProvider {
         try {
             Userms loginUser = this.getLoginUser();
             Timestamp currentTime = this.getCurrentTime();
+            Rolems rolems = this.db().rolems().get(roleId);
 
             // 角色已经分配的权限ID
-            Rolems rolems = this.db().rolems().get(roleId);
             List<Rolpms> rolpmss = this.db().rolpms().listByRole(rolems.getRoleid());
             List<Long> assignedIds = rolpmss.stream().map(Rolpms::getPmsnid).toList();
+            Map<Long, Long> rlpmids = rolpmss.stream().collect(Collectors.toMap(Rolpms::getPmsnid, Rolpms::getRlpmid));
 
             // 记录分配与取消分配的权限
             List<Long> deleteIds = new ArrayList<>();
@@ -195,7 +196,7 @@ public class SY01 extends UserDataProvider {
                 }
                 // 取消权限
                 if (!action.isAssigned() && assignedIds.contains(action.getPermissionId())) {
-                    deleteIds.add(action.getPermissionId());
+                    deleteIds.add(rlpmids.get(action.getPermissionId()));
                 }
             }));
 
