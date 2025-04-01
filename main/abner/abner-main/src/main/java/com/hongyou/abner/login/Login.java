@@ -6,9 +6,11 @@ package com.hongyou.abner.login;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
+import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Cmpnms;
 import com.hongyou.abner.data.model.Userms;
+import com.hongyou.abner.sy01.SY01;
 import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
@@ -22,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.hongyou.abner.data.model.table.CmpnmsTableDef.CMPNMS;
 
@@ -135,6 +138,17 @@ public class Login extends UserDataProvider {
             userms.lgnsts(Userms.LGNSTS.Online).
                     lslgtm(this.getCurrentTime());
             this.db().userms().save(userms);
+
+            // 记录日志
+            EventLog event = EventLog.builder().
+                    domain(userms.getCmpnid()).
+                    operator(this.getOperatorBy(userms)).
+                    module(Login.class.getSimpleName()).
+                    name("系统").
+                    action("用户登录").
+                    message(StringUtil.format("用户[{}]登录成功", userms.getUsernm())).
+                    build();
+            this.eventLogManager.info(event);
 
             return LoginResult.builder().
                     loginCode(LoginCode.LG200.getValue()).

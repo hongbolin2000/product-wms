@@ -72,6 +72,7 @@ public class SY01 extends UserDataProvider {
 
         try {
             Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
 
             // 修改
@@ -85,7 +86,7 @@ public class SY01 extends UserDataProvider {
             if (ObjectUtil.isNull(rolems)) {
                 rolems = new Rolems();
                 rolems.cmpnid(loginUser.getCmpnid()).
-                        cretby(loginUser.getUsernm()).
+                        cretby(operatorBy).
                         crettm(currentTime);
             }
 
@@ -99,7 +100,7 @@ public class SY01 extends UserDataProvider {
 
             rolems.rolenm(rolemsPojo.getName()).
                     remark(rolemsPojo.getRemark()).
-                    oprtby(loginUser.getUsernm()).
+                    oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().rolems().save(rolems);
 
@@ -108,7 +109,7 @@ public class SY01 extends UserDataProvider {
             Map<String, String> displays = this.international.getTableValuesDisplay(request, "rolems");
             EventLog event = EventLog.builder().
                     domain(loginUser.getCmpnid()).
-                    operator(loginUser.getUsernm()).
+                    operator(operatorBy).
                     module(SY01.class.getSimpleName()).
                     name("角色管理").
                     action(action).
@@ -135,13 +136,14 @@ public class SY01 extends UserDataProvider {
 
         try {
             Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
 
             for (Long id : ids) {
                 Rolems rolems = this.db().rolems().get(id);
                 Map<String, String> displays = this.international.getTableValuesDisplay(request, "rolems");
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
-                        operator(loginUser.getUsernm()).
+                        operator(operatorBy).
                         module(SY01.class.getSimpleName()).
                         name("角色管理").
                         action("删除").
@@ -172,6 +174,7 @@ public class SY01 extends UserDataProvider {
     ) {
         try {
             Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
             Rolems rolems = this.db().rolems().get(roleId);
 
@@ -190,7 +193,7 @@ public class SY01 extends UserDataProvider {
                     assignRolpmss.add(new Rolpms().
                             roleid(roleId).
                             pmsnid(action.getPermissionId()).
-                            oprtby(loginUser.getUsernm()).
+                            oprtby(operatorBy).
                             oprttm(currentTime)
                     );
                 }
@@ -210,7 +213,7 @@ public class SY01 extends UserDataProvider {
             // 记录日志
             EventLog event = EventLog.builder().
                     domain(loginUser.getCmpnid()).
-                    operator(loginUser.getUsernm()).
+                    operator(operatorBy).
                     module(SY01.class.getSimpleName()).
                     name("角色管理").
                     action("权限分配").
