@@ -200,7 +200,7 @@
       });
 
       dialog.warning({
-        content: '是否确认将权限分配给' + roleName.value + '？',
+        content: '是否确认分配权限给角色 - ' + roleName.value + '？',
         onConfirmClick: async () => {
           try {
             loading(true);

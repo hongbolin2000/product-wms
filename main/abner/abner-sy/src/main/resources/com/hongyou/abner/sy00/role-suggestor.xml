@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        角色查询建议器
+    </description>
+
+    <statement>
+        <table name="rolems"/>
+        <param column="roleid" type="=" expr="fieldValue"/>
+        <param column="rolenm" expr="searchValue"/>
+        <order by="rolenm"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="rolenm" />
+        <field name="label" expr="rolenm" />
+    </fields>
+</rindja-generic-suggestor>

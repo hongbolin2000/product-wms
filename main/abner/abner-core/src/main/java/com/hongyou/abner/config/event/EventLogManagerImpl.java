@@ -12,7 +12,6 @@ import com.hongyou.baron.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +32,16 @@ public class EventLogManagerImpl extends DataProvider implements EventLogManager
     @Override
     public void info(final EventLog event) throws IllegalAccessException {
         this.save(event, Evlghd.EVTLVL.Info);
+    }
+
+    /**
+     * 记录危险消息类型的日志
+     *
+     * @param event 日志对象
+     */
+    @Override
+    public void critical(final EventLog event) throws IllegalAccessException {
+        this.save(event, Evlghd.EVTLVL.Critical);
     }
 
     /**

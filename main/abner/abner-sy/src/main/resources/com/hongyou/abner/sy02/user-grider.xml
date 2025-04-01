@@ -39,13 +39,17 @@
             <column type="label" name="phoneNo" expr="phonno" title="@USERMS.PHONNO" width="100" filter="text" tm="3:7"/>
             <column type="label" name="email" expr="email" title="@USERMS.EMAIL" width="120" filter="text"/>
             <column type="label" name="lastLoginTime" expr="lslgtm" title="@USERMS.LSLGTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
-            <column type="label" name="remark" expr="remark" title="@USERMS.REMARK" filter="text"/>
-            <column type="link" name="edit" icon="edit" expr="userid" title="@edit" width="80" link="/sy02/edit"
+            <column type="label" name="remark" expr="remark" title="@USERMS.REMARK" filter="text" width="100"/>
+            <column type="link" mode="dialog" name="roleAssign" icon="role" expr="userid" title="@assign.role" width="70"
+                    link="/graces/editor/sy02/roleAssignEdit" disabled="statusValue == '99'" dialogWidth="70%"/>
+            <column type="link" name="edit" icon="edit" expr="userid" title="@edit" width="70" link="/sy02/edit"
                     disabled="statusValue == '99'"/>
             <column type="scriptLink" name="delete" icon="delete" expr="userid" title="@delete" width="80" link="/sy02/delete"
                     labelColumn="username" danger="true" disabled="statusValue == '99'" option="true"/>
             <column type="scriptLink" name="frozen" icon="frozen-user" expr="userid" title="@frozen" width="80" link="/sy02/frozen"
                     labelColumn="username" danger="true" disabled="statusValue == '99'" option="true"/>
+            <column type="scriptLink" name="unfrozen" icon="unfrozen-user" expr="userid" title="@unfrozen" width="100" link="/sy02/frozen"
+                    labelColumn="username" disabled="statusValue != '99'" option="true"/>
         </columns>
     </datatable>
 
@@ -57,6 +61,7 @@
             <item key="delete">删除</item>
             <item key="frozen">冻结</item>
             <item key="unfrozen">解除冻结</item>
+            <item key="assign.role">角色分配</item>
         </lang>
 
         <lang code="en-US">
@@ -66,6 +71,7 @@
             <item key="delete">Delete</item>
             <item key="frozen">Frozen</item>
             <item key="unfrozen">Unfrozen</item>
+            <item key="assign.role">Role Assign</item>
         </lang>
     </intl>
 </rindja-generic-grider>

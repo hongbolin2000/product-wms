@@ -9,6 +9,7 @@ import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Pmsnms;
 import com.hongyou.abner.data.model.Rolems;
 import com.hongyou.abner.data.model.Rolpms;
+import com.hongyou.abner.data.model.Userms;
 import com.hongyou.abner.data.pojo.RolemsPojo;
 import com.hongyou.abner.sy01.pojo.FamilyOption;
 import com.hongyou.abner.sy01.pojo.PermissionAction;
@@ -70,8 +71,7 @@ public class SY01 extends UserDataProvider {
     ) {
 
         try {
-            Long userCompanyId = this.getUserCompanyId();
-            String operatorBy = this.getOperatorBy();
+            Userms loginUser = this.getLoginUser();
             Timestamp currentTime = this.getCurrentTime();
 
             // 修改
@@ -84,14 +84,14 @@ public class SY01 extends UserDataProvider {
             // 新增
             if (ObjectUtil.isNull(rolems)) {
                 rolems = new Rolems();
-                rolems.cmpnid(userCompanyId).
-                        cretby(operatorBy).
+                rolems.cmpnid(loginUser.getCmpnid()).
+                        cretby(loginUser.getUsernm()).
                         crettm(currentTime);
             }
 
             // 检查是否已存在
             if (!ObjectUtil.equal(rolemsPojo.getName(), rolems.getRolenm())) {
-                Rolems existed = this.db().rolems().getByName(userCompanyId, rolemsPojo.getName());
+                Rolems existed = this.db().rolems().getByName(loginUser.getCmpnid(), rolemsPojo.getName());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("角色名称已存在").build();
                 }
@@ -99,7 +99,7 @@ public class SY01 extends UserDataProvider {
 
             rolems.rolenm(rolemsPojo.getName()).
                     remark(rolemsPojo.getRemark()).
-                    oprtby(operatorBy).
+                    oprtby(loginUser.getUsernm()).
                     oprttm(currentTime);
             this.db().rolems().save(rolems);
 
@@ -107,8 +107,8 @@ public class SY01 extends UserDataProvider {
             String action = oldRolems == null ? "新增" : "修改";
             Map<String, String> displays = this.international.getTableValuesDisplay(request, "rolems");
             EventLog event = EventLog.builder().
-                    domain(userCompanyId).
-                    operator(operatorBy).
+                    domain(loginUser.getCmpnid()).
+                    operator(loginUser.getUsernm()).
                     module(SY01.class.getSimpleName()).
                     name("角色管理").
                     action(action).
@@ -134,15 +134,14 @@ public class SY01 extends UserDataProvider {
     public ResponseEntry delete(@RequestBody final List<Long> ids, final HttpServletRequest request) {
 
         try {
-            Long userCompanyId = this.getUserCompanyId();
-            String operatorBy = this.getOperatorBy();
+            Userms loginUser = this.getLoginUser();
 
             for (Long id : ids) {
                 Rolems rolems = this.db().rolems().get(id);
                 Map<String, String> displays = this.international.getTableValuesDisplay(request, "rolems");
                 EventLog event = EventLog.builder().
-                        domain(userCompanyId).
-                        operator(operatorBy).
+                        domain(loginUser.getCmpnid()).
+                        operator(loginUser.getUsernm()).
                         module(SY01.class.getSimpleName()).
                         name("角色管理").
                         action("删除").
@@ -150,7 +149,7 @@ public class SY01 extends UserDataProvider {
                         newValue(rolems).
                         enumsDisplay(displays).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
                 this.db().rolems().delete(rolems);
             }
             return ResponseEntry.SUCCESS;
@@ -172,11 +171,12 @@ public class SY01 extends UserDataProvider {
             @PathVariable final Long roleId, @RequestBody final List<PermissionMenu> permissionMenus
     ) {
         try {
-            String operatorBy = this.getOperatorBy();
+            Userms loginUser = this.getLoginUser();
             Timestamp currentTime = this.getCurrentTime();
 
             // 角色已经分配的权限ID
-            List<Rolpms> rolpmss = this.db().rolpms().listByRole(roleId);
+            Rolems rolems = this.db().rolems().get(roleId);
+            List<Rolpms> rolpmss = this.db().rolpms().listByRole(rolems.getRoleid());
             List<Long> assignedIds = rolpmss.stream().map(Rolpms::getPmsnid).toList();
 
             // 记录分配与取消分配的权限
@@ -189,7 +189,7 @@ public class SY01 extends UserDataProvider {
                     assignRolpmss.add(new Rolpms().
                             roleid(roleId).
                             pmsnid(action.getPermissionId()).
-                            oprtby(operatorBy).
+                            oprtby(loginUser.getUsernm()).
                             oprttm(currentTime)
                     );
                 }
@@ -205,6 +205,17 @@ public class SY01 extends UserDataProvider {
             if (ListUtil.isNotEmpty(deleteIds)) {
                 this.db().rolpms().deleteIds(deleteIds);
             }
+
+            // 记录日志
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(loginUser.getUsernm()).
+                    module(SY01.class.getSimpleName()).
+                    name("角色管理").
+                    action("权限分配").
+                    message(StringUtil.format("角色[{}]权限分配成功", rolems.getRolenm())).
+                    build();
+            this.eventLogManager.info(event);
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("权限分配失败", e);
@@ -247,9 +258,10 @@ public class SY01 extends UserDataProvider {
             if (menus == null) {
                 return ResponseEntry.builder().body(new ArrayList<>()).build();
             }
+            Userms loginUser = this.getLoginUser();
 
             // 加载系统定义的权限
-            List<Pmsnms> pmsnmss = this.db().pmsnms().listByCompany(this.getUserCompanyId(), local);
+            List<Pmsnms> pmsnmss = this.db().pmsnms().listByCompany(loginUser.getCmpnid(), local);
             Map<String, List<Pmsnms>> permissions = pmsnmss.stream().collect(
                     Collectors.groupingBy(Pmsnms::getPmsncd));
 

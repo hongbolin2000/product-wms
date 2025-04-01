@@ -112,7 +112,7 @@
         <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128"/>
     </editor>
 
-    <sheeter name="orderLine" title="@editor01.title" tab="true" row="1">
+    <sheeter name="orderLine" title="@editor01.title" tab="true" row="1" labelColumn="storeCode" unique="storeCode">
         <statement>
             <table name="strems"/>
             <param column="strety" type="=" expr="storeType"/>

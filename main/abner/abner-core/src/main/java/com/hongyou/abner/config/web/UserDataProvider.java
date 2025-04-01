@@ -10,7 +10,6 @@ import com.hongyou.abner.config.internation.InternationalManager;
 import com.hongyou.abner.config.internation.InternationalManagerImpl;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Userms;
-import com.hongyou.baron.util.StringUtil;
 import com.mybatisflex.core.query.QueryMethods;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.row.Db;
@@ -41,42 +40,10 @@ public class UserDataProvider extends DataProvider {
     protected InternationalManager international;
 
     /**
-     * 获取当前登录用户ID
-     */
-    protected Long getLoginUserId() {
-        return StpUtil.getLoginIdAsLong();
-    }
-
-    /**
-     * 获取当前登录用户名
-     */
-    protected String getLoginUserName() {
-        return this.getLoginUser().getUsernm();
-    }
-
-    /**
      * 获取当前登录的用户
      */
     protected Userms getLoginUser() {
-        return this.db().userms().get(getLoginUserId());
-    }
-
-    /**
-     * 获取当前登录用户公司ID
-     */
-    protected Long getUserCompanyId() {
-        return this.getLoginUser().getCmpnid();
-    }
-
-    /**
-     * 获取当前用户操作人
-     */
-    protected String getOperatorBy() {
-        Userms userms = this.getLoginUser();
-        if (StringUtil.isNotBlank(userms.getFulnam())) {
-            return userms.getFulnam();
-        }
-        return this.getLoginUserName();
+        return this.db().userms().get(StpUtil.getLoginIdAsLong());
     }
 
     /**

@@ -663,15 +663,16 @@
    * 打开编辑表格弹框
    */
   function onShowSheetModal(sheet: Sheeter) {
+    sheeterFormValue.value = {};
+
     const rules = [];
     sheet.widgets.forEach(widget => {
       if (!widget.hidden && widget.required) {
         rules[widget.name] = WidgetFactories.getInstance().getRule(widget);
       }
-      sheeterFormValue[widget.name] = widget.default ? widget.default : '';
+      sheeterFormValue.value[widget.name] = widget.default ? widget.default : '';
     });
     selectSheeter.value = sheet;
-    sheeterFormValue.value = {};
     sheeterRowIndex.value = -1;
     sheeterFormRules.value = rules;
     showFormModal.value = true;

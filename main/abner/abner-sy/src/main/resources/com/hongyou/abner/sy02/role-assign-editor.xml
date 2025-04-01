@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        角色分配
+    </description>
+
+    <url>/sy02/roleAssign</url>
+    <etitle>@edit</etitle>
+
+    <statement>
+        <table name="userms"/>
+        <param column="userid" type="=" expr="id"/>
+    </statement>
+
+    <editor>
+        <input type="text" name="id" expr="userid" hidden="true"/>
+        <input type="text" name="username" expr="usernm" title="@USERMS.USERNM" disabled="true" tabtitle="true"/>
+        <input type="text" name="fullName" expr="fulnam" title="@USERMS.FULNAM" disabled="true"/>
+    </editor>
+
+    <sheeter title="@title" name="roles" required="false" labelColumn="name" unique="name">
+        <statement>
+            <table name="vusrrol"/>
+            <param column="userid" type="=" expr="id"/>
+        </statement>
+
+        <inputs>
+            <input type="suggestor" name="name" expr="rolenm" title="@ROLEMS.ROLENM" module="sy00" suggestor="roleSuggestor"
+                   required="true"/>
+            <input type="text" mode="textarea" name="remark" expr="remark" title="@USRROL.REMARK" length="254"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="title">角色</item>
+            <item key="edit">分配角色给用户</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="title">Role</item>
+            <item key="edit">Role</item>
+            <item key="edit">Assign Role To User</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

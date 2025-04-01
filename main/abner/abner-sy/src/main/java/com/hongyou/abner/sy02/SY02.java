@@ -5,7 +5,10 @@ package com.hongyou.abner.sy02;
 
 import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
+import com.hongyou.abner.data.model.Rolems;
 import com.hongyou.abner.data.model.Userms;
+import com.hongyou.abner.data.model.Usrrol;
+import com.hongyou.abner.data.model.table.UsrrolTableDef;
 import com.hongyou.abner.data.pojo.UsermsPojo;
 import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
@@ -14,6 +17,7 @@ import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
+import com.mybatisflex.core.query.QueryWrapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -47,8 +51,7 @@ public class SY02 extends UserDataProvider {
     ) {
 
         try {
-            Long userCompanyId = this.getUserCompanyId();
-            String operatorBy = this.getOperatorBy();
+            Userms loginUser = this.getLoginUser();
             Timestamp currentTime = this.getCurrentTime();
 
             // 修改
@@ -62,10 +65,10 @@ public class SY02 extends UserDataProvider {
             if (ObjectUtil.isNull(userms)) {
                 String realPassword = AesUtil.ecbDecrypt(key, usermsPojo.getPassword());
                 userms = new Userms();
-                userms.cmpnid(userCompanyId).
+                userms.cmpnid(loginUser.getCmpnid()).
                         paswrd(AesUtil.encrypt(realPassword)).
                         status(Userms.STATUS.Normal).
-                        cretby(operatorBy).
+                        cretby(loginUser.getUsernm()).
                         crettm(currentTime);
             }
 
@@ -85,7 +88,7 @@ public class SY02 extends UserDataProvider {
                     phonno(usermsPojo.getPhoneNo()).
                     email(usermsPojo.getEmail()).
                     remark(usermsPojo.getRemark()).
-                    oprtby(operatorBy).
+                    oprtby(loginUser.getUsernm()).
                     oprttm(currentTime);
             this.db().userms().save(userms);
 
@@ -93,8 +96,8 @@ public class SY02 extends UserDataProvider {
             String action = oldUserms == null ? "新增" : "修改";
             Map<String, String> displays = this.international.getTableValuesDisplay(request, "userms");
             EventLog event = EventLog.builder().
-                    domain(userCompanyId).
-                    operator(operatorBy).
+                    domain(loginUser.getCmpnid()).
+                    operator(loginUser.getUsernm()).
                     module(SY02.class.getSimpleName()).
                     name("用户管理").
                     action(action).
@@ -120,15 +123,14 @@ public class SY02 extends UserDataProvider {
     public ResponseEntry delete(@RequestBody final List<Long> ids, final HttpServletRequest request) {
 
         try {
-            Long userCompanyId = this.getUserCompanyId();
-            String operatorBy = this.getOperatorBy();
+            Userms loginUser = this.getLoginUser();
 
             for (Long id : ids) {
                 Userms userms = this.db().userms().get(id);
                 Map<String, String> displays = this.international.getTableValuesDisplay(request, "userms");
                 EventLog event = EventLog.builder().
-                        domain(userCompanyId).
-                        operator(operatorBy).
+                        domain(loginUser.getCmpnid()).
+                        operator(loginUser.getUsernm()).
                         module(SY02.class.getSimpleName()).
                         name("用户管理").
                         action("删除").
@@ -136,7 +138,7 @@ public class SY02 extends UserDataProvider {
                         newValue(userms).
                         enumsDisplay(displays).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
                 this.db().userms().delete(userms);
             }
             return ResponseEntry.SUCCESS;
@@ -151,11 +153,10 @@ public class SY02 extends UserDataProvider {
      */
     @PostMapping("/frozen")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry frozen(@RequestBody final List<Long> ids, final HttpServletRequest request) {
+    public ResponseEntry frozen(@RequestBody final List<Long> ids) {
 
         try {
-            Long userCompanyId = this.getUserCompanyId();
-            String operatorBy = this.getOperatorBy();
+            Userms loginUser = this.getLoginUser();
             Timestamp currentTime = this.getCurrentTime();
 
             for (Long id : ids) {
@@ -164,17 +165,17 @@ public class SY02 extends UserDataProvider {
                 String action = frozen ? "解除冻结" : "冻结";
 
                 EventLog event = EventLog.builder().
-                        domain(userCompanyId).
-                        operator(operatorBy).
+                        domain(loginUser.getCmpnid()).
+                        operator(loginUser.getUsernm()).
                         module(SY02.class.getSimpleName()).
                         name("用户管理").
                         action(action).
                         message(StringUtil.format("用户[{}]{}成功", userms.getUsernm(), action)).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
 
                 userms.status(frozen ? Userms.STATUS.Normal : Userms.STATUS.Frozen).
-                        oprtby(operatorBy).
+                        oprtby(loginUser.getUsernm()).
                         oprttm(currentTime);
                 this.db().userms().save(userms);
             }
@@ -182,6 +183,51 @@ public class SY02 extends UserDataProvider {
         } catch (Exception e) {
             logger.error("用户删除失败", e);
             throw new RestRuntimeException("用户已被使用");
+        }
+    }
+
+    /**
+     * 角色分配
+     */
+    @PostMapping("/roleAssign")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry roleAssign(@RequestBody final UserRolePojo userRolePojo) {
+
+        try {
+            Userms userms = this.db().userms().get(userRolePojo.getId());
+            Userms loginUser = this.getLoginUser();
+            Timestamp currentTime = this.getCurrentTime();
+
+            // 删除分配的角色
+            QueryWrapper wrapper = QueryWrapper.create();
+            wrapper.where(UsrrolTableDef.USRROL.USERID.eq(userms.getUserid()));
+            this.db().usrrol().deleteQuery(wrapper);
+
+            userRolePojo.getRoles().forEach(rolemsPojo -> {
+                Rolems rolems = this.db().rolems().getByName(loginUser.getCmpnid(), rolemsPojo.getName());
+                Usrrol usrrol = new Usrrol();
+                usrrol.userid(userms.getUserid()).
+                        roleid(rolems.getRoleid()).
+                        remark(rolemsPojo.getRemark()).
+                        oprtby(loginUser.getUsernm()).
+                        oprttm(currentTime);
+                this.db().usrrol().save(usrrol);
+            });
+
+            // 记录日志
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(loginUser.getUsernm()).
+                    module(SY02.class.getSimpleName()).
+                    name("用户管理").
+                    action("角色分配").
+                    message(StringUtil.format("用户[{}]角色分配成功", userms.getUsernm())).
+                    build();
+            this.eventLogManager.info(event);
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("角色分配失败", e);
+            throw new RestRuntimeException("角色分配失败");
         }
     }
 }

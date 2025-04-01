@@ -10,13 +10,13 @@ N	USRLID,		ID,			NOT NULL,		,						id,				ID,						主键
 N	ROLEID,		BIGINT,		NOT NULL,		,						roleId,			Role,				    角色
 K   ROLEMS                  - ROLENM
 N	USERID,		BIGINT,		NOT NULL,		,						userId,		    User,			        用户
-K   USERMS                  - USERNM, FULNAM, POSITN, PHONNO, EMAIL
 *****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
 N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate by,				操作人
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P 	USRLID
 U	01 getByRoleAndOperator ROLEID, USERID
 F	01 listByRole (ROLEID) ROLEMS (ROLEID)
-F	02 listByOperator (USERID) USERMS (USERID)
+F	02 listByUser (USERID) USERMS (USERID)
 =====================================================================================================================================================

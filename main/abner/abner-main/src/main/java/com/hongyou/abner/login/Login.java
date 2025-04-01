@@ -9,6 +9,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Cmpnms;
 import com.hongyou.abner.data.model.Userms;
+import com.hongyou.abner.data.model.table.CmpnmsTableDef;
 import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
@@ -59,13 +60,13 @@ public class Login extends UserDataProvider {
             // 如果用户已登录则拿取登录用户所属公司配置否则拿取一个创建公司的配置
             Cmpnms cmpnms; String nikeName = "", avatar = "";
             if (StpUtil.isLogin()) {
-                cmpnms = this.db().cmpnms().get(this.getUserCompanyId());
-                Userms userms = this.getLoginUser();
-                nikeName = StringUtil.blankToDefault(userms.getFulnam(), userms.getUsernm());
-                avatar = userms.getAvatar();
+                Userms loginUser = this.getLoginUser();
+                cmpnms = this.db().cmpnms().get(loginUser.getCmpnid());
+                nikeName = StringUtil.blankToDefault(loginUser.getFulnam(), loginUser.getUsernm());
+                avatar = loginUser.getAvatar();
             } else {
                 QueryWrapper wrapper = QueryWrapper.create();
-                wrapper.where("1 = 1 order by crettm");
+                wrapper.where("1 = 1 order by " + CmpnmsTableDef.CMPNMS.CRETTM.getName());
                 List<Cmpnms> cmpnmss = this.db().cmpnms().list(wrapper);
                 cmpnms = cmpnmss.get(0);
             }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 角色查询建议器 -->
+    <generic-suggestor-descriptor name="roleSuggestor">role-suggestor.xml</generic-suggestor-descriptor>
+</baron-rindja-config>
