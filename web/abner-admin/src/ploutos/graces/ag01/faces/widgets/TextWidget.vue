@@ -6,7 +6,7 @@
       :disabled="widget.isDisabled"
       clearable
       :maxlength="widget.maxLength"
-      show-count
+      :show-count="widget.maxLength > 0"
       show-password-on="mousedown"
       :input-props="{autocomplete: false}"
   >

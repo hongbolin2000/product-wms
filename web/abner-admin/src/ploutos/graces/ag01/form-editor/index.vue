@@ -9,15 +9,17 @@
     <div v-if="editor">
       <n-scrollbar :style="style">
         <!-- 编辑表单 -->
-        <div v-for="(row, index) of editor.editorRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
+        <div v-for="(row, index) of editor.editorRows" :key="index"
+             :class="[props.isDrawer || props.isDialog ? 'editor-row-drawer' : 'editor-row']"
+        >
           <!-- 非选项卡表单 -->
           <n-card
               :title="formEditor.title"
               :segmented="{content: true}"
               v-for="formEditor of row.noTabEditors" :key="formEditor.name"
               :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, formEditor)}"
-              :bordered="!props.isDrawer && editor.allEditors.length > 1"
-              :content-style="{paddingBottom: props.isDrawer && 0}"
+              :bordered="!props.isDrawer && !props.isDialog"
+              :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
           >
             <template #header-extra>
               <n-button @click="onCollapse(row)" text>
@@ -44,8 +46,8 @@
               v-if="row.tabEditors.length > 0"
               class="n-card-tab"
               :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false)}"
-              :bordered="!props.isDrawer"
-              :content-style="{paddingBottom: props.isDrawer && 0}"
+              :bordered="!props.isDrawer && !props.isDialog"
+              :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
           >
             <n-tabs type="line" animated>
               <template #suffix>
@@ -73,15 +75,16 @@
         </div>
 
         <!-- 编辑表格 -->
-        <div v-for="(row, index) of editor.sheeterRows" :key="index" :class="[props.isDrawer ? 'editor-row-drawer' : 'editor-row']">
-
+        <div v-for="(row, index) of editor.sheeterRows" :key="index"
+             :class="[props.isDrawer || props.isDialog ? 'editor-row-drawer' : 'editor-row']"
+        >
           <!-- 非选项卡表格 -->
           <n-card
               :title="sheeter.title"
               v-for="sheeter of row.noTabSheeters" :key="sheeter.name"
               :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true, sheeter)}"
-              :bordered="!props.isDrawer"
-              :content-style="{paddingBottom: props.isDrawer && 0}"
+              :bordered="!props.isDrawer && !props.isDialog"
+              :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
               :segmented="{content: true}"
           >
             <template #header-extra>
@@ -107,9 +110,9 @@
           <!-- 选项卡表格 -->
           <n-card
               v-if="row.tabSheeters.length > 0"
-              :class="['n-card-tab', props.isDrawer ? 'editor-row-drawer' : 'editor-row']"
-              :bordered="!props.isDrawer"
-              :content-style="{paddingBottom: props.isDrawer && 0}"
+              :class="['n-card-tab', props.isDrawer || props.isDialog ? 'editor-row-drawer' : 'editor-row']"
+              :bordered="!props.isDrawer && !props.isDialog"
+              :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
               :style="{width: getCardWidth(row.tabSheeters, row.noTabSheeters, true)}"
           >
             <n-tabs type="line" animated @update:value="(value) => onSheeterTabsChange(row, value)">
@@ -387,9 +390,9 @@
       // 更改选型卡标题
       if (!props.isDialog && !props.isDrawer) {
         if (props.fill) {
-          changeTabTitle(editor.value.etitle, formValue.value[tabTitleName.value]);
+          appStore.changeTabTitle(editor.value.etitle + ' - ' + formValue.value[tabTitleName.value]);
         } else {
-          changeTabTitle(editor.value.atitle, '');
+          appStore.changeTabTitle(editor.value.atitle);
         }
       }
     } finally {
@@ -409,7 +412,7 @@
         params: props.params,
       }
       const response = await http.post("/ag01/editor/loadData", data);
-      formValue.value = response.data.editor;
+      formValue.value = response.data.editor ? response.data.editor : {};
 
       // 编辑表格数据
       editor.value.sheeterRows.forEach(row => {
@@ -420,19 +423,6 @@
     } finally {
       spin(false);
     }
-  }
-
-  /**
-   * 更改选项卡标题
-   */
-  function changeTabTitle(title: string, suffix: string) {
-    const interval = setInterval(() => {
-      if (appStore.menus.length < 0) {
-        return;
-      }
-      clearInterval(interval);
-      appStore.changeTabTitle(title + (suffix ? ' - ' + suffix : ''));
-    }, 50);
   }
 
   /**
@@ -698,10 +688,21 @@
       }
     });
 
+    // 检查唯一数据
+    const unique = selectSheeter.value.unique;
+    const messageTitle = getMessageFormTitle();
+    if (unique) {
+      const value = sheeterFormValue.value[unique];
+      if (selectSheeter.value.data.findIndex(i => i[unique] == value) != -1) {
+        message.error(messageTitle + '已存在');
+        return;
+      }
+    }
+
     // 修改
     if (sheeterRowIndex.value != -1) {
       selectSheeter.value.data[sheeterRowIndex.value] = sheeterFormValue.value;
-      message.success(title + "已保存！可继续修改或关闭弹框");
+      message.success(messageTitle + "已保存！可继续修改或关闭弹框");
     }
 
     // 添加
@@ -711,8 +712,16 @@
 
       data.push({...sheeterFormValue.value});
       selectSheeter.value.data = data;
-      message.success(title + "已保存！可继续添加或关闭弹框");
+      message.success(messageTitle + "已保存！可继续添加或关闭弹框");
     }
+  }
+
+  /**
+   * 编辑表格表单提示标题
+   */
+  function getMessageFormTitle() {
+    const title = selectSheeter.value.title;
+    return (title ? title : '') + '[ ' + sheeterFormValue.value[selectSheeter.value.labelColumn] + ' ]';
   }
 
   /**

@@ -497,13 +497,13 @@
     const column: TableBaseColumn = <TableBaseColumn>{width: 0};
     const columnActions = datatable.columns.filter(i => ColumnFactories.isLink(i) && !i.option);
     if (columnActions.length > 0) {
-      const optionWidth = datatable.columns.filter(i => i.option).length > 0 ? 80 : 0;
+      const optionWidth = datatable.columns.filter(i => i.option).length > 0 ? 60 : 0;
       columnActions.forEach(item => {
         const width = item.width ? parseInt(item.width.toString()): 80;
         column.width = parseInt(column.width.toString()) + width;
       });
 
-      column.width += optionWidth;
+      column.width += optionWidth + (columnActions.length * 20);
       column.key = 'option';
       column.title = '操作';
       column.align = 'center';

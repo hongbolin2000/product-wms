@@ -19,7 +19,7 @@
       checkable
       class="tag-item"
       @click="onHandelClick"
-      :type="column.danger && 'error'"
+      :type="column.danger ? 'error' : 'default'"
       :style="{color: column.danger && '#e88080', padding: !column.option && 1}"
       :disabled="column.isDisabled"
       v-if="column.option"
