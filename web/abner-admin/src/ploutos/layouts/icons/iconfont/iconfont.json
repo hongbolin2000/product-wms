@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "424264",
+      "name": "重置密码",
+      "font_class": "zhongzhimima",
+      "unicode": "e6d8",
+      "unicode_decimal": 59096
+    },
+    {
       "icon_id": "39109867",
       "name": "frozen-user",
       "font_class": "frozen-user",
@@ -15,7 +22,7 @@
     {
       "icon_id": "43863517",
       "name": "unfrozen-user",
-      "font_class": "unfrozen-user-copy",
+      "font_class": "unfrozen-user",
       "unicode": "e95f",
       "unicode_decimal": 59743
     },
