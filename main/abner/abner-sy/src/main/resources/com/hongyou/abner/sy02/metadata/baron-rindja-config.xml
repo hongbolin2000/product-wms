@@ -7,6 +7,9 @@
     <!-- 用户编辑 -->
     <generic-editor-descriptor name="userEdit">user-editor.xml</generic-editor-descriptor>
 
+    <!-- 重置密码 -->
+    <generic-editor-descriptor name="resetPwdEdit">reset-pwd-editor.xml</generic-editor-descriptor>
+
     <!-- 角色分配 -->
     <generic-editor-descriptor name="roleAssignEdit">role-assign-editor.xml</generic-editor-descriptor>
 </baron-rindja-config>

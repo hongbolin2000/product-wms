@@ -117,6 +117,49 @@ public class SY02 extends UserDataProvider {
     }
 
     /**
+     * 重置用户密码
+     */
+    @PostMapping("/resetPwd")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry resetPwd(
+            @RequestBody final UsermsPojo usermsPojo, @RequestParam final String key
+    ) {
+
+        try {
+            Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
+            Timestamp currentTime = this.getCurrentTime();
+
+            Userms userms = this.db().userms().get(usermsPojo.getId());
+            Userms oldUserms = (Userms) userms.clone();
+
+            String realPassword = AesUtil.ecbDecrypt(key, usermsPojo.getPassword());
+            userms.paswrd(AesUtil.encrypt(realPassword)).
+                    oprtby(operatorBy).
+                    oprttm(currentTime);
+            this.db().userms().save(userms);
+
+            // 记录日志
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(operatorBy).
+                    module(SY02.class.getSimpleName()).
+                    name("用户管理").
+                    action("重置密码").
+                    message(StringUtil.format("用户[{}]重置成功", userms.getUsernm())).
+                    oldValue(oldUserms).
+                    newValue(userms).
+                    build();
+            this.eventLogManager.info(event);
+
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("用户密码重置失败", e);
+            throw new RestRuntimeException("用户密码重置失败");
+        }
+    }
+
+    /**
      * 删除用户
      */
     @PostMapping("/delete")

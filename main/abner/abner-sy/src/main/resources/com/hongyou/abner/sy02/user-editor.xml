@@ -8,8 +8,8 @@
         用户编辑
     </description>
 
-    <atitle>@add</atitle>
-    <etitle>@edit</etitle>
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
 
     <statement>
         <table name="userms"/>
@@ -34,15 +34,15 @@
 
     <intl>
         <lang code="zh-CN">
-            <item key="add">新增用户</item>
-            <item key="edit">修改用户</item>
+            <item key="atitle">新增用户</item>
+            <item key="etitle">修改用户</item>
             <item key="title">用户信息</item>
             <item key="confirm.pwd">确认密码</item>
         </lang>
 
         <lang code="en-US">
-            <item key="add">Add User</item>
-            <item key="edit">Modify User</item>
+            <item key="atitle">Add User</item>
+            <item key="etitle">Modify User</item>
             <item key="title">Info User</item>
             <item key="confirm.pwd">Confirm Pwd</item>
         </lang>

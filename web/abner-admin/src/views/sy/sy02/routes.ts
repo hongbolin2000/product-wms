@@ -21,5 +21,9 @@ const routes: RouteRecordRaw[] = [
     path: '/sy02/edit/:id',
     component: () => import('@/views/sy/sy02/user-editor.vue')
   },
+  {
+    path: '/sy02/reset/:id',
+    component: () => import('@/views/sy/sy02/reset-pwd.vue')
+  },
 ]
 export default routes;

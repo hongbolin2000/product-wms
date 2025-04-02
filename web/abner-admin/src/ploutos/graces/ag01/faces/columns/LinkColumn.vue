@@ -74,28 +74,8 @@
   /**
    * 组件加载前
    */
-  onBeforeMount(async () => {
+  onBeforeMount(() => {
     disabled();
-
-    if (props.column?.mode != 'router') {
-      let route: any = router.getRoutes().find(i => i.path == props.column?.link);
-
-      // 找不到路由时使用路由匹配（通用界面模式）
-      if (!route) {
-        const resolved: RouteLocationResolved = router.resolve(props.column?.link);
-        route = resolved.matched[resolved.matched.length - 1];
-        module.value = resolved.params.module.toString();
-        name.value = resolved.params.name.toString();
-      }
-
-      // 路由组件未加载时进行加载
-      if (typeof(route?.components!.default) == 'function') {
-        const components = await route?.components.default();
-        component.value = components.default;
-      } else {
-        component.value = route?.components!.default!;
-      }
-    }
   });
 
   /**
@@ -117,16 +97,39 @@
   /**
    * 按钮点击
    */
-  function onHandelClick() {
+  async function onHandelClick() {
     if (props.column.isDisabled) {
       return;
     }
     const column = props.column;
     const value = column.rowData[column.name];
+
+    if (props.column?.mode != 'router') {
+      // 匹配路由（通用界面模式）
+      const resolved: RouteLocationResolved = router.resolve(props.column?.link);
+      let route: any = resolved.matched[resolved.matched.length - 1];
+
+      // 匹配路由，正常模式
+      if (!route.components) {
+        const resolved: RouteLocationResolved = router.resolve(props.column?.link + "/" + value);
+        route = resolved.matched[resolved.matched.length - 1];
+      } else {
+        module.value = resolved.params.module.toString();
+        name.value = resolved.params.name.toString();
+      }
+
+      // 路由组件未加载时进行加载
+      if (typeof(route?.components!.default) == 'function') {
+        const components = await route?.components.default();
+        component.value = components.default;
+      } else {
+        component.value = route?.components!.default!;
+      }
+    }
+
     const params = {
       value: value, module: module.value, name: name.value
     }
-
     if (column.mode == 'dialog') {
       onShowModal(column, component.value, params);
       return;

@@ -9,7 +9,7 @@
     </description>
 
     <url>/sy02/roleAssign</url>
-    <etitle>@edit</etitle>
+    <etitle>@etitle</etitle>
 
     <statement>
         <table name="userms"/>
@@ -37,13 +37,13 @@
 
     <intl>
         <lang code="zh-CN">
+            <item key="etitle">分配角色给用户</item>
             <item key="title">角色</item>
-            <item key="edit">分配角色给用户</item>
         </lang>
 
         <lang code="en-US">
+            <item key="etitle">Role</item>
             <item key="title">Role</item>
-            <item key="edit">Role</item>
             <item key="edit">Assign Role To User</item>
         </lang>
     </intl>

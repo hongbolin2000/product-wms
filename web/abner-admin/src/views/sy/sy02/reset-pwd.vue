@@ -1,12 +1,13 @@
 <template>
   <Graces.FormEditor
       module="sy02"
-      name="userEdit"
+      name="resetPwdEdit"
       @on-save="onSave"
-      :fill="!!id"
+      fill
       :params="{id: id}"
       :form-rules="formRules"
       :form-value="formValue"
+      :spining="spining"
   />
 </template>
 
@@ -44,6 +45,22 @@
    */
   let formValue: Ref = shallowRef({});
   let formRules: Ref = shallowRef({});
+
+  /**
+   * 加载中
+   */
+  const spining: Ref = shallowRef(undefined);
+
+  /**
+   * 父组件事件
+   */
+  const emit = defineEmits<{
+
+    /**
+     * 关闭弹框(dialog和drawer)
+     */
+    (e: 'onClose'): void;
+  }>();
 
   /**
    * 组件加载前
@@ -91,24 +108,19 @@
   async function onSave(value: object) {
 
     try {
-      loading(true);
+      spining.value = true;
       const data: object = {...value};
-      let key = "";
 
       // 密码加密
-      if (!value.id) {
-        delete data.confirmPwd;
-        key = cryptoHelper.generate256BitKey();
-        data.password = cryptoHelper.aesEncrypt(key, data.password);
-      }
-      await http.post("/sy02/save?key=" + key, data);
-      message.success('用户[ ' + data.username + ' ]' + (key ? '新增' : '修改' + '成功'));
+      delete data.confirmPwd;
+      const key = cryptoHelper.generate256BitKey();
+      data.password = cryptoHelper.aesEncrypt(key, data.password);
 
-      // 刷新列表
-      const func = new Function( null, 'return eval("sy02UserListRefresh").call()');
-      func();
+      await http.post("/sy02/resetPwd?key=" + key, data);
+      message.success('用户[ ' + data.username + ' ]密码重置成功');
+      emit('onClose');
     } finally {
-      loading(false);
+      spining.value = false;
     }
   }
 </script>

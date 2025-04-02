@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        重置密码
+    </description>
+
+    <etitle>@etitle</etitle>
+
+    <statement>
+        <table name="userms"/>
+        <param column="userid" type="=" expr="id"/>
+    </statement>
+
+    <editor spans="2">
+        <input type="text" name="id" expr="userid" hidden="true"/>
+        <input type="text" name="username" expr="usernm" title="@USERMS.USERNM" disabled="true" tabtitle="true"/>
+        <input type="text" name="fullName" expr="fulnam" title="@USERMS.FULNAM" disabled="true"/>
+        <input type="text" mode="password" name="password" title="@USERMS.PASWRD" required="true"
+               length="32"/>
+        <input type="text" mode="password" name="confirmPwd" title="@confirm.pwd" length="32"
+               required="true"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="etitle">重置用户密码</item>
+            <item key="confirm.pwd">确认密码</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="etitle">Reset User Password</item>
+            <item key="confirm.pwd">Confirm Pwd</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

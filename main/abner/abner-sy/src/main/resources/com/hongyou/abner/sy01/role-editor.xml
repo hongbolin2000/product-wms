@@ -8,8 +8,8 @@
         角色编辑
     </description>
 
-    <atitle>@add</atitle>
-    <etitle>@edit</etitle>
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
     <url>/sy01/save</url>
 
     <statement>
@@ -25,13 +25,13 @@
 
     <intl>
         <lang code="zh-CN">
-            <item key="add">新增角色</item>
-            <item key="edit">修改角色</item>
+            <item key="atitle">新增角色</item>
+            <item key="etitle">修改角色</item>
         </lang>
 
         <lang code="en-US">
-            <item key="add">Add Role</item>
-            <item key="edit">Modify Role</item>
+            <item key="atitle">Add Role</item>
+            <item key="etitle">Modify Role</item>
         </lang>
     </intl>
 </rindja-generic-editor>

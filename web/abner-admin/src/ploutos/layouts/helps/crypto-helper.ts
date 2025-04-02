@@ -14,7 +14,7 @@ namespace CryptoHelper {
    */
   export function generate256BitKey() {
     const buffer = CryptoJS.lib.WordArray.random(256/16);
-    return buffer.toString(CryptoJS.enc.Base64);
+    return buffer.toString(CryptoJS.enc.Hex);
   }
 
   /**

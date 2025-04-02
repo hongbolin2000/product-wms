@@ -1,5 +1,5 @@
 <template>
-  <n-spin :show="spining" style="height: 100%">
+  <n-spin :show="props.spining ? props.spining : spining" style="height: 100%">
     <template #icon>
       <n-icon>
         <SettingsOutline />
@@ -260,6 +260,9 @@
     },
     formRules: {
       type: Object
+    },
+    spining: {
+      type: Boolean
     }
   });
 
@@ -412,7 +415,15 @@
         params: props.params,
       }
       const response = await http.post("/ag01/editor/loadData", data);
-      formValue.value = response.data.editor ? response.data.editor : {};
+      if (response.data.editor) {
+        if (props.formValue) {
+          Object.getOwnPropertyNames(response.data.editor).forEach(key => {
+            formValue.value[key] = response.data.editor[key];
+          })
+        } else {
+          formValue.value = response.data.editor;
+        }
+      }
 
       // 编辑表格数据
       editor.value.sheeterRows.forEach(row => {

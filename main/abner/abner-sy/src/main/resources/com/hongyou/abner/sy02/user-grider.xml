@@ -54,6 +54,8 @@
                     labelColumn="username" danger="true" disabled="statusValue == '99'" option="true" permission="frozen"/>
             <column type="scriptLink" name="unfrozen" icon="unfrozen-user" expr="userid" title="@unfrozen" width="100" link="/sy02/frozen"
                     labelColumn="username" disabled="statusValue != '99'" option="true" permission="unfrozen"/>
+            <column type="link" mode="dialog" name="reset" icon="reset-pwd" expr="userid" title="@reset.pwd" width="100" link="/sy02/reset"
+                    disabled="statusValue == '99'" option="true" permission="reset.pwd"/>
         </columns>
     </datatable>
 
@@ -66,6 +68,7 @@
             <item key="frozen">冻结</item>
             <item key="unfrozen">解除冻结</item>
             <item key="assign.role">角色分配</item>
+            <item key="reset.pwd">重置密码</item>
         </lang>
 
         <lang code="en-US">
@@ -76,6 +79,7 @@
             <item key="frozen">Frozen</item>
             <item key="unfrozen">Unfrozen</item>
             <item key="assign.role">Role Assign</item>
+            <item key="reset.pwd">Reset Password</item>
         </lang>
     </intl>
 </rindja-generic-grider>
