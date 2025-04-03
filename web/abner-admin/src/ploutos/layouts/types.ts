@@ -67,6 +67,11 @@ export type MenuOption = {
    * 是否选中(顶+左混合模式)
    */
   checked?: boolean,
+
+  /**
+   * 从哪个菜单添加的 (没有菜单的tab页面)
+   */
+  from?: string
 };
 
 /**

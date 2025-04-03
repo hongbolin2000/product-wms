@@ -188,7 +188,7 @@
     if (layoutStore.layoutMode == LayoutMode.TopLeft) {
       currentPath.value = '/' + menu.fullUrl.split("/")[1];
     } else {
-      currentPath.value = value;
+      currentPath.value = menu.from ? menu.from : value;
     }
   });
 

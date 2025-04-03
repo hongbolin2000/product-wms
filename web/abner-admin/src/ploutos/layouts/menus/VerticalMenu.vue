@@ -205,10 +205,9 @@
    * 监听路由变化
    */
   watch(() => currentRoute.fullPath, (value) => {
-    if (appStore.expandMenus.find(i => i.key == value)?.label) {
-      currentPath.value = value;
-      handleExpandPath();
-    }
+    const menu = appStore.expandMenus.find(i => i.key == value);
+    currentPath.value = menu.from ? menu.from : value;
+    handleExpandPath();
   });
 </script>
 

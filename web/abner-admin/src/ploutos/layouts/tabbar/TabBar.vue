@@ -224,7 +224,8 @@
           key: to.fullPath,
           label: parent.label,
           fullUrl: parent.fullUrl,
-          icons: parent.icons
+          icons: parent.icons,
+          from: parent.from ? parent.from : parent.key
         }
         appStore.expandMenus.push(menu);
       }
