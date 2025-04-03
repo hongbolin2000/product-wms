@@ -12,6 +12,8 @@
             @on-pagination="handelPagination"
             @on-search="handelSearch"
             @on-double-click="handelDoubleClick"
+            :module="props.module"
+            :module-name="props.name"
         />
       </n-card>
 
@@ -29,6 +31,8 @@
               @on-double-click="handelDoubleClick"
               @on-search="loadSubTablesData"
               @on-sort="handelSubSort"
+              :module="props.module"
+              :module-name="props.name"
           />
         </n-card>
       </div>
@@ -316,7 +320,7 @@
       loading(true);
 
       const data = {
-        module: props.module, name: props.name, local: 'zh-CN', params: params.value,
+        module: props.module, name: props.name, local: navigator.language, params: params.value,
         datatables: grider.value.datatable.doubleClick.datatables,
         sorter: subSorter.value
       }

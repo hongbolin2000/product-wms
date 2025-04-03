@@ -140,7 +140,17 @@
     }
     if (column.mode == 'router') {
       onCloseContextMenu();
-      router.push(column?.link! + "/" + value);
+
+      // 将来源界面传入，用于编辑等界面刷新表格数据
+      const name = props.column.moduleName;
+      const from = props.column.module + name.substring(0, 1).toUpperCase() + name.substring(1);
+
+      await router.push({
+        path: column?.link! + "/" + value,
+        query: {
+          from: from
+        }
+      });
     }
   }
 </script>

@@ -196,6 +196,7 @@
 <script setup lang="ts">
   import {computed, onMounted, ref, type Ref, type ShallowRef, shallowRef} from "vue";
   import {SettingsOutline} from "@vicons/ionicons5";
+  import {useRoute} from "vue-router";
   /********************************************************************************
    * 通用编辑界面
    *
@@ -214,6 +215,11 @@
   import FormGrid from "@/ploutos/graces/ag01/form-editor/components/FormGrid.vue";
   import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTable.vue";
   import type SheeterRow from "@/ploutos/graces/ag01/faces/SheeterRow.ts";
+
+  /**
+   * 当前路由
+   */
+  const route = useRoute();
 
   /**
    * 应用状态
@@ -330,7 +336,7 @@
 
       // 查询界面定义
       const data = {
-        module: props.module, name: props.name, params: params, local: 'zh-CN'
+        module: props.module, name: props.name, params: params, local: navigator.language
       }
       const response = await http.post("/ag01/editor/loadDefine", data);
       editor.value = response.data;
@@ -411,7 +417,7 @@
       spin(true);
 
       const data = {
-        module: props.module, name: props.name, local: 'zh-CN',
+        module: props.module, name: props.name, local: navigator.language,
         params: props.params,
       }
       const response = await http.post("/ag01/editor/loadData", data);
@@ -483,8 +489,14 @@
         await http.post(editor.value.url, data);
         message.success(title + (titleValue ? '[ ' + titleValue + ' ]' : '') + '成功');
 
-        emit('onClose');
-        emit('onRefresh');
+        // 刷新上层界面数据
+        if (props.isDialog || props.isDrawer) {
+          emit('onClose');
+          emit('onRefresh');
+        } else {
+          const func = new Function( 'name', 'return eval(name).call()');
+          func(route.query.from + 'Refresh');
+        }
       } finally {
         spin(false);
       }

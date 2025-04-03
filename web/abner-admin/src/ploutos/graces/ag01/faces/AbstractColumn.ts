@@ -40,6 +40,16 @@ export default class AbstractColumn extends AbstractComponent {
 	 * 以下为前端计算内容
 	 *******************************************************************************/
 	/**
+	 * 模块号
+	 */
+	module: string;
+
+	/**
+	 * 通用界面名称
+	 */
+	moduleName: string
+
+	/**
 	 * 当前行数据
 	 */
 	rowData: any;

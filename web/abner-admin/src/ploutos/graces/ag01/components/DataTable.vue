@@ -202,6 +202,14 @@
     static: {
       type: Boolean
     },
+    module: {
+      type: String,
+      required: true,
+    },
+    moduleName: {
+      type: String,
+      required: true,
+    }
   });
 
   /**
@@ -428,6 +436,9 @@
     datatable.columns.filter(i => ColumnFactories.isLink(i)).forEach(column => {
       column.rowData = selectRowData;
       column.datatableTitle = datatable.title;
+      column.module = props.module;
+      column.moduleName = props.moduleName;
+
       menuOptions.push({
         key: column.name,
         type: 'render',

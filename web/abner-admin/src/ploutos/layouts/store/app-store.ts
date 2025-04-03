@@ -123,7 +123,7 @@ const useAppStore = defineStore('appStore', () => {
    * 获取当前选型卡索引
    */
   function getCurrentTabIndex() {
-    return store.visitedMenus.value.findIndex(i => i.key == route.path);
+    return store.visitedMenus.value.findIndex(i => i.key == route.fullPath);
   }
 
   return { ...store, configMenu, closeCurrentTab, changeTabTitle }
