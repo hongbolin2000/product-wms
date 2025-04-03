@@ -6,11 +6,18 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "424264",
-      "name": "重置密码",
-      "font_class": "zhongzhimima",
-      "unicode": "e6d8",
-      "unicode_decimal": 59096
+      "icon_id": "3458306",
+      "name": "reset-pwd",
+      "font_class": "reset-pwd",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "35681391",
+      "name": "company",
+      "font_class": "company",
+      "unicode": "e624",
+      "unicode_decimal": 58916
     },
     {
       "icon_id": "39109867",

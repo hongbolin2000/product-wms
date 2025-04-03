@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        公司编辑
+    </description>
+
+    <etitle>@etitle</etitle>
+    <url>/sy03/save</url>
+
+    <statement>
+        <table name="cmpnms"/>
+        <param column="cmpnid" type="=" expr="id"/>
+    </statement>
+
+    <editor title="@editor.base.info" row="1" spans="2">
+        <input type="text" name="id" expr="cmpnid" hidden="true"/>
+        <input type="text" name="companyCode" expr="cmpncd" title="@CMPNMS.CMPNCD" required="true" length="32"/>
+        <input type="text" name="companyName" expr="cmpnnm" title="@CMPNMS.CMPNNM" required="true" length="64" tabtitle="true"/>
+        <input type="text" name="companyType" expr="cmpnty" title="@CMPNMS.CMPNTY" length="16"/>
+        <input type="text" name="industry" expr="indsty" title="@CMPNMS.INDSTY" length="32"/>
+        <input type="text" name="officialWebsite" expr="ofcwbs" title="@CMPNMS.OFCWBS" length="128" spans="2"/>
+        <input type="text" mode="textarea" name="companyProfile" expr="cmpmpf" title="@CMPNMS.CMPMPF" length="512"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@CMPNMS.REMARK" length="254"/>
+    </editor>
+
+    <editor title="@editor.contacts" row="1" spans="2">
+        <input type="text" name="address" expr="addres" title="@CMPNMS.ADDRES" length="128"/>
+        <input type="text" name="contacts" expr="contcs" title="@CMPNMS.CONTCS" length="32"/>
+        <input type="text" name="phoneNo" expr="phonno" title="@CMPNMS.PHONNO" length="11"/>
+        <input type="text" name="email" expr="email" title="@CMPNMS.EMAIL" length="32"/>
+        <input type="text" name="zipCode" expr="zipcde" title="@CMPNMS.ZIPCDE" length="6"/>
+    </editor>
+
+    <editor title="@editor.platform">
+        <input type="text" name="platformTitle" expr="pftitl" title="@CMPNMS.PFTITL" length="64" required="true"/>
+        <input type="text" name="platformSubtitle" expr="pfstil" title="@CMPNMS.PFSTIL" length="64" required="true" spans="2"/>
+        <input type="text" name="platformSimpleTitle" expr="pfsptl" title="@CMPNMS.PFSPTL" length="16" required="true"/>
+        <input type="enum" name="captchaVerify" expr="capvrf" title="@CMPNMS.CAPVRF" options="@@CMPNMS.CAPVRF" default="O"/>
+        <input type="enum" name="autoLogin" expr="autlgn" title="@CMPNMS.AUTLGN" options="@@CMPNMS.AUTLGN" default="O"/>
+        <input type="enum" name="rememberUsername" expr="rmbusn" title="@CMPNMS.RMBUSN" options="@@CMPNMS.RMBUSN" default="O"/>
+        <input type="enum" name="rememberPassword" expr="rmbpsw" title="@CMPNMS.RMBPSW" options="@@CMPNMS.RMBPSW" default="O"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="etitle">修改公司</item>
+
+            <item key="editor.base.info">基本信息</item>
+            <item key="editor.contacts">联系方式</item>
+            <item key="editor.platform">平台配置</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="etitle">Modify Company</item>
+            <item key="editor.base.info">Base Info</item>
+            <item key="editor.contacts">Contacts</item>
+            <item key="editor.platform">Platform</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

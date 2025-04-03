@@ -8,7 +8,7 @@
         角色列表
     </description>
 
-    <datatable title="@title">
+    <datatable title="@table.title">
         <actions>
             <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy01/roleEdit" />
         </actions>
@@ -22,7 +22,7 @@
             <column type="label" name="name" expr="rolenm" title="@ROLEMS.ROLENM" width="120" filter="text"/>
             <column type="tag" name="superAdmin" expr="supadm" title="@ROLEMS.SUPADM" width="110" format="@@ROLEMS.SUPADM"/>
             <column type="label" name="remark" expr="remark" title="@ROLEMS.REMARK" filter="text"/>
-            <column type="link" name="assign" icon="permission" expr="roleid" title="@assign" width="120"
+            <column type="link" name="assign" icon="permission" expr="roleid" title="@permission.assign" width="120"
                     link="/sy01/permission/assign" permission="permission.assign"/>
             <column type="link" mode="drawer" name="edit" icon="edit" expr="roleid" title="@edit" width="80"
                     link="/graces/editor/sy01/roleEdit" permission="update"/>
@@ -33,17 +33,18 @@
 
     <intl>
         <lang code="zh-CN">
-            <item key="title">角色</item>
+            <item key="table.title">角色</item>
             <item key="add">新增</item>
-            <item key="assign">权限分配</item>
+
+            <item key="permission.assign">权限分配</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
 
         <lang code="en-US">
-            <item key="add">Role</item>
+            <item key="table.title">Role</item>
             <item key="add">Add</item>
-            <item key="assign">Permission Assign</item>
+            <item key="permission.assign">Permission Assign</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        公司列表
+    </description>
+
+    <datatable>
+        <statement>
+            <table name="cmpnms"/>
+            <order by="crettm"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="companyCode" expr="cmpncd" title="@CMPNMS.CMPNCD" width="100" filter="text"/>
+            <column type="label" name="companyName" expr="cmpnnm" title="@CMPNMS.CMPNNM" width="150" filter="text"/>
+            <column type="label" name="platformTitle" expr="pftitl" title="@CMPNMS.PFTITL" width="150" filter="text"/>
+            <column type="label" name="platformSubtitle" expr="pfstil" title="@CMPNMS.PFSTIL" width="150" filter="text"/>
+            <column type="label" name="platformSimpleTitle" expr="pfsptl" title="@CMPNMS.PFSPTL" width="150" filter="text"/>
+            <column type="tag" name="captchaVerify" expr="capvrf" title="@CMPNMS.CAPVRF" width="110" format="@@CMPNMS.CAPVRF"/>
+            <column type="tag" name="autoLogin" expr="autlgn" title="@CMPNMS.AUTLGN" width="100" format="@@CMPNMS.AUTLGN"/>
+            <column type="tag" name="rememberUsername" expr="rmbusn" title="@CMPNMS.RMBUSN" width="100" format="@@CMPNMS.RMBUSN"/>
+            <column type="tag" name="rememberPassword" expr="rmbpsw" title="@CMPNMS.RMBPSW" width="100" format="@@CMPNMS.RMBPSW"/>
+            <column type="label" name="companyType" expr="cmpnty" title="@CMPNMS.CMPNTY" width="150" filter="text"/>
+            <column type="label" name="companyProfile" expr="cmpmpf" title="@CMPNMS.CMPMPF" width="100" filter="text"/>
+            <column type="label" name="industry" expr="indsty" title="@CMPNMS.INDSTY" width="100" filter="text"/>
+            <column type="label" name="officialWebsite" expr="ofcwbs" title="@CMPNMS.OFCWBS" width="150" filter="text"/>
+            <column type="label" name="address" expr="addres" title="@CMPNMS.ADDRES" width="150" filter="text"/>
+            <column type="label" name="contacts" expr="contcs" title="@CMPNMS.CONTCS" width="100" filter="text"/>
+            <column type="label" name="phoneNo" expr="phonno" title="@CMPNMS.PHONNO" width="100" filter="text"/>
+            <column type="label" name="email" expr="email" title="@CMPNMS.EMAIL" width="100" filter="text"/>
+            <column type="label" name="zipCode" expr="zipcde" title="@CMPNMS.ZIPCDE" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@CMPNMS.REMARK" width="100" filter="text"/>
+            <column type="link" name="edit" icon="edit" expr="cmpnid" title="@edit" width="80" link="/graces/editor/sy03/companyEdit"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="edit">编辑</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="edit">Edit</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

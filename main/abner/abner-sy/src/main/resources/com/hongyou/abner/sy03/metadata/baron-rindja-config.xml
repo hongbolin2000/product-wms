@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 公司列表 -->
+    <generic-grider-descriptor name="companyList">company-grider.xml</generic-grider-descriptor>
+
+    <!-- 公司编辑 -->
+    <generic-editor-descriptor name="companyEdit">company-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

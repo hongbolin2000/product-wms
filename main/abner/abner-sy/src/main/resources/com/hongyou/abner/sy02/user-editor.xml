@@ -16,7 +16,7 @@
         <param column="userid" type="=" expr="id"/>
     </statement>
 
-    <editor title="@title" spans="1" formWidth="40%">
+    <editor title="@editor.title" spans="1" formWidth="40%">
         <input type="text" name="id" expr="userid" hidden="true"/>
         <input type="text" name="username" expr="usernm" title="@USERMS.USERNM" required="true" length="32" tabtitle="true"/>
         <input type="text" mode="password" name="password" expr="paswrd" title="@USERMS.PASWRD" required="true"
@@ -36,14 +36,14 @@
         <lang code="zh-CN">
             <item key="atitle">新增用户</item>
             <item key="etitle">修改用户</item>
-            <item key="title">用户信息</item>
+            <item key="editor.title">用户信息</item>
             <item key="confirm.pwd">确认密码</item>
         </lang>
 
         <lang code="en-US">
             <item key="atitle">Add User</item>
             <item key="etitle">Modify User</item>
-            <item key="title">Info User</item>
+            <item key="editor.title">Info User</item>
             <item key="confirm.pwd">Confirm Pwd</item>
         </lang>
     </intl>
