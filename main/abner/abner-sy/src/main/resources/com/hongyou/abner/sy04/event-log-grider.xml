@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        系统日志列表
+    </description>
+
+    <filters>
+        <opts name="level" type="enum" table="EVLGHD" column="EVTLVL"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <statement>
+            <table name="evlghd"/>
+            <order by="oprttm desc"/>
+        </statement>
+
+        <double.click type="query" datatables="detail" input="eventId"/>
+
+        <columns>
+            <column type="label" name="eventId" expr="elhdid" hidden="true"/>
+            <column type="label" name="module" expr="module" title="@EVLGHD.MODULE" width="100" filter="text"/>
+            <column type="label" name="moduleName" expr="modnam" title="@EVLGHD.MODNAM" width="150" filter="text"/>
+            <column type="label" name="action" expr="action" title="@EVLGHD.ACTION" width="120" filter="text"/>
+            <column type="tag" name="level" expr="evtlvl" title="@EVLGHD.EVTLVL" width="100" format="@@EVLGHD.EVTLVL" filter="@level"/>
+            <column type="label" name="message" expr="mesage" title="@EVLGHD.MESAGE" filter="text"/>
+            <column type="label" name="operateBy" expr="oprtby" title="@EVLGHD.OPRTBY" width="100" filter="text"/>
+            <column type="label" name="operateTime" expr="oprttm" title="@EVLGHD.OPRTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+        </columns>
+    </datatable>
+
+    <subtable name="detail">
+        <statement>
+            <table name="evlgvl"/>
+            <param column="elhdid" type="=" expr="eventId"/>
+            <order by="oprttm"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="propertyKey" expr="elprky" title="@EVLGVL.ELPRKY" width="100" filter="text"/>
+            <column type="label" name="propertyName" expr="elprnm" title="@EVLGVL.ELPRNM" width="100" filter="text"/>
+            <column type="label" name="oldValue" expr="elodvl" title="@EVLGVL.ELODVL" width="100" filter="text"/>
+            <column type="label" name="value" expr="elprvl" title="@EVLGVL.ELPRVL" width="100" filter="text"/>
+        </columns>
+    </subtable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">系统日志</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Event Log</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

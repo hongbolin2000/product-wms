@@ -23,7 +23,7 @@
         <input type="text" name="companyType" expr="cmpnty" title="@CMPNMS.CMPNTY" length="16"/>
         <input type="text" name="industry" expr="indsty" title="@CMPNMS.INDSTY" length="32"/>
         <input type="text" name="officialWebsite" expr="ofcwbs" title="@CMPNMS.OFCWBS" length="128" spans="2"/>
-        <input type="text" mode="textarea" name="companyProfile" expr="cmpmpf" title="@CMPNMS.CMPMPF" length="512"/>
+        <input type="text" mode="textarea" name="companyProfile" expr="cmpmpf" title="@CMPNMS.CMPMPF" length="254"/>
         <input type="text" mode="textarea" name="remark" expr="remark" title="@CMPNMS.REMARK" length="254"/>
     </editor>
 

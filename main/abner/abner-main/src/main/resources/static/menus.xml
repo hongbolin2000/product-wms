@@ -5,6 +5,7 @@
             <menu id="sy03" permission="sy03" url="/graces/grider/sy03/companyList" label="公司管理" icon="company"/>
             <menu id="sy01" permission="sy01" url="/graces/grider/sy01/roleList" label="角色管理" icon="role"/>
             <menu id="sy02" permission="sy02" url="/graces/grider/sy02/userList" label="用户管理" icon="user"/>
+            <menu id="sy04" permission="sy04" url="/graces/grider/sy04/eventLogList" label="系统日志" icon="user"/>
             <menu id="sy99" permission="sy99" url="/graces/grider/sy99/storeGrider" label="动态列表"/>
         </menu>
     </family>
