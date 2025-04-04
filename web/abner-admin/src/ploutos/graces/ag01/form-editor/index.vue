@@ -463,7 +463,7 @@
 
       for (let j = 0; j < sheeters.length; j++) {
         const sheeter = sheeters[j];
-        data[sheeter.name] = sheeter.data;
+        data[sheeter.name] = sheeter.data ? sheeter.data : [];
         if (sheeter.required && (!sheeter.data || sheeter.data.length <= 0)) {
           message.error("请将" + getFormTitle(sheeter.title) + "表格数据填写完整")
           return;

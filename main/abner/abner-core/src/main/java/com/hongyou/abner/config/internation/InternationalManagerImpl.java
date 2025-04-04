@@ -9,6 +9,9 @@ import com.hongyou.abner.data.model.VTbfdvl;
 import com.hongyou.baron.cache.CacheUtil;
 import com.hongyou.baron.cache.TimedCache;
 import com.hongyou.baron.util.StringUtil;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.row.Db;
+import com.mybatisflex.core.row.RowUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
@@ -50,11 +53,14 @@ public class InternationalManagerImpl extends DataProvider implements Internatio
             return this.tableValuesDisplay.get(key);
         }
 
-        List<VTbfdvl> vtbfdvls = new VTbfdvl().
-                select(VTBFDVL.FLDNAM.getName(), VTBFDVL.VALUE.getName(), VTBFDVL.DSPVAL.getName()).
+        // 查询表枚举值定义
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.select(VTBFDVL.FLDNAM.getName(), VTBFDVL.VALUE.getName(), VTBFDVL.DSPVAL.getName()).
+                from(VTBFDVL.getName()).
                 and(VTBFDVL.LANGUG.eq(local)).and(VTBFDVL.TBLNAM.eq(table)).
-                orderBy(VTBFDVL.SORTNG.getName()).
-                list();
+                orderBy(VTBFDVL.SORTNG.getName());
+        List<VTbfdvl> vtbfdvls = RowUtil.toEntityList(Db.selectListByQuery(wrapper), VTbfdvl.class);
+
         Map<String, String> displays = new LinkedHashMap<>();
         vtbfdvls.forEach(vtbfdvl -> displays.put(
                 vtbfdvl.getFldnam() + "@" + vtbfdvl.getValue(), vtbfdvl.getDspval()
