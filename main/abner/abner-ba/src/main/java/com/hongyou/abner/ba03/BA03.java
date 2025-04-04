@@ -58,7 +58,6 @@ public class BA03 extends UserDataProvider {
             Projdc projdc = null; VProjdc oldVProjdc = null;
             if (ObjectUtil.isNotNull(projdcPojo.getId())) {
                 projdc = this.db().projdc().get(projdcPojo.getId());
-
                 oldVProjdc = new VProjdc().pjdcid(projdc.getPjdcid()).oneById();
             }
 
