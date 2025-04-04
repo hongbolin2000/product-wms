@@ -16,7 +16,7 @@ N	WRHSID,		BIGINT,		NOT NULL,		,						warehouseId,		Warehouse,			    仓库
 K 	WRHSMS 		- WRHSNM
 N	STIMNO,		VC(64),		NOT NULL,		,						stockItemNo,	    Stock Item No,		    库存唯一码
 *****************************************************************************************************************************************************
-N	RDOCTY,		C(3),		        NOT NULL,		'RPO',			refDocType,		    Ref Document Type,		单据类型
+N	RDOCTY,		C(3),		        NOT NULL,		'RPO',			refDocType,		    Ref Doc Type,		    单据类型
     B   RPO     PurchaseReceive 	采购收货
     B   RMO     ProduceReceive      生产收货
     B   RRT     ReturnReceive       退货收货

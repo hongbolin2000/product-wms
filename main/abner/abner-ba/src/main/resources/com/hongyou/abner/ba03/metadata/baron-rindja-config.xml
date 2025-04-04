@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 项目文档列表 -->
+    <generic-grider-descriptor name="projectDocList">project-doc-grider.xml</generic-grider-descriptor>
+
+    <!-- 项目文档编辑 -->
+    <generic-editor-descriptor name="projectDocEdit">project-doc-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

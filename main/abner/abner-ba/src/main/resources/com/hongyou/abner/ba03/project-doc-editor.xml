@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        项目文档编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/ba03/save</url>
+
+    <statement>
+        <table name="vprojdc"/>
+        <param column="pjdcid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="docName" spans="1">
+        <input type="text" name="id" expr="pjdcid" hidden="true"/>
+        <input type="suggestor" name="projectId" expr="projid" title="@PROJDC.PROJID" module="ba00"
+               suggestor="projectSuggestor" required="true"/>
+        <input type="upload" mode="dragger" name="docFile" expr="docfil" title="@PROJDC.DOCFIL" group="projdc/docfil"
+               required="true"/>
+        <input type="text" name="docName" expr="docnam" title="@PROJDC.DOCNAM" required="true" length="32"/>
+        <input type="text" name="docType" expr="doctyp" title="@PROJDC.DOCTYP" length="32"/>
+        <input type="text" name="docVersion" expr="docvsn" title="@PROJDC.DOCVSN" length="32"/>
+        <input type="text" mode="textarea" name="docRemark" expr="docrmk" title="@PROJDC.DOCRMK" length="254"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@PROJDC.REMARK" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增项目文档</item>
+            <item key="etitle">修改项目文档</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Project Doc</item>
+            <item key="etitle">Modify Project Doc</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        项目文档列表
+    </description>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="drawer" drawerWidth="630" icon="add" title="@add" link="/graces/editor/ba03/projectDocEdit" />
+        </actions>
+
+        <statement>
+            <table name="vprojdc"/>
+            <order by="projnm desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="projectName" expr="projnm" title="@PROJDC.PROJID" width="150" filter="text"/>
+            <column type="file" mode="text" name="docfil" expr="docfil" title="@PROJDC.DOCFIL" width="120"/>
+            <column type="label" name="docName" expr="docnam" title="@PROJDC.DOCNAM" width="100" filter="text"/>
+            <column type="label" name="docType" expr="doctyp" title="@PROJDC.DOCTYP" width="100" filter="text"/>
+            <column type="label" name="docVersion" expr="docvsn" title="@PROJDC.DOCVSN" width="100" filter="text"/>
+            <column type="label" name="docRemark" expr="docrmk" title="@PROJDC.DOCRMK" width="100" filter="text"/>
+            <column type="label" name="uploadBy" expr="upldby" title="@PROJDC.UPLDBY" width="100" filter="text"/>
+            <column type="label" name="uploadTime" expr="upldtm" title="@PROJDC.UPLDTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="remark" expr="remark" title="@PROJDC.REMARK" width="100" filter="text"/>
+            <column type="link" mode="drawer" drawerWidth="630" name="edit" icon="edit" expr="pjdcid" title="@edit" width="80"
+                    link="/graces/editor/ba03/projectDocEdit"/>
+            <column type="scriptLink" name="drawer" icon="delete" expr="pjdcid" title="@delete" width="80"
+                    link="/ba03/delete" labelColumn="docName" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">项目文档</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Project Doc</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

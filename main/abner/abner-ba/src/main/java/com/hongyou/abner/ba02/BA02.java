@@ -7,6 +7,7 @@ import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Projms;
 import com.hongyou.abner.data.model.Userms;
+import com.hongyou.abner.data.model.VProjdc;
 import com.hongyou.abner.data.model.VProjms;
 import com.hongyou.abner.data.pojo.ProjmsPojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
@@ -61,11 +62,7 @@ public class BA02 extends UserDataProvider {
             Projms projms = null; VProjms oldVProjms = null;
             if (ObjectUtil.isNotNull(projmsPojo.getId())) {
                 projms = this.db().projms().get(projmsPojo.getId());
-
-                // 复制试图
-                oldVProjms = (VProjms) Db.selectOneById(
-                        VPROJMS.getName(), VPROJMS.PROJID.getName(), projms.getProjid()
-                ).toEntity(VProjms.class).clone();
+                oldVProjms = new VProjms().projid(projms.getProjid()).oneById();
             }
 
             // 新增
@@ -99,12 +96,8 @@ public class BA02 extends UserDataProvider {
                     oprttm(currentTime);
             this.db().projms().save(projms);
 
-            // 试图
-            VProjms vprojms = Db.selectOneById(
-                    VPROJMS.getName(), VPROJMS.PROJID.getName(), projms.getProjid()
-            ).toEntity(VProjms.class);
-
             // 记录日志
+            VProjms vProjms = new VProjms().projid(projms.getProjid()).oneById();
             String action = oldVProjms == null ? "新增" : "修改";
             Map<String, String> displays = this.international.getTableValuesDisplay(request, "projms");
             EventLog event = EventLog.builder().
@@ -115,7 +108,7 @@ public class BA02 extends UserDataProvider {
                     action(action).
                     message(StringUtil.format("项目[{}]{}成功", projms.getProjnm(), action)).
                     oldValue(oldVProjms).
-                    newValue(vprojms).
+                    newValue(vProjms).
                     enumsDisplay(displays).
                     build();
             this.eventLogManager.info(event);
@@ -141,9 +134,7 @@ public class BA02 extends UserDataProvider {
 
             for (Long id: ids) {
                 Projms projms = this.db().projms().get(id);
-                VProjms vprojms = Db.selectOneById(
-                        VPROJMS.getName(), VPROJMS.PROJID.getName(), projms.getProjid()
-                ).toEntity(VProjms.class);
+                VProjms vProjms = new VProjms().projid(projms.getProjid()).oneById();
 
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
@@ -152,7 +143,7 @@ public class BA02 extends UserDataProvider {
                         name("项目管理").
                         action("删除").
                         message(StringUtil.format("项目[{}]删除成功", projms.getProjnm())).
-                        newValue(vprojms).
+                        newValue(vProjms).
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
