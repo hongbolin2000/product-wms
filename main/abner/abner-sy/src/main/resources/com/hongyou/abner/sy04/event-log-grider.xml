@@ -22,10 +22,12 @@
 
         <columns>
             <column type="label" name="eventId" expr="elhdid" hidden="true"/>
+            <column type="label" name="levelValue" expr="evtlvl" hidden="true"/>
             <column type="label" name="module" expr="module" title="@EVLGHD.MODULE" width="100" filter="text"/>
             <column type="label" name="moduleName" expr="modnam" title="@EVLGHD.MODNAM" width="150" filter="text"/>
             <column type="label" name="action" expr="action" title="@EVLGHD.ACTION" width="120" filter="text"/>
-            <column type="tag" name="level" expr="evtlvl" title="@EVLGHD.EVTLVL" width="100" format="@@EVLGHD.EVTLVL" filter="@level"/>
+            <column type="tag" name="level" expr="evtlvl" title="@EVLGHD.EVTLVL" width="100" format="@@EVLGHD.EVTLVL"
+                    filter="@level" success="levelValue == 'I'" error="levelValue == 'C'"/>
             <column type="label" name="message" expr="mesage" title="@EVLGHD.MESAGE" filter="text"/>
             <column type="label" name="operateBy" expr="oprtby" title="@EVLGHD.OPRTBY" width="100" filter="text"/>
             <column type="label" name="operateTime" expr="oprttm" title="@EVLGHD.OPRTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>

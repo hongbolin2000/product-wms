@@ -15,15 +15,23 @@
         </statement>
 
         <columns>
+            <column type="label" name="captchaVerifyValue" expr="capvrf" hidden="true"/>
+            <column type="label" name="autoLoginValue" expr="autlgn" hidden="true"/>
+            <column type="label" name="rememberUsernameValue" expr="rmbusn" hidden="true"/>
+            <column type="label" name="rememberPasswordValue" expr="rmbpsw" hidden="true"/>
             <column type="label" name="companyCode" expr="cmpncd" title="@CMPNMS.CMPNCD" width="100" filter="text"/>
             <column type="label" name="companyName" expr="cmpnnm" title="@CMPNMS.CMPNNM" width="150" filter="text"/>
             <column type="label" name="platformTitle" expr="pftitl" title="@CMPNMS.PFTITL" width="150" filter="text"/>
             <column type="label" name="platformSubtitle" expr="pfstil" title="@CMPNMS.PFSTIL" width="150" filter="text"/>
             <column type="label" name="platformSimpleTitle" expr="pfsptl" title="@CMPNMS.PFSPTL" width="150" filter="text"/>
-            <column type="tag" name="captchaVerify" expr="capvrf" title="@CMPNMS.CAPVRF" width="110" format="@@CMPNMS.CAPVRF"/>
-            <column type="tag" name="autoLogin" expr="autlgn" title="@CMPNMS.AUTLGN" width="100" format="@@CMPNMS.AUTLGN"/>
-            <column type="tag" name="rememberUsername" expr="rmbusn" title="@CMPNMS.RMBUSN" width="100" format="@@CMPNMS.RMBUSN"/>
-            <column type="tag" name="rememberPassword" expr="rmbpsw" title="@CMPNMS.RMBPSW" width="100" format="@@CMPNMS.RMBPSW"/>
+            <column type="tag" name="captchaVerify" expr="capvrf" title="@CMPNMS.CAPVRF" width="110" format="@@CMPNMS.CAPVRF"
+                    success="captchaVerifyValue == 'O'" error="captchaVerifyValue == 'C'"/>
+            <column type="tag" name="autoLogin" expr="autlgn" title="@CMPNMS.AUTLGN" width="100" format="@@CMPNMS.AUTLGN"
+                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'"/>
+            <column type="tag" name="rememberUsername" expr="rmbusn" title="@CMPNMS.RMBUSN" width="100" format="@@CMPNMS.RMBUSN"
+                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'"/>
+            <column type="tag" name="rememberPassword" expr="rmbpsw" title="@CMPNMS.RMBPSW" width="100" format="@@CMPNMS.RMBPSW"
+                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'"/>
             <column type="label" name="companyType" expr="cmpnty" title="@CMPNMS.CMPNTY" width="150" filter="text"/>
             <column type="label" name="companyProfile" expr="cmpmpf" title="@CMPNMS.CMPMPF" width="100" filter="text"/>
             <column type="label" name="industry" expr="indsty" title="@CMPNMS.INDSTY" width="100" filter="text"/>
