@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        供应商列表
+    </description>
+
+    <filters>
+        <opts name="isSupplier" type="enum" table="SUPLMS" column="ISSUPL"/>
+        <opts name="isBuyer" type="enum" table="SUPLMS" column="ISCSTM"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add" link="/graces/editor/ba01/supplierEdit" />
+        </actions>
+
+        <statement>
+            <table name="suplms"/>
+            <order by="suplcd"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="supplierCode" expr="suplcd" title="@SUPLMS.SUPLCD" width="100" filter="text"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@SUPLMS.SUPLNM" width="100" filter="text"/>
+            <column type="tag" name="isSupplier" expr="issupl" title="@SUPLMS.ISSUPL" width="70" format="@@SUPLMS.ISSUPL" filter="@isSupplier"/>
+            <column type="tag" name="isBuyer" expr="iscstm" title="@SUPLMS.ISCSTM" width="70" format="@@SUPLMS.ISCSTM" filter="@isBuyer"/>
+            <column type="label" name="address" expr="addres" title="@SUPLMS.ADDRES" width="100" filter="text"/>
+            <column type="label" name="contacts" expr="contcs" title="@SUPLMS.CONTCS" width="100" filter="text"/>
+            <column type="label" name="phoneNo" expr="phonno" title="@SUPLMS.PHONNO" width="100" filter="text"/>
+            <column type="label" name="email" expr="email" title="@SUPLMS.EMAIL" width="100" filter="text"/>
+            <column type="label" name="zipCode" expr="zipcde" title="@SUPLMS.ZIPCDE" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@SUPLMS.REMARK" width="100" filter="text"/>
+            <column type="link" mode="drawer" name="edit" icon="edit" expr="suplid" title="@edit" width="80"
+                    link="/graces/editor/ba01/supplierEdit" drawerWidth="50%"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="suplid" title="@delete" width="80"
+                    link="/ba02/delete" labelColumn="supplierName" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">供应商</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Supplier</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

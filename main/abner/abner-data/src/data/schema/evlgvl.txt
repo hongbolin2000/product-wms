@@ -8,6 +8,7 @@ Y	Event Value
 N	ELVLID,		ID,			NOT NULL,		,						id,				ID,						主键
 *****************************************************************************************************************************************************
 N	ELHDID,		BIGINT,		NOT NULL,		,						eventId,		event,					日志
+N   SORTNG,     INT,        NOT NULL,       1,                      sorting,        Sorting,                排序
 *****************************************************************************************************************************************************
 N	ELPRKY,		VC(32),		NOT NULL,		,						propertyKey,	Property Key,			属性编号
 N	ELPRNM,		VC(32),		NOT NULL,		,						propertyName,	Property Name,			属性名称

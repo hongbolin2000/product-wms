@@ -17,9 +17,9 @@
         <param column="roleid" type="=" expr="id"/>
     </statement>
 
-    <editor spans="1">
+    <editor spans="1" labelColumn="name">
         <input type="text" name="id" expr="roleid" hidden="true"/>
-        <input type="text" name="name" expr="rolenm" title="@ROLEMS.ROLENM" required="true" length="32" tabtitle="true"/>
+        <input type="text" name="name" expr="rolenm" title="@ROLEMS.ROLENM" required="true" length="32"/>
         <input type="text" mode="textarea" name="remark" expr="remark" title="@ROLEMS.REMARK" length="254"/>
     </editor>
 

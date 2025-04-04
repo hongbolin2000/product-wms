@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        供应商编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/ba01/save</url>
+
+    <statement>
+        <table name="suplms"/>
+        <param column="suplid" type="=" expr="id"/>
+    </statement>
+
+    <editor spans="2" labelColumn="supplierName">
+        <input type="text" name="id" expr="suplid" hidden="true"/>
+        <input type="text" name="supplierCode" expr="suplcd" title="@SUPLMS.SUPLCD" required="true" length="16"/>
+        <input type="text" name="supplierName" expr="suplnm" title="@SUPLMS.SUPLNM" required="true" length="32"/>
+        <input type="text" name="remark" expr="remark" title="@SUPLMS.REMARK" length="254" spans="2"/>
+        <input type="enum" name="isSupplier" expr="issupl" title="@SUPLMS.ISSUPL" options="@@SUPLMS.ISSUPL" default="N"/>
+        <input type="enum" name="isCustomer" expr="iscstm" title="@SUPLMS.ISCSTM" options="@@SUPLMS.ISCSTM" default="N"/>
+    </editor>
+
+    <editor title="@editor.contacts" spans="2">
+        <input type="text" name="address" expr="addres" title="@SUPLMS.ADDRES" length="128"/>
+        <input type="text" name="contacts" expr="contcs" title="@SUPLMS.CONTCS" length="32"/>
+        <input type="text" name="phoneNo" expr="phonno" title="@SUPLMS.PHONNO" length="11"/>
+        <input type="text" name="email" expr="email" title="@SUPLMS.EMAIL" length="32"/>
+        <input type="text" name="zipCode" expr="zipcde" title="@SUPLMS.ZIPCDE" length="6"/>
+    </editor>
+
+    <sheeter title="@sheeter.contacts" name="contactLines" required="false" labelColumn="address">
+        <statement>
+            <table name="splcts"/>
+            <param column="suplid" type="=" expr="id"/>
+        </statement>
+
+        <inputs>
+            <input type="text" name="id" expr="spctid" hidden="true"/>
+            <input type="text" name="address" expr="addres" title="@SPLCTS.ADDRES" required="true" length="128"/>
+            <input type="text" name="contacts" expr="contcs" title="@SPLCTS.CONTCS" width="70" length="32"/>
+            <input type="text" name="phoneNo" expr="phonno" title="@SPLCTS.PHONNO" width="90" length="11"/>
+            <input type="text" name="email" expr="email" title="@SPLCTS.EMAIL" width="90" length="32"/>
+            <input type="text" name="zipCode" expr="zipcde" title="@SPLCTS.ZIPCDE" width="70" length="6"/>
+            <input type="text" name="remark" expr="remark" title="@SPLCTS.REMARK" length="254"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增供应商</item>
+            <item key="etitle">修改供应商</item>
+
+            <item key="editor.contacts">主联系方式</item>
+            <item key="sheeter.contacts">其他联系方式</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Supplier</item>
+            <item key="etitle">Modify Supplier</item>
+            <item key="editor.contacts">Main Contacts</item>
+
+            <item key="sheeter.contacts">Other Contacts</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

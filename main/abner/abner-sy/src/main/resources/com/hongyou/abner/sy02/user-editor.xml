@@ -16,9 +16,9 @@
         <param column="userid" type="=" expr="id"/>
     </statement>
 
-    <editor title="@editor.title" spans="1" formWidth="40%">
+    <editor title="@editor.title" spans="1" formWidth="40%" labelColumn="username">
         <input type="text" name="id" expr="userid" hidden="true"/>
-        <input type="text" name="username" expr="usernm" title="@USERMS.USERNM" required="true" length="32" tabtitle="true"/>
+        <input type="text" name="username" expr="usernm" title="@USERMS.USERNM" required="true" length="32"/>
         <input type="text" mode="password" name="password" expr="paswrd" title="@USERMS.PASWRD" required="true"
                length="32" hidden="fill == true"/>
         <input type="text" mode="password" name="confirmPwd" expr="paswrd" title="@confirm.pwd" length="32"

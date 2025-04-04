@@ -17,11 +17,11 @@
         <param column="streid" type="=" expr="id"/>
     </statement>
 
-    <editor title="门店信息" spans="1" formWidth="50%" placement="left">
+    <editor title="门店信息" spans="1" formWidth="50%" placement="left" labelColumn="storeName">
         <input type="text" name="storeId" expr="streid" hidden="true"/>
         <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16" default="aaa" prefix="icon-delete"/>
         <input type="text" mode="textarea" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true" disabled="storeType == 'a'"/>
-        <input type="text" mode="password"  name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" tabtitle="true" disabled="storeType == 'a'"/>
+        <input type="text" mode="password"  name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" disabled="storeType == 'a'"/>
         <input type="text" name="provinceName" expr="prvcnm" title="@STREMS.PRVCNM" length="64" disabled="storeCode != ''" suffix="元"/>
         <input type="text" name="cityName" expr="citynm" title="@STREMS.CITYNM" length="64" required="true" disabled="storeType == 'a'"/>
         <input type="text" name="storeAddress" expr="stread" title="@STREMS.STREAD" length="128" required="true" disabled="storeType == 'a'"/>

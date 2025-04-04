@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 供应商列表 -->
+    <generic-grider-descriptor name="supplierList">supplier-grider.xml</generic-grider-descriptor>
+
+    <!-- 供应商编辑 -->
+    <generic-editor-descriptor name="supplierEdit">supplier-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

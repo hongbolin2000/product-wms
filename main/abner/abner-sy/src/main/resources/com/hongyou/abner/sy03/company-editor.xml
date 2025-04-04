@@ -16,10 +16,10 @@
         <param column="cmpnid" type="=" expr="id"/>
     </statement>
 
-    <editor title="@editor.base.info" row="1" spans="2">
+    <editor title="@editor.base.info" row="1" spans="2" labelColumn="companyName">
         <input type="text" name="id" expr="cmpnid" hidden="true"/>
         <input type="text" name="companyCode" expr="cmpncd" title="@CMPNMS.CMPNCD" required="true" length="32"/>
-        <input type="text" name="companyName" expr="cmpnnm" title="@CMPNMS.CMPNNM" required="true" length="64" tabtitle="true"/>
+        <input type="text" name="companyName" expr="cmpnnm" title="@CMPNMS.CMPNNM" required="true" length="64"/>
         <input type="text" name="companyType" expr="cmpnty" title="@CMPNMS.CMPNTY" length="16"/>
         <input type="text" name="industry" expr="indsty" title="@CMPNMS.INDSTY" length="32"/>
         <input type="text" name="officialWebsite" expr="ofcwbs" title="@CMPNMS.OFCWBS" length="128" spans="2"/>
