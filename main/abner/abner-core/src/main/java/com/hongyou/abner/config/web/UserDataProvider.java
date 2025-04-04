@@ -16,6 +16,7 @@ import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.core.row.Db;
 import com.mybatisflex.core.row.Row;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ import static com.hongyou.abner.data.model.table.CmpnmsTableDef.CMPNMS;
  *
  * @author Berlin
  */
+@Component
 public class UserDataProvider extends DataProvider {
 
     /**

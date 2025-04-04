@@ -6,13 +6,12 @@ package com.hongyou.abner.config.internation;
 import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Tbfdds;
 import com.hongyou.abner.data.model.VTbfdvl;
+import com.hongyou.baron.Application;
 import com.hongyou.baron.cache.CacheUtil;
 import com.hongyou.baron.cache.TimedCache;
 import com.hongyou.baron.util.StringUtil;
-import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.row.Db;
-import com.mybatisflex.core.row.RowUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -37,6 +36,19 @@ public class InternationalManagerImpl extends DataProvider implements Internatio
     );
 
     /**
+     * 应用配置
+     */
+    private Application application;
+
+    /**
+     * 注入应用配置
+     */
+    @Autowired
+    public void setApplication(final Application application) {
+        this.application = application;
+    }
+
+    /**
      * 加载表字典值显示值
      *
      * @param request http request
@@ -49,17 +61,16 @@ public class InternationalManagerImpl extends DataProvider implements Internatio
         String key = local + "@" + table;
 
         // 从缓存中读取
-        if (this.tableValuesDisplay.containsKey(key)) {
+        if (!this.application.isDebug() && this.tableValuesDisplay.containsKey(key)) {
             return this.tableValuesDisplay.get(key);
         }
 
         // 查询表枚举值定义
-        QueryWrapper wrapper = QueryWrapper.create();
-        wrapper.select(VTBFDVL.FLDNAM.getName(), VTBFDVL.VALUE.getName(), VTBFDVL.DSPVAL.getName()).
-                from(VTBFDVL.getName()).
+        List<VTbfdvl> vtbfdvls = new VTbfdvl().
+                select(VTBFDVL.FLDNAM.getName(), VTBFDVL.VALUE.getName(), VTBFDVL.DSPVAL.getName()).
                 and(VTBFDVL.LANGUG.eq(local)).and(VTBFDVL.TBLNAM.eq(table)).
-                orderBy(VTBFDVL.SORTNG.getName());
-        List<VTbfdvl> vtbfdvls = RowUtil.toEntityList(Db.selectListByQuery(wrapper), VTbfdvl.class);
+                orderBy(VTBFDVL.SORTNG.getName()).
+                list();
 
         Map<String, String> displays = new LinkedHashMap<>();
         vtbfdvls.forEach(vtbfdvl -> displays.put(

@@ -2,7 +2,7 @@
   <n-upload
       :file-list="fileList"
       :list-type="column.mode == 'text' ? 'text' : 'image-card'"
-      :file-list-style="column.mode == 'text' ? 'width: 400px' : 'height: 48px;'"
+      :file-list-style="column.mode == 'text' ? 'width: 400px;line-height: 0' : 'height: 48px;'"
       :show-trigger="false"
       :show-remove-button="false"
       :show-download-button="column.mode == 'image'"
