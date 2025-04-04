@@ -69,10 +69,7 @@ public class BA03 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(projdcPojo.getProjectId(), projdc.getProjid()) ||
-                    !ObjectUtil.equal(projdcPojo.getDocName(), projdc.getDocnam()) ||
-                    !ObjectUtil.equal(projdcPojo.getDocVersion(), projdc.getDocvsn())
-            ) {
+            if (!ObjectUtil.equal(projdcPojo.getDocName(), projdc.getDocnam())) {
                 Projdc existed = this.db().projdc().getByDocName(
                         projdcPojo.getProjectId(), projdcPojo.getDocName(), projdcPojo.getDocVersion()
                 );

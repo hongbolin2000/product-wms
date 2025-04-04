@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 项目进度列表 -->
+    <generic-grider-descriptor name="projectProcessList">project-process-grider.xml</generic-grider-descriptor>
+
+    <!-- 项目进度编辑 -->
+    <generic-editor-descriptor name="projectProcessEdit">project-process-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

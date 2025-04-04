@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        项目进度编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/ba04/save</url>
+
+    <statement>
+        <table name="vprojpc"/>
+        <param column="pjpcid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="taskName" spans="1">
+        <input type="text" name="id" expr="pjpcid" hidden="true"/>
+        <input type="suggestor" name="projectId" expr="projid" title="@PROJPC.PROJID" module="ba00"
+               suggestor="projectSuggestor" required="true"/>
+        <input type="text" name="taskName" expr="tasknm" title="@PROJPC.TASKNM" required="true" length="32"/>
+        <input type="number" name="level" expr="level" title="@PROJPC.LEVEL" format="%#.###" default="1" min="1" required="true"/>
+        <input type="text" name="taskLeader" expr="taskld" title="@PROJPC.TASKLD" length="32"/>
+        <input type="date" name="planFinishDate" expr="plfndt" title="@PROJPC.PLFNDT" format="!yyyy-MM-dd" />
+        <input type="enum" name="status" expr="status" title="@PROJPC.STATUS" options="@@PROJPC.STATUS" default="N"
+               required="true"/>
+        <input type="text" name="processPercent" expr="pcspct" title="@PROJPC.PCSPCT" length="16" suffix="%"/>
+        <input type="date" name="finishedDate" expr="fnshdt" title="@PROJPC.FNSHDT" format="!yyyy-MM-dd" />
+        <input type="text" mode="textarea" name="taskRemark" expr="taskrm" title="@PROJPC.TASKRM" length="128"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@PROJPC.REMARK" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增项目进度</item>
+            <item key="etitle">修改项目进度</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Project Process</item>
+            <item key="etitle">Modify Project Process</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

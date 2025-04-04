@@ -12,7 +12,8 @@
         <menu id="ba" url="/ba" label="基础管理" icon="basic">
             <menu id="ba01" permission="ba01" url="/graces/grider/ba01/supplierList" label="供应商管理" icon="supplier"/>
             <menu id="ba02" permission="ba02" url="/graces/grider/ba02/projectList" label="项目管理" icon="project"/>
-            <menu id="ba03" permission="ba03" url="/graces/grider/ba03/projectDocList" label="项目文档管理" icon="project"/>
+            <menu id="ba03" permission="ba03" url="/graces/grider/ba03/projectDocList" label="项目文档管理" icon="doc"/>
+            <menu id="ba04" permission="ba04" url="/graces/grider/ba04/projectProcessList" label="项目进度管理" icon="process"/>
         </menu>
     </family>
 </menus>

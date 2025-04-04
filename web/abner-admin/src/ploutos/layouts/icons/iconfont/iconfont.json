@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11927797",
+      "name": "process",
+      "font_class": "process",
+      "unicode": "e6d5",
+      "unicode_decimal": 59093
+    },
+    {
+      "icon_id": "17436004",
+      "name": "doc",
+      "font_class": "doc",
+      "unicode": "e84a",
+      "unicode_decimal": 59466
+    },
+    {
       "icon_id": "551331",
       "name": "project",
       "font_class": "project",

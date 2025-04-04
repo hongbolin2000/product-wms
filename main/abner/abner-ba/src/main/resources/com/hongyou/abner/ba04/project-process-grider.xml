@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        项目进度列表
+    </description>
+
+    <filters>
+        <opts name="status" type="enum" table="PROJPC" column="STATUS"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/ba04/projectProcessEdit" />
+        </actions>
+
+        <statement>
+            <table name="vprojpc"/>
+            <order by="projnm, level"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="projectName" expr="projnm" title="@PROJPC.PROJID" width="150" filter="text"/>
+            <column type="label" name="level" expr="level" title="@PROJPC.LEVEL" width="100" format="%#.###"/>
+            <column type="label" name="taskName" expr="tasknm" title="@PROJPC.TASKNM" width="100" filter="text"/>
+            <column type="label" name="taskRemark" expr="taskrm" title="@PROJPC.TASKRM" width="100" filter="text"/>
+            <column type="label" name="taskLeader" expr="taskld" title="@PROJPC.TASKLD" width="100" filter="text"/>
+            <column type="label" name="processPercent" expr="pcspct" title="@PROJPC.PCSPCT" width="100" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@PROJPC.STATUS" width="70" format="@@PROJPC.STATUS" filter="@status"/>
+            <column type="label" name="planFinishDate" expr="plfndt" title="@PROJPC.PLFNDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="finishedDate" expr="fnshdt" title="@PROJPC.FNSHDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="remark" expr="remark" title="@PROJPC.REMARK" width="100" filter="text"/>
+            <column type="link" mode="drawer" name="edit" icon="edit" expr="pjpcid" title="@edit" width="80"
+                    link="/graces/editor/ba04/projectProcessEdit"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="pjpcid" title="@delete" width="80"
+                    link="/ba04/delete" labelColumn="taskName" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">项目进度</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Project Process</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>
