@@ -114,7 +114,7 @@
 
   <n-modal
       v-model:show="showModal"
-      :title="selectColumn.title"
+      :title="title"
       :draggable="{bounds: 'none'}"
       :style="{width: selectColumn?.dialogWidth}"
       preset="dialog"
@@ -122,13 +122,13 @@
       :close-on-esc="false"
   >
     <component :is="component" :params="componentParams" :is-dialog="true"
-               @on-close="showModal = false" @on-refresh="onSearch"
+               @on-close="showModal = false" @on-refresh="onSearch" @on-change-title="(value) => title = value"
     />
   </n-modal>
 
   <n-drawer v-model:show="showDrawer" :width="selectColumn.drawerWidth" placement="right" :mask-closable="false" :close-on-esc="false">
-    <n-drawer-content :title="selectColumn.title" closable :body-content-style="{padding: 0}">
-      <component :is="component" :params="componentParams" :is-drawer="true"
+    <n-drawer-content :title="title" closable :body-content-style="{padding: 0}">
+      <component :is="component" :params="componentParams" :is-drawer="true" @on-change-title="(value) => title = value"
                  @on-close="showDrawer = false" @on-refresh="onSearch"
       />
     </n-drawer-content>
@@ -310,6 +310,11 @@
    * 表格Ref
    */
   const tableRef = ref();
+
+  /**
+   * 新增/编辑时的弹框标题
+   */
+  const title = shallowRef('');
 
   /**
    * 分页器

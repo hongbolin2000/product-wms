@@ -293,6 +293,11 @@
      * 刷新表格数据
      */
     (e: 'onRefresh'): void;
+
+    /**
+     * 修改标题(drawer/dialog)
+     */
+    (e: 'onChangeTitle', title: string): void;
   }>();
 
   /**
@@ -398,12 +403,11 @@
       }
 
       // 更改选型卡标题
+      const title = props.fill ? editor.value.etitle + ' - ' + formValue.value[labelColumn.value] : editor.value.atitle;
       if (!props.isDialog && !props.isDrawer) {
-        if (props.fill) {
-          appStore.changeTabTitle(editor.value.etitle + ' - ' + formValue.value[labelColumn.value]);
-        } else {
-          appStore.changeTabTitle(editor.value.atitle);
-        }
+        appStore.changeTabTitle(title);
+      } else {
+        emit('onChangeTitle', title);
       }
     } finally {
       spin(false);

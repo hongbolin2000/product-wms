@@ -8,7 +8,7 @@
 
     <n-modal
       v-model:show="showModal"
-      :title="action.title"
+      :title="title"
       :draggable="{bounds: 'none'}"
       :style="{width: props.action?.dialogWidth}"
       preset="dialog"
@@ -16,14 +16,14 @@
       :close-on-esc="false"
     >
       <component :is="component" :params="{module: module, name: name}" :is-dialog="true"
-                 @on-close="showModal = false" @on-refresh="handleRefresh"
+                 @on-close="showModal = false" @on-refresh="handleRefresh" @on-change-title="(value) => title = value"
       />
     </n-modal>
 
     <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right" :mask-closable="false" :close-on-esc="false">
-      <n-drawer-content :title="action.title" closable :body-content-style="{padding: 0}">
+      <n-drawer-content :title="title" closable :body-content-style="{padding: 0}">
         <component :is="component" :params="{module: module, name: name}" :is-drawer="true"
-                   @on-close="showDrawer = false" @on-refresh="handleRefresh"
+                   @on-close="showDrawer = false" @on-refresh="handleRefresh" @on-change-title="(value) => title = value"
         />
       </n-drawer-content>
     </n-drawer>
@@ -65,6 +65,11 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
    */
   const module = shallowRef('');
   const name = shallowRef('');
+
+  /**
+   * 新增/编辑时的弹框标题
+   */
+  const title = shallowRef('');
 
   /**
    * 父组件传入的属性
