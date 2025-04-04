@@ -10,7 +10,7 @@ N	PROJID,		ID,			NOT NULL,		,						id,					ID,						主键
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,			Company,				公司
 *****************************************************************************************************************************************************
 N	CSTMID,		BIGINT,		        , 		,						customerId,			Customer,			    客户
-K   SUPLMS      - SUPLNM
+K   SUPLMS      - SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	PROJCD,		VC(16),		NOT NULL,		,						projectCode,		Project Code,			项目编号
 N	PROJNM,		VC(32),		NOT NULL,		,						projectName,		Project Name,			项目名称

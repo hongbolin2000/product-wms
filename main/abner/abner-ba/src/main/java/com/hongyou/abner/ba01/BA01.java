@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -180,6 +181,40 @@ public class BA01 extends UserDataProvider {
         } catch (Exception e) {
             logger.error("供应商保存失败", e);
             throw new RestRuntimeException("供应商保存失败");
+        }
+    }
+
+    /**
+     * 删除供应商
+     */
+    @PostMapping("/delete")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry delete(@RequestBody final List<Long> ids, final HttpServletRequest request) {
+
+        try {
+            Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
+            Map<String, String> displays = this.international.getTableValuesDisplay(request, "suplms");
+
+            for (Long id: ids) {
+                Suplms suplms = this.db().suplms().get(id);
+                EventLog event = EventLog.builder().
+                        domain(loginUser.getCmpnid()).
+                        operator(operatorBy).
+                        module(BA01.class.getSimpleName()).
+                        name("供应商管理").
+                        action("删除").
+                        message(StringUtil.format("供应商[{}]删除成功", suplms.getSuplnm())).
+                        newValue(suplms).
+                        enumsDisplay(displays).
+                        build();
+                this.eventLogManager.critical(event);
+                this.db().suplms().delete(suplms);
+            }
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("供应商删除失败", e);
+            throw new RestRuntimeException("供应商已被使用");
         }
     }
 }

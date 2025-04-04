@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        项目编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/ba02/save</url>
+
+    <statement>
+        <table name="vprojms"/>
+        <param column="projid" type="=" expr="id"/>
+    </statement>
+
+    <editor title="@editor.title" labelColumn="projectName" spans="3">
+        <input type="text" name="id" expr="projid" hidden="true"/>
+        <input type="text" name="projectCode" expr="projcd" title="@PROJMS.PROJCD" required="true" length="16"/>
+        <input type="text" name="projectName" expr="projnm" title="@PROJMS.PROJNM" required="true" length="32"/>
+        <input type="suggestor" name="customerId" expr="cstmid" title="@PROJMS.CSTMID" module="ba00"
+               suggestor="customerSuggestor"/>
+        <input type="text" name="projectLeader" expr="prjldr" title="@PROJMS.PRJLDR" length="32"/>
+        <input type="text" name="contractCode" expr="cntrcd" title="@PROJMS.CNTRCD" length="64"/>
+        <input type="date" name="signingDate" expr="signdt" title="@PROJMS.SIGNDT" format="!yyyy-MM-dd" />
+        <input type="date" name="startDate" expr="statdt" title="@PROJMS.STATDT" format="!yyyy-MM-dd" />
+        <input type="date" name="planFinishDate" expr="plfndt" title="@PROJMS.PLFNDT" format="!yyyy-MM-dd" />
+        <input type="date" name="finishedDate" expr="fnshdt" title="@PROJMS.FNSHDT" format="!yyyy-MM-dd" />
+        <input type="enum" name="status" expr="status" title="@PROJMS.STATUS" options="@@PROJMS.STATUS" default="N"
+               required="true" spans="2"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@PROJMS.REMARK" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增项目</item>
+            <item key="etitle">修改项目</item>
+            <item key="editor.title">项目信息</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Project</item>
+            <item key="etitle">Modify Project</item>
+            <item key="editor.title">Project Info</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

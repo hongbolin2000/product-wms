@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        客户查询建议器
+    </description>
+
+    <maxRows>20</maxRows>
+
+    <statement>
+        <table name="suplms"/>
+        <param column="suplid" type="=" expr="fieldValue"/>
+        <param column="suplcd" expr="searchValue"/>
+        <param condition="or" column="suplnm" expr="searchValue"/>
+        <order by="suplcd"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="suplid" />
+        <field name="label" expr="suplnm" />
+    </fields>
+</rindja-generic-suggestor>

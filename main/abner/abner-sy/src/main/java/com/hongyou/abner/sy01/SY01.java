@@ -137,10 +137,10 @@ public class SY01 extends UserDataProvider {
         try {
             Userms loginUser = this.getLoginUser();
             String operatorBy = this.getOperatorBy(loginUser);
+            Map<String, String> displays = this.international.getTableValuesDisplay(request, "rolems");
 
-            for (Long id : ids) {
+            for (Long id: ids) {
                 Rolems rolems = this.db().rolems().get(id);
-                Map<String, String> displays = this.international.getTableValuesDisplay(request, "rolems");
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).

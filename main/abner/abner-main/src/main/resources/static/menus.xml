@@ -9,8 +9,9 @@
             <menu id="sy99" permission="sy99" url="/graces/grider/sy99/storeGrider" label="动态列表"/>
         </menu>
 
-        <menu id="ba" url="/ba" label="基础档案" icon="basic">
+        <menu id="ba" url="/ba" label="基础管理" icon="basic">
             <menu id="ba01" permission="ba01" url="/graces/grider/ba01/supplierList" label="供应商管理" icon="supplier"/>
+            <menu id="ba02" permission="ba02" url="/graces/grider/ba02/projectList" label="项目管理" icon="project"/>
         </menu>
     </family>
 </menus>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        项目列表
+    </description>
+
+    <filters>
+        <opts name="status" type="enum" table="PROJMS" column="STATUS"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/ba02/projectEdit" />
+        </actions>
+
+        <statement>
+            <table name="vprojms"/>
+            <order by="projcd"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="projectCode" expr="projcd" title="@PROJMS.PROJCD" width="100" filter="text"/>
+            <column type="label" name="projectName" expr="projnm" title="@PROJMS.PROJNM" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@PROJMS.CSTMID" width="150" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@PROJMS.STATUS" width="70" format="@@PROJMS.STATUS" filter="@status"/>
+            <column type="label" name="projectLeader" expr="prjldr" title="@PROJMS.PRJLDR" width="100" filter="text"/>
+            <column type="label" name="contractCode" expr="cntrcd" title="@PROJMS.CNTRCD" width="100" filter="text"/>
+            <column type="label" name="signingDate" expr="signdt" title="@PROJMS.SIGNDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="startDate" expr="statdt" title="@PROJMS.STATDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="planFinishDate" expr="plfndt" title="@PROJMS.PLFNDT" width="110" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="finishedDate" expr="fnshdt" title="@PROJMS.FNSHDT" width="110" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="remark" expr="remark" title="@PROJMS.REMARK" width="100" filter="text"/>
+            <column type="link" mode="dialog" name="edit" icon="edit" expr="projid" title="@edit" width="80"
+                    link="/graces/editor/ba02/projectEdit"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="projid" title="@delete" width="80"
+                    link="/ba02/delete" labelColumn="projectName" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">项目</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Project</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

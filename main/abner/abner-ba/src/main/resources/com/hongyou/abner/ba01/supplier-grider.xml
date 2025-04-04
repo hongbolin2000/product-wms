@@ -25,7 +25,7 @@
 
         <columns>
             <column type="label" name="supplierCode" expr="suplcd" title="@SUPLMS.SUPLCD" width="100" filter="text"/>
-            <column type="label" name="supplierName" expr="suplnm" title="@SUPLMS.SUPLNM" width="100" filter="text"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@SUPLMS.SUPLNM" width="150" filter="text"/>
             <column type="tag" name="isSupplier" expr="issupl" title="@SUPLMS.ISSUPL" width="70" format="@@SUPLMS.ISSUPL" filter="@isSupplier"/>
             <column type="tag" name="isBuyer" expr="iscstm" title="@SUPLMS.ISCSTM" width="70" format="@@SUPLMS.ISCSTM" filter="@isBuyer"/>
             <column type="label" name="address" expr="addres" title="@SUPLMS.ADDRES" width="100" filter="text"/>

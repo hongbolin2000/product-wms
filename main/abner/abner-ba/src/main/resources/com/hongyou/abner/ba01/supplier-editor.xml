@@ -22,8 +22,10 @@
         <input type="text" name="supplierCode" expr="suplcd" title="@SUPLMS.SUPLCD" required="true" length="16"/>
         <input type="text" name="supplierName" expr="suplnm" title="@SUPLMS.SUPLNM" required="true" length="32"/>
         <input type="text" name="remark" expr="remark" title="@SUPLMS.REMARK" length="254" spans="2"/>
-        <input type="enum" name="isSupplier" expr="issupl" title="@SUPLMS.ISSUPL" options="@@SUPLMS.ISSUPL" default="N"/>
-        <input type="enum" name="isCustomer" expr="iscstm" title="@SUPLMS.ISCSTM" options="@@SUPLMS.ISCSTM" default="N"/>
+        <input type="enum" name="isSupplier" expr="issupl" title="@SUPLMS.ISSUPL" options="@@SUPLMS.ISSUPL" default="N"
+               required="true"/>
+        <input type="enum" name="isCustomer" expr="iscstm" title="@SUPLMS.ISCSTM" options="@@SUPLMS.ISCSTM" default="N"
+               required="true"/>
     </editor>
 
     <editor title="@editor.contacts" spans="2">

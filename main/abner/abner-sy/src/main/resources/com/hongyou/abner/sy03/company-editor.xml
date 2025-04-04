@@ -39,10 +39,14 @@
         <input type="text" name="platformTitle" expr="pftitl" title="@CMPNMS.PFTITL" length="64" required="true"/>
         <input type="text" name="platformSubtitle" expr="pfstil" title="@CMPNMS.PFSTIL" length="64" required="true" spans="2"/>
         <input type="text" name="platformSimpleTitle" expr="pfsptl" title="@CMPNMS.PFSPTL" length="16" required="true"/>
-        <input type="enum" name="captchaVerify" expr="capvrf" title="@CMPNMS.CAPVRF" options="@@CMPNMS.CAPVRF" default="O"/>
-        <input type="enum" name="autoLogin" expr="autlgn" title="@CMPNMS.AUTLGN" options="@@CMPNMS.AUTLGN" default="O"/>
-        <input type="enum" name="rememberUsername" expr="rmbusn" title="@CMPNMS.RMBUSN" options="@@CMPNMS.RMBUSN" default="O"/>
-        <input type="enum" name="rememberPassword" expr="rmbpsw" title="@CMPNMS.RMBPSW" options="@@CMPNMS.RMBPSW" default="O"/>
+        <input type="enum" name="captchaVerify" expr="capvrf" title="@CMPNMS.CAPVRF" options="@@CMPNMS.CAPVRF" default="O"
+               required="true"/>
+        <input type="enum" name="autoLogin" expr="autlgn" title="@CMPNMS.AUTLGN" options="@@CMPNMS.AUTLGN" default="O"
+               required="true"/>
+        <input type="enum" name="rememberUsername" expr="rmbusn" title="@CMPNMS.RMBUSN" options="@@CMPNMS.RMBUSN" default="O"
+               required="true"/>
+        <input type="enum" name="rememberPassword" expr="rmbpsw" title="@CMPNMS.RMBPSW" options="@@CMPNMS.RMBPSW" default="O"
+               required="true"/>
     </editor>
 
     <intl>

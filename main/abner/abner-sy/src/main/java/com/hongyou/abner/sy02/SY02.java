@@ -169,10 +169,10 @@ public class SY02 extends UserDataProvider {
         try {
             Userms loginUser = this.getLoginUser();
             String operatorBy = this.getOperatorBy(loginUser);
+            Map<String, String> displays = this.international.getTableValuesDisplay(request, "userms");
 
-            for (Long id : ids) {
+            for (Long id: ids) {
                 Userms userms = this.db().userms().get(id);
-                Map<String, String> displays = this.international.getTableValuesDisplay(request, "userms");
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
@@ -205,7 +205,7 @@ public class SY02 extends UserDataProvider {
             String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
 
-            for (Long id : ids) {
+            for (Long id: ids) {
                 Userms userms = this.db().userms().get(id);
                 boolean frozen = Userms.STATUS.Frozen.equals(userms.getStatus());
                 String action = frozen ? "解除冻结" : "冻结";

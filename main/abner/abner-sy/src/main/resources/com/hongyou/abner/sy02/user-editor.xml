@@ -24,7 +24,8 @@
         <input type="text" mode="password" name="confirmPwd" expr="paswrd" title="@confirm.pwd" length="32"
                required="true" hidden="fill == true"/>
         <input type="text" name="fullName" expr="fulnam" title="@USERMS.FULNAM" required="true" length="32"/>
-        <input type="enum" name="gender" expr="gender" title="@USERMS.GENDER" options="@@USERMS.GENDER" default="U" required="true"/>
+        <input type="enum" name="gender" expr="gender" title="@USERMS.GENDER" options="@@USERMS.GENDER" default="U"
+               required="true"/>
         <input type="text" name="position" expr="positn" title="@USERMS.POSITN" length="32"/>
         <input type="text" name="phoneNo" expr="phonno" title="@USERMS.PHONNO" length="11"/>
         <input type="text" name="email" expr="email" title="@USERMS.EMAIL" length="32"/>
