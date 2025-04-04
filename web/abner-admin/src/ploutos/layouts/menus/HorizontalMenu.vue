@@ -183,6 +183,9 @@
    */
   watch(() => route.fullPath, (value) => {
     const menu = appStore.expandMenus.find(i => i.key == value);
+    if (!menu) {
+      return;
+    }
 
     // 顶部+左侧菜单模式
     if (layoutStore.layoutMode == LayoutMode.TopLeft) {

@@ -7,12 +7,14 @@ import com.hongyou.abner.data.DataProvider;
 import com.hongyou.abner.data.model.Evlghd;
 import com.hongyou.abner.data.model.Evlgvl;
 import com.hongyou.baron.Reference;
+import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +53,14 @@ public class EventLogManagerImpl extends DataProvider implements EventLogManager
      * @param level 日志等级
      */
     private void save(final EventLog event, final String level) throws IllegalAccessException {
+        List<Evlgvl> eventValues = new ArrayList<>();
+        if (event.getNewValue() != null) {
+            eventValues = this.toEventValues(event);
+            if (ListUtil.isEmpty(eventValues)) {
+                return;
+            }
+        }
+
         Evlghd evlghd = new Evlghd();
         evlghd.cmpnid(event.getDomain()).
                 module(event.getModule()).
@@ -61,12 +71,9 @@ public class EventLogManagerImpl extends DataProvider implements EventLogManager
                 oprtby(event.getOperator());
         this.db().evlghd().save(evlghd);
 
-        // 消息日志属性值列表
         if (event.getNewValue() != null) {
-            List<Evlgvl> eventValues = this.toEventValues(event);
             eventValues.forEach(evlgvl -> {
-                evlgvl.elhdid(evlghd.getElhdid()).
-                        oprtby(event.getOperator());
+                evlgvl.elhdid(evlghd.getElhdid());
                 this.db().evlgvl().save(evlgvl);
             });
         }
@@ -80,14 +87,21 @@ public class EventLogManagerImpl extends DataProvider implements EventLogManager
      */
     private List<Evlgvl> toEventValues(final EventLog event) throws IllegalAccessException {
         List<Evlgvl> evlgvls = new ArrayList<>();
+        int sorting = 0;
+
+        // 忽略字段
+        String[] fields = new String[]{"cretby", "crettm", "oprtby", "oprttm"};
+        List<String> ignoreFields = Arrays.stream(fields).toList();
+
         for (Field field : event.getNewValue().getClass().getDeclaredFields()) {
+            sorting++;
 
             // 检查是否配置了注解
             if (!field.isAnnotationPresent(Reference.class)) {
                 continue;
             }
             // Long作为ID、Timestamp作为操作时间不记录日志
-            if (field.getType() == Long.class) {
+            if (field.getType() == Long.class  || ignoreFields.contains(field.getName())) {
                 continue;
             }
             // 设置字段可访问性
@@ -114,10 +128,12 @@ public class EventLogManagerImpl extends DataProvider implements EventLogManager
             Reference reference = field.getAnnotation(Reference.class);
             Evlgvl evlgvl = new Evlgvl();
             evlgvl.elhdid(null).
+                    sortng(sorting).
                     elprky(reference.alias()).
                     elprnm(reference.secondary()).
                     elodvl(filedOldValue).
-                    elprvl(filedNewValue);
+                    elprvl(filedNewValue).
+                    oprtby(event.getOperator());
             evlgvls.add(evlgvl);
         }
         return evlgvls;

@@ -147,6 +147,8 @@
             :draggable="{bounds: 'none'}"
             :style="{width: '60%'}"
             preset="dialog"
+            :mask-closable="false"
+            :close-on-esc="false"
         >
           <n-card style="max-height: 60vh;overflow-y: auto" :bordered="false">
             <n-form
@@ -301,9 +303,9 @@
   const formRefs = ref([]);
 
   /**
-   * 作为选项卡标题的列名
+   * 友好提示提示的列
    */
-  const tabTitleName = ref('');
+  const labelColumn = ref('');
 
   /**
    * 组件加载
@@ -342,7 +344,7 @@
       editor.value = response.data;
 
       // 表单显示行
-      const allEditors = [];
+      const allEditors: FormEditor[] = [];
       const value = props.formValue ? props.formValue : {};
       const rules = props.formRules ? props.formRules : {};
       editor.value.editorRows.forEach(row => {
@@ -360,6 +362,8 @@
         row.editorCount = editorCount;
       });
 
+      labelColumn.value = allEditors[0].labelColumn;
+
       // 表单校验规则
       allEditors.forEach(editor => {
         editor.widgets.forEach(widget => {
@@ -370,9 +374,6 @@
           }
 
           // 初始化值
-          if (widget.tabtitle) {
-            tabTitleName.value = widget.name;
-          }
           value[widget.name] = widget.default ? widget.default : '';
         });
 
@@ -399,7 +400,7 @@
       // 更改选型卡标题
       if (!props.isDialog && !props.isDrawer) {
         if (props.fill) {
-          appStore.changeTabTitle(editor.value.etitle + ' - ' + formValue.value[tabTitleName.value]);
+          appStore.changeTabTitle(editor.value.etitle + ' - ' + formValue.value[labelColumn.value]);
         } else {
           appStore.changeTabTitle(editor.value.atitle);
         }
@@ -472,9 +473,9 @@
 
     // 编辑表格
     const title = props.fill ? editor.value.etitle : editor.value.atitle;
-    const titleValue = formValue.value[tabTitleName.value];
+    const titleValue = formValue.value[labelColumn.value];
     dialog.warning({
-      content: '是否确认' + title + (titleValue ? ' - ' + titleValue : '') + '？',
+      content: '是否确认' + title + ' - ' + titleValue + '？',
       onConfirmClick: () => onConfirm(data, title, titleValue)
     })
   }

@@ -3,6 +3,7 @@
       module="sy02"
       name="resetPwdEdit"
       @on-save="onSave"
+      @on-close="emit('onClose');"
       fill
       :params="{id: id}"
       :form-rules="formRules"

@@ -21,7 +21,7 @@ const useLayoutStore = defineStore('layoutStore', () => {
    */
   const layoutStore: LayoutStoreOption = {
     theme: shallowRef(ThemeMode.LIGHT),
-    themeColor: shallowRef('#18a058'),
+    themeColor: shallowRef('#ee4f12'),
     themeBgColor: shallowRef('#f0f2f5'),
     sideTheme: shallowRef(SideTheme.WHITE),
     deviceType: shallowRef(DeviceType.PC),

@@ -119,13 +119,14 @@
       :style="{width: selectColumn?.dialogWidth}"
       preset="dialog"
       :mask-closable="false"
+      :close-on-esc="false"
   >
     <component :is="component" :params="componentParams" :is-dialog="true"
                @on-close="showModal = false" @on-refresh="onSearch"
     />
   </n-modal>
 
-  <n-drawer v-model:show="showDrawer" :width="400" placement="right" :mask-closable="false">
+  <n-drawer v-model:show="showDrawer" :width="selectColumn.drawerWidth" placement="right" :mask-closable="false" :close-on-esc="false">
     <n-drawer-content :title="selectColumn.title" closable :body-content-style="{padding: 0}">
       <component :is="component" :params="componentParams" :is-drawer="true"
                  @on-close="showDrawer = false" @on-refresh="onSearch"

@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "18853237",
+      "name": "supplier",
+      "font_class": "supplier",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "7335489",
+      "name": "basic",
+      "font_class": "basic",
+      "unicode": "eb25",
+      "unicode_decimal": 60197
+    },
+    {
+      "icon_id": "36622657",
+      "name": "log",
+      "font_class": "log",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
       "icon_id": "3458306",
       "name": "reset-pwd",
       "font_class": "reset-pwd",

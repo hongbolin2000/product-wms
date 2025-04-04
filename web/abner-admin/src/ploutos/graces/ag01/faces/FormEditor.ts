@@ -13,6 +13,11 @@ import type {Ref} from "vue";
 export default class FormEditor extends AbstractComponent {
 
 	/**
+	 * 友好提示的列
+	 */
+	labelColumn: string;
+
+	/**
 	 * 每行显示控件数
 	 */
 	spans: number;

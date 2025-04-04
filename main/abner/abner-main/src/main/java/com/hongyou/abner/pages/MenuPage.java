@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.hongyou.abner.data.model.table.PmsnmsTableDef.PMSNMS;
 import static com.hongyou.abner.data.model.table.RolpmsTableDef.ROLPMS;
@@ -83,7 +82,11 @@ public class MenuPage extends UserDataProvider {
         for (Navigate menu : navigates) {
             if (ListUtil.isNotEmpty(menu.getChildren())) {
                 menu.setChildren(this.loadMenus(menu.getChildren(), permissions));
-            } else if (!permissions.contains(menu.getPermission())) {
+                if (ListUtil.isEmpty(menu.getChildren())) {
+                    continue;
+                }
+            }
+            if (ListUtil.isEmpty(menu.getChildren()) && !permissions.contains(menu.getPermission())) {
                 continue;
             }
             menus.add(menu);

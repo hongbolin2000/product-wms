@@ -206,8 +206,10 @@
    */
   watch(() => currentRoute.fullPath, (value) => {
     const menu = appStore.expandMenus.find(i => i.key == value);
-    currentPath.value = menu.from ? menu.from : value;
-    handleExpandPath();
+    if (menu) {
+      currentPath.value = menu.from ? menu.from : value;
+      handleExpandPath();
+    }
   });
 </script>
 

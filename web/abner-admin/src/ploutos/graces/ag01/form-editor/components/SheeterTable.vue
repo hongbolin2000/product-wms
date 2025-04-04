@@ -4,7 +4,7 @@
         :columns="renderSheeterColumns(sheeter)"
         :data="sheeter.data"
         size="small"
-        :scroll-x="0"
+        :scroll-x="tableWidth"
         remote
         :max-height="sheeter.maxHeight"
         :row-props="sheeterRowProps"
@@ -16,7 +16,7 @@
   /********************************************************************************
    * @author Berlin
    ********************************************************************************/
-  import {h, type HTMLAttributes, type PropType} from "vue";
+  import {computed, h, type HTMLAttributes, type PropType} from "vue";
   import type Sheeter from "@/ploutos/graces/ag01/faces/Sheeter.ts";
   import type {TableBaseColumn} from "naive-ui/es/data-table/src/interface";
   import SheeterActions from "@/ploutos/graces/ag01/form-editor/components/SheeterActions.vue";
@@ -51,6 +51,17 @@
      */
     (e: 'onUpdateClick', rowData: any, rowIndex: number): void;
   }>();
+
+  /**
+   * 表格总宽度
+   */
+  const tableWidth = computed(() => {
+    let width = 0;
+    props.sheeter.widgets.forEach(widget => {
+      width += widget.width ? parseInt(widget.width.toString()) : 100;
+    });
+    return width;
+  });
 
   /**
    * 编辑表格行属性

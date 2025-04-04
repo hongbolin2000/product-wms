@@ -1,11 +1,12 @@
 <template>
-    <n-grid :cols="24 / editorCount" :x-gap="isDrawer ? 0 : 20">
+    <n-grid :cols="24 / editorCount" :x-gap="isDrawer && editor.spans == 1 ? 0 : 20">
       <n-form-item-gi
           :span="24 / editorCount / editor.spans * widget.spans"
           :label="widget.title"
           v-for="widget of editor.widgets"
           :path="widget.name"
           :key="widget.name"
+          :style="{width: widget.width && widget.width}"
       >
         <component :is="editorWidget" :widget="widget"/>
       </n-form-item-gi>

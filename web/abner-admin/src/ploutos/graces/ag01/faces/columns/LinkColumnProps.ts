@@ -26,6 +26,11 @@ export default class LinkColumnProps extends AbstractColumn {
 	dialogWidth: string;
 
 	/**
+	 * drawer宽度
+	 */
+	drawerWidth: string;
+
+	/**
 	 * 按钮图标
 	 */
 	icon: string;

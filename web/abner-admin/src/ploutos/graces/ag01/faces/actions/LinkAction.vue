@@ -13,13 +13,14 @@
       :style="{width: props.action?.dialogWidth}"
       preset="dialog"
       :mask-closable="false"
+      :close-on-esc="false"
     >
       <component :is="component" :params="{module: module, name: name}" :is-dialog="true"
                  @on-close="showModal = false" @on-refresh="handleRefresh"
       />
     </n-modal>
 
-    <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right" :mask-closable="false">
+    <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right" :mask-closable="false" :close-on-esc="false">
       <n-drawer-content :title="action.title" closable :body-content-style="{padding: 0}">
         <component :is="component" :params="{module: module, name: name}" :is-drawer="true"
                    @on-close="showDrawer = false" @on-refresh="handleRefresh"
