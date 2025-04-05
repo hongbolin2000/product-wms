@@ -27,7 +27,7 @@
         <columns>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="loginStatusValue" expr="lgnsts" hidden="true"/>
-            <column type="file" name="avatar" expr="avatar" title="@USERMS.AVATAR" width="115" align="center"/>
+            <column type="file" name="avatar" expr="avatar" title="@USERMS.AVATAR" width="110" align="center"/>
             <column type="label" name="username" expr="usernm" title="@USERMS.USERNM" width="100" filter="text"/>
             <column type="label" name="fullName" expr="fulnam" title="@USERMS.FULNAM" width="80" filter="text"/>
             <column type="tag" name="gender" expr="gender" title="@USERMS.GENDER" width="70" format="@@USERMS.GENDER"

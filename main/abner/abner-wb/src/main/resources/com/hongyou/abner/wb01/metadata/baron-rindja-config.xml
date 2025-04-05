@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 物料类型列表 -->
+    <generic-grider-descriptor name="materialTypeList">material-type-grider.xml</generic-grider-descriptor>
+
+    <!-- 物料类型编辑 -->
+    <generic-editor-descriptor name="materialTypeEdit">material-type-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

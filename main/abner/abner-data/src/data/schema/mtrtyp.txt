@@ -16,9 +16,9 @@ N	MTTYP1,		VC(32),		NOT NULL,       ,                 	    materialType1,	    Ma
 N	MTTYCD,		VC(32),		NOT NULL,       ,                 	    materialType,	    Material Type,		    物料类型
 N   MTRIMG,     VC(254),    NOT NULL,       '',                     materialImage,      Material Image,         物料图片
 *****************************************************************************************************************************************************
-N 	MTSRHD,		VC(32),		NOT NULL,		'',						header,			    Serial Header,			物料序号头
+N 	MTSRHD,		VC(6),		NOT NULL,		'',						header,			    Serial Header,			物料序号头
 N 	SRILSD,		INT,		NOT NULL,		1,						seed,			    Serial Seed,			物料序号种子
-N 	SRLLEN,		INT,		NOT NULL,		16,						length,			    Serial Length,			物料序号长度
+N 	SRLLEN,		INT,		NOT NULL,		10,						length,			    Serial Length,			物料序号长度
 *****************************************************************************************************************************************************
 N   STKMDE,     C(8),       NOT NULL,       'BT',                   stockMode,          Stock Mode,             库存管理模式
     B   BT      Batch       批次管理

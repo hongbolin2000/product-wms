@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        物料类型编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/wb01/save</url>
+
+    <statement>
+        <table name="mtrtyp"/>
+        <param column="mttyid" type="=" expr="id"/>
+    </statement>
+
+    <editor title="@editor.title" labelColumn="materialType" formWidth="50%" spans="1">
+        <input type="text" name="id" expr="mttyid" hidden="true"/>
+        <input type="enum" name="category" expr="mtrctg" title="@MTRTYP.MTRCTG" options="@@MTRTYP.MTRCTG" default="RAW"
+               required="true"/>
+        <input type="text" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" length="32"/>
+        <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" required="true" length="32"/>
+        <input type="enum" name="stockMode" expr="stkmde" title="@MTRTYP.STKMDE" options="@@MTRTYP.STKMDE" default="BT"
+               required="true"/>
+        <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" accept="image/*"/>
+        <input type="text" name="header" expr="mtsrhd" title="@MTRTYP.MTSRHD" length="6"/>
+        <input type="number" name="seed" expr="srilsd" title="@MTRTYP.SRILSD" format="%#" default="1" min="1" scale="0"
+               required="true"/>
+        <input type="number" name="length" expr="srllen" title="@MTRTYP.SRLLEN" format="%#" default="10" min="1" scale="0"
+               required="true"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@MTRTYP.REMARK" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增物料类型</item>
+            <item key="etitle">修改物料类型</item>
+            <item key="editor.title">物料类型信息</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Material Type</item>
+            <item key="etitle">Modify Material Type</item>
+            <item key="editor.title">Material Type Info</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

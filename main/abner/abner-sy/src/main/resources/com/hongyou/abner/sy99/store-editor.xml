@@ -48,7 +48,7 @@
             </script>
         </input>
         <input type="upload" name="image" expr="eqisim" title="设备安装图示" group="strems/eqisim" required="true"
-               accept="images/*"
+               accept="image/*"
         />
     </editor>
 

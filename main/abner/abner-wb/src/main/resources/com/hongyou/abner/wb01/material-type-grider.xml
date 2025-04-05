@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        物料类型列表
+    </description>
+
+    <filters>
+        <opts name="category" type="enum" table="MTRTYP" column="MTRCTG"/>
+        <opts name="stockMode" type="enum" table="MTRTYP" column="STKMDE"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" icon="add" title="@add" link="/graces/editor/wb01/materialTypeEdit" />
+        </actions>
+
+        <statement>
+            <table name="mtrtyp"/>
+            <order by="mtrctg, mttyp1, mttycd"/>
+        </statement>
+
+        <columns>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="110" align="center"/>
+            <column type="tag" name="category" expr="mtrctg" title="@MTRTYP.MTRCTG" width="100" format="@@MTRTYP.MTRCTG"
+                    filter="@category"/>
+            <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="100" filter="text"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" filter="text"/>
+            <column type="tag" name="stockMode" expr="stkmde" title="@MTRTYP.STKMDE" width="120" format="@@MTRTYP.STKMDE"
+                    filter="@stockMode"/>
+            <column type="label" name="header" expr="mtsrhd" title="@MTRTYP.MTSRHD" width="110" filter="text"/>
+            <column type="label" name="seed" expr="srilsd" title="@MTRTYP.SRILSD" width="120" format="%#"/>
+            <column type="label" name="length" expr="srllen" title="@MTRTYP.SRLLEN" width="120" format="%#"/>
+            <column type="label" name="remark" expr="remark" title="@MTRTYP.REMARK" filter="text"/>
+            <column type="link" name="edit" icon="edit" expr="mttyid" title="@edit" width="80"
+                    link="/graces/editor/wb01/materialTypeEdit"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="mttyid" title="@delete" width="80"
+                    link="/wb01/delete" labelColumn="materialType" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">物料类型</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Material Type</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

@@ -22,7 +22,7 @@
         <input type="suggestor" name="projectId" expr="projid" title="@PROJPC.PROJID" module="ba00"
                suggestor="projectSuggestor" required="true"/>
         <input type="text" name="taskName" expr="tasknm" title="@PROJPC.TASKNM" required="true" length="32"/>
-        <input type="number" name="level" expr="level" title="@PROJPC.LEVEL" format="%#.###" default="1" min="1" required="true"/>
+        <input type="number" name="level" expr="level" title="@PROJPC.LEVEL" format="%#" scale="0" default="1" min="1" required="true"/>
         <input type="text" name="taskLeader" expr="taskld" title="@PROJPC.TASKLD" length="32"/>
         <input type="date" name="planFinishDate" expr="plfndt" title="@PROJPC.PLFNDT" format="!yyyy-MM-dd" />
         <input type="enum" name="status" expr="status" title="@PROJPC.STATUS" options="@@PROJPC.STATUS" default="N"
