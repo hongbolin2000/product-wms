@@ -6,17 +6,19 @@ package com.hongyou.abner.config.web;
 import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.data.model.Pmsnms;
 import com.hongyou.abner.data.model.Userms;
-import com.hongyou.baron.RindjaUserDetail;
+import com.hongyou.abner.data.model.Usrwrh;
 import com.hongyou.baron.RindjaUserLoader;
 import com.mybatisflex.core.query.QueryMethods;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.hongyou.abner.data.model.table.PmsnmsTableDef.PMSNMS;
 import static com.hongyou.abner.data.model.table.RolpmsTableDef.ROLPMS;
 import static com.hongyou.abner.data.model.table.UsrrolTableDef.USRROL;
+import static com.hongyou.abner.data.model.table.UsrwrhTableDef.USRWRH;
 
 /**
  * 提供给Rindja模块用户信息
@@ -30,12 +32,19 @@ public class RindjaUserProvider extends UserDataProvider implements RindjaUserLo
      * 加载用户信息
      */
     @Override
-    public RindjaUserDetail loadLoginUser() {
+    public void loadUserVariables(final Map<String, Object> variables) {
         Userms loginUser = this.getLoginUser();
-        return RindjaUserDetail.builder().
-                companyId(loginUser.getCmpnid()).
-                username(loginUser.getUsernm()).
-                build();
+
+        // 查询用户仓库
+        QueryWrapper wrapper = QueryWrapper.create();
+        wrapper.select(USRWRH.WRHSID).
+                where(USRWRH.WRHSID.eq(loginUser.getUserid()));
+        List<Usrwrh> usrwrhs = this.db().usrwrh().list(wrapper);
+        List<Long> warehouseIds = usrwrhs.stream().map(Usrwrh::getWrhsid).toList();
+
+        variables.put("_companyId", loginUser.getCmpnid());
+        variables.put("_username", loginUser.getUsernm());
+        variables.put("_warehouseIds", warehouseIds);
     }
 
     /**
