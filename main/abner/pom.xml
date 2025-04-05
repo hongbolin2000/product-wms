@@ -22,6 +22,7 @@
         <module>abner-main</module>
         <module>abner-sy</module>
         <module>abner-ba</module>
+        <module>abner-wb</module>
     </modules>
 
     <properties>

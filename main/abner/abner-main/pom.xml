@@ -40,5 +40,11 @@
             <artifactId>abner-ba</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.hongyou</groupId>
+            <artifactId>abner-wb</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

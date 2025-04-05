@@ -54,7 +54,7 @@ T	projms.txt			* 项目, Project
 T   projdc.txt          * 项目文档, Project Doc
 T   projpc.txt          * 项目进度, Project Process
 T   wklghd.txt          * 工作日志, Working Log Head
-T   wklgln.txt          * 工作日志明细, Working Log Lin
+T   wklgln.txt          * 工作日志明细, Working Log Line
 
 ***********************************************************************************************************************
 *  仓库基础
