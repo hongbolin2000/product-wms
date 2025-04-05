@@ -38,7 +38,7 @@ public class RindjaUserProvider extends UserDataProvider implements RindjaUserLo
         // 查询用户仓库
         QueryWrapper wrapper = QueryWrapper.create();
         wrapper.select(USRWRH.WRHSID).
-                where(USRWRH.WRHSID.eq(loginUser.getUserid()));
+                where(USRWRH.USERID.eq(loginUser.getUserid()));
         List<Usrwrh> usrwrhs = this.db().usrwrh().list(wrapper);
         List<Long> warehouseIds = usrwrhs.stream().map(Usrwrh::getWrhsid).toList();
 
