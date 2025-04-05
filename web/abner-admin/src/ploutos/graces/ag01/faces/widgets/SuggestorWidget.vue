@@ -82,7 +82,7 @@
     const value = props.widget.rowData[props.widget.name];
 
     // 更新时查询(修改界面)
-    if (!limited.value && initial && value) {
+    if (props.widget.rowData.id && !limited.value && initial && value) {
       initial = false;
       handleSearch('', props.widget.rowData[props.widget.name]);
     }
