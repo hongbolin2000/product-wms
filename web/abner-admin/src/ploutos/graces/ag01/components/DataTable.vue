@@ -3,6 +3,8 @@
     <n-space :size="10">
       <component v-for="action of actions" :key="action.name" :is="() => {
         action.datatable = datatable;
+        action.module = props.module;
+        action.moduleName = props.moduleName;
         return ActionFactories.getInstance().create(action)
       }"/>
 

@@ -130,7 +130,16 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
       showDrawer.value = true;
       return;
     }
-    router.push(props.action?.link!);
+
+    // 将来源界面传入，用于编辑等界面刷新表格数据
+    const name = props.action.moduleName;
+    const from = props.action.module + name.substring(0, 1).toUpperCase() + name.substring(1);
+    router.push({
+      path: props.action.link,
+      query: {
+        from: from
+      }
+    });
   }
 
   /**

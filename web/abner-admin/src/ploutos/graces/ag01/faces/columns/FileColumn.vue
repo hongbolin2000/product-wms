@@ -74,6 +74,7 @@
 <style lang="scss" scoped>
   :deep(.n-upload-file--image-card-type) {
     height: 48px !important;
+    width: 94px !important;
   }
   :deep(.n-upload-file-list .n-upload-file) {
     padding: 0;

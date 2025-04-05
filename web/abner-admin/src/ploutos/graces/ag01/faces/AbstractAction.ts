@@ -33,4 +33,14 @@ export default class AbstractAction extends AbstractComponent {
 	 * 当前按钮所处的数据表格
 	 */
 	datatable: Datatable;
+	
+	/**
+	 * 模块号
+	 */
+	module: string;
+
+	/**
+	 * 通用界面名称
+	 */
+	moduleName: string
 }

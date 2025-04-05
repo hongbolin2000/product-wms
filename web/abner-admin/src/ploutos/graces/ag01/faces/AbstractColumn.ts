@@ -27,11 +27,6 @@ export default class AbstractColumn extends AbstractComponent {
 	filterOptions: ValueModel[]
 
 	/**
-	 * 当前表格标题
-	 */
-	datatableTitle: string;
-
-	/**
 	 * 操作按钮是否显示在右键选项中
 	 */
 	option: boolean;
@@ -47,7 +42,12 @@ export default class AbstractColumn extends AbstractComponent {
 	/**
 	 * 通用界面名称
 	 */
-	moduleName: string
+	moduleName: string;
+
+	/**
+	 * 当前表格标题
+	 */
+	datatableTitle: string;
 
 	/**
 	 * 当前行数据
