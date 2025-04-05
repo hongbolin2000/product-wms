@@ -48,7 +48,7 @@ public class BA01 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final SupplierPojo supplierPojo, final HttpServletRequest request
+            @RequestBody final SupplierPojo pojo, final HttpServletRequest request
     ) {
 
         try {
@@ -58,8 +58,8 @@ public class BA01 extends UserDataProvider {
 
             // 修改
             Suplms suplms = null; Suplms oldSuplms = null;
-            if (ObjectUtil.isNotNull(supplierPojo.getId())) {
-                suplms = this.db().suplms().get(supplierPojo.getId());
+            if (ObjectUtil.isNotNull(pojo.getId())) {
+                suplms = this.db().suplms().get(pojo.getId());
                 oldSuplms = (Suplms) suplms.clone();
             }
 
@@ -72,23 +72,23 @@ public class BA01 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(supplierPojo.getSupplierCode(), suplms.getSuplcd())) {
-                Suplms existed = this.db().suplms().getByCode(loginUser.getCmpnid(), supplierPojo.getSupplierCode());
+            if (!ObjectUtil.equal(pojo.getSupplierCode(), suplms.getSuplcd())) {
+                Suplms existed = this.db().suplms().getByCode(loginUser.getCmpnid(), pojo.getSupplierCode());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("供应商编号已存在").build();
                 }
             }
 
-            suplms.suplcd(supplierPojo.getSupplierCode()).
-                    suplnm(supplierPojo.getSupplierName()).
-                    issupl(supplierPojo.getIsSupplier()).
+            suplms.suplcd(pojo.getSupplierCode()).
+                    suplnm(pojo.getSupplierName()).
+                    issupl(pojo.getIsSupplier()).
                     iscstm("N").
-                    addres(supplierPojo.getAddress()).
-                    contcs(supplierPojo.getContacts()).
-                    phonno(supplierPojo.getPhoneNo()).
-                    email(supplierPojo.getEmail()).
-                    zipcde(supplierPojo.getZipCode()).
-                    remark(supplierPojo.getRemark()).
+                    addres(pojo.getAddress()).
+                    contcs(pojo.getContacts()).
+                    phonno(pojo.getPhoneNo()).
+                    email(pojo.getEmail()).
+                    zipcde(pojo.getZipCode()).
+                    remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().suplms().save(suplms);
@@ -112,7 +112,7 @@ public class BA01 extends UserDataProvider {
             // 已经存在的供应商联系方式id
             Set<Long> spctids = this.db().splcts().listBySupplier(suplms.getSuplid()).stream().
                     map(Splcts::getSpctid).collect(Collectors.toSet());
-            for (SplctsPojo line : supplierPojo.getContactLines()) {
+            for (SplctsPojo line : pojo.getContactLines()) {
 
                 // 修改
                 Splcts splcts = null; Splcts oldSplcts = null;

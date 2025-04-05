@@ -47,7 +47,7 @@ public class BA03 extends UserDataProvider {
      */
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry save(@RequestBody final ProjdcPojo projdcPojo) {
+    public ResponseEntry save(@RequestBody final ProjdcPojo pojo) {
 
         try {
             Userms loginUser = this.getLoginUser();
@@ -56,8 +56,8 @@ public class BA03 extends UserDataProvider {
 
             // 修改
             Projdc projdc = null; VProjdc oldVProjdc = null;
-            if (ObjectUtil.isNotNull(projdcPojo.getId())) {
-                projdc = this.db().projdc().get(projdcPojo.getId());
+            if (ObjectUtil.isNotNull(pojo.getId())) {
+                projdc = this.db().projdc().get(pojo.getId());
                 oldVProjdc = new VProjdc().pjdcid(projdc.getPjdcid()).oneById();
             }
 
@@ -69,22 +69,22 @@ public class BA03 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(projdcPojo.getDocName(), projdc.getDocnam())) {
+            if (!ObjectUtil.equal(pojo.getDocName(), projdc.getDocnam())) {
                 Projdc existed = this.db().projdc().getByDocName(
-                        projdcPojo.getProjectId(), projdcPojo.getDocName(), projdcPojo.getDocVersion()
+                        pojo.getProjectId(), pojo.getDocName(), pojo.getDocVersion()
                 );
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("文档名称已存在").build();
                 }
             }
 
-            projdc.projid(projdcPojo.getProjectId()).
-                    docfil(projdcPojo.getDocFile()).
-                    docnam(projdcPojo.getDocName()).
-                    doctyp(projdcPojo.getDocType()).
-                    docvsn(projdcPojo.getDocVersion()).
-                    docrmk(projdcPojo.getDocRemark()).
-                    remark(projdcPojo.getRemark()).
+            projdc.projid(pojo.getProjectId()).
+                    docfil(pojo.getDocFile()).
+                    docnam(pojo.getDocName()).
+                    doctyp(pojo.getDocType()).
+                    docvsn(pojo.getDocVersion()).
+                    docrmk(pojo.getDocRemark()).
+                    remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().projdc().save(projdc);

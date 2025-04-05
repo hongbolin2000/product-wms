@@ -44,7 +44,7 @@ public class SY03 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final CmpnmsPojo cmpnmsPojo, final HttpServletRequest request
+            @RequestBody final CmpnmsPojo pojo, final HttpServletRequest request
     ) {
 
         try {
@@ -52,36 +52,36 @@ public class SY03 extends UserDataProvider {
             String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
 
-            Cmpnms cmpnms = this.db().cmpnms().get(cmpnmsPojo.getId());
+            Cmpnms cmpnms = this.db().cmpnms().get(pojo.getId());
             Cmpnms oldCmpnms = (Cmpnms) cmpnms.clone();
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(cmpnmsPojo.getCompanyCode(), cmpnms.getCmpncd())) {
-                Cmpnms existed = this.db().cmpnms().getByCode(cmpnmsPojo.getCompanyCode());
+            if (!ObjectUtil.equal(pojo.getCompanyCode(), cmpnms.getCmpncd())) {
+                Cmpnms existed = this.db().cmpnms().getByCode(pojo.getCompanyCode());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("公司编号已存在").build();
                 }
             }
 
-            cmpnms.cmpncd(cmpnmsPojo.getCompanyCode()).
-                    cmpnnm(cmpnmsPojo.getCompanyName()).
-                    cmpnty(cmpnmsPojo.getCompanyType()).
-                    cmpmpf(cmpnmsPojo.getCompanyProfile()).
-                    indsty(cmpnmsPojo.getIndustry()).
-                    ofcwbs(cmpnmsPojo.getOfficialWebsite()).
-                    addres(cmpnmsPojo.getAddress()).
-                    contcs(cmpnmsPojo.getContacts()).
-                    phonno(cmpnmsPojo.getPhoneNo()).
-                    email(cmpnmsPojo.getZipCode()).
-                    zipcde(cmpnmsPojo.getZipCode()).
-                    pftitl(cmpnmsPojo.getPlatformTitle()).
-                    pfstil(cmpnmsPojo.getPlatformSubtitle()).
-                    pfsptl(cmpnmsPojo.getPlatformSimpleTitle()).
-                    capvrf(cmpnmsPojo.getCaptchaVerify()).
-                    autlgn(cmpnmsPojo.getAutoLogin()).
-                    rmbusn(cmpnmsPojo.getRememberUsername()).
-                    rmbpsw(cmpnmsPojo.getRememberPassword()).
-                    remark(cmpnmsPojo.getRemark()).
+            cmpnms.cmpncd(pojo.getCompanyCode()).
+                    cmpnnm(pojo.getCompanyName()).
+                    cmpnty(pojo.getCompanyType()).
+                    cmpmpf(pojo.getCompanyProfile()).
+                    indsty(pojo.getIndustry()).
+                    ofcwbs(pojo.getOfficialWebsite()).
+                    addres(pojo.getAddress()).
+                    contcs(pojo.getContacts()).
+                    phonno(pojo.getPhoneNo()).
+                    email(pojo.getZipCode()).
+                    zipcde(pojo.getZipCode()).
+                    pftitl(pojo.getPlatformTitle()).
+                    pfstil(pojo.getPlatformSubtitle()).
+                    pfsptl(pojo.getPlatformSimpleTitle()).
+                    capvrf(pojo.getCaptchaVerify()).
+                    autlgn(pojo.getAutoLogin()).
+                    rmbusn(pojo.getRememberUsername()).
+                    rmbpsw(pojo.getRememberPassword()).
+                    remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().cmpnms().save(cmpnms);

@@ -50,7 +50,7 @@ public class BA02 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final ProjmsPojo projmsPojo, final HttpServletRequest request
+            @RequestBody final ProjmsPojo pojo, final HttpServletRequest request
     ) {
 
         try {
@@ -60,8 +60,8 @@ public class BA02 extends UserDataProvider {
 
             // 修改
             Projms projms = null; VProjms oldVProjms = null;
-            if (ObjectUtil.isNotNull(projmsPojo.getId())) {
-                projms = this.db().projms().get(projmsPojo.getId());
+            if (ObjectUtil.isNotNull(pojo.getId())) {
+                projms = this.db().projms().get(pojo.getId());
                 oldVProjms = new VProjms().projid(projms.getProjid()).oneById();
             }
 
@@ -74,24 +74,24 @@ public class BA02 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(projmsPojo.getProjectCode(), projms.getProjcd())) {
-                Projms existed = this.db().projms().getByCode(loginUser.getCmpnid(), projmsPojo.getProjectCode());
+            if (!ObjectUtil.equal(pojo.getProjectCode(), projms.getProjcd())) {
+                Projms existed = this.db().projms().getByCode(loginUser.getCmpnid(), pojo.getProjectCode());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("项目编号已存在").build();
                 }
             }
 
-            projms.cstmid(projmsPojo.getCustomerId()).
-                    projcd(projmsPojo.getProjectCode()).
-                    projnm(projmsPojo.getProjectName()).
-                    prjldr(projmsPojo.getProjectLeader()).
-                    cntrcd(projmsPojo.getContractCode()).
-                    signdt(projmsPojo.getSigningDate()).
-                    statdt(projmsPojo.getStartDate()).
-                    plfndt(projmsPojo.getPlanFinishDate()).
-                    fnshdt(projmsPojo.getFinishedDate()).
-                    status(projmsPojo.getStatus()).
-                    remark(projmsPojo.getRemark()).
+            projms.cstmid(pojo.getCustomerId()).
+                    projcd(pojo.getProjectCode()).
+                    projnm(pojo.getProjectName()).
+                    prjldr(pojo.getProjectLeader()).
+                    cntrcd(pojo.getContractCode()).
+                    signdt(pojo.getSigningDate()).
+                    statdt(pojo.getStartDate()).
+                    plfndt(pojo.getPlanFinishDate()).
+                    fnshdt(pojo.getFinishedDate()).
+                    status(pojo.getStatus()).
+                    remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().projms().save(projms);

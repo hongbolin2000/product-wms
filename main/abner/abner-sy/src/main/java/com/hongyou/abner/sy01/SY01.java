@@ -67,7 +67,7 @@ public class SY01 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final RolemsPojo rolemsPojo, final HttpServletRequest request
+            @RequestBody final RolemsPojo pojo, final HttpServletRequest request
     ) {
 
         try {
@@ -77,8 +77,8 @@ public class SY01 extends UserDataProvider {
 
             // 修改
             Rolems rolems = null; Rolems oldRolems = null;
-            if (ObjectUtil.isNotNull(rolemsPojo.getId())) {
-                rolems = this.db().rolems().get(rolemsPojo.getId());
+            if (ObjectUtil.isNotNull(pojo.getId())) {
+                rolems = this.db().rolems().get(pojo.getId());
                 oldRolems = (Rolems) rolems.clone();
             }
 
@@ -91,15 +91,15 @@ public class SY01 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(rolemsPojo.getName(), rolems.getRolenm())) {
-                Rolems existed = this.db().rolems().getByName(loginUser.getCmpnid(), rolemsPojo.getName());
+            if (!ObjectUtil.equal(pojo.getName(), rolems.getRolenm())) {
+                Rolems existed = this.db().rolems().getByName(loginUser.getCmpnid(), pojo.getName());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("角色名称已存在").build();
                 }
             }
 
-            rolems.rolenm(rolemsPojo.getName()).
-                    remark(rolemsPojo.getRemark()).
+            rolems.rolenm(pojo.getName()).
+                    remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().rolems().save(rolems);

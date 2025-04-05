@@ -46,7 +46,7 @@ public class SY02 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final UsermsPojo usermsPojo, @RequestParam final String key,
+            @RequestBody final UsermsPojo pojo, @RequestParam final String key,
             final HttpServletRequest request
     ) {
 
@@ -57,14 +57,14 @@ public class SY02 extends UserDataProvider {
 
             // 修改
             Userms userms = null; Userms oldUserms = null;
-            if (ObjectUtil.isNotNull(usermsPojo.getId())) {
-                userms = this.db().userms().get(usermsPojo.getId());
+            if (ObjectUtil.isNotNull(pojo.getId())) {
+                userms = this.db().userms().get(pojo.getId());
                 oldUserms = (Userms) userms.clone();
             }
 
             // 新增
             if (ObjectUtil.isNull(userms)) {
-                String realPassword = AesUtil.ecbDecrypt(key, usermsPojo.getPassword());
+                String realPassword = AesUtil.ecbDecrypt(key, pojo.getPassword());
                 userms = new Userms();
                 userms.cmpnid(loginUser.getCmpnid()).
                         paswrd(AesUtil.encrypt(realPassword)).
@@ -74,21 +74,21 @@ public class SY02 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(usermsPojo.getUsername(), userms.getUsernm())) {
-                Userms existed = this.db().userms().getByUserName(usermsPojo.getUsername());
+            if (!ObjectUtil.equal(pojo.getUsername(), userms.getUsernm())) {
+                Userms existed = this.db().userms().getByUserName(pojo.getUsername());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("用户名已存在").build();
                 }
             }
 
-            userms.usernm(usermsPojo.getUsername()).
-                    gender(usermsPojo.getGender()).
-                    avatar(usermsPojo.getAvatar()).
-                    fulnam(usermsPojo.getFullName()).
-                    positn(usermsPojo.getPosition()).
-                    phonno(usermsPojo.getPhoneNo()).
-                    email(usermsPojo.getEmail()).
-                    remark(usermsPojo.getRemark()).
+            userms.usernm(pojo.getUsername()).
+                    gender(pojo.getGender()).
+                    avatar(pojo.getAvatar()).
+                    fulnam(pojo.getFullName()).
+                    positn(pojo.getPosition()).
+                    phonno(pojo.getPhoneNo()).
+                    email(pojo.getEmail()).
+                    remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().userms().save(userms);
@@ -122,7 +122,7 @@ public class SY02 extends UserDataProvider {
     @PostMapping("/resetPwd")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry resetPwd(
-            @RequestBody final UsermsPojo usermsPojo, @RequestParam final String key
+            @RequestBody final UsermsPojo pojo, @RequestParam final String key
     ) {
 
         try {
@@ -130,10 +130,10 @@ public class SY02 extends UserDataProvider {
             String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
 
-            Userms userms = this.db().userms().get(usermsPojo.getId());
+            Userms userms = this.db().userms().get(pojo.getId());
             Userms oldUserms = (Userms) userms.clone();
 
-            String realPassword = AesUtil.ecbDecrypt(key, usermsPojo.getPassword());
+            String realPassword = AesUtil.ecbDecrypt(key, pojo.getPassword());
             userms.paswrd(AesUtil.encrypt(realPassword)).
                     oprtby(operatorBy).
                     oprttm(currentTime);
@@ -237,10 +237,10 @@ public class SY02 extends UserDataProvider {
      */
     @PostMapping("/roleAssign")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry roleAssign(@RequestBody final UserRolePojo userRolePojo) {
+    public ResponseEntry roleAssign(@RequestBody final UserRolePojo pojo) {
 
         try {
-            Userms userms = this.db().userms().get(userRolePojo.getId());
+            Userms userms = this.db().userms().get(pojo.getId());
             Userms loginUser = this.getLoginUser();
             String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
@@ -250,7 +250,7 @@ public class SY02 extends UserDataProvider {
             wrapper.where(UsrrolTableDef.USRROL.USERID.eq(userms.getUserid()));
             this.db().usrrol().deleteQuery(wrapper);
 
-            userRolePojo.getRoles().forEach(rolemsPojo -> {
+            pojo.getRoles().forEach(rolemsPojo -> {
                 Rolems rolems = this.db().rolems().getByName(loginUser.getCmpnid(), rolemsPojo.getName());
                 Usrrol usrrol = new Usrrol();
                 usrrol.userid(userms.getUserid()).

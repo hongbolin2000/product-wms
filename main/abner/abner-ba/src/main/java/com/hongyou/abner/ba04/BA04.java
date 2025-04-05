@@ -44,7 +44,7 @@ public class BA04 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final ProjpcPojo projpcPojo, final HttpServletRequest request
+            @RequestBody final ProjpcPojo pojo, final HttpServletRequest request
     ) {
 
         try {
@@ -54,8 +54,8 @@ public class BA04 extends UserDataProvider {
 
             // 修改
             Projpc projpc = null; VProjpc oldVProjpc = null;
-            if (ObjectUtil.isNotNull(projpcPojo.getId())) {
-                projpc = this.db().projpc().get(projpcPojo.getId());
+            if (ObjectUtil.isNotNull(pojo.getId())) {
+                projpc = this.db().projpc().get(pojo.getId());
                 oldVProjpc = new VProjpc().pjpcid(projpc.getProjid()).oneById();
             }
 
@@ -67,23 +67,23 @@ public class BA04 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(projpcPojo.getTaskName(), projpc.getTasknm())) {
-                Projpc existed = this.db().projpc().getByTaskName(loginUser.getCmpnid(), projpcPojo.getTaskName());
+            if (!ObjectUtil.equal(pojo.getTaskName(), projpc.getTasknm())) {
+                Projpc existed = this.db().projpc().getByTaskName(loginUser.getCmpnid(), pojo.getTaskName());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("任务名称已存在").build();
                 }
             }
 
-            projpc.projid(projpcPojo.getProjectId()).
-                    level(projpcPojo.getLevel()).
-                    tasknm(projpcPojo.getTaskName()).
-                    taskrm(projpcPojo.getTaskRemark()).
-                    taskld(projpcPojo.getTaskLeader()).
-                    pcspct(projpcPojo.getProcessPercent()).
-                    status(projpcPojo.getStatus()).
-                    plfndt(projpcPojo.getPlanFinishDate()).
-                    fnshdt(projpcPojo.getFinishedDate()).
-                    remark(projpcPojo.getRemark()).
+            projpc.projid(pojo.getProjectId()).
+                    level(pojo.getLevel()).
+                    tasknm(pojo.getTaskName()).
+                    taskrm(pojo.getTaskRemark()).
+                    taskld(pojo.getTaskLeader()).
+                    pcspct(pojo.getProcessPercent()).
+                    status(pojo.getStatus()).
+                    plfndt(pojo.getPlanFinishDate()).
+                    fnshdt(pojo.getFinishedDate()).
+                    remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().projpc().save(projpc);

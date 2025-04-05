@@ -45,7 +45,7 @@ public class WB01 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final MtrtypPojo mtrtypPojo, final HttpServletRequest request
+            @RequestBody final MtrtypPojo pojo, final HttpServletRequest request
     ) {
 
         try {
@@ -55,8 +55,8 @@ public class WB01 extends UserDataProvider {
 
             // 修改
             Mtrtyp mtrtyp = null; Mtrtyp oldMtrtyp = null;
-            if (ObjectUtil.isNotNull(mtrtypPojo.getId())) {
-                mtrtyp = this.db().mtrtyp().get(mtrtypPojo.getId());
+            if (ObjectUtil.isNotNull(pojo.getId())) {
+                mtrtyp = this.db().mtrtyp().get(pojo.getId());
                 oldMtrtyp = (Mtrtyp) mtrtyp.clone();
             }
 
@@ -69,22 +69,22 @@ public class WB01 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(mtrtypPojo.getMaterialType(), mtrtyp.getMttycd())) {
-                Mtrtyp existed = this.db().mtrtyp().getByType(loginUser.getCmpnid(), mtrtypPojo.getMaterialType());
+            if (!ObjectUtil.equal(pojo.getMaterialType(), mtrtyp.getMttycd())) {
+                Mtrtyp existed = this.db().mtrtyp().getByType(loginUser.getCmpnid(), pojo.getMaterialType());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("物料类型已存在").build();
                 }
             }
 
-            mtrtyp.mtrctg(mtrtypPojo.getCategory()).
-                    mttyp1(mtrtypPojo.getMaterialType1()).
-                    mttycd(mtrtypPojo.getMaterialType()).
-                    mtrimg(mtrtypPojo.getMaterialImage()).
-                    mtsrhd(mtrtypPojo.getHeader()).
-                    srilsd(mtrtypPojo.getSeed()).
-                    srllen(mtrtypPojo.getLength()).
-                    stkmde(mtrtypPojo.getStockMode()).
-                    remark(mtrtypPojo.getRemark()).
+            mtrtyp.mtrctg(pojo.getCategory()).
+                    mttyp1(pojo.getMaterialType1()).
+                    mttycd(pojo.getMaterialType()).
+                    mtrimg(pojo.getMaterialImage()).
+                    mtsrhd(pojo.getHeader()).
+                    srilsd(pojo.getSeed()).
+                    srllen(pojo.getLength()).
+                    stkmde(pojo.getStockMode()).
+                    remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().mtrtyp().save(mtrtyp);
