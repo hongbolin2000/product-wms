@@ -12,6 +12,7 @@
 
     <statement>
         <table name="projms"/>
+        <param column="cmpnid" type="=" expr="_companyId"/>
         <param column="projid" type="=" expr="fieldValue"/>
         <param column="projcd" expr="searchValue"/>
         <param condition="or" column="projnm" expr="searchValue"/>

@@ -15,6 +15,7 @@
 
         <statement>
             <table name="vmtrlms"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="mttyp1,mttycd,skuno"/>
         </statement>
 

@@ -19,6 +19,7 @@
 
         <statement>
             <table name="vprojpc"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="projnm,level"/>
         </statement>
 

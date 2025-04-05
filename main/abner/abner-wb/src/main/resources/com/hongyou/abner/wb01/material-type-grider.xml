@@ -20,6 +20,7 @@
 
         <statement>
             <table name="mtrtyp"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="mttyp1, mttycd"/>
         </statement>
 

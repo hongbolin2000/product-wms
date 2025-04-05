@@ -8,7 +8,7 @@ Y	Project Process
 N	PJPCID,		ID,			NOT NULL,		,						id,					ID,						主键
 *****************************************************************************************************************************************************
 N 	PROJID,		BIGINT,		NOT NULL,		,						projectId,			Project,			    项目
-K   PROJMS      - PROJNM
+K   PROJMS      - PROJNM, CMPNID
 *****************************************************************************************************************************************************
 N   LEVEL,      INT,        NOT NULL,       1,                      level,              Level,                  优先级
 N   TASKNM,     VC(32),     NOT NULL,       '',                     taskName,           Task Name,              任务名称

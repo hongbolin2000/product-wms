@@ -10,6 +10,7 @@
 
     <statement>
         <table name="rolems"/>
+        <param column="cmpnid" type="=" expr="_companyId"/>
         <param column="rolenm" expr="searchValue"/>
         <order by="rolenm"/>
     </statement>

@@ -15,6 +15,7 @@
 
         <statement>
             <table name="vprojdc"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="projnm"/>
         </statement>
 

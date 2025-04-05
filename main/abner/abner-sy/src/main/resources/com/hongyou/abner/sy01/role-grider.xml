@@ -15,6 +15,7 @@
 
         <statement>
             <table name="rolems"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="rolenm"/>
         </statement>
 

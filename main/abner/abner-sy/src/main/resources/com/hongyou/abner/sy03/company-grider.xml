@@ -11,6 +11,7 @@
     <datatable>
         <statement>
             <table name="cmpnms"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="crettm"/>
         </statement>
 

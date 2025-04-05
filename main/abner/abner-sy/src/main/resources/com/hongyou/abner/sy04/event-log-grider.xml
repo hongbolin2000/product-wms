@@ -15,6 +15,7 @@
     <datatable title="@table.title">
         <statement>
             <table name="evlghd"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="oprttm desc"/>
         </statement>
 

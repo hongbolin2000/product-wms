@@ -20,6 +20,7 @@
 
         <statement>
             <table name="suplms"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="suplcd desc"/>
         </statement>
 

@@ -21,6 +21,7 @@
 
         <statement>
             <table name="userms"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
             <order by="crettm desc"/>
         </statement>
 
