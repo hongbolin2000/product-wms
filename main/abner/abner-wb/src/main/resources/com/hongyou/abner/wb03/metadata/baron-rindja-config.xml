@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 仓库列表 -->
+    <generic-grider-descriptor name="warehouseList">warehouse-grider.xml</generic-grider-descriptor>
+
+    <!-- 仓库编辑 -->
+    <generic-editor-descriptor name="warehouseEdit">warehouse-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        仓库列表
+    </description>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/wb03/warehouseEdit" />
+        </actions>
+
+        <statement>
+            <table name="wrhsms"/>
+            <param column="wrhsid" type="in" expr="_warehouseIds"/>
+            <order by="wrhscd"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="warehouseCode" expr="wrhscd" title="@WRHSMS.WRHSCD" width="100" filter="text"/>
+            <column type="label" name="warehouseName" expr="wrhsnm" title="@WRHSMS.WRHSNM" width="100" filter="text"/>
+            <column type="label" name="appCode" expr="apcode" title="@WRHSMS.APCODE" width="100" filter="text"/>
+            <column type="label" name="address" expr="addres" title="@WRHSMS.ADDRES" width="100" filter="text"/>
+            <column type="label" name="contacts" expr="contcs" title="@WRHSMS.CONTCS" width="100" filter="text"/>
+            <column type="label" name="phoneNo" expr="phonno" title="@WRHSMS.PHONNO" width="100" filter="text"/>
+            <column type="label" name="email" expr="email" title="@WRHSMS.EMAIL" width="100" filter="text"/>
+            <column type="label" name="zipCode" expr="zipcde" title="@WRHSMS.ZIPCDE" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@WRHSMS.REMARK" width="100" filter="text"/>
+            <column type="link" mode="dialog" name="edit" icon="edit" expr="wrhsid" title="@edit" width="80"
+                    link="/graces/editor/wb03/warehouseEdit"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="wrhsid" title="@delete" width="80"
+                    link="/wb03/delete" labelColumn="warehouseName" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">仓库</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Warehouse</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

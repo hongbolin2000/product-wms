@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        仓库编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/wb03/save</url>
+
+    <statement>
+        <table name="wrhsms"/>
+        <param column="wrhsid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="warehouseName" spans="3">
+        <input type="text" name="id" expr="wrhsid" hidden="true"/>
+        <input type="text" name="warehouseCode" expr="wrhscd" title="@WRHSMS.WRHSCD" required="true" length="16"/>
+        <input type="text" name="warehouseName" expr="wrhsnm" title="@WRHSMS.WRHSNM" required="true" length="32"/>
+        <input type="text" name="appCode" expr="apcode" title="@WRHSMS.APCODE" length="16"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@WRHSMS.REMARK" length="254"/>
+    </editor>
+
+    <editor title="@editor.contacts" spans="3">
+        <input type="text" name="id" expr="wrhsid" hidden="true"/>
+        <input type="text" name="address" expr="addres" title="@WRHSMS.ADDRES" pojolength="128"/>
+        <input type="text" name="contacts" expr="contcs" title="@WRHSMS.CONTCS" pojolength="32"/>
+        <input type="text" name="phoneNo" expr="phonno" title="@WRHSMS.PHONNO" pojolength="11"/>
+        <input type="text" name="email" expr="email" title="@WRHSMS.EMAIL" pojolength="32"/>
+        <input type="text" name="zipCode" expr="zipcde" title="@WRHSMS.ZIPCDE" pojolength="6"/>
+    </editor>
+
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增仓库</item>
+            <item key="etitle">修改仓库</item>
+
+            <item key="editor.contacts">联系方式</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Warehouse</item>
+            <item key="etitle">Modify Warehouse</item>
+
+            <item key="editor.contacts">Contacts</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

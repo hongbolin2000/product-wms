@@ -41,7 +41,7 @@ public class WB02 extends UserDataProvider {
     private static final Log logger = LogFactory.getLog(WB02.class);
 
     /**
-     * 保存项目进度
+     * 保存物料
      */
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
@@ -110,7 +110,7 @@ public class WB02 extends UserDataProvider {
                     module(WB02.class.getSimpleName()).
                     name("物料管理").
                     action(action).
-                    message(StringUtil.format("物料[{}]{}成功", mtrlms.getSkuno(), action)).
+                    message(StringUtil.format("物料[{}]{}成功", mtrlms.getSkunam(), action)).
                     oldValue(oldMtrlms).
                     newValue(mtrlms).
                     build();
@@ -128,7 +128,7 @@ public class WB02 extends UserDataProvider {
      */
     @PostMapping("/delete")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry delete(@RequestBody final List<Long> ids, final HttpServletRequest request) {
+    public ResponseEntry delete(@RequestBody final List<Long> ids) {
 
         try {
             Userms loginUser = this.getLoginUser();
@@ -150,8 +150,8 @@ public class WB02 extends UserDataProvider {
             }
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
-            logger.error("物料类型删除失败", e);
-            throw new RestRuntimeException("物料类型已被使用");
+            logger.error("物料删除失败", e);
+            throw new RestRuntimeException("物料已被使用");
         }
     }
 
