@@ -20,7 +20,7 @@
 
         <statement>
             <table name="suplms"/>
-            <order by="suplcd"/>
+            <order by="suplcd desc"/>
         </statement>
 
         <columns>

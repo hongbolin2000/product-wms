@@ -140,13 +140,14 @@ public class Login extends UserDataProvider {
             this.db().userms().save(userms);
 
             // 记录日志
+            String operatorBy = this.getOperatorBy(userms);
             EventLog event = EventLog.builder().
                     domain(userms.getCmpnid()).
-                    operator(this.getOperatorBy(userms)).
+                    operator(operatorBy).
                     module(Login.class.getSimpleName()).
                     name("系统").
                     action("用户登录").
-                    message(StringUtil.format("用户[{}]登录成功", userms.getUsernm())).
+                    message(StringUtil.format("用户[{}]登录成功", operatorBy)).
                     build();
             this.eventLogManager.info(event);
 

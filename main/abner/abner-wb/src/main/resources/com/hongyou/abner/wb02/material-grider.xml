@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        物料列表
+    </description>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" icon="add" title="@add" link="/graces/editor/wb02/materialEdit" />
+        </actions>
+
+        <statement>
+            <table name="vmtrlms"/>
+            <order by="mttyp1,mttycd,skuno"/>
+        </statement>
+
+        <columns>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="100"/>
+            <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="100" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="100" filter="text"/>
+            <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="100" filter="text"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" filter="text"/>
+            <column type="label" name="purchasePrice" expr="pcsprc" title="@MTRLMS.PCSPRC" width="100" format="%#.###"/>
+            <column type="label" name="salesPrice" expr="slsprc" title="@MTRLMS.SLSPRC" width="100" format="%#.###"/>
+            <column type="label" name="minStockQty" expr="mnstqt" title="@MTRLMS.MNSTQT" width="100" format="%#.###"/>
+            <column type="label" name="remark" expr="remark" title="@MTRLMS.REMARK" width="100" filter="text"/>
+            <column type="link" name="edit" icon="edit" expr="mtrlid" title="@edit" width="80"
+                    link="/graces/editor/wb02/materialEdit"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="mtrlid" title="@delete" width="80"
+                    link="/wb02/delete" labelColumn="skuName" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">物料</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Material</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

@@ -19,7 +19,7 @@
 
         <statement>
             <table name="vprojms"/>
-            <order by="projcd"/>
+            <order by="projcd desc"/>
         </statement>
 
         <columns>

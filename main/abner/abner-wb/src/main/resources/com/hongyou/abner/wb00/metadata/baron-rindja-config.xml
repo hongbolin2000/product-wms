@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 物料类型查询建议器 -->
+    <generic-suggestor-descriptor name="materialTypeSuggestor">material-type-suggestor.xml</generic-suggestor-descriptor>
+</baron-rindja-config>

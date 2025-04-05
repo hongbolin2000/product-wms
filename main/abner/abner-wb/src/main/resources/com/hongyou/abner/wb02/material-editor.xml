@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        物料编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/wb02/save</url>
+
+    <statement>
+        <table name="vmtrlms"/>
+        <param column="mtrlid" type="=" expr="id"/>
+    </statement>
+
+    <editor title="@editor.title" labelColumn="skuName" spans="1" formWidth="50%">
+        <input type="text" name="id" expr="mtrlid" hidden="true"/>
+        <input type="suggestor" name="materialTypeId" expr="mttyid" title="@MTRLMS.MTTYID" module="wb00"
+               suggestor="materialTypeSuggestor" required="true"/>
+        <input type="text" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" length="32"/>
+        <input type="text" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" required="true" length="64"/>
+        <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" length="32"/>
+        <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" accept="image/*"/>
+        <input type="number" name="purchasePrice" expr="pcsprc" title="@MTRLMS.PCSPRC" format="%#.###" min="0"
+               default="0" scale="3" required="true"/>
+        <input type="number" name="salesPrice" expr="slsprc" title="@MTRLMS.SLSPRC" format="%#.###" min="0"
+               default="0" scale="3" required="true"/>
+        <input type="number" name="minStockQty" expr="mnstqt" title="@MTRLMS.MNSTQT" format="%#" min="0"
+               default="0" scale="0" required="true"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@MTRLMS.REMARK" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增物料</item>
+            <item key="etitle">修改物料</item>
+            <item key="editor.title">物料信息</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Material</item>
+            <item key="etitle">Modify Material</item>
+            <item key="editor.title">Material Info</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

@@ -15,7 +15,7 @@
 
         <statement>
             <table name="vprojdc"/>
-            <order by="projnm desc"/>
+            <order by="projnm"/>
         </statement>
 
         <columns>

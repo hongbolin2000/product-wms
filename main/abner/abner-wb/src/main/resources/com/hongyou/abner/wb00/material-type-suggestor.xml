@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        物料类型查询建议器
+    </description>
+
+    <maxRows>20</maxRows>
+
+    <statement>
+        <table name="mtrtyp"/>
+        <param column="mttyid" type="=" expr="fieldValue"/>
+        <param column="mttycd" expr="searchValue"/>
+        <param condition="or" column="mttyp1" expr="searchValue"/>
+        <order by="mttyp1, mttycd"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="mttyid" />
+        <field name="label" expr="mttycd" />
+    </fields>
+</rindja-generic-suggestor>

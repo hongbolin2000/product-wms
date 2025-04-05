@@ -20,7 +20,7 @@
 
         <statement>
             <table name="mtrtyp"/>
-            <order by="mtrctg, mttyp1, mttycd"/>
+            <order by="mttyp1, mttycd"/>
         </statement>
 
         <columns>

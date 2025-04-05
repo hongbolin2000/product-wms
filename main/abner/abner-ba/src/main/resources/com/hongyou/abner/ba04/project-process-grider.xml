@@ -19,7 +19,7 @@
 
         <statement>
             <table name="vprojpc"/>
-            <order by="projnm, level"/>
+            <order by="projnm,level"/>
         </statement>
 
         <columns>
