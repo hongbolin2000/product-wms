@@ -21,6 +21,7 @@
   import type {TableBaseColumn} from "naive-ui/es/data-table/src/interface";
   import SheeterActions from "@/ploutos/graces/ag01/form-editor/components/SheeterActions.vue";
   import {message} from "@/ploutos";
+  import SuggestorWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/SuggestorWidgetFactory.ts";
 
   /**
    * 父组件传入的属性
@@ -78,7 +79,11 @@
    */
   function renderSheeterColumns(sheeter: Sheeter): TableBaseColumn[] {
     const columns: TableBaseColumn[] = [];
-    sheeter.widgets.forEach(widget => {
+    sheeter.widgets.filter(i => !i.hidden).forEach(widget => {
+      if (widget.type == SuggestorWidgetFactory.TYPE) {
+        return;
+      }
+
       const column: TableBaseColumn = <TableBaseColumn>{};
       column.key = widget.name;
       column.width = widget.width ? widget.width : 150;

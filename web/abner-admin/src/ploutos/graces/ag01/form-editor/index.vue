@@ -162,7 +162,7 @@
                 <n-form-item-gi
                     :span="8"
                     :label="widget.title"
-                    v-for="widget of selectSheeter.widgets"
+                    v-for="widget of selectSheeter.widgets.filter(i => !i.hidden && !i.ignore)"
                     :path="widget.name"
                     :key="widget.name"
                 >

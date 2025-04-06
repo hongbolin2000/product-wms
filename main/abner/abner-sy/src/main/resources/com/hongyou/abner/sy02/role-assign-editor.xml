@@ -29,8 +29,9 @@
         </statement>
 
         <inputs>
-            <input type="suggestor" name="name" expr="rolenm" title="@ROLEMS.ROLENM" module="sy00" suggestor="roleSuggestor"
-                   required="true"/>
+            <input type="suggestor" name="id" expr="roleid" title="@USRROL.ROLEID" module="sy00" suggestor="roleSuggestor"
+                   required="true" script="row.roleName = option.label"/>
+            <input type="text" name="roleName" expr="rolenm" title="@USRROL.ROLEID" ignore="true"/>
             <input type="text" mode="textarea" name="remark" expr="remark" title="@USRROL.REMARK" length="254"/>
         </inputs>
     </sheeter>

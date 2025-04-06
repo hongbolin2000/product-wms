@@ -251,7 +251,7 @@ public class SY02 extends UserDataProvider {
             this.db().usrrol().deleteQuery(wrapper);
 
             pojo.getRoles().forEach(rolemsPojo -> {
-                Rolems rolems = this.db().rolems().getByName(loginUser.getCmpnid(), rolemsPojo.getName());
+                Rolems rolems = this.db().rolems().get(rolemsPojo.getId());
                 Usrrol usrrol = new Usrrol();
                 usrrol.userid(userms.getUserid()).
                         roleid(rolems.getRoleid()).

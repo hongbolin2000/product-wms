@@ -32,4 +32,9 @@ export default class AbstractComponent {
 	 * 是否隐藏
 	 */
 	hidden: boolean;
+
+	/**
+	 * 忽略字段(用于sheeter中表格需要显示，但是editor中不需要显示的字段)
+	 */
+	ignore: boolean;
 }

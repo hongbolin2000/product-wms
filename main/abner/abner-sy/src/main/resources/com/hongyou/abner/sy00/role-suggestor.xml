@@ -16,7 +16,7 @@
     </statement>
 
     <fields>
-        <field name="value" expr="rolenm" />
+        <field name="value" expr="roleid" />
         <field name="label" expr="rolenm" />
     </fields>
 </rindja-generic-suggestor>
