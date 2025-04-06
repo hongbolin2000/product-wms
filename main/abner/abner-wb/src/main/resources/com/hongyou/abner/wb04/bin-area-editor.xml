@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库区编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/wb04/save</url>
+
+    <statement>
+        <table name="vbinara"/>
+        <param column="bnarid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="areaName" spans="1">
+        <input type="text" name="id" expr="bnarid" hidden="true"/>
+        <input type="suggestor" name="warehouseId" expr="wrhsid" title="@BINARA.WRHSID" module="wb00"
+               suggestor="warehouseSuggestor" required="true"/>
+        <input type="text" name="areaCode" expr="bnarcd" title="@BINARA.BNARCD" required="true" length="16"/>
+        <input type="text" name="areaName" expr="bnarnm" title="@BINARA.BNARNM" required="true" length="32"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@BINARA.REMARK" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增库区</item>
+            <item key="etitle">修改库区</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Bin Area</item>
+            <item key="etitle">Modify Bin Area</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

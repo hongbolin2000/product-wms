@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 库区列表 -->
+    <generic-grider-descriptor name="binAreaList">bin-area-grider.xml</generic-grider-descriptor>
+
+    <!-- 库区编辑 -->
+    <generic-editor-descriptor name="binAreaEdit">bin-area-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

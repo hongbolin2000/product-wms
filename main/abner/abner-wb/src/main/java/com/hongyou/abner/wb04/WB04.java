@@ -1,20 +1,21 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.abner.wb03;
+package com.hongyou.abner.wb04;
 
 import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
-import com.hongyou.abner.data.model.*;
-import com.hongyou.abner.data.pojo.MtrlmsPojo;
-import com.hongyou.abner.data.pojo.WrhsmsPojo;
+import com.hongyou.abner.data.model.Binara;
+import com.hongyou.abner.data.model.Userms;
+import com.hongyou.abner.data.model.VBinara;
+import com.hongyou.abner.data.model.Wrhsms;
+import com.hongyou.abner.data.pojo.BinaraPojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,25 +26,25 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * 仓库管理
+ * 库区管理
  *
  * @author Hong Bo Lin
  */
 @RestController
-@RequestMapping("/wb03")
-public class WB03 extends UserDataProvider {
+@RequestMapping("/wb04")
+public class WB04 extends UserDataProvider {
 
     /**
      * logger
      */
-    private static final Log logger = LogFactory.getLog(WB03.class);
+    private static final Log logger = LogFactory.getLog(WB04.class);
 
     /**
-     * 保存仓库
+     * 保存库区
      */
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry save(@RequestBody final WrhsmsPojo pojo) {
+    public ResponseEntry save(@RequestBody final BinaraPojo pojo) {
 
         try {
             Userms loginUser = this.getLoginUser();
@@ -51,64 +52,59 @@ public class WB03 extends UserDataProvider {
             Timestamp currentTime = this.getCurrentTime();
 
             // 修改
-            Wrhsms wrhsms = null; Wrhsms oldWrhsms = null;
+            Binara binara = null; VBinara oldVBinara = null;
             if (ObjectUtil.isNotNull(pojo.getId())) {
-                wrhsms = this.db().wrhsms().get(pojo.getId());
-                oldWrhsms = (Wrhsms) wrhsms.clone();
+                binara = this.db().binara().get(pojo.getId());
+                oldVBinara = new VBinara().bnarid(binara.getBnarid()).oneById();
             }
 
             // 新增
-            if (ObjectUtil.isNull(wrhsms)) {
-                wrhsms = new Wrhsms();
-                wrhsms.cmpnid(loginUser.getCmpnid()).
-                        cretby(operatorBy).
+            if (ObjectUtil.isNull(binara)) {
+                binara = new Binara();
+                binara.cretby(operatorBy).
                         crettm(currentTime);
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(pojo.getWarehouseCode(), wrhsms.getWrhscd())) {
-                Wrhsms existed = this.db().wrhsms().getByCode(loginUser.getCmpnid(), pojo.getWarehouseCode());
+            if (!ObjectUtil.equal(pojo.getAreaCode(), binara.getBnarcd())) {
+                Binara existed = this.db().binara().getByCode(loginUser.getCmpnid(), pojo.getAreaCode());
                 if (ObjectUtil.isNotNull(existed)) {
-                    return ResponseEntry.builder().code(-1).message("仓库代码已存在").build();
+                    return ResponseEntry.builder().code(-1).message("库区代码已存在").build();
                 }
             }
 
-            wrhsms.wrhscd(pojo.getWarehouseCode()).
-                    wrhsnm(pojo.getWarehouseName()).
-                    apcode(pojo.getAppCode()).
-                    addres(pojo.getAddress()).
-                    contcs(pojo.getContacts()).
-                    phonno(pojo.getPhoneNo()).
-                    email(pojo.getEmail()).
-                    zipcde(pojo.getZipCode()).
+            binara.wrhsid(pojo.getWarehouseId()).
+                    bnarcd(pojo.getAreaCode()).
+                    bnarnm(pojo.getAreaName()).
                     remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
-            this.db().wrhsms().save(wrhsms);
+            this.db().binara().save(binara);
 
             // 记录日志
-            String action = oldWrhsms == null ? "新增" : "修改";
+            VBinara vBinara = new VBinara().bnarid(binara.getBnarid()).oneById();
+            String action = oldVBinara == null ? "新增" : "修改";
             EventLog event = EventLog.builder().
                     domain(loginUser.getCmpnid()).
                     operator(operatorBy).
-                    module(WB03.class.getSimpleName()).
-                    name("仓库管理").
+                    module(WB04.class.getSimpleName()).
+                    name("库区管理").
                     action(action).
-                    message(StringUtil.format("仓库[{}]{}成功", wrhsms.getWrhsnm(), action)).
-                    oldValue(oldWrhsms).
-                    newValue(wrhsms).
+                    message(StringUtil.format("库区[{}]{}成功", binara.getBnarnm(), action)).
+                    oldValue(oldVBinara).
+                    newValue(vBinara).
                     build();
             this.eventLogManager.info(event);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
-            logger.error("仓库保存失败", e);
-            throw new RestRuntimeException("仓库保存失败");
+            logger.error("库区保存失败", e);
+            throw new RestRuntimeException("库区保存失败");
         }
     }
 
     /**
-     * 删除仓库
+     * 删除库区
      */
     @PostMapping("/delete")
     @Transactional(rollbackFor = RestRuntimeException.class)
@@ -119,23 +115,23 @@ public class WB03 extends UserDataProvider {
             String operatorBy = this.getOperatorBy(loginUser);
 
             for (Long id: ids) {
-                Wrhsms wrhsms = this.db().wrhsms().get(id);
+                Binara binara = this.db().binara().get(id);
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
-                        module(WB03.class.getSimpleName()).
-                        name("仓库管理").
+                        module(WB04.class.getSimpleName()).
+                        name("库区管理").
                         action("删除").
-                        message(StringUtil.format("仓库[{}]删除成功", wrhsms.getWrhsnm())).
-                        newValue(wrhsms).
+                        message(StringUtil.format("库区[{}]删除成功", binara.getBnarnm())).
+                        newValue(binara).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().wrhsms().delete(wrhsms);
+                this.db().binara().delete(binara);
             }
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
-            logger.error("仓库删除失败", e);
-            throw new RestRuntimeException("仓库已被使用");
+            logger.error("库区删除失败", e);
+            throw new RestRuntimeException("库区已被使用");
         }
     }
 }

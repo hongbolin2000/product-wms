@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "6789072",
+      "name": "warehouse",
+      "font_class": "warehouse",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
       "icon_id": "22985606",
       "name": "material",
       "font_class": "material",
@@ -25,13 +32,6 @@
       "font_class": "basic",
       "unicode": "e681",
       "unicode_decimal": 59009
-    },
-    {
-      "icon_id": "7143200",
-      "name": "warehouse",
-      "font_class": "warehouse",
-      "unicode": "e604",
-      "unicode_decimal": 58884
     },
     {
       "icon_id": "11927797",

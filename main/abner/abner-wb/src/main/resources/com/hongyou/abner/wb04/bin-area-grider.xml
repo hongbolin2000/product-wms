@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库区列表
+    </description>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/wb04/binAreaEdit" />
+        </actions>
+
+        <statement>
+            <table name="vbinara"/>
+            <param column="wrhsid" type="in" expr="_warehouseIds"/>
+            <order by="wrhsnm,bnarcd"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="warehouseName" expr="wrhsnm" title="@BINARA.WRHSID" width="100" filter="text"/>
+            <column type="label" name="areaCode" expr="bnarcd" title="@BINARA.BNARCD" width="100" filter="text"/>
+            <column type="label" name="areaName" expr="bnarnm" title="@BINARA.BNARNM" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@BINARA.REMARK" filter="text"/>
+            <column type="link" mode="drawer" name="edit" icon="edit" expr="bnarid" title="@edit" width="80"
+                    link="/graces/editor/wb04/binAreaEdit"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="bnarid" title="@delete" width="80"
+                    link="/wb04/delete" labelColumn="areaName" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">库区</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Bin Area</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>
