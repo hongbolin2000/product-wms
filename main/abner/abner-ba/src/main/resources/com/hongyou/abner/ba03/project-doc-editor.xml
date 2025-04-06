@@ -13,7 +13,7 @@
     <url>/ba03/save</url>
 
     <statement>
-        <table name="vprojdc"/>
+        <table name="projdc"/>
         <param column="pjdcid" type="=" expr="id"/>
     </statement>
 

@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2134089",
+      "name": "bin",
+      "font_class": "bin",
+      "unicode": "e74b",
+      "unicode_decimal": 59211
+    },
+    {
+      "icon_id": "37183976",
+      "name": "area",
+      "font_class": "area",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
       "icon_id": "6789072",
       "name": "warehouse",
       "font_class": "warehouse",

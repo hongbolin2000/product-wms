@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库区查询建议器
+    </description>
+
+    <statement>
+        <table name="binara"/>
+        <param column="bnarid" type="=" expr="fieldValue"/>
+        <param column="bnarcd" expr="searchValue"/>
+        <param condition="or" column="bnarnm" expr="searchValue"/>
+        <order by="bnarcd"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="bnarid" />
+        <field name="label" expr="bnarnm" />
+    </fields>
+</rindja-generic-suggestor>

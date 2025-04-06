@@ -13,7 +13,7 @@
     <url>/wb02/save</url>
 
     <statement>
-        <table name="vmtrlms"/>
+        <table name="mtrlms"/>
         <param column="mtrlid" type="=" expr="id"/>
     </statement>
 

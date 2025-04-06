@@ -6,4 +6,7 @@
 
     <!-- 仓库查询建议器 -->
     <generic-suggestor-descriptor name="warehouseSuggestor">warehouse-suggestor.xml</generic-suggestor-descriptor>
+
+    <!-- 库区查询建议器 -->
+    <generic-suggestor-descriptor name="binAreaSuggestor">bin-area-suggestor.xml</generic-suggestor-descriptor>
 </baron-rindja-config>

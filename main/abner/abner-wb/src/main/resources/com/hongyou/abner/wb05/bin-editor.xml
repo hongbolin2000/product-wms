@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库位编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/wb05/save</url>
+
+    <statement>
+        <table name="binmas"/>
+        <param column="binmid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="binCode" spans="1">
+        <input type="text" name="id" expr="binmid" hidden="true"/>
+        <input type="suggestor" name="binAreaId" expr="bnarid" title="@BINMAS.BNARID" module="wb00"
+               suggestor="binAreaSuggestor" required="true"/>
+        <input type="text" name="binCode" expr="bincde" title="@BINMAS.BINCDE" required="true" length="32"/>
+        <input type="enum" name="status" expr="status" title="@BINMAS.STATUS" options="@@BINMAS.STATUS" default="N" required="true"/>
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@BINMAS.REMARK" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增库位</item>
+            <item key="etitle">修改库位</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Bin</item>
+            <item key="etitle">Modify Bin</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

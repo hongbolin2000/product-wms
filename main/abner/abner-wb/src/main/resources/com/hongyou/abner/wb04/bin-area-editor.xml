@@ -13,7 +13,7 @@
     <url>/wb04/save</url>
 
     <statement>
-        <table name="vbinara"/>
+        <table name="binara"/>
         <param column="bnarid" type="=" expr="id"/>
     </statement>
 

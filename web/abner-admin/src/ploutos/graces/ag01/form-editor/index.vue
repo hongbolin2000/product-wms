@@ -496,7 +496,6 @@
 
         // 刷新上层界面数据
         if (props.isDialog || props.isDrawer) {
-          emit('onClose');
           emit('onRefresh');
         } else {
           const func = new Function( 'name', 'return eval(name).call()');

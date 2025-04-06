@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库位列表
+    </description>
+
+    <filters>
+        <opts name="status" type="enum" table="BINMAS" column="STATUS"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/wb05/binEdit" />
+        </actions>
+
+        <statement>
+            <table name="vbinmas"/>
+            <param column="wrhsid" type="in" expr="_warehouseIds"/>
+            <order by="wrhsnm,bnarnm,bincde"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="warehouseName" expr="wrhsnm" title="@BINMAS.WRHSID" width="100" filter="text"/>
+            <column type="label" name="areaName" expr="bnarnm" title="@BINMAS.BNARID" width="100" filter="text"/>
+            <column type="label" name="binCode" expr="bincde" title="@BINMAS.BINCDE" width="100" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@BINMAS.STATUS" width="70" format="@@BINMAS.STATUS"
+                    filter="@status"/>
+            <column type="label" name="remark" expr="remark" title="@BINMAS.REMARK" filter="text"/>
+            <column type="link" mode="drawer" name="edit" icon="edit" expr="binmid" title="@edit" width="80"
+                    link="/graces/editor/wb05/binEdit"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="binmid" title="@delete" width="80"
+                    link="/wb05/delete" labelColumn="binCode" danger="true"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">库位</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Bin</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>
