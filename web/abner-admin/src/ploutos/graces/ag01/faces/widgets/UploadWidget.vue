@@ -14,6 +14,8 @@
       @preview="handlePreview"
       :accept="widget.accept"
       show-download-button
+      :disabled="widget.isDisabled"
+      :show-trigger="!widget.isDisabled"
   >
     <n-button v-if="widget.mode == 'text' || widget.mode == 'image'">
       点击上传

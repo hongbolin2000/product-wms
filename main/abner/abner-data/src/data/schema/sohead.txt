@@ -14,7 +14,7 @@ N	SOHDNO,		VC(32),		NOT NULL,		,						soHeadNo,			SO Head NO,				销售单号
 N 	PROJID,		BIGINT,		        ,		,					    projectId,			Project,			    项目
 K 	PROJMS		- PROJNM
 N	CSTMID,		BIGINT,		        , 		,						customerId,		    Customer,			    客户
-K 	SUPLMS		- SUPLNM
+K 	SUPLMS		- SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         待审核

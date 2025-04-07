@@ -25,7 +25,7 @@ N	RDOCTY,		C(4),           NOT NULL,		'DSO',					refDocType,			Ref Doc Type,			�
 N 	PROJID,		BIGINT,		    ,				,						projectId,			Project,			    项目
 K 	PROJMS		- PROJNM
 N 	SUPLID,		BIGINT,		    ,				,						supplier,			Supplier,			    客户
-K 	SUPLMS		- SUPLNM
+K 	SUPLMS		- SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	ORDRDT,		DATE,		    NOT NULL,		,						orderDate,			Order Date,				订单日期
 N	DELVDT,		DATE,		    ,				,						deliverDate,	    deliver Date,		    发货日期

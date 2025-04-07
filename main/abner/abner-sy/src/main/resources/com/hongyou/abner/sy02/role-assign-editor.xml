@@ -22,7 +22,7 @@
         <input type="text" name="fullName" expr="fulnam" title="@USERMS.FULNAM" disabled="true"/>
     </editor>
 
-    <sheeter title="@sheeter.title" name="roles" required="false" labelColumn="name" unique="name">
+    <sheeter title="@sheeter.title" name="roles" labelColumn="name" unique="roleName">
         <statement>
             <table name="vusrrol"/>
             <param column="userid" type="=" expr="id"/>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 请购单列表 -->
+    <generic-grider-descriptor name="requisitionOrderList">requisition-order-grider.xml</generic-grider-descriptor>
+
+    <!-- 请购单编辑 -->
+    <generic-editor-descriptor name="requisitionOrderEdit">requisition-order-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

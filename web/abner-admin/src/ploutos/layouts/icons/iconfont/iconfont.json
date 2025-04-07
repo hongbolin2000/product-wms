@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7090054",
+      "name": "requisition",
+      "font_class": "requisition",
+      "unicode": "e711",
+      "unicode_decimal": 59153
+    },
+    {
+      "icon_id": "34262243",
+      "name": "receive",
+      "font_class": "receive",
+      "unicode": "e6f5",
+      "unicode_decimal": 59125
+    },
+    {
       "icon_id": "2134089",
       "name": "bin",
       "font_class": "bin",

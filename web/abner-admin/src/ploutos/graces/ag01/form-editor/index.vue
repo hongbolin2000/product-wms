@@ -719,7 +719,7 @@
     // 检查唯一数据
     const unique = selectSheeter.value.unique;
     const messageTitle = getMessageFormTitle();
-    if (unique) {
+    if (unique && selectSheeter.value.data) {
       const value = sheeterFormValue.value[unique];
       if (selectSheeter.value.data.findIndex(i => i[unique] == value) != -1) {
         message.error(messageTitle + '已存在');

@@ -22,6 +22,9 @@
   import SheeterActions from "@/ploutos/graces/ag01/form-editor/components/SheeterActions.vue";
   import {message} from "@/ploutos";
   import SuggestorWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/SuggestorWidgetFactory.ts";
+  import UploadWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/UploadWidgetFactory.ts";
+  import ColumnFactories from "@/ploutos/graces/ag01/faces/ColumnFactories.ts";
+  import FileColumn from "@/ploutos/graces/ag01/faces/columns/FileColumn.vue";
 
   /**
    * 父组件传入的属性
@@ -90,6 +93,15 @@
       column.resizable = true;
       column.ellipsis = true;
       column.title = widget.title;
+
+      // 图片
+      if (widget.type == UploadWidgetFactory.TYPE) {
+        column.render = (rowData) => {
+          const column = {...widget}
+          column.rowData = rowData;
+          return h(FileColumn, {column: column});
+        }
+      }
       columns.push(column);
     });
 

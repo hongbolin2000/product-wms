@@ -36,7 +36,7 @@
         <input type="text" name="zipCode" expr="zipcde" title="@SUPLMS.ZIPCDE" length="6"/>
     </editor>
 
-    <sheeter title="@sheeter.contacts" name="contactLines" required="false" labelColumn="address">
+    <sheeter title="@sheeter.contacts" name="contactLines" labelColumn="address">
         <statement>
             <table name="splcts"/>
             <param column="suplid" type="=" expr="id"/>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        请购单列表
+    </description>
+
+    <filters>
+        <opts name="status" type="enum" table="RQHEAD" column="STATUS"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add"
+                    link="/graces/editor/gr01/requisitionOrderEdit" permission="add"/>
+        </actions>
+
+        <statement>
+            <table name="vrqhead"/>
+            <order by="rqhdno desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" width="100" filter="text"/>
+            <column type="label" name="projectName" expr="projnm" title="@RQHEAD.PROJID" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" width="150" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@RQHEAD.STATUS" width="70" format="@@RQHEAD.STATUS" filter="@status"/>
+            <column type="label" name="applicationDate" expr="aplcdt" title="@RQHEAD.APLCDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="applicationBy" expr="aplcby" title="@RQHEAD.APLCBY" width="100" filter="text"/>
+            <column type="label" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="remark" expr="remark" title="@RQHEAD.REMARK" width="100" filter="text"/>
+            <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
+                    link="/graces/editor/gr01/requisitionOrderEdit" permission="update"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="rqhdid" title="@delete" width="80"
+                    link="/gr01/delete" labelColumn="rqHeadNo" danger="true" disabled="statusValue != '00'" permission="delete"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">请购单</item>
+            <item key="add">创建请购单</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Requisition Order</item>
+            <item key="add">Create Requisition Order</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

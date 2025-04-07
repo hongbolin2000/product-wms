@@ -9,4 +9,7 @@
 
     <!-- 库区查询建议器 -->
     <generic-suggestor-descriptor name="binAreaSuggestor">bin-area-suggestor.xml</generic-suggestor-descriptor>
+
+    <!-- 物料查询建议器 -->
+    <generic-suggestor-descriptor name="materialSuggestor">material-suggestor.xml</generic-suggestor-descriptor>
 </baron-rindja-config>

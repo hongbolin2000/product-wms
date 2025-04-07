@@ -16,7 +16,6 @@ import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,9 +44,7 @@ public class WB02 extends UserDataProvider {
      */
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry save(
-            @RequestBody final MtrlmsPojo pojo, final HttpServletRequest request
-    ) {
+    public ResponseEntry save(@RequestBody final MtrlmsPojo pojo) {
 
         try {
             Userms loginUser = this.getLoginUser();
@@ -61,6 +58,7 @@ public class WB02 extends UserDataProvider {
                 oldMtrlms = new VMtrlms().mtrlid(mtrlms.getMtrlid()).oneById();
             }
             String skuNo = pojo.getSkuNo();
+            Mtrtyp mtrtyp = this.db().mtrtyp().get(pojo.getMaterialTypeId());
 
             // 新增
             if (ObjectUtil.isNull(mtrlms)) {
@@ -71,9 +69,7 @@ public class WB02 extends UserDataProvider {
 
                 // 自动生成物料号
                 if (StringUtil.isBlank(skuNo)) {
-                    Mtrtyp mtrtyp = this.db().mtrtyp().get(pojo.getMaterialTypeId());
                     skuNo = this.getSkuNo(mtrtyp);
-
                     mtrtyp.srilsd(mtrtyp.getSrilsd() + 1);
                     this.db().mtrtyp().save(mtrtyp);
                 }
@@ -92,7 +88,7 @@ public class WB02 extends UserDataProvider {
             mtrlms.mttyid(pojo.getMaterialTypeId()).
                     skuno(skuNo).
                     skunam(pojo.getSkuName()).
-                    mtrimg(pojo.getMaterialImage()).
+                    mtrimg(StringUtil.blankToDefault(pojo.getMaterialImage(), mtrtyp.getMtrimg())).
                     model(pojo.getModel()).
                     pcsprc(pojo.getPurchasePrice()).
                     slsprc(pojo.getSalesPrice()).

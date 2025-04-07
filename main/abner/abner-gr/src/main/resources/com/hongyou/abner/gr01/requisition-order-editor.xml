@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        请购单编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/gr01/save</url>
+
+    <statement>
+        <table name="rqhead"/>
+        <param column="rqhdid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="rqHeadNo" spans="3">
+        <input type="text" name="id" expr="rqhdid" hidden="true"/>
+        <input type="text" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" disabled="true" hidden="fill != true"/>
+        <input type="suggestor" name="projectId" expr="projid" title="@PROJDC.PROJID" module="ba00"
+               suggestor="projectSuggestor"/>
+        <input type="date" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" format="!yyyy-MM-dd" />
+        <input type="text" mode="textarea" name="remark" expr="remark" title="@RQHEAD.REMARK" length="254"/>
+    </editor>
+
+    <sheeter title="@sheeter.materials" name="materials" labelColumn="skuName" unique="skuName">
+        <statement>
+            <table name="vrqline"/>
+            <param column="rqhdid" type="=" expr="id"/>
+        </statement>
+
+        <inputs>
+            <input type="text" name="id" expr="rqlnid" hidden="true"/>
+            <input type="suggestor" name="materialId" expr="mtrlid" title="@RQLINE.MTRLID" module="wb00"
+                   suggestor="materialSuggestor" required="true">
+                <script>
+                    row.skuName = option.label;
+                    row.price = option.purchasePrice;
+                    row.model = option.model;
+                    row.materialType = option.materialType;
+                    row.materialImage = option.materialImage;
+                </script>
+            </input>
+            <input type="text" name="skuName" expr="skunam" title="@RQLINE.MTRLID" width="120" ignore="true"/>
+            <input type="number" name="price" expr="price" title="@RQLINE.PRICE" format="%#.###" min="0"
+                   default="0" scale="3" required="true" width="50"/>
+            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="70" disabled="true"/>
+            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="70" disabled="true"/>
+            <input type="text" mode="textarea" name="remark" expr="remark" title="@RQLINE.REMARK" width="90" length="254"/>
+            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">创建请购单</item>
+            <item key="etitle">修改请购单</item>
+            <item key="sheeter.materials">请购物料</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Create Requisition Order</item>
+            <item key="etitle">Modify Requisition Order</item>
+            <item key="sheeter.materials">Requisition Material</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

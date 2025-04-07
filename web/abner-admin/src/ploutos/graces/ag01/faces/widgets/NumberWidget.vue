@@ -68,6 +68,10 @@
    */
   onBeforeUpdate(() => {
     executeScript();
+
+    // 转成数值
+    let value = props.widget.rowData[props.widget.name];
+    props.widget.rowData[props.widget.name] = parseFloat(value);
     WidgetUtil.disabled(props.widget);
   });
 

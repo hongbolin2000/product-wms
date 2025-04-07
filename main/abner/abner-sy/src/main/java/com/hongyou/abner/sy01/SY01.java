@@ -334,6 +334,12 @@ public class SY01 extends UserDataProvider {
                 permissionMenu.isMenu(true).
                         children(childrenPermissions);
             }
+
+            // 未设置权限的菜单
+            if (ListUtil.isEmpty(permissionMenu.build().getChildren())) {
+                continue;
+            }
+
             permissionMenus.add(permissionMenu.
                     treeId(menu.getId()).
                     label(menu.getLabel()).
