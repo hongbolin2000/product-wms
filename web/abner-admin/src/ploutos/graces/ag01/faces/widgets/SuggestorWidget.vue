@@ -115,7 +115,7 @@
    * 选择
    */
   function handleUpdateValue(value: string, option: SelectOption) {
-    if (props.widget.script) {
+    if (option && props.widget.script) {
       const func = new Function( 'row', 'option', 'script', 'return eval(script)');
       func(props.widget.rowData, option, props.widget.script);
     }

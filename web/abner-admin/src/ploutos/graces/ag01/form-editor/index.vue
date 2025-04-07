@@ -479,7 +479,7 @@
     const title = props.fill ? editor.value.etitle : editor.value.atitle;
     const titleValue = formValue.value[labelColumn.value];
     dialog.warning({
-      content: '是否确认' + title + ' - ' + titleValue + '？',
+      content: '是否确认' + title + (titleValue != '' ? ' - ' : titleValue) + titleValue + '？',
       onConfirmClick: () => onConfirm(data, title, titleValue)
     })
   }
@@ -673,10 +673,19 @@
    * 编辑表格修改按钮点击
    */
   function onSheeterUpdateClick(sheeter, rowData: any, rowIndex: number) {
-      selectSheeter.value = sheeter;
-      sheeterRowIndex.value = rowIndex;
-      sheeterFormValue.value = {...rowData};
-      showFormModal.value = true;
+    // 设置编辑表格规则
+    const rules = [];
+    sheeter.widgets.forEach(widget => {
+      if (!widget.hidden && widget.required) {
+        rules[widget.name] = WidgetFactories.getInstance().getRule(widget);
+      }
+    });
+    sheeterFormRules.value = rules;
+
+    selectSheeter.value = sheeter;
+    sheeterRowIndex.value = rowIndex;
+    sheeterFormValue.value = {...rowData};
+    showFormModal.value = true;
   }
 
   /**
@@ -689,19 +698,20 @@
   /**
    * 打开编辑表格弹框
    */
-  function onShowSheetModal(sheet: Sheeter) {
-    sheeterFormValue.value = {};
-
+  function onShowSheetModal(sheeter: Sheeter) {
+    // 设置编辑表格规则和缺省值
     const rules = [];
-    sheet.widgets.forEach(widget => {
+    sheeter.widgets.forEach(widget => {
       if (!widget.hidden && widget.required) {
         rules[widget.name] = WidgetFactories.getInstance().getRule(widget);
       }
       sheeterFormValue.value[widget.name] = widget.default ? widget.default : '';
     });
-    selectSheeter.value = sheet;
-    sheeterRowIndex.value = -1;
     sheeterFormRules.value = rules;
+
+    selectSheeter.value = sheeter;
+    sheeterRowIndex.value = -1;
+    sheeterFormValue.value = {};
     showFormModal.value = true;
   }
 

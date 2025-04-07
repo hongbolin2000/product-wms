@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -312,6 +313,8 @@ public class SY01 extends UserDataProvider {
             // 当前菜单权限
             List<Pmsnms> pmsnmss = permissions.get(menu.getId());
             if (ListUtil.isNotEmpty(pmsnmss)) {
+                pmsnmss.sort(Comparator.comparing(Pmsnms::getSortng));
+
                 List<PermissionMenu> childrenPermissions = new ArrayList<>();
                 pmsnmss.forEach(pmsnms -> {
                     // 当前菜单的权限

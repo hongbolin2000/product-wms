@@ -5,7 +5,7 @@
       :file-list-style="column.mode == 'text' ? 'width: 400px;line-height: 0' : 'height: 48px;'"
       :show-trigger="false"
       :show-remove-button="false"
-      :show-download-button="column.mode == 'image'"
+      :show-download-button="column.mode != 'text'"
       @download="handleDownload"
       @preview="handlePreview"
       v-if="props.column.rowData[props.column.name]"

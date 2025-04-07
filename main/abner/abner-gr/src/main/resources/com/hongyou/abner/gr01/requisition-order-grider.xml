@@ -22,18 +22,22 @@
             <table name="vrqhead"/>
             <order by="rqhdno desc"/>
         </statement>
+        <double.click type="query" datatables="detail" input="rqHeadId"/>
 
         <columns>
+            <column type="label" name="rqHeadId" expr="rqhdid" hidden="true"/>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
-            <column type="label" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" width="100" filter="text"/>
+            <column type="label" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" width="130" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@RQHEAD.PROJID" width="150" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" width="150" filter="text"/>
-            <column type="tag" name="status" expr="status" title="@RQHEAD.STATUS" width="70" format="@@RQHEAD.STATUS"
+            <column type="tag" name="status" expr="status" title="@RQHEAD.STATUS" width="90" format="@@RQHEAD.STATUS"
                     filter="@status" success="statusValue == '10' or statusValue == '30'"/>
             <column type="label" name="applicationDate" expr="aplcdt" title="@RQHEAD.APLCDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="applicationBy" expr="aplcby" title="@RQHEAD.APLCBY" width="100" filter="text"/>
             <column type="label" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" width="100" format="!yyyy-MM-dd" filter="date"/>
-            <column type="label" name="remark" expr="remark" title="@RQHEAD.REMARK" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@RQHEAD.REMARK" filter="text"/>
+            <column type="link" mode="drawer" drawerWidth="50%" name="issue.po" icon="edit" expr="rqhdid" title="@issue.po"
+                    width="80" link="/graces/editor/gr01/requisitionOrderEdit" permission="issue.po"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
                     link="/graces/editor/gr01/requisitionOrderEdit" disabled="statusValue != '00'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="rqhdid" title="@delete" width="80"
@@ -41,10 +45,34 @@
         </columns>
     </datatable>
 
+    <subtable name="detail">
+        <statement>
+            <table name="vrqline"/>
+            <param column="rqhdid" type="=" expr="eventId"/>
+            <order by="rqlnno"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
+            <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="price" expr="price" title="@RQLINE.PRICE" width="80" format="%#.###"/>
+            <column type="tag" name="status" expr="status" title="@RQLINE.STATUS" width="90" format="@@RQLINE.STATUS"
+                    filter="@status" success="statusValue == '20'"/>
+            <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="120" filter="text"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@RQLINE.REMARK" filter="text"/>
+        </columns>
+    </subtable>
+
     <intl>
         <lang code="zh-CN">
             <item key="table.title">请购单</item>
             <item key="add">创建请购单</item>
+
+            <item key="issue.po">下发采购</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
@@ -52,6 +80,8 @@
         <lang code="en-US">
             <item key="table.title">Requisition Order</item>
             <item key="add">Create Requisition Order</item>
+
+            <item key="issue.po">Issue PO</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

@@ -20,16 +20,16 @@
         </statement>
 
         <columns>
-            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="100"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
-            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="100" filter="text"/>
-            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="120" filter="text"/>
             <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="100" filter="text"/>
-            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" filter="text"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="120" filter="text"/>
             <column type="label" name="purchasePrice" expr="pcsprc" title="@MTRLMS.PCSPRC" width="100" format="%#.###"/>
             <column type="label" name="salesPrice" expr="slsprc" title="@MTRLMS.SLSPRC" width="100" format="%#.###"/>
-            <column type="label" name="minStockQty" expr="mnstqt" title="@MTRLMS.MNSTQT" width="100" format="%#.###"/>
-            <column type="label" name="remark" expr="remark" title="@MTRLMS.REMARK" width="100" filter="text"/>
+            <column type="label" name="minStockQty" expr="mnstqt" title="@MTRLMS.MNSTQT" width="120" format="%#.###"/>
+            <column type="label" name="remark" expr="remark" title="@MTRLMS.REMARK" filter="text"/>
             <column type="link" name="edit" icon="edit" expr="mtrlid" title="@edit" width="80"
                     link="/graces/editor/wb02/materialEdit" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="mtrlid" title="@delete" width="80"
