@@ -16,7 +16,7 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" icon="add" title="@add" link="/sy02/add" />
+            <action type="link" icon="add" title="@add" link="/sy02/add" permission="add"/>
         </actions>
 
         <statement>

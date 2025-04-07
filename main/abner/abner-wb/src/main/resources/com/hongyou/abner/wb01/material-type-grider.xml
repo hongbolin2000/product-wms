@@ -15,7 +15,7 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" icon="add" title="@add" link="/graces/editor/wb01/materialTypeEdit" />
+            <action type="link" icon="add" title="@add" link="/graces/editor/wb01/materialTypeEdit" permission="add"/>
         </actions>
 
         <statement>
@@ -37,9 +37,9 @@
             <column type="label" name="length" expr="srllen" title="@MTRTYP.SRLLEN" width="120" format="%#"/>
             <column type="label" name="remark" expr="remark" title="@MTRTYP.REMARK" filter="text"/>
             <column type="link" name="edit" icon="edit" expr="mttyid" title="@edit" width="80"
-                    link="/graces/editor/wb01/materialTypeEdit"/>
+                    link="/graces/editor/wb01/materialTypeEdit" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="mttyid" title="@delete" width="80"
-                    link="/wb01/delete" labelColumn="materialType" danger="true"/>
+                    link="/wb01/delete" labelColumn="materialType" danger="true" permission="delete"/>
         </columns>
     </datatable>
 

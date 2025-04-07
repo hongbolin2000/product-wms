@@ -14,7 +14,8 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/ba02/projectEdit" />
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/ba02/projectEdit"
+                    permission="add"/>
         </actions>
 
         <statement>
@@ -36,9 +37,9 @@
             <column type="label" name="finishedDate" expr="fnshdt" title="@PROJMS.FNSHDT" width="110" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="remark" expr="remark" title="@PROJMS.REMARK" width="100" filter="text"/>
             <column type="link" mode="drawer" name="edit" icon="edit" expr="projid" title="@edit" width="80"
-                    link="/graces/editor/ba02/projectEdit"/>
+                    link="/graces/editor/ba02/projectEdit" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="projid" title="@delete" width="80"
-                    link="/ba02/delete" labelColumn="projectName" danger="true"/>
+                    link="/ba02/delete" labelColumn="projectName" danger="true" permission="delete"/>
         </columns>
     </datatable>
 

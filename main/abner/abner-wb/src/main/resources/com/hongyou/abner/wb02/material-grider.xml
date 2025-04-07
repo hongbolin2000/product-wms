@@ -10,7 +10,7 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" icon="add" title="@add" link="/graces/editor/wb02/materialEdit" />
+            <action type="link" icon="add" title="@add" link="/graces/editor/wb02/materialEdit" permission="add"/>
         </actions>
 
         <statement>
@@ -31,9 +31,9 @@
             <column type="label" name="minStockQty" expr="mnstqt" title="@MTRLMS.MNSTQT" width="100" format="%#.###"/>
             <column type="label" name="remark" expr="remark" title="@MTRLMS.REMARK" width="100" filter="text"/>
             <column type="link" name="edit" icon="edit" expr="mtrlid" title="@edit" width="80"
-                    link="/graces/editor/wb02/materialEdit"/>
+                    link="/graces/editor/wb02/materialEdit" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="mtrlid" title="@delete" width="80"
-                    link="/wb02/delete" labelColumn="skuName" danger="true"/>
+                    link="/wb02/delete" labelColumn="skuName" danger="true" permission="delete"/>
         </columns>
     </datatable>
 

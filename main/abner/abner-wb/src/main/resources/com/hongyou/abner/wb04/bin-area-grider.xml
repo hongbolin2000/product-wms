@@ -10,7 +10,7 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/wb04/binAreaEdit" />
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/wb04/binAreaEdit" permission="add"/>
         </actions>
 
         <statement>
@@ -25,9 +25,9 @@
             <column type="label" name="areaName" expr="bnarnm" title="@BINARA.BNARNM" width="100" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@BINARA.REMARK" filter="text"/>
             <column type="link" mode="drawer" name="edit" icon="edit" expr="bnarid" title="@edit" width="80"
-                    link="/graces/editor/wb04/binAreaEdit"/>
+                    link="/graces/editor/wb04/binAreaEdit" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="bnarid" title="@delete" width="80"
-                    link="/wb04/delete" labelColumn="areaName" danger="true"/>
+                    link="/wb04/delete" labelColumn="areaName" danger="true" permission="delete"/>
         </columns>
     </datatable>
 

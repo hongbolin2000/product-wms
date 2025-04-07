@@ -14,7 +14,7 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/wb05/binEdit" />
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/wb05/binEdit" permission="add"/>
         </actions>
 
         <statement>
@@ -31,9 +31,9 @@
                     filter="@status"/>
             <column type="label" name="remark" expr="remark" title="@BINMAS.REMARK" filter="text"/>
             <column type="link" mode="drawer" name="edit" icon="edit" expr="binmid" title="@edit" width="80"
-                    link="/graces/editor/wb05/binEdit"/>
+                    link="/graces/editor/wb05/binEdit" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="binmid" title="@delete" width="80"
-                    link="/wb05/delete" labelColumn="binCode" danger="true"/>
+                    link="/wb05/delete" labelColumn="binCode" danger="true" permission="delete"/>
         </columns>
     </datatable>
 
