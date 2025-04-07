@@ -7,6 +7,7 @@ import com.hongyou.baron.Application;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -58,6 +59,10 @@ public class DocumentPage {
         @RequestParam("file") MultipartFile multipart, @RequestParam("group") final String group
     ) {
         try {
+            if (StringUtil.isBlank(group)) {
+                return ResponseEntry.builder().code(-1).message("未指定上传的文件分组路径").build();
+            }
+
             String fileName = UUID.randomUUID() + "_" + multipart.getOriginalFilename();
             fileName = group + "/" + fileName;
 

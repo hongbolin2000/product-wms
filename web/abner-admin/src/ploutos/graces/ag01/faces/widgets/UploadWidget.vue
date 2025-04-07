@@ -128,11 +128,11 @@
    */
   function handleFinish(options: {file: UploadFileInfo, event?: Event}) {
     const response = (options.event?.target as XMLHttpRequest).response;
-    const data = JSON.parse(response)
+    const data = JSON.parse(response);
 
     // 上传失败
     if (data.code != 200) {
-      message.error(props.widget.title + '上传失败');
+      message.error(props.widget.title + '上传失败！' + data.message);
       options.file.status = 'error';
       return;
     }
@@ -158,8 +158,12 @@
 
     // 上传失败
     if (options.file.status == 'error') {
-      const error = (options.event?.target as XMLHttpRequest).response;
-      message.error(props.widget.title + '上传失败！' + error);
+      const response = (options.event?.target as XMLHttpRequest).response;
+      try {
+        JSON.parse(response);
+      } catch (e) {
+        message.error(props.widget.title + '上传失败！' + response);
+      }
     }
   }
 

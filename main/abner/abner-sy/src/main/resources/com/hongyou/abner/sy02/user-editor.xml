@@ -29,7 +29,7 @@
         <input type="text" name="position" expr="positn" title="@USERMS.POSITN" length="32"/>
         <input type="text" name="phoneNo" expr="phonno" title="@USERMS.PHONNO" length="11"/>
         <input type="text" name="email" expr="email" title="@USERMS.EMAIL" length="32"/>
-        <input type="upload" name="avatar" expr="avatar" title="@USERMS.AVATAR" length="254"/>
+        <input type="upload" name="avatar" expr="avatar" title="@USERMS.AVATAR" group="userms/avatar"/>
         <input type="text" mode="textarea" name="remark" expr="remark" title="@USERMS.REMARK" length="254" accept="image/*"/>
     </editor>
 
