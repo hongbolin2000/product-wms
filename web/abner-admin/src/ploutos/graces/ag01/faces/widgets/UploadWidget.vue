@@ -74,6 +74,8 @@
    * 组件加载前
    */
   onBeforeMount(() => {
+    // 加载前已经有了数据
+    showFile();
     WidgetUtil.disabled(props.widget);
   });
 
@@ -81,22 +83,32 @@
    * 组件更新前
    */
   onBeforeUpdate(() => {
+    showFile();
+    WidgetUtil.disabled(props.widget);
+  });
+
+  function showFile() {
     const value: string = props.widget.rowData[props.widget.name];
-    const fileNames = value.split("/");
 
     // 显示当前图片
-    if (value && fileList.value.length <= 0) {
+    if (value) {
+      const fileNames = value.split("/");
       const file: UploadFileInfo = {
         id: value,
         name: fileNames[fileNames.length - 1],
         url: http.basePath + '/doc/image?file=' + value,
         status: 'finished'
       }
-      fileList.value.push(file);
-    }
 
-    WidgetUtil.disabled(props.widget);
-  });
+      // 用于编辑表单根据基础数据动态展示图片
+      if (props.widget.isDisabled) {
+        fileList.value = [file];
+      }
+      if (fileList.value.length <= 0) {
+        fileList.value.push(file);
+      }
+    }
+  }
 
   /**
    * 控件展现模式
