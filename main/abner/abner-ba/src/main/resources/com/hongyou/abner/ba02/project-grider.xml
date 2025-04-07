@@ -25,10 +25,12 @@
         </statement>
 
         <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="projectCode" expr="projcd" title="@PROJMS.PROJCD" width="100" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@PROJMS.PROJNM" width="150" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@PROJMS.CSTMID" width="150" filter="text"/>
-            <column type="tag" name="status" expr="status" title="@PROJMS.STATUS" width="70" format="@@PROJMS.STATUS" filter="@status"/>
+            <column type="tag" name="status" expr="status" title="@PROJMS.STATUS" width="70" format="@@PROJMS.STATUS"
+                    filter="@status" success="statusValue == 'F'" error="statusValue == 'C'"/>
             <column type="label" name="projectLeader" expr="prjldr" title="@PROJMS.PRJLDR" width="100" filter="text"/>
             <column type="label" name="contractCode" expr="cntrcd" title="@PROJMS.CNTRCD" width="100" filter="text"/>
             <column type="label" name="signingDate" expr="signdt" title="@PROJMS.SIGNDT" width="100" format="!yyyy-MM-dd" filter="date"/>

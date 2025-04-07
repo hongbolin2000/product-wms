@@ -25,13 +25,15 @@
         </statement>
 
         <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="projectName" expr="projnm" title="@PROJPC.PROJID" width="150" filter="text"/>
             <column type="label" name="level" expr="level" title="@PROJPC.LEVEL" width="100" format="%#.###"/>
             <column type="label" name="taskName" expr="tasknm" title="@PROJPC.TASKNM" width="100" filter="text"/>
             <column type="label" name="taskRemark" expr="taskrm" title="@PROJPC.TASKRM" width="100" filter="text"/>
             <column type="label" name="taskLeader" expr="taskld" title="@PROJPC.TASKLD" width="100" filter="text"/>
             <column type="label" name="processPercent" expr="pcspct" title="@PROJPC.PCSPCT" width="100" filter="text"/>
-            <column type="tag" name="status" expr="status" title="@PROJPC.STATUS" width="70" format="@@PROJPC.STATUS" filter="@status"/>
+            <column type="tag" name="status" expr="status" title="@PROJPC.STATUS" width="70" format="@@PROJPC.STATUS"
+                    filter="@status" success="statusValue == 'F'" error="statusValue == 'C'"/>
             <column type="label" name="planFinishDate" expr="plfndt" title="@PROJPC.PLFNDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="finishedDate" expr="fnshdt" title="@PROJPC.FNSHDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="remark" expr="remark" title="@PROJPC.REMARK" width="100" filter="text"/>

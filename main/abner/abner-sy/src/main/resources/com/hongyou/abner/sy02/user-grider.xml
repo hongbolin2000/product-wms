@@ -34,8 +34,7 @@
             <column type="tag" name="gender" expr="gender" title="@USERMS.GENDER" width="70" format="@@USERMS.GENDER"
                     filter="@gender"/>
             <column type="tag" name="status" expr="status" title="@USERMS.STATUS" width="70" format="@@USERMS.STATUS"
-                    filter="@status"
-                    success="statusValue == '00'" error="statusValue == '99'"/>
+                    filter="@status" success="statusValue == '00'" error="statusValue == '99'"/>
             <column type="tag" name="loginStatus" expr="lgnsts" title="@USERMS.LGNSTS" width="100" format="@@USERMS.LGNSTS"
                     filter="@loginStatus" success="loginStatusValue == 'ON'" error="loginStatusValue == 'OF'"/>
             <column type="label" name="position" expr="positn" title="@USERMS.POSITN" width="120" filter="text"/>

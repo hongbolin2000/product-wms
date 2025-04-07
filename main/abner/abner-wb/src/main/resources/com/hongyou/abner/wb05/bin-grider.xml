@@ -24,11 +24,12 @@
         </statement>
 
         <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="warehouseName" expr="wrhsnm" title="@BINMAS.WRHSID" width="100" filter="text"/>
             <column type="label" name="areaName" expr="bnarnm" title="@BINMAS.BNARID" width="100" filter="text"/>
             <column type="label" name="binCode" expr="bincde" title="@BINMAS.BINCDE" width="100" filter="text"/>
             <column type="tag" name="status" expr="status" title="@BINMAS.STATUS" width="70" format="@@BINMAS.STATUS"
-                    filter="@status"/>
+                    filter="@status" success="statusValue == 'N'" warning="statusValue == 'L'" error="statusValue == 'D'"/>
             <column type="label" name="remark" expr="remark" title="@BINMAS.REMARK" filter="text"/>
             <column type="link" mode="drawer" name="edit" icon="edit" expr="binmid" title="@edit" width="80"
                     link="/graces/editor/wb05/binEdit" permission="update"/>

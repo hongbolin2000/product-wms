@@ -23,10 +23,10 @@ N	PLFNDT,		DATE,		,				,						planFinishDate,		Plan Finish Date,		预计完成�
 N	FNSHDT,		DATE,		,				,						finishedDate,		Finished Date,			实际完成日期
 *****************************************************************************************************************************************************
 N	STATUS,		VC(1),		NOT NULL,		'N',					status,			    Status,				    状态
-	E	N		New	        新项目
-	E	P		Processing	进行中
-	E	C		Cancel		取消
-	E	S		Success		完成
+	B	N		New	        新项目
+	B	P		Processing	进行中
+	B	F		Finished	已完成
+	B	C		Cancel		取消
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
 N	CRETBY,		VC(32),		NOT NULL,		'',						createBy,			Create By,				创建人
