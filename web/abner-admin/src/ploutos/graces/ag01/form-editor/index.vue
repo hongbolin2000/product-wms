@@ -721,7 +721,8 @@
     const messageTitle = getMessageFormTitle();
     if (unique && selectSheeter.value.data) {
       const value = sheeterFormValue.value[unique];
-      if (selectSheeter.value.data.findIndex(i => i[unique] == value) != -1) {
+      const uniqueIndex = selectSheeter.value.data.findIndex(i => i[unique] == value);
+      if (uniqueIndex != -1 && uniqueIndex != sheeterRowIndex.value) {
         message.error(messageTitle + '已存在');
         return;
       }
