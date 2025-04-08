@@ -1,7 +1,7 @@
 <template>
   <n-space :size="0">
-    <n-button type="primary" text @click="onUpdateClick">修改</n-button>
-    <n-divider vertical v-if="sheeter.added"/>
+    <n-button type="primary" text @click="onUpdateClick" v-if="sheeter.updated">修改</n-button>
+    <n-divider vertical v-if="sheeter.added && sheeter.updated"/>
 
     <n-popconfirm @positive-click="onDeleteClick" v-if="sheeter.added">
       <template #trigger>

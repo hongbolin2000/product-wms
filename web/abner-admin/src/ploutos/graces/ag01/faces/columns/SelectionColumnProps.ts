@@ -8,7 +8,7 @@
  *******************************************************************************/
 import AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
 
-export default class CheckColumnProps extends AbstractColumn {
+export default class SelectionColumnProps extends AbstractColumn {
 
 	/**
 	 * 是否单选

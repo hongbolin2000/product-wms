@@ -105,27 +105,38 @@
       columns.push(column);
     });
 
-    // 操作按钮
-    const column: TableBaseColumn = <TableBaseColumn>{};
-    column.key = 'option';
-    column.title = '操作';
-    column.width = sheeter.added ? 100 : 50;
-    column.align = 'center';
-    column.fixed = 'right';
-    column.render = (rowData, index) => {
-      return h(SheeterActions, {
-        sheeter: sheeter,
-        onUpdateClick: () => {
-          emit('onUpdateClick', rowData, index);
-        },
-        onDeleteClick: () => {
-          sheeter.data.splice(index, 1);
-          const title = props.sheeter.title ? '[ ' + props.sheeter.title + ' ]' : '';
-          message.success(title + '删除成功');
-        }
-      })
+    // 操作按钮列宽
+    let optionWith = 100;
+    if (!sheeter.added) {
+      optionWith -= 50;
     }
-    columns.push(column);
+    if (!sheeter.updated) {
+      optionWith -= 50;
+    }
+
+    // 操作按钮
+    if (optionWith > 0) {
+      const column: TableBaseColumn = <TableBaseColumn>{};
+      column.key = 'option';
+      column.title = '操作';
+      column.width = optionWith;
+      column.align = 'center';
+      column.fixed = 'right';
+      column.render = (rowData, index) => {
+        return h(SheeterActions, {
+          sheeter: sheeter,
+          onUpdateClick: () => {
+            emit('onUpdateClick', rowData, index);
+          },
+          onDeleteClick: () => {
+            sheeter.data.splice(index, 1);
+            const title = props.sheeter.title ? '[ ' + props.sheeter.title + ' ]' : '';
+            message.success(title + '删除成功');
+          }
+        })
+      }
+      columns.push(column);
+    }
 
     // 列属性
     columns.forEach(column => {

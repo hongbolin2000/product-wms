@@ -166,8 +166,8 @@
   import HeaderColumn from "@/ploutos/graces/ag01/components/HeaderColumn.vue";
   import LabelColumnFactory from "@/ploutos/graces/ag01/faces/columns/LabelColumnFactory.ts";
   import type LinkColumnProps from "@/ploutos/graces/ag01/faces/columns/LinkColumnProps.ts";
-  import CheckColumnFactory from "@/ploutos/graces/ag01/faces/columns/CheckColumnFactory.ts";
-  import type CheckColumnProps from "@/ploutos/graces/ag01/faces/columns/CheckColumnProps.ts";
+  import SelectionColumnFactory from "@/ploutos/graces/ag01/faces/columns/SelectionColumnFactory.ts";
+  import type SelectionColumnProps from "@/ploutos/graces/ag01/faces/columns/SelectionColumnProps.ts";
   import TagColumnFactory from "@/ploutos/graces/ag01/faces/columns/TagColumnFactory.ts";
   import ActionFactories from "@/ploutos/graces/ag01/faces/ActionFactories.ts";
   import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction.ts";
@@ -460,8 +460,8 @@
     contextMenuOptions.value = menuOptions;
 
     // 选择列
-    datatable.columns.filter(i => i.type == CheckColumnFactory.TYPE).forEach(item => {
-      const checkColumn: CheckColumnProps = <CheckColumnProps>{...item};
+    datatable.columns.filter(i => i.type == SelectionColumnFactory.TYPE).forEach(item => {
+      const checkColumn: SelectionColumnProps = <SelectionColumnProps>{...item};
 
       const column: TableSelectionColumn = <TableSelectionColumn>{};
       column.type = 'selection';
@@ -478,7 +478,7 @@
 
     // 生成表格列
     datatable.columns.forEach(item => {
-      if (ColumnFactories.isLink(item) || item.type == CheckColumnFactory.TYPE) {
+      if (ColumnFactories.isLink(item) || item.type == SelectionColumnFactory.TYPE) {
         return;
       }
 

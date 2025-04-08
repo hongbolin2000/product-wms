@@ -9,18 +9,18 @@ import {type VNode} from "vue";
  *******************************************************************************/
 import type ColumnFactory from "@/ploutos/graces/ag01/faces/ColumnFactory.ts";
 
-export default class CheckColumnFactory implements ColumnFactory {
+export default class SelectionColumnFactory implements ColumnFactory {
 
 	/**
 	 * 选择列类型
 	 */
-	static TYPE: string = "check";
+	static TYPE: string = "selection";
 
 	/**
 	 * 获取选择列类型
 	 */
 	getType(): string {
-		return CheckColumnFactory.TYPE;
+		return SelectionColumnFactory.TYPE;
 	}
 
 	/**

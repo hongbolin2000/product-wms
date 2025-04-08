@@ -38,6 +38,11 @@ export default class Sheeter extends AbstractComponent {
 	added: boolean;
 
 	/**
+	 * 是否可修改数据
+	 */
+	updated: boolean;
+
+	/**
 	 * 是否必填
 	 */
 	required: boolean;

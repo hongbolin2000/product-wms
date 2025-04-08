@@ -12,7 +12,7 @@ import createDataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
 
 import Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
 import LabelColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
-import CheckColumn from "@/ploutos/graces/ag01/faces/columns/CheckColumnProps.ts";
+import CheckColumn from "@/ploutos/graces/ag01/faces/columns/SelectionColumnProps.ts";
 import Sorter from "@/ploutos/graces/ag01/faces/Sorter.ts";
 
 export namespace Graces {

@@ -47,7 +47,7 @@
         <double.click type="query" datatables="detail" input="storeName"/>
 
         <columns>
-            <column type="check" name="storeId" expr="streid" disabled="storeCode == 'GP-SH003'"/>
+            <column type="selection" name="storeId" expr="streid" disabled="storeCode == 'GP-SH003'"/>
             <column type="file" name="installImage" expr="eqisim" title="@STREMS.EQISIM" width="110" align="center"/>
             <column type="tag" name="enabled" expr="enabld" width="70" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
                     filter="@enabled" success="enabled == '可用'" error="enabled != '可用'"/>
