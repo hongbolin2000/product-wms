@@ -461,17 +461,17 @@
 
     // 选择列
     datatable.columns.filter(i => i.type == SelectionColumnFactory.TYPE).forEach(item => {
-      const checkColumn: SelectionColumnProps = <SelectionColumnProps>{...item};
+      const selectionColumn: SelectionColumnProps = <SelectionColumnProps>{...item};
 
       const column: TableSelectionColumn = <TableSelectionColumn>{};
       column.type = 'selection';
       column.disabled = (row: any) => {
-        if (checkColumn.disabled) {
-          return Parser.parse(checkColumn.disabled).evaluate(row);
+        if (selectionColumn.disabled) {
+          return Parser.parse(selectionColumn.disabled).evaluate(row);
         }
       }
-      column.multiple = !checkColumn.single;
-      datatable.checkRowKey = checkColumn.name;
+      column.multiple = !selectionColumn.single;
+      datatable.checkRowKey = selectionColumn.name;
       column.cellProps = (rowData: object, rowIndex: number) => columnProps(rowIndex);
       columns.push(column);
     });

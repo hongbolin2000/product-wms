@@ -104,6 +104,7 @@
                 :sheeter="sheeter"
                 @on-double-click="onSheeterDoubleClick"
                 @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
+                @on-checked-rows="(keys) => sheeterCheckedKeys = keys"
             />
           </n-card>
 
@@ -134,6 +135,7 @@
                     :sheeter="sheeter"
                     @on-double-click="onSheeterDoubleClick"
                     @on-update-click="(rowData: any, rowIndex: number) => onSheeterUpdateClick(sheeter, rowData, rowIndex)"
+                    @on-checked-rows="(keys) => sheeterCheckedKeys = keys"
                 />
               </n-tab-pane>
             </n-tabs>
@@ -217,6 +219,8 @@
   import FormGrid from "@/ploutos/graces/ag01/form-editor/components/FormGrid.vue";
   import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTable.vue";
   import type SheeterRow from "@/ploutos/graces/ag01/faces/SheeterRow.ts";
+  import type {DataTableRowKey} from "naive-ui";
+  import SelectionWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/SelectionWidgetFactory.ts";
 
   /**
    * 当前路由
@@ -464,13 +468,30 @@
     const data = formValue.value;
     for (let i = 0; i < editor.value.sheeterRows.length; i++) {
       const sheeters = editor.value.sheeterRows[i].sheeters;
-
       for (let j = 0; j < sheeters.length; j++) {
         const sheeter = sheeters[j];
-        data[sheeter.name] = sheeter.data ? sheeter.data : [];
-        if (sheeter.required && (!sheeter.data || sheeter.data.length <= 0)) {
-          message.error("请将" + getFormTitle(sheeter.title) + "表格数据填写完整")
-          return;
+
+        // 检查是否有选择框
+        const selectionWidget = sheeter.widgets.find(i => i.type == SelectionWidgetFactory.TYPE);
+        if (selectionWidget) {
+          if (sheeterCheckedKeys.value.length <= 0) {
+            message.error("请选择" + getFormTitle(sheeter.title))
+            return;
+          }
+          const selectionData = [];
+          sheeterCheckedKeys.value.forEach(key => {
+            selectionData.push(sheeter.data.find(i => i[selectionWidget.name] == key));
+          });
+          data[sheeter.name] = selectionData;
+        }
+
+        // 非选择模式
+        if (!selectionWidget) {
+          data[sheeter.name] = sheeter.data ? sheeter.data : [];
+          if (sheeter.required && (!sheeter.data || sheeter.data.length <= 0)) {
+            message.error("请将" + getFormTitle(sheeter.title) + "表格数据填写完整")
+            return;
+          }
         }
       }
     }
@@ -652,6 +673,11 @@
   const sheeterFormValue: Ref = ref({});
   const sheeterFormRules: ShallowRef = shallowRef({});
   const sheeterRowIndex = ref(-1);
+
+  /**
+   * sheeter选中的行key
+   */
+  const sheeterCheckedKeys: Ref<DataTableRowKey[]> = shallowRef([]);
 
   /**
    * 折叠编辑表格
