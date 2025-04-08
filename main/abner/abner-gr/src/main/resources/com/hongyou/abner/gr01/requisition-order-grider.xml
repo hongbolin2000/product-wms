@@ -29,7 +29,7 @@
             <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" width="130" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@RQHEAD.PROJID" width="150" filter="text"/>
-            <column type="label" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" width="200" filter="text"/>
             <column type="tag" name="status" expr="status" title="@RQHEAD.STATUS" width="90" format="@@RQHEAD.STATUS"
                     filter="@status" success="statusValue == '10' or statusValue == '30'"/>
             <column type="label" name="applicationDate" expr="aplcdt" title="@RQHEAD.APLCDT" width="100" format="!yyyy-MM-dd" filter="date"/>
@@ -65,7 +65,6 @@
             <column type="label" name="price" expr="price" title="@RQLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@RQLINE.STATUS" width="90" format="@@RQLINE.STATUS"
                     filter="@status" success="statusValue == '10'"/>
-            <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="120" filter="text"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@RQLINE.REMARK" filter="text"/>
         </columns>

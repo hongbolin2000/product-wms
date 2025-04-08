@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 采购单列表 -->
+    <generic-grider-descriptor name="purchasingOrderList">purchasing-order-grider.xml</generic-grider-descriptor>
+
+    <!-- 采购单编辑 -->
+    <generic-editor-descriptor name="purchasingOrderEdit">purchasing-order-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

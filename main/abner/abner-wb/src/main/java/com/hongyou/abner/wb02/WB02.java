@@ -97,6 +97,7 @@ public class WB02 extends UserDataProvider {
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().mtrlms().save(mtrlms);
+            VMtrlms vMtrlms = new VMtrlms().mtrlid(mtrlms.getMtrlid()).oneById();
 
             // 记录日志
             String action = oldMtrlms == null ? "新增" : "修改";
@@ -108,7 +109,7 @@ public class WB02 extends UserDataProvider {
                     action(action).
                     message(StringUtil.format("物料[{}]{}成功", mtrlms.getSkunam(), action)).
                     oldValue(oldMtrlms).
-                    newValue(mtrlms).
+                    newValue(vMtrlms).
                     build();
             this.eventLogManager.info(event);
 

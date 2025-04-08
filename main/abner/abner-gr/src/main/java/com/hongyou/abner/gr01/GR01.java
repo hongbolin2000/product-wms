@@ -191,20 +191,21 @@ public class GR01 extends UserDataProvider {
             Map<String, String> displays = this.international.getTableValuesDisplay(request, "rqhead");
 
             for (Long id: ids) {
-                Rqhead rqhead = this.db().rqhead().get(id);
+                VRqhead vRqhead = new VRqhead().rqhdid(id).oneById();
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(GR01.class.getSimpleName()).
                         name("请购单管理").
                         action("删除").
-                        message(StringUtil.format("请购单[{}]删除成功", rqhead.getRqhdno())).
-                        newValue(rqhead).
+                        message(StringUtil.format("请购单[{}]删除成功", vRqhead.getRqhdno())).
+                        newValue(vRqhead).
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().rqhead().delete(rqhead);
             }
+            this.db().rqhead().deleteIds(ids);
+
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("请购单删除失败", e);

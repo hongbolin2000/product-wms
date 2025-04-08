@@ -12,7 +12,7 @@ N	POLNNO,		INT,		NOT NULL,		1,						poLineNo,			PO Line NO,				采购单行号
 *****************************************************************************************************************************************************
 N	RQLNID,		BIGINT,		        ,		,						requisitionLineId,	Requisition Line,		请购单行
 *****************************************************************************************************************************************************
-N	MTRLID,		BIGINT,		NOT NULL,       ,               		material,			Material,               物料
+N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,               物料
 K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
 N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价

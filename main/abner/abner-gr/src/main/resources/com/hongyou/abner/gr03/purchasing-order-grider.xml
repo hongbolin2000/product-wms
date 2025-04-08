@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        采购单列表
+    </description>
+
+    <filters>
+        <opts name="status" type="enum" table="POHEAD" column="STATUS"/>
+        <opts name="payStatus" type="enum" table="POHEAD" column="PAYSTS"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <statement>
+            <table name="vpohead"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
+            <order by="pohdno desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="120" filter="text"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="150" filter="text"/>
+            <column type="label" name="projectName" expr="projnm" title="@POHEAD.PROJID" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@POHEAD.CSTMID" width="150" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@POHEAD.STATUS" width="90" format="@@POHEAD.STATUS" filter="@status"/>
+            <column type="label" name="orderDate" expr="ordrdt" title="@POHEAD.ORDRDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="demandDate" expr="demddt" title="@POHEAD.DEMDDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="startReceiveDate" expr="strcdt" title="@POHEAD.STRCDT" width="120" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="finishReceiveDate" expr="fnrcdt" title="@POHEAD.FNRCDT" width="120" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="startReceiveBy" expr="strcby" title="@POHEAD.STRCBY" width="120" filter="text"/>
+            <column type="label" name="finishReceiveBy" expr="fnrcby" title="@POHEAD.FNRCBY" width="120" filter="text"/>
+            <column type="label" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" width="120" filter="text"/>
+            <column type="label" name="Amount" expr="amount" title="@POHEAD.AMOUNT" width="100" format="%#.###"/>
+            <column type="label" name="payCount" expr="paycnt" title="@POHEAD.PAYCNT" width="100" format="%#.###"/>
+            <column type="label" name="payAmount" expr="payamt" title="@POHEAD.PAYAMT" width="100" format="%#.###"/>
+            <column type="tag" name="payStatus" expr="paysts" title="@POHEAD.PAYSTS" width="100" format="@@POHEAD.PAYSTS" filter="@payStatus"/>
+            <column type="label" name="remark" expr="remark" title="@POHEAD.REMARK" width="120" filter="text"/>
+            <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="pohdid" title="@edit" width="80"
+                    link="/graces/editor/gr03/purchasingOrderEdit" permission="update"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="pohdid" title="@delete" width="80"
+                    link="/gr03/delete" labelColumn="" danger="true" permission="delete"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">采购单</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Purchasing Order</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

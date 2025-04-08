@@ -72,6 +72,21 @@ public class GR02 extends UserDataProvider {
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().pohead().save(pohead);
+            VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
+
+            // 记录日志
+            Map<String, String> displays = this.international.getTableValuesDisplay(request, "pohead");
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(operatorBy).
+                    module(GR02.class.getSimpleName()).
+                    name("请购单管理").
+                    action("下发采购").
+                    message(StringUtil.format("请购单[{}]下发采购单[{}]成功", rqhead.getRqhdno(), pohead.getPohdno())).
+                    newValue(vPohead).
+                    enumsDisplay(displays).
+                    build();
+            this.eventLogManager.info(event);
 
             for (int i = 0; i < pojo.getMaterials().size(); i++) {
                 RqlinePojo line = pojo.getMaterials().get(i);
@@ -94,13 +109,15 @@ public class GR02 extends UserDataProvider {
 
                 // 订单总金额
                 pohead.amount(pohead.getAmount().add(poline.getOrdqty().multiply(poline.getPrice())));
+                this.db().pohead().save(pohead);
+
                 rqline.status(Rqline.STATUS.Finish).
                         oprtby(operatorBy).
                         oprttm(currentTime);
                 this.db().rqline().save(rqline);
 
                 // 记录日志
-                EventLog event = EventLog.builder().
+                event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(GR02.class.getSimpleName()).
@@ -113,21 +130,6 @@ public class GR02 extends UserDataProvider {
                         build();
                 this.eventLogManager.info(event);
             }
-            VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
-
-            // 记录日志
-            Map<String, String> displays = this.international.getTableValuesDisplay(request, "pohead");
-            EventLog event = EventLog.builder().
-                    domain(loginUser.getCmpnid()).
-                    operator(operatorBy).
-                    module(GR02.class.getSimpleName()).
-                    name("请购单管理").
-                    action("下发采购").
-                    message(StringUtil.format("请购单[{}]下发采购单[{}]成功", rqhead.getRqhdno(), pohead.getPohdno())).
-                    newValue(vPohead).
-                    enumsDisplay(displays).
-                    build();
-            this.eventLogManager.info(event);
 
             // 更新请购单状态
             List<Rqline> rqlines = this.db().rqline().listByStatus(rqhead.getRqhdid(), Rqline.STATUS.New);

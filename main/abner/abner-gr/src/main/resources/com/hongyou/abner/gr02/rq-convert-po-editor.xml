@@ -18,8 +18,8 @@
 
     <editor labelColumn="rqHeadNo" spans="3">
         <input type="text" name="id" expr="rqhdid" hidden="true"/>
-        <input type="suggestor" name="supplierId" title="@POHEAD.SUPLID" module="ba00"
-               suggestor="supplierSuggestor" required="true"/>
+        <input type="suggestor" name="supplierId" title="@POHEAD.SUPLID" module="ba00" suggestor="supplierSuggestor"
+               required="true"/>
         <input type="text" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" disabled="true"/>
         <input type="text" name="projectName" expr="projnm" title="@RQHEAD.PROJID" disabled="true"/>
         <input type="text" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" disabled="true"/>

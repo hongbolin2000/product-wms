@@ -27,6 +27,7 @@
         <menu id="gr" url="/gr" label="收货管理" icon="receive">
             <menu id="gr01Create" permission="gr01" url="/graces/editor/gr01/requisitionOrderEdit" label="创建请购单"/>
             <menu id="gr01" permission="gr01" url="/graces/grider/gr01/requisitionOrderList" label="请购单管理" icon="requisition"/>
+            <menu id="gr03" permission="gr03" url="/graces/grider/gr03/purchasingOrderList" label="采购单管理" icon="requisition"/>
         </menu>
     </family>
 </menus>
