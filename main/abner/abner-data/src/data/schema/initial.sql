@@ -82,6 +82,7 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'gr01', '请购单管理', 'add', '创建');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'gr01', '请购单管理', 'update', '修改');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'gr01', '请购单管理', 'delete', '删除');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'gr01', '请购单管理', 'audit', '审核通过');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'gr01', '请购单管理', 'issue.po', '下发采购');
 
 /**

@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8526692",
+      "name": "audit",
+      "font_class": "audit",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "18211627",
+      "name": "issue",
+      "font_class": "issue",
+      "unicode": "e7d3",
+      "unicode_decimal": 59347
+    },
+    {
       "icon_id": "7090054",
       "name": "requisition",
       "font_class": "requisition",

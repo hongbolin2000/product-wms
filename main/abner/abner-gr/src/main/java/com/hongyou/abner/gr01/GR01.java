@@ -211,4 +211,40 @@ public class GR01 extends UserDataProvider {
             throw new RestRuntimeException("请购单已被使用");
         }
     }
+
+    /**
+     * 审核请购单
+     */
+    @PostMapping("/audit")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry audit(@RequestBody final List<Long> ids) {
+
+        try {
+            Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
+            Timestamp currentTime = this.getCurrentTime();
+
+            for (Long id: ids) {
+                Rqhead rqhead = this.db().rqhead().get(id);
+                rqhead.status(Rqhead.STATUS.Audited).
+                        oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().rqhead().save(rqhead);
+
+                EventLog event = EventLog.builder().
+                        domain(loginUser.getCmpnid()).
+                        operator(operatorBy).
+                        module(GR01.class.getSimpleName()).
+                        name("请购单管理").
+                        action("审核").
+                        message(StringUtil.format("请购单[{}]审核通过", rqhead.getRqhdno())).
+                        build();
+                this.eventLogManager.critical(event);
+            }
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("请购单审核失败", e);
+            throw new RestRuntimeException("请购单审核失败");
+        }
+    }
 }
