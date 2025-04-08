@@ -65,7 +65,7 @@ public class GR01 extends UserDataProvider {
 
             // 新增
             if (ObjectUtil.isNull(rqhead)) {
-                String rqHeadNo = DateUtil.format(currentTime, "yyyyMMddHHmmss");
+                String rqHeadNo = DateUtil.format(currentTime, "yyMMddHHmmss");
                 rqhead = new Rqhead();
                 rqhead.cmpnid(loginUser.getCmpnid()).
                         rqhdno(rqHeadNo).
@@ -73,14 +73,10 @@ public class GR01 extends UserDataProvider {
                         crettm(currentTime);
             }
 
-            // 关联项目
-            if (ObjectUtil.isNotNull(pojo.getProjectId())) {
-                Projms projms = this.db().projms().get(pojo.getProjectId());
-                rqhead.projid(projms.getProjid()).
-                        cstmid(projms.getCstmid());
-            }
-
-            rqhead.aplcdt(new Date(currentTime.getTime())).
+            Projms projms = this.db().projms().get(pojo.getProjectId());
+            rqhead.projid(projms.getProjid()).
+                    cstmid(projms.getCstmid()).
+                    aplcdt(new Date(currentTime.getTime())).
                     aplcby(operatorBy).
                     demddt(pojo.getDemandDate()).
                     remark(pojo.getRemark()).

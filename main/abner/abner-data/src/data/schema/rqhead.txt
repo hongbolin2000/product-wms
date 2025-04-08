@@ -10,7 +10,7 @@ N	RQHDID,		ID,			NOT NULL,       ,               		id,					ID,                  
 N	CMPNID,		BIGINT,		NOT NULL, 		,						companyId,		    Company,				公司
 N	RQHDNO,		VC(32),		NOT NULL,		,						rqHeadNo,			RQ Head NO,				请购单号
 *****************************************************************************************************************************************************
-N 	PROJID,		BIGINT,		        ,		,						projectId,			Project,			    项目
+N 	PROJID,		BIGINT,		NOT NULL,		,						projectId,			Project,			    项目
 K 	PROJMS		- PROJNM
 N	CSTMID,		BIGINT,		        , 		,						customerId,		    Customer,			    客户
 K   SUPLMS    - SUPLNM AS CSTMNM alias customerName
