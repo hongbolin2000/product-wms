@@ -13,12 +13,12 @@ N	RQLNNO,		INT,		NOT NULL,		1,						rqLineNo,			RQ Line NO,				请购单行号
 N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,               物料
 K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
+N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,			Order Qty,				请购数量
 N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
 *****************************************************************************************************************************************************
 N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         新请购
-    B   10      Purchase    下发采购
-    B   20      Finish      请购完成
+    B   10      Finish      请购完成
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
 N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
@@ -28,6 +28,7 @@ N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			�
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	RQLNID
 U	01 getByRQLineNo RQHDID, RQLNNO
+I	01 listByStatus RQHDID, STATUS
 F	01 listByRQHead (RQHDID) RQHEAD (RQHDID)
 F 	02 listByMaterial (MTRLID) MTRLMS (MTRLID)
 =====================================================================================================================================================

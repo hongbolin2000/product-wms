@@ -18,28 +18,31 @@
 
     <editor labelColumn="rqHeadNo" spans="3">
         <input type="text" name="id" expr="rqhdid" hidden="true"/>
+        <input type="suggestor" name="supplierId" title="@POHEAD.SUPLID" module="ba00"
+               suggestor="supplierSuggestor" required="true"/>
         <input type="text" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" disabled="true"/>
         <input type="text" name="projectName" expr="projnm" title="@RQHEAD.PROJID" disabled="true"/>
         <input type="text" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" disabled="true"/>
         <input type="date" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" format="!yyyy-MM-dd" disabled="true"/>
-        <input type="text" mode="textarea" name="remark" expr="remark" title="@RQHEAD.REMARK" disabled="true"/>
+        <input type="text" name="remark" expr="remark" title="@RQHEAD.REMARK" disabled="true"/>
     </editor>
 
-    <sheeter title="@sheeter.materials" name="materials">
+    <sheeter title="@sheeter.materials" name="materials" added="false" updated="false">
         <statement>
             <table name="vrqline"/>
+            <param column="status" type="=" expr="'00'"/>
             <param column="rqhdid" type="=" expr="id"/>
         </statement>
 
         <inputs>
-            <input type="text" name="id" expr="rqlnid" hidden="true"/>
-            <input type="text" name="skuName" expr="skunam" title="@RQLINE.MTRLID" width="120" ignore="true"/>
-            <input type="number" name="price" expr="price" title="@RQLINE.PRICE" format="%#.###" min="0"
-                   default="0" scale="3" required="true" width="50"/>
-            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="70" disabled="true"/>
-            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="70" disabled="true"/>
-            <input type="text" mode="textarea" name="remark" expr="remark" title="@RQLINE.REMARK" width="90" length="254"/>
-            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
+            <input type="selection" name="id" expr="rqlnid"/>
+            <input type="text" name="skuName" expr="skunam" title="@RQLINE.MTRLID" width="120"/>
+            <input type="number" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" format="%#.###" width="70"/>
+            <input type="number" name="price" expr="price" title="@RQLINE.PRICE" format="%#.###" width="50"/>
+            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90"/>
+            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100"/>
+            <input type="text" name="remark" expr="remark" title="@RQLINE.REMARK"/>
+            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100"/>
         </inputs>
     </sheeter>
 

@@ -21,7 +21,7 @@ K   POHEAD05    - SUPLNM as CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         新采购单
-    B   10      Audited     审核通过
+    B   10      Audited     已审核
     B	20		Receiving	正在收货
     B   30      Finish      采购完成
 *****************************************************************************************************************************************************
@@ -33,7 +33,7 @@ N	FNRCDT,		DATE,		,				,						finishReceiveDate,	Finish Receive Date,	完成收�
 N   STRCBY,     VC(32),     NOT NULL,       '',                     startReceiveBy,     Start Receive By,       开始收货人
 N   FNRCBY,     VC(32),     NOT NULL,       '',                     finishReceiveBy,    finish Receive By,      完成收货人
 *****************************************************************************************************************************************************
-N	POCTNO,		VC(32),		NOT NULL,		,						contractNo,	        Contract No,	        采购合同号
+N	POCTNO,		VC(32),		NOT NULL,		'',						contractNo,	        Contract No,	        采购合同号
 N   AMOUNT,     N(24.3),    NOT NULL,       0,                      Amount,             Amount,                 订单金额
 N   PAYCNT,     INT,        NOT NULL,       0,                      payCount,           Pay Count,              付款次数
 N   PAYAMT,     INT,        NOT NULL,       0,                      payAmount,          Pay Amount,             付款金额

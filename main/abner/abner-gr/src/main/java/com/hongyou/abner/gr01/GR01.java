@@ -48,7 +48,7 @@ public class GR01 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final RequisitionOrder pojo, final HttpServletRequest request
+            @RequestBody final RequisitionOrderPojo pojo, final HttpServletRequest request
     ) {
 
         try {
@@ -125,6 +125,7 @@ public class GR01 extends UserDataProvider {
 
                 rqline.rqlnno(i + 1).
                         mtrlid(line.getMaterialId()).
+                        ordqty(line.getOrderQty()).
                         price(line.getPrice()).
                         remark(line.getRemark()).
                         oprtby(operatorBy).

@@ -515,6 +515,11 @@
         await http.post(editor.value.url, data);
         message.success(title + (titleValue ? '[ ' + titleValue + ' ]' : '') + '成功');
 
+        // 刷新表单数据
+        if (props.fill) {
+          await loadData();
+        }
+
         // 刷新上层界面数据
         if (props.isDialog || props.isDrawer) {
           emit('onRefresh');
@@ -725,6 +730,8 @@
    * 打开编辑表格弹框
    */
   function onShowSheetModal(sheeter: Sheeter) {
+    sheeterFormValue.value = {};
+
     // 设置编辑表格规则和缺省值
     const rules = [];
     sheeter.widgets.forEach(widget => {
@@ -737,7 +744,6 @@
 
     selectSheeter.value = sheeter;
     sheeterRowIndex.value = -1;
-    sheeterFormValue.value = {};
     showFormModal.value = true;
   }
 

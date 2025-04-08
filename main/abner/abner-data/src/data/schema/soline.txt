@@ -20,7 +20,7 @@ N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
     B	10		Receiving	正在发货
     B   20      Finish      发货完成
 *****************************************************************************************************************************************************
-N	ORDQTY,		N(24.3),	NOT NULL,		0,						orderQty,			Order Qty,				订单数量
+N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,			Order Qty,				订单数量
 N   DLVCNT,     INT,        NOT NULL,       0,                      deliverCount,       Deliver Count,          发货次数
 N	DLVQTY,		N(24.3),	NOT NULL,		0,						deliverQty,			Deliver Qty,			发货数量
 *****************************************************************************************************************************************************

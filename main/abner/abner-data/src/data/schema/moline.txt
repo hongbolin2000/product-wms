@@ -14,7 +14,7 @@ N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,   
 K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
 *****************************************************************************************************************************************************
-N	ORDQTY,		N(24.3),	NOT NULL,		0,						orderQty,			Order Qty,				生产数量
+N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,			Order Qty,				生产数量
 N   RCVCNT,     INT,        NOT NULL,       0,                      receiveCount,       Receive Count,          收货次数
 N	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,			Receive Qty,			收货数量
 *****************************************************************************************************************************************************

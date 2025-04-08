@@ -37,7 +37,7 @@
             <column type="label" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="remark" expr="remark" title="@RQHEAD.REMARK" filter="text"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="issue.po" icon="edit" expr="rqhdid" title="@issue.po"
-                    width="80" link="/graces/editor/gr02/rqConvertPoEdit" permission="issue.po"/>
+                    width="80" link="/graces/editor/gr02/rqConvertPoEdit" permission="issue.po" disabled="statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
                     link="/graces/editor/gr01/requisitionOrderEdit" disabled="statusValue != '00'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="rqhdid" title="@delete" width="80"
@@ -48,7 +48,7 @@
     <subtable name="detail">
         <statement>
             <table name="vrqline"/>
-            <param column="rqhdid" type="=" expr="eventId"/>
+            <param column="rqhdid" type="=" expr="rqHeadId"/>
             <order by="rqlnno"/>
         </statement>
 
@@ -58,9 +58,10 @@
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" width="100" format="%#.###"/>
             <column type="label" name="price" expr="price" title="@RQLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@RQLINE.STATUS" width="90" format="@@RQLINE.STATUS"
-                    filter="@status" success="statusValue == '20'"/>
+                    filter="@status" success="statusValue == '10'"/>
             <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="120" filter="text"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@RQLINE.REMARK" filter="text"/>

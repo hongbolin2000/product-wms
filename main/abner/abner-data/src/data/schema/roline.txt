@@ -20,7 +20,7 @@ N	BTCHNO,		VC(16),	NOT NULL,		'',					        batchNo,		    Batch No,				库存�
 N	BINCDE,		VC(32),		NOT NULL,		,						binCode,		    Bin Code,				存放货位
 N	CARTNO,		VC(128),		NOT NULL,		,					cartonNo,		    Carton No,				存放箱号
 *****************************************************************************************************************************************************
-N	ORDQTY,		N(24.3),	NOT NULL,		0,						orderQty,			Order Qty,				订单数量
+N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,			Order Qty,				订单数量
 N 	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,	        Receive Qty,		    收货数量
 *****************************************************************************************************************************************************
 N	STATUS,		C(2),		NOT NULL,		'10',					status,			    Status,					状态
