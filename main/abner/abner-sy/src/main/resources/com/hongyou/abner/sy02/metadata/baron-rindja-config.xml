@@ -12,4 +12,7 @@
 
     <!-- 角色分配 -->
     <generic-editor-descriptor name="roleAssignEdit">role-assign-editor.xml</generic-editor-descriptor>
+
+    <!-- 仓库分配 -->
+    <generic-editor-descriptor name="warehouseAssignEdit">warehouse-assign-editor.xml</generic-editor-descriptor>
 </baron-rindja-config>

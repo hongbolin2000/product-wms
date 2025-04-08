@@ -5,10 +5,10 @@
     </developer>
 
     <description>
-        角色分配
+        仓库分配
     </description>
 
-    <url>/sy02/roleAssign</url>
+    <url>/sy02/warehouseAssign</url>
     <etitle>@etitle</etitle>
 
     <statement>
@@ -22,29 +22,29 @@
         <input type="text" name="fullName" expr="fulnam" title="@USERMS.FULNAM" disabled="true"/>
     </editor>
 
-    <sheeter title="@sheeter.title" name="roles" labelColumn="name" unique="roleName">
+    <sheeter title="@sheeter.title" name="warehouses" labelColumn="warehouseName" unique="warehouseName">
         <statement>
-            <table name="vusrrol"/>
+            <table name="vusrwrh"/>
             <param column="userid" type="=" expr="id"/>
         </statement>
 
         <inputs>
-            <input type="suggestor" name="id" expr="roleid" title="@USRROL.ROLEID" module="sy00" suggestor="roleSuggestor"
-                   required="true" script="row.roleName = option.label"/>
-            <input type="text" name="roleName" expr="rolenm" title="@USRROL.ROLEID" ignore="true"/>
-            <input type="text" mode="textarea" name="remark" expr="remark" title="@USRROL.REMARK" length="254"/>
+            <input type="suggestor" name="id" expr="wrhsid" title="@USRWRH.WRHSID" module="wb00" suggestor="warehouseSuggestor"
+                   required="true" script="row.warehouseName = option.label"/>
+            <input type="text" name="warehouseName" expr="wrhsnm" title="@USRWRH.WRHSID" ignore="true"/>
+            <input type="text" mode="textarea" name="remark" expr="remark" title="@USRWRH.REMARK" length="254"/>
         </inputs>
     </sheeter>
 
     <intl>
         <lang code="zh-CN">
-            <item key="etitle">分配角色给用户</item>
-            <item key="sheeter.title">角色</item>
+            <item key="etitle">分配仓库给用户</item>
+            <item key="sheeter.title">仓库</item>
         </lang>
 
         <lang code="en-US">
-            <item key="etitle">Assign Role To User</item>
-            <item key="sheeter.title">Role</item>
+            <item key="etitle">Assign Warehouse To User</item>
+            <item key="sheeter.title">Warehouse</item>
         </lang>
     </intl>
 </rindja-generic-editor>

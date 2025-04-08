@@ -43,9 +43,12 @@
             <column type="label" name="lastLoginTime" expr="lslgtm" title="@USERMS.LSLGTM" width="150"
                     format="!yyyy-MM-dd HH:mm:ss"/>
             <column type="label" name="remark" expr="remark" title="@USERMS.REMARK" filter="text" width="100"/>
-            <column type="link" mode="dialog" name="roleAssign" icon="role" expr="userid" title="@assign.role" width="70"
+            <column type="link" mode="dialog" name="roleAssign" icon="role" expr="userid" title="@role.assign" width="70"
                     link="/graces/editor/sy02/roleAssignEdit" disabled="statusValue == '99'" dialogWidth="70%"
                     permission="role.assign"/>
+            <column type="link" mode="dialog" name="warehouseAssign" icon="warehouse" expr="userid" title="@warehouse.assign"
+                    width="80" link="/graces/editor/sy02/warehouseAssignEdit" disabled="statusValue == '99'" dialogWidth="70%"
+                    permission="warehouse.assign"/>
             <column type="link" name="edit" icon="edit" expr="userid" title="@edit" width="70" link="/sy02/edit"
                     disabled="statusValue == '99'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="userid" title="@delete" width="80" link="/sy02/delete"
@@ -68,7 +71,8 @@
             <item key="delete">删除</item>
             <item key="frozen">冻结</item>
             <item key="unfrozen">解除冻结</item>
-            <item key="assign.role">角色分配</item>
+            <item key="role.assign">角色分配</item>
+            <item key="warehouse.assign">仓库分配</item>
             <item key="reset.pwd">重置密码</item>
         </lang>
 
@@ -79,7 +83,8 @@
             <item key="delete">Delete</item>
             <item key="frozen">Frozen</item>
             <item key="unfrozen">Unfrozen</item>
-            <item key="assign.role">Role Assign</item>
+            <item key="role.assign">Role Assign</item>
+            <item key="warehouse.assign">Warehouse Assign</item>
             <item key="reset.pwd">Reset Password</item>
         </lang>
     </intl>

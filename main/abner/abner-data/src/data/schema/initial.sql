@@ -20,12 +20,13 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3,
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'sy02', '用户管理', 'browse', '查看');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'sy02', '用户管理', 'add', '新增');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'sy02', '用户管理', 'update', '修改');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'sy02', '用户管理', 'delete', '删除');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'sy02', '用户管理', 'role.assign', '角色分配');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'sy02', '用户管理', 'frozen', '冻结');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 6, 'sy02', '用户管理', 'unfrozen', '解除冻结');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 7, 'sy02', '用户管理', 'reset.pwd', '重置密码');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'sy02', '用户管理', 'update', '修改');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'sy02', '用户管理', 'delete', '删除');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'sy02', '用户管理', 'role.assign', '角色分配');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 6, 'sy02', '用户管理', 'warehouse.assign', '仓库分配');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 7, 'sy02', '用户管理', 'frozen', '冻结');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 8, 'sy02', '用户管理', 'unfrozen', '解除冻结');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 9, 'sy02', '用户管理', 'reset.pwd', '重置密码');
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'sy03', '公司管理', 'browse', '查看');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'sy03', '公司管理', 'update', '修改');
@@ -78,10 +79,10 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'wb05', '库位管理', 'delete', '删除');
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'gr01', '请购单管理', 'browse', '查看');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'gr01', '请购单管理', 'add', '创建请购单');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'gr01', '请购单管理', 'add', '创建');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'gr01', '请购单管理', 'update', '修改');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'gr01', '请购单管理', 'issue.po', '下发采购');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'gr01', '请购单管理', 'delete', '删除');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'gr01', '请购单管理', 'issue.po', '下发采购');
 
 /**
  * 角色

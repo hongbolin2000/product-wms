@@ -5,10 +5,7 @@ package com.hongyou.abner.sy02;
 
 import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
-import com.hongyou.abner.data.model.Rolems;
-import com.hongyou.abner.data.model.Userms;
-import com.hongyou.abner.data.model.Usrrol;
-import com.hongyou.abner.data.model.table.UsrrolTableDef;
+import com.hongyou.abner.data.model.*;
 import com.hongyou.abner.data.pojo.UsermsPojo;
 import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
@@ -25,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+
+import static com.hongyou.abner.data.model.table.UsrrolTableDef.USRROL;
+import static com.hongyou.abner.data.model.table.UsrwrhTableDef.USRWRH;
 
 /**
  * 用户管理
@@ -247,7 +247,7 @@ public class SY02 extends UserDataProvider {
 
             // 删除分配的角色
             QueryWrapper wrapper = QueryWrapper.create();
-            wrapper.where(UsrrolTableDef.USRROL.USERID.eq(userms.getUserid()));
+            wrapper.where(USRROL.USERID.eq(userms.getUserid()));
             this.db().usrrol().deleteQuery(wrapper);
 
             pojo.getRoles().forEach(rolemsPojo -> {
@@ -275,6 +275,52 @@ public class SY02 extends UserDataProvider {
         } catch (Exception e) {
             logger.error("角色分配失败", e);
             throw new RestRuntimeException("角色分配失败");
+        }
+    }
+
+    /**
+     * 仓库分配
+     */
+    @PostMapping("/warehouseAssign")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry warehouseAssign(@RequestBody final UserWarehousePojo pojo) {
+
+        try {
+            Userms userms = this.db().userms().get(pojo.getId());
+            Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
+            Timestamp currentTime = this.getCurrentTime();
+
+            // 删除分配的仓库
+            QueryWrapper wrapper = QueryWrapper.create();
+            wrapper.where(USRWRH.USERID.eq(userms.getUserid()));
+            this.db().usrwrh().deleteQuery(wrapper);
+
+            pojo.getWarehouses().forEach(wrhsmsPojo -> {
+                Wrhsms wrhsms = this.db().wrhsms().get(wrhsmsPojo.getId());
+                Usrwrh usrwrh = new Usrwrh();
+                usrwrh.userid(userms.getUserid()).
+                        wrhsid(wrhsms.getWrhsid()).
+                        remark(wrhsmsPojo.getRemark()).
+                        oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().usrwrh().save(usrwrh);
+            });
+
+            // 记录日志
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(operatorBy).
+                    module(SY02.class.getSimpleName()).
+                    name("用户管理").
+                    action("仓库分配").
+                    message(StringUtil.format("用户[{}]仓库分配成功", userms.getUsernm())).
+                    build();
+            this.eventLogManager.info(event);
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("仓库分配失败", e);
+            throw new RestRuntimeException("仓库分配失败");
         }
     }
 }
