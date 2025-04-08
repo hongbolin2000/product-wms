@@ -5,8 +5,10 @@ package com.hongyou.abner.wb05;
 
 import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
-import com.hongyou.abner.data.model.*;
-import com.hongyou.abner.data.pojo.BinaraPojo;
+import com.hongyou.abner.data.model.Binara;
+import com.hongyou.abner.data.model.Binmas;
+import com.hongyou.abner.data.model.Userms;
+import com.hongyou.abner.data.model.VBinmas;
 import com.hongyou.abner.data.pojo.BinmasPojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;

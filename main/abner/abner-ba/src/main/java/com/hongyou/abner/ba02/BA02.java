@@ -7,7 +7,6 @@ import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Projms;
 import com.hongyou.abner.data.model.Userms;
-import com.hongyou.abner.data.model.VProjdc;
 import com.hongyou.abner.data.model.VProjms;
 import com.hongyou.abner.data.pojo.ProjmsPojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
@@ -16,7 +15,6 @@ import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
-import com.mybatisflex.core.row.Db;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
-
-import static com.hongyou.abner.data.model.table.VProjmsTableDef.VPROJMS;
 
 /**
  * 项目管理

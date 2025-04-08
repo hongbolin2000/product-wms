@@ -8,7 +8,6 @@ import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Binara;
 import com.hongyou.abner.data.model.Userms;
 import com.hongyou.abner.data.model.VBinara;
-import com.hongyou.abner.data.model.Wrhsms;
 import com.hongyou.abner.data.pojo.BinaraPojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
