@@ -7,6 +7,7 @@
       :update-value-on-close="'year' != widget.mode && 'week' != widget.mode"
       :value-format="widget.valueFormat"
       :placeholder="'选择' + widget.title"
+      :disabled="widget.isDisabled"
   />
 </template>
 

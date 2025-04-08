@@ -37,7 +37,7 @@
             <column type="label" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="remark" expr="remark" title="@RQHEAD.REMARK" filter="text"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="issue.po" icon="edit" expr="rqhdid" title="@issue.po"
-                    width="80" link="/graces/editor/gr01/requisitionOrderEdit" permission="issue.po"/>
+                    width="80" link="/graces/editor/gr02/rqConvertPoEdit" permission="issue.po"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
                     link="/graces/editor/gr01/requisitionOrderEdit" disabled="statusValue != '00'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="rqhdid" title="@delete" width="80"

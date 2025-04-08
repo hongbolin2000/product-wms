@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 请购单转采购单 -->
+    <generic-editor-descriptor name="rqConvertPoEdit">rq-convert-po-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>
