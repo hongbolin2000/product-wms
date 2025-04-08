@@ -1,11 +1,22 @@
 /**
- * 系统权限
+ * 公司
  */
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'sy01', '角色管理', 'browse', '查看');
+insert into cmpnms(cmpnid, cmpncd, cmpnnm, pftitl, pfstil, pfsptl) values (1, '100', '初始化公司', '初始化平台', 'Initial Platform', '初始平台');
+
+/**
+ * 用户(密码: 12345678)
+ */
+insert into userms(userid, cmpnid, usernm, paswrd, fulnam) values (1, 1, 'admin', '2fb5b2be5fade0ffaa98d554c81b7e85', '超级管理员');
+
+/**
+  * 权限
+  */
+insert into pmsnms(pmsnid, cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 1, 'sy01', '角色管理', 'browse', '查看');
+insert into pmsnms(pmsnid, cmpnid, sortng, pmsncd, remark, actcde, actnam) values (2, 1, 4, 'sy01', '角色管理', 'permission.assign', '权限分配');
+
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'sy01', '角色管理', 'add', '新增');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'sy01', '角色管理', 'update', '修改');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'sy01', '角色管理', 'delete', '删除');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'sy01', '角色管理', 'permission.assign', '权限分配');
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'sy02', '用户管理', 'browse', '查看');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'sy02', '用户管理', 'add', '新增');
@@ -71,3 +82,19 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'gr01', '请购单管理', 'update', '修改');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'gr01', '请购单管理', 'issue.po', '下发采购');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'gr01', '请购单管理', 'delete', '删除');
+
+/**
+ * 角色
+ */
+insert into rolems (roleid, cmpnid, rolenm, supadm) values (1, 1, '超级管理员', 'Y');
+
+/**
+ * 角色用户关系
+ */
+insert into usrrol (roleid, userid) values (1, 1);
+
+/**
+ * 角色权限关系
+ */
+insert into rolpms(roleid, pmsnid) values (1 ,1);
+insert into rolpms(roleid, pmsnid) values (1 ,2);

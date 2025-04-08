@@ -189,8 +189,8 @@
         showAllPermissions();
         if (!isAllAssigned()) {
           message.warning("超级管理员必须分配全部权限");
+          return;
         }
-        return;
       }
 
       // 每个功能的权限
