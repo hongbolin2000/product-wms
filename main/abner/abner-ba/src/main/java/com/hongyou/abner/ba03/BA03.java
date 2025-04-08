@@ -15,7 +15,6 @@ import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
-import com.mybatisflex.core.row.Db;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.List;
-
-import static com.hongyou.abner.data.model.table.VProjdcTableDef.VPROJDC;
 
 /**
  * 项目文档管理
