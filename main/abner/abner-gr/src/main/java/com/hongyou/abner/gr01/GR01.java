@@ -168,8 +168,8 @@ public class GR01 extends UserDataProvider {
                         newValue(vRqline).
                         build();
                 this.eventLogManager.info(event);
-                this.db().rqline().delete(rqline);
             }
+            this.db().rqline().deleteIds(rqlnids.stream().toList());
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

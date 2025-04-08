@@ -136,8 +136,9 @@ public class BA03 extends UserDataProvider {
                         newValue(vProjdc).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().projdc().delete(projdc);
             }
+            this.db().projdc().deleteIds(ids);
+
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("项目文档删除失败", e);

@@ -177,8 +177,8 @@ public class GR03 extends UserDataProvider {
                         newValue(vPoline).
                         build();
                 this.eventLogManager.info(event);
-                this.db().poline().delete(poline);
             }
+            this.db().poline().deleteIds(polnids.stream().toList());
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

@@ -139,8 +139,9 @@ public class BA04 extends UserDataProvider {
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().projms().delete(vProjpc);
             }
+            this.db().projms().deleteIds(ids);
+
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("项目进度删除失败", e);

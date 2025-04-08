@@ -137,8 +137,9 @@ public class WB01 extends UserDataProvider {
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().mtrtyp().delete(mtrtyp);
             }
+            this.db().mtrtyp().deleteIds(ids);
+
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("物料类型删除失败", e);

@@ -115,19 +115,20 @@ public class WB04 extends UserDataProvider {
             String operatorBy = this.getOperatorBy(loginUser);
 
             for (Long id: ids) {
-                Binara binara = this.db().binara().get(id);
+                VBinara vBinara = new VBinara().bnarid(id).oneById();
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(WB04.class.getSimpleName()).
                         name("库区管理").
                         action("删除").
-                        message(StringUtil.format("库区[{}]删除成功", binara.getBnarnm())).
-                        newValue(binara).
+                        message(StringUtil.format("库区[{}]删除成功", vBinara.getBnarnm())).
+                        newValue(vBinara).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().binara().delete(binara);
             }
+            this.db().binara().deleteIds(ids);
+
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("库区删除失败", e);

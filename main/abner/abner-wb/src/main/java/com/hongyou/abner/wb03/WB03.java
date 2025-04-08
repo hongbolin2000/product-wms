@@ -130,8 +130,9 @@ public class WB03 extends UserDataProvider {
                         newValue(wrhsms).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().wrhsms().delete(wrhsms);
             }
+            this.db().wrhsms().deleteIds(ids);
+
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("仓库删除失败", e);

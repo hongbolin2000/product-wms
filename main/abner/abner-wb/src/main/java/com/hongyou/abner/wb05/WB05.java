@@ -116,19 +116,20 @@ public class WB05 extends UserDataProvider {
             String operatorBy = this.getOperatorBy(loginUser);
 
             for (Long id: ids) {
-                Binmas binmas = this.db().binmas().get(id);
+                VBinmas vBinmas = new VBinmas().binmid(id);
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(WB05.class.getSimpleName()).
                         name("库位管理").
                         action("删除").
-                        message(StringUtil.format("库位[{}]删除成功", binmas.getBincde())).
-                        newValue(binmas).
+                        message(StringUtil.format("库位[{}]删除成功", vBinmas.getBincde())).
+                        newValue(vBinmas).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().binmas().delete(binmas);
             }
+            this.db().binmas().deleteIds(ids);
+
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("库位删除失败", e);

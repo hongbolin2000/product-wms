@@ -132,19 +132,20 @@ public class WB02 extends UserDataProvider {
             String operatorBy = this.getOperatorBy(loginUser);
 
             for (Long id: ids) {
-                Mtrlms mtrlms = this.db().mtrlms().get(id);
+                VMtrlms vMtrlms = new VMtrlms().mtrlid(id).oneById();
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(WB02.class.getSimpleName()).
                         name("物料管理").
                         action("删除").
-                        message(StringUtil.format("物料[{}]删除成功", mtrlms.getSkunam())).
-                        newValue(mtrlms).
+                        message(StringUtil.format("物料[{}]删除成功", vMtrlms.getSkunam())).
+                        newValue(vMtrlms).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().mtrlms().delete(mtrlms);
             }
+            this.db().mtrlms().deleteIds(ids);
+
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
             logger.error("物料删除失败", e);
