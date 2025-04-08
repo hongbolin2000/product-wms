@@ -19,7 +19,7 @@ N	EMTYTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		entryTime,			Entry Time,			    �
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
 N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,			Operate By,				操作人
-N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			操作时间
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	RPHDID
 F	01 listBySOHead (SOHDID) SOHEAD (SOHDID)

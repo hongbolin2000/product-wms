@@ -29,7 +29,7 @@ N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
 N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
 N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,			Create Time,			创建时间
 N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,			Operate By,				操作人
-N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		opreateTime,		Operate Time,			操作时间
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	RQHDID
 U	01 getByRQHeadNo CMPNID, RQHDNO
