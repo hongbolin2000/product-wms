@@ -14,6 +14,7 @@
         <table name="vmtrlms"/>
         <param column="cmpnid" type="=" expr="_companyId"/>
         <param column="mtrlid" type="=" expr="fieldValue"/>
+        <param column="mtrctg" type="=" expr="'RAW'"/>
         <param column="skuno" expr="searchValue"/>
         <param condition="or" column="skunam" expr="searchValue"/>
         <order by="skuno"/>

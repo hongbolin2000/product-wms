@@ -5,7 +5,7 @@
     </developer>
 
     <description>
-        客户查询建议器
+        g供应商查询建议器
     </description>
 
     <maxRows>20</maxRows>
@@ -14,7 +14,7 @@
         <table name="suplms"/>
         <param column="cmpnid" type="=" expr="_companyId"/>
         <param column="suplid" type="=" expr="fieldValue"/>
-        <param column="iscstm" type="=" expr="'Y'"/>
+        <param column="issupl" type="=" expr="'Y'"/>
         <param column="suplcd" expr="searchValue"/>
         <param condition="or" column="suplnm" expr="searchValue"/>
         <order by="suplcd desc"/>

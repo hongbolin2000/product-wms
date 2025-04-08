@@ -82,7 +82,7 @@ public class BA01 extends UserDataProvider {
             suplms.suplcd(pojo.getSupplierCode()).
                     suplnm(pojo.getSupplierName()).
                     issupl(pojo.getIsSupplier()).
-                    iscstm("N").
+                    iscstm(pojo.getIsCustomer()).
                     addres(pojo.getAddress()).
                     contcs(pojo.getContacts()).
                     phonno(pojo.getPhoneNo()).

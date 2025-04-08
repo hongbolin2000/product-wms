@@ -35,7 +35,7 @@
         <inputs>
             <input type="text" name="id" expr="rqlnid" hidden="true"/>
             <input type="suggestor" name="materialId" expr="mtrlid" title="@RQLINE.MTRLID" module="wb00"
-                   suggestor="materialSuggestor" required="true">
+                   suggestor="rawMaterialSuggestor" required="true">
                 <script>
                     row.skuName = option.label;
                     row.price = option.purchasePrice;

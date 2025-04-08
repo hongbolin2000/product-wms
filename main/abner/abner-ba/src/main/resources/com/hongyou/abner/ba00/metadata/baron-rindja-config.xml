@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <baron-rindja-config>
 
+    <!-- 供应商查询建议器 -->
+    <generic-suggestor-descriptor name="supplierSuggestor">supplier-suggestor.xml</generic-suggestor-descriptor>
+
     <!-- 客户查询建议器 -->
     <generic-suggestor-descriptor name="customerSuggestor">customer-suggestor.xml</generic-suggestor-descriptor>
 
