@@ -88,6 +88,25 @@ public class GR03 extends UserDataProvider {
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().pohead().save(pohead);
+            VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
+
+            Map<String, String> poheadDisplays = this.international.getTableValuesDisplay(request, "pohead");
+            Map<String, String> polineDisplays = this.international.getTableValuesDisplay(request, "poline");
+
+            // 记录日志
+            String action = oldVPohead == null ? "创建" : "修改";
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(operatorBy).
+                    module(GR03.class.getSimpleName()).
+                    name("采购单管理").
+                    action(action).
+                    message(StringUtil.format("采购单[{}]{}成功", pohead.getPohdno(), action)).
+                    oldValue(oldVPohead).
+                    newValue(vPohead).
+                    enumsDisplay(poheadDisplays).
+                    build();
+            this.eventLogManager.info(event);
 
             // 已经存在的采购物料id
             Set<Long> polnids = this.db().poline().listByPOHead(pohead.getPohdid()).stream().
@@ -126,8 +145,8 @@ public class GR03 extends UserDataProvider {
                 this.db().pohead().save(pohead);
 
                 // 记录日志
-                String action = oldVPoline == null ? "创建" : "修改";
-                EventLog event = EventLog.builder().
+                action = oldVPoline == null ? "创建" : "修改";
+                event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(GR03.class.getSimpleName()).
@@ -138,26 +157,10 @@ public class GR03 extends UserDataProvider {
                         ).
                         oldValue(oldVPoline).
                         newValue(vPoline).
+                        enumsDisplay(polineDisplays).
                         build();
                 this.eventLogManager.info(event);
             }
-            VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
-
-            // 记录日志
-            String action = oldVPohead == null ? "创建" : "修改";
-            Map<String, String> displays = this.international.getTableValuesDisplay(request, "pohead");
-            EventLog event = EventLog.builder().
-                    domain(loginUser.getCmpnid()).
-                    operator(operatorBy).
-                    module(GR03.class.getSimpleName()).
-                    name("采购单管理").
-                    action(action).
-                    message(StringUtil.format("采购单[{}]{}成功", pohead.getPohdno(), action)).
-                    oldValue(oldVPohead).
-                    newValue(vPohead).
-                    enumsDisplay(displays).
-                    build();
-            this.eventLogManager.info(event);
 
             // 删除请购物料
             for (Long polnid : polnids) {
@@ -175,6 +178,7 @@ public class GR03 extends UserDataProvider {
                                 pohead.getPohdno(), vPoline.getSkunam())
                         ).
                         newValue(vPoline).
+                        enumsDisplay(polineDisplays).
                         build();
                 this.eventLogManager.info(event);
             }
@@ -249,7 +253,7 @@ public class GR03 extends UserDataProvider {
                         action("审核").
                         message(StringUtil.format("采购单[{}]审核通过", pohead.getPohdno())).
                         build();
-                this.eventLogManager.critical(event);
+                this.eventLogManager.info(event);
             }
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

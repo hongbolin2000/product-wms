@@ -74,8 +74,10 @@ public class GR02 extends UserDataProvider {
             this.db().pohead().save(pohead);
             VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
 
+            Map<String, String> polineDisplays = this.international.getTableValuesDisplay(request, "poline");
+            Map<String, String> poheadDisplays = this.international.getTableValuesDisplay(request, "pohead");
+
             // 记录日志
-            Map<String, String> displays = this.international.getTableValuesDisplay(request, "pohead");
             EventLog event = EventLog.builder().
                     domain(loginUser.getCmpnid()).
                     operator(operatorBy).
@@ -84,7 +86,7 @@ public class GR02 extends UserDataProvider {
                     action("下发采购").
                     message(StringUtil.format("请购单[{}]下发采购单[{}]成功", rqhead.getRqhdno(), pohead.getPohdno())).
                     newValue(vPohead).
-                    enumsDisplay(displays).
+                    enumsDisplay(poheadDisplays).
                     build();
             this.eventLogManager.info(event);
 
@@ -127,6 +129,7 @@ public class GR02 extends UserDataProvider {
                                 rqhead.getRqhdno(), vPoline.getSkunam(), pohead.getPohdno())
                         ).
                         newValue(vPoline).
+                        enumsDisplay(polineDisplays).
                         build();
                 this.eventLogManager.info(event);
             }

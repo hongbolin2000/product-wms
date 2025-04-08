@@ -85,9 +85,11 @@ public class GR01 extends UserDataProvider {
             this.db().rqhead().save(rqhead);
             VRqhead vRqhead = new VRqhead().rqhdid(rqhead.getRqhdid()).oneById();
 
+            Map<String, String> rqheadDisplays = this.international.getTableValuesDisplay(request, "rqhead");
+            Map<String, String> rqlineDisplays = this.international.getTableValuesDisplay(request, "rqline");
+
             // 记录日志
             String action = oldVRqhead == null ? "创建" : "修改";
-            Map<String, String> displays = this.international.getTableValuesDisplay(request, "rqhead");
             EventLog event = EventLog.builder().
                     domain(loginUser.getCmpnid()).
                     operator(operatorBy).
@@ -97,7 +99,7 @@ public class GR01 extends UserDataProvider {
                     message(StringUtil.format("请购单[{}]{}成功", rqhead.getRqhdno(), action)).
                     oldValue(oldVRqhead).
                     newValue(vRqhead).
-                    enumsDisplay(displays).
+                    enumsDisplay(rqheadDisplays).
                     build();
             this.eventLogManager.info(event);
 
@@ -146,6 +148,7 @@ public class GR01 extends UserDataProvider {
                         ).
                         oldValue(oldVRqline).
                         newValue(vRqline).
+                        enumsDisplay(rqlineDisplays).
                         build();
                 this.eventLogManager.info(event);
             }
@@ -166,6 +169,7 @@ public class GR01 extends UserDataProvider {
                                 rqhead.getRqhdno(), vRqline.getSkunam())
                         ).
                         newValue(vRqline).
+                        enumsDisplay(rqlineDisplays).
                         build();
                 this.eventLogManager.info(event);
             }
@@ -240,7 +244,7 @@ public class GR01 extends UserDataProvider {
                         action("审核").
                         message(StringUtil.format("请购单[{}]审核通过", rqhead.getRqhdno())).
                         build();
-                this.eventLogManager.critical(event);
+                this.eventLogManager.info(event);
             }
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
