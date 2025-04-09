@@ -172,8 +172,8 @@ public class GR01 extends UserDataProvider {
                         enumsDisplay(rqlineDisplays).
                         build();
                 this.eventLogManager.info(event);
+                this.db().rqline().delete(rqlnid);
             }
-            this.db().rqline().deleteIds(rqlnids.stream().toList());
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
@@ -207,8 +207,8 @@ public class GR01 extends UserDataProvider {
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().rqhead().delete(id);
             }
-            this.db().rqhead().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

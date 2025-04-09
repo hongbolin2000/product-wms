@@ -125,8 +125,8 @@ public class WB04 extends UserDataProvider {
                         newValue(vBinara).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().binara().delete(id);
             }
-            this.db().binara().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

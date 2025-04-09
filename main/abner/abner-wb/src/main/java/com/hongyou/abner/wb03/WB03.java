@@ -129,8 +129,8 @@ public class WB03 extends UserDataProvider {
                         newValue(wrhsms).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().wrhsms().delete(id);
             }
-            this.db().wrhsms().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

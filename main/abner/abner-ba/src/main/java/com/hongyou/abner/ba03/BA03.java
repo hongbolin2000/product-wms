@@ -133,8 +133,8 @@ public class BA03 extends UserDataProvider {
                         newValue(vProjdc).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().projdc().delete(id);
             }
-            this.db().projdc().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

@@ -174,8 +174,8 @@ public class BA01 extends UserDataProvider {
                         newValue(splcts).
                         build();
                 this.eventLogManager.info(event);
+                this.db().splcts().delete(spctid);
             }
-            this.db().splcts().deleteIds(spctids.stream().toList());
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
@@ -209,8 +209,8 @@ public class BA01 extends UserDataProvider {
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().suplms().delete(id);
             }
-            this.db().suplms().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

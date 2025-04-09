@@ -129,8 +129,8 @@ public class WB05 extends UserDataProvider {
                         newValue(vBinmas).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().binmas().delete(id);
             }
-            this.db().binmas().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

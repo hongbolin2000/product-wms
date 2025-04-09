@@ -143,8 +143,8 @@ public class WB02 extends UserDataProvider {
                         newValue(vMtrlms).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().mtrlms().delete(id);
             }
-            this.db().mtrlms().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

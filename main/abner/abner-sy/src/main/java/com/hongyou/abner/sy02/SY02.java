@@ -184,8 +184,8 @@ public class SY02 extends UserDataProvider {
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().userms().delete(id);
             }
-            this.db().userms().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

@@ -153,8 +153,8 @@ public class SY01 extends UserDataProvider {
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().rolems().delete(id);
             }
-            this.db().rolems().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

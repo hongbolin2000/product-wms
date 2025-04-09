@@ -181,8 +181,8 @@ public class GR03 extends UserDataProvider {
                         enumsDisplay(polineDisplays).
                         build();
                 this.eventLogManager.info(event);
+                this.db().poline().delete(polnid);
             }
-            this.db().poline().deleteIds(polnids.stream().toList());
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
@@ -216,8 +216,8 @@ public class GR03 extends UserDataProvider {
                         enumsDisplay(displays).
                         build();
                 this.eventLogManager.critical(event);
+                this.db().rqhead().delete(id);
             }
-            this.db().rqhead().deleteIds(ids);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
