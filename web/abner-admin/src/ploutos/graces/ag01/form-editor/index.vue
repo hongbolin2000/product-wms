@@ -164,7 +164,7 @@
                 <n-form-item-gi
                     :span="8"
                     :label="widget.title"
-                    v-for="widget of selectSheeter.widgets.filter(i => !i.hidden && !i.ignore)"
+                    v-for="widget of selectSheeter.widgets.filter(i => !i.hidden && !i.ignore && i.type != SelectionWidgetFactory.TYPE)"
                     :path="widget.name"
                     :key="widget.name"
                 >

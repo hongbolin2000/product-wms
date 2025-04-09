@@ -80,6 +80,9 @@
   let initial = true;
   onBeforeUpdate(() => {
     const value = props.widget.rowData[props.widget.name];
+    if (value == '') {
+      props.widget.rowData[props.widget.name] = null;
+    }
 
     // 更新时查询(修改界面)
     if (props.widget.rowData.id && !limited.value && initial && value) {
