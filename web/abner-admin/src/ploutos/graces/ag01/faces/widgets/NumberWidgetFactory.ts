@@ -38,13 +38,18 @@ export default class NumberWidgetFactory implements WidgetFactory {
 	/**
 	 * 数字输入控件校验规则
 	 */
-	getRule(widget: NumberWidgetProps): FormItemRule {
-		return {
+	getRule(widget: NumberWidgetProps): FormItemRule | FormItemRule[] {
+		return [{
+			required: true,
+			type: 'number',
+			message: '请输入' + widget.title,
+			trigger: ['blur', 'input'],
+		}, {
 			validator: (_rule: any, value: string) => {
 				return !(widget.required && parseFloat(value) < widget.min);
 			},
 			message: '请输入' + widget.title,
 			trigger: ['blur', 'input']
-		}
+		}]
 	}
 }

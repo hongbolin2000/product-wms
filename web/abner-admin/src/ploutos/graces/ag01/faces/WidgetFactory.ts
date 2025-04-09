@@ -27,5 +27,5 @@ export default interface WidgetFactory {
 	/**
 	 * 输入控件校验规则
 	 */
-	getRule(widget: AbstractWidget): FormItemRule;
+	getRule(widget: AbstractWidget): FormItemRule | FormItemRule[];
 }
