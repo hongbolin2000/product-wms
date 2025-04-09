@@ -83,6 +83,7 @@ public class GR03 extends UserDataProvider {
             pohead.suplid(pojo.getSupplierId()).
                     ordrdt(new Date(currentTime.getTime())).
                     demddt(pojo.getDemandDate()).
+                    poctno(pojo.getContractNo()).
                     amount(BigDecimal.ZERO).
                     remark(pojo.getRemark()).
                     oprtby(operatorBy).

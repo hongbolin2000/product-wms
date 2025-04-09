@@ -1,10 +1,9 @@
 <template>
   <n-space>
-    <div v-for="(action, index) of permissionActions" :key="action.actionCode">
+    <div v-for="(action) of permissionActions" :key="action.actionCode">
       <n-checkbox v-model:checked="action.assigned" @update-checked="calCheckedKeys()">
         {{action.actionName}}
       </n-checkbox>
-      <n-divider vertical v-if="index + 1 != permissionActions.length"/>
     </div>
   </n-space>
 </template>
