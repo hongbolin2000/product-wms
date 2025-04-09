@@ -18,7 +18,7 @@ N	ORDRDT,		DATE,		,				,						orderDate,		Order Date,				订单日期
 N   STRETY,     VC(16),     NOT NULL,       '',                     storeType,          Store Type,             门店类型
 N   STRECD,     VC(16),     NOT NULL,       '',                     storeCode,          Store Code,             门店编号
 N   STRENM,     VC(32),     NOT NULL,       '',                     storeName,          Store Name,             门店名称
-N   EQISIM,     VC(254),    NOT NULL,       '',                     installImage,       Install Image,          设备安装图示
+N   EQISIM,     VC(128),    NOT NULL,       '',                     installImage,       Install Image,          设备安装图示
 *****************************************************************************************************************************************************
 N	PRVCNM,		VC(64),		NOT NULL,		'',						provinceName,	    Province Name,			省份名称
 N	CITYNM,		VC(64),		NOT NULL,		'',						cityName,		    City Name,				城市名称

@@ -89,7 +89,6 @@ public class GR03 extends UserDataProvider {
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().pohead().save(pohead);
-            VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
 
             Map<String, String> poheadDisplays = this.international.getTableValuesDisplay(request, "pohead");
             Map<String, String> polineDisplays = this.international.getTableValuesDisplay(request, "poline");
@@ -97,6 +96,8 @@ public class GR03 extends UserDataProvider {
             // 已经存在的采购物料id
             Set<Long> polnids = this.db().poline().listByPOHead(pohead.getPohdid()).stream().
                     map(Poline::getPolnid).collect(Collectors.toSet());
+
+            BigDecimal amount = BigDecimal.ZERO;
             for (int i = 0; i < pojo.getMaterials().size(); i++) {
                 PolinePojo line = pojo.getMaterials().get(i);
 
@@ -127,8 +128,7 @@ public class GR03 extends UserDataProvider {
                 VPoline vPoline = new VPoline().polnid(poline.getPolnid()).oneById();
 
                 // 订单总金额
-                pohead.amount(pohead.getAmount().add(poline.getOrdqty().multiply(poline.getPrice())));
-                this.db().pohead().save(pohead);
+                amount = amount.add(poline.getOrdqty().multiply(poline.getPrice()));
 
                 // 记录日志
                 String action = oldVPoline == null ? "创建" : "修改";
@@ -170,7 +170,12 @@ public class GR03 extends UserDataProvider {
                 this.db().poline().delete(polnid);
             }
 
+            // 订单总金额
+            pohead.amount(pohead.getAmount());
+            this.db().pohead().save(pohead);
+
             // 记录日志
+            VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
             String action = oldVPohead == null ? "创建" : "修改";
             EventLog event = EventLog.builder().
                     domain(loginUser.getCmpnid()).

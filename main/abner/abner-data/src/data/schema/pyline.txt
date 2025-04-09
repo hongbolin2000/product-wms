@@ -11,13 +11,11 @@ N	PYHDID,		BIGINT,		NOT NULL,       ,               		pyHeadId,		    Py Head,			
 N	POLNID,		BIGINT,		NOT NULL,       ,               		poLineId,		    PO Line,				采购单行
 K 	POLINE:MTRLMS 			- SKUNO, SKUNAM, MODEL, MTRIMG
 *****************************************************************************************************************************************************
-N   PAYAMT,     INT,        NOT NULL,       1,                      paymentAmount,      Payment Amount,         付款金额
+N   PAYAMT,     N(24.3),    NOT NULL,       1,                      paymentAmount,      Payment Amount,         付款金额
 N   INVCNO,     VC(64),     NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
-N   INVCIM,     VC(64),     NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
+N   INVCIM,     VC(128),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
-N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
-N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,			Create Time,			创建时间
 N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,			Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
@@ -25,9 +23,3 @@ P 	PYLNID
 F	01 listByPYHead (PYHDID) PYHEAD (PYHDID)
 F   02 listByPOLine (POLNID) POLINE (POLNID)
 =====================================================================================================================================================
-
-
-
-
-
-

@@ -68,10 +68,13 @@
    */
   onBeforeUpdate(() => {
     executeScript();
+    const defaultValue = props.widget.default;
 
     // 转成数值
     let value = props.widget.rowData[props.widget.name];
+    value = !value ? (defaultValue ? defaultValue : 0) : value;
     props.widget.rowData[props.widget.name] = parseFloat(value);
+
     WidgetUtil.disabled(props.widget);
   });
 

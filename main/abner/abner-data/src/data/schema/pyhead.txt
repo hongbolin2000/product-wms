@@ -8,12 +8,12 @@ Y	Payment Record
 N	PYHDID,		ID,			NOT NULL,       ,               		id,					ID,                     主键
 *****************************************************************************************************************************************************
 N	POHDID,		BIGINT,		NOT NULL,       ,               		poHeadId,			PO Head,				采购单
-K   POHEAD                  - POHDNO, POCTNO
+K   POHEAD                  - CMPNID, POHDNO, POCTNO
 K   POHEAD:SUPLMS           - SUPLNM
 *****************************************************************************************************************************************************
-N   PAYAMT,     INT,        NOT NULL,       1,                      paymentAmount,      Payment Amount,         付款金额
-N   INVCNO,     VC(64),     NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
-N   INVCIM,     VC(254),     NOT NULL,       '',                    invoiceImage,       Invoice Image,          发票图片
+N   PAYAMT,     N(24.3),    NOT NULL,       1,                      paymentAmount,      Payment Amount,         付款金额
+N   INVCNO,     VC(128),    NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
+N   INVCIM,     VC(128),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
 N	EMTYBY,		VC(64),		NOT NULL,		'',						entryBy,			Entry By,				录入人
 N	EMTYTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		entryTime,			Entry Time,			    录入时间
 *****************************************************************************************************************************************************

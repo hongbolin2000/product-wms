@@ -40,10 +40,11 @@ export default class NumberWidgetFactory implements WidgetFactory {
 	 */
 	getRule(widget: NumberWidgetProps): FormItemRule {
 		return {
-			required: true,
-			type: 'number',
+			validator: (_rule: any, value: string) => {
+				return !(widget.required && parseFloat(value) < widget.min);
+			},
 			message: '请输入' + widget.title,
-			trigger: ['blur', 'input'],
+			trigger: ['blur', 'input']
 		}
 	}
 }

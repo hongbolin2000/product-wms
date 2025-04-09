@@ -14,7 +14,7 @@ N   MTRCTG,     C(8),       NOT NULL,       'RAW',                  category,   
     B   FG      Product     成品
 N	MTTYP1,		VC(32),		NOT NULL,       ,                 	    materialType1,	    Material Type1,	        物料品类
 N	MTTYCD,		VC(32),		NOT NULL,       ,                 	    materialType,	    Material Type,		    物料类型
-N   MTRIMG,     VC(254),    NOT NULL,       '',                     materialImage,      Material Image,         物料图片
+N   MTRIMG,     VC(128),    NOT NULL,       '',                     materialImage,      Material Image,         物料图片
 *****************************************************************************************************************************************************
 N 	MTSRHD,		VC(6),		NOT NULL,		'',						header,			    Serial Header,			物料序号头
 N 	SRILSD,		INT,		NOT NULL,		1,						seed,			    Serial Seed,			物料序号种子

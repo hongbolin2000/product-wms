@@ -34,9 +34,9 @@ N   STRCBY,     VC(32),     NOT NULL,       '',                     startReceive
 N   FNRCBY,     VC(32),     NOT NULL,       '',                     finishReceiveBy,    finish Receive By,      完成收货人
 *****************************************************************************************************************************************************
 N	POCTNO,		VC(32),		NOT NULL,		'',						contractNo,	        Contract No,	        采购合同号
-N   AMOUNT,     N(24.3),    NOT NULL,       0,                      Amount,             Amount,                 订单金额
+N   AMOUNT,     N(24.3),    NOT NULL,       0,                      amount,             Amount,                 订单金额
 N   PAYCNT,     INT,        NOT NULL,       0,                      payCount,           Pay Count,              付款次数
-N   PAYAMT,     INT,        NOT NULL,       0,                      payAmount,          Pay Amount,             付款金额
+N   PAYAMT,     N(24.3),    NOT NULL,       0,                      payAmount,          Pay Amount,             付款金额
 N	PAYSTS,		C(2),		NOT NULL,		'00',					payStatus,			Pay Status,				付款状态
 	B	00		No			未付款
 	B	10		Part		部分付款

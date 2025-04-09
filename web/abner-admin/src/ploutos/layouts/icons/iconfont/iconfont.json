@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11465010",
+      "name": "payment",
+      "font_class": "payment",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "5645104",
+      "name": "purchasing",
+      "font_class": "purchasing",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
       "icon_id": "8526692",
       "name": "audit",
       "font_class": "audit",

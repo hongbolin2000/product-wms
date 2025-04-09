@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -72,11 +73,11 @@ public class GR02 extends UserDataProvider {
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().pohead().save(pohead);
-            VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
 
             Map<String, String> polineDisplays = this.international.getTableValuesDisplay(request, "poline");
             Map<String, String> poheadDisplays = this.international.getTableValuesDisplay(request, "pohead");
 
+            BigDecimal amount = BigDecimal.ZERO;
             for (int i = 0; i < pojo.getMaterials().size(); i++) {
                 RqlinePojo line = pojo.getMaterials().get(i);
                 Rqline rqline = this.db().rqline().get(line.getId());
@@ -97,9 +98,7 @@ public class GR02 extends UserDataProvider {
                 VPoline vPoline = new VPoline().polnid(poline.getPolnid()).oneById();
 
                 // 订单总金额
-                pohead.amount(pohead.getAmount().add(poline.getOrdqty().multiply(poline.getPrice())));
-                this.db().pohead().save(pohead);
-
+                amount = amount.add(poline.getOrdqty().multiply(poline.getPrice()));
                 rqline.status(Rqline.STATUS.Finish).
                         oprtby(operatorBy).
                         oprttm(currentTime);
@@ -128,7 +127,12 @@ public class GR02 extends UserDataProvider {
                     oprttm(currentTime);
             this.db().rqhead().save(rqhead);
 
+            // 订单总金额
+            pohead.amount(pohead.getAmount());
+            this.db().pohead().save(pohead);
+
             // 记录日志
+            VPohead vPohead = new VPohead().pohdid(pohead.getPohdid()).oneById();
             EventLog event = EventLog.builder().
                     domain(loginUser.getCmpnid()).
                     operator(operatorBy).
