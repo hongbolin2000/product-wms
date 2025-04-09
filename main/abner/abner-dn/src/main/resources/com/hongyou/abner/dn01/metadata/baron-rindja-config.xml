@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 销售单列表 -->
+    <generic-grider-descriptor name="salesOrderList">sales-order-grider.xml</generic-grider-descriptor>
+
+    <!-- 销售单编辑 -->
+    <generic-editor-descriptor name="salesOrderEdit">sales-order-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

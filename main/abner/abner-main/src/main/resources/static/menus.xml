@@ -29,5 +29,10 @@
             <menu id="gr01" permission="gr01" url="/graces/grider/gr01/requisitionOrderList" label="请购单管理" icon="requisition"/>
             <menu id="gr03" permission="gr03" url="/graces/grider/gr03/purchasingOrderList" label="采购单管理" icon="requisition"/>
         </menu>
+
+        <menu id="dn" url="/dn" label="发货管理" icon="deliver">
+            <menu id="dn01Create" permission="dn01" url="/graces/editor/dn01/salesOrderEdit" label="创建销售单"/>
+            <menu id="dn01" permission="dn01" url="/graces/grider/dn01/salesOrderList" label="销售单管理" icon="sales"/>
+        </menu>
     </family>
 </menus>

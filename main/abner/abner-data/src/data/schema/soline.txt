@@ -10,7 +10,7 @@ N	SOLNID,		ID,			NOT NULL,       ,               		id,					ID,                  
 N	SOHDID,		BIGINT,		NOT NULL,       ,               		soHeadId,			SO Head,				销售单
 N	SOLNNO,		INT,		NOT NULL,		1,						soLineNo,			SO Line NO,				销售单行号
 *****************************************************************************************************************************************************
-N	MTRLID,		BIGINT,		NOT NULL,       ,               		material,			Material,               物料
+N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,               物料
 K 	MTRLMS 					- SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD
 N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
