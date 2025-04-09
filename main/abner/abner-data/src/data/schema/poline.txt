@@ -19,12 +19,12 @@ N   PRICE,      N(24.3),    NOT NULL,       0,                      price,      
 *****************************************************************************************************************************************************
 N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         新采购单
-    B	20		Receiving	正在收货
-    B   30      Finish      采购完成
+    B	10		Receiving	正在收货
+    B   20      Finish      采购完成
 *****************************************************************************************************************************************************
 N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,			Order Qty,				采购数量
-N   RCVCNT,     INT,        NOT NULL,       0,                      receiveCount,       Receive Count,          收货次数
-N	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,			Receive Qty,			收货数量
+N   RCVCNT,     INT,        NOT NULL,       0,                      receivedCount,      Received Count,         已下发次数
+N	RCVQTY,		N(24.3),	NOT NULL,		0,						receivedQty,		Received Qty,			已下发数量
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
 N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
@@ -34,6 +34,7 @@ N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			�
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	POLNID
 U	01 getByPOLineNo POHDID, POLNNO
+I	01 listByStatus POHDID, STATUS
 F	01 listByPOHead (POHDID) POHEAD (POHDID)
 F 	02 listByMaterial (MTRLID) MTRLMS (MTRLID)
 F   03 (RQLNID) RQLINE (RQLNID)

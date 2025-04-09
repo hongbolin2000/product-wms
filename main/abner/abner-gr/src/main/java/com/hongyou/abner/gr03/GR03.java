@@ -94,21 +94,6 @@ public class GR03 extends UserDataProvider {
             Map<String, String> poheadDisplays = this.international.getTableValuesDisplay(request, "pohead");
             Map<String, String> polineDisplays = this.international.getTableValuesDisplay(request, "poline");
 
-            // 记录日志
-            String action = oldVPohead == null ? "创建" : "修改";
-            EventLog event = EventLog.builder().
-                    domain(loginUser.getCmpnid()).
-                    operator(operatorBy).
-                    module(GR03.class.getSimpleName()).
-                    name("采购单管理").
-                    action(action).
-                    message(StringUtil.format("采购单[{}]{}成功", pohead.getPohdno(), action)).
-                    oldValue(oldVPohead).
-                    newValue(vPohead).
-                    enumsDisplay(poheadDisplays).
-                    build();
-            this.eventLogManager.info(event);
-
             // 已经存在的采购物料id
             Set<Long> polnids = this.db().poline().listByPOHead(pohead.getPohdid()).stream().
                     map(Poline::getPolnid).collect(Collectors.toSet());
@@ -146,8 +131,8 @@ public class GR03 extends UserDataProvider {
                 this.db().pohead().save(pohead);
 
                 // 记录日志
-                action = oldVPoline == null ? "创建" : "修改";
-                event = EventLog.builder().
+                String action = oldVPoline == null ? "创建" : "修改";
+                EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(GR03.class.getSimpleName()).
@@ -169,7 +154,7 @@ public class GR03 extends UserDataProvider {
                 VPoline vPoline = new VPoline().polnid(poline.getPolnid()).oneById();
 
                 // 记录日志
-                event = EventLog.builder().
+                EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(GR03.class.getSimpleName()).
@@ -184,6 +169,21 @@ public class GR03 extends UserDataProvider {
                 this.eventLogManager.info(event);
                 this.db().poline().delete(polnid);
             }
+
+            // 记录日志
+            String action = oldVPohead == null ? "创建" : "修改";
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(operatorBy).
+                    module(GR03.class.getSimpleName()).
+                    name("采购单管理").
+                    action(action).
+                    message(StringUtil.format("采购单[{}]{}成功", pohead.getPohdno(), action)).
+                    oldValue(oldVPohead).
+                    newValue(vPohead).
+                    enumsDisplay(poheadDisplays).
+                    build();
+            this.eventLogManager.info(event);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

@@ -33,8 +33,8 @@
             <column type="tag" name="stockMode" expr="stkmde" title="@MTRTYP.STKMDE" width="120" format="@@MTRTYP.STKMDE"
                     filter="@stockMode"/>
             <column type="label" name="header" expr="mtsrhd" title="@MTRTYP.MTSRHD" width="110" filter="text"/>
-            <column type="label" name="seed" expr="srilsd" title="@MTRTYP.SRILSD" width="120" format="%#"/>
-            <column type="label" name="length" expr="srllen" title="@MTRTYP.SRLLEN" width="120" format="%#"/>
+            <column type="label" name="seed" expr="srilsd" title="@MTRTYP.SRILSD" width="120"/>
+            <column type="label" name="length" expr="srllen" title="@MTRTYP.SRLLEN" width="120"/>
             <column type="label" name="remark" expr="remark" title="@MTRTYP.REMARK" filter="text"/>
             <column type="link" name="edit" icon="edit" expr="mttyid" title="@edit" width="80"
                     link="/graces/editor/wb01/materialTypeEdit" permission="update"/>

@@ -9,7 +9,7 @@ N	DOLNID,		ID,			NOT NULL,       ,               		id,				ID,                   
 *****************************************************************************************************************************************************
 N	DOHDID,		BIGINT,		NOT NULL,       ,               		doHeadId,		DO Head,				发货单
 N	DOLNNO,		INT,		NOT NULL,		1,						doLineNo,		RO Line NO,				发货单行号
-N   RDOCID,     INT,                        ,       ,               refDocId,       Ref Doc ID,             参考主键
+N   RDOCID,     BIGINT,                     ,       ,               refDocId,       Ref Doc ID,             参考主键
 *****************************************************************************************************************************************************
 N 	MTRLID,		BIGINT,		NOT NULL,		,						materialId,		Material,			    物料
 K 	MTRLMS 		            - SKUNO, SKUNAM, MODEL, MTRIMG

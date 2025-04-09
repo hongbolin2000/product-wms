@@ -23,7 +23,7 @@ N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         新采购单
     B   10      Audited     已审核
     B	20		Receiving	正在收货
-    B   30      Finish      采购完成
+    B   30      Finished    采购完成
 *****************************************************************************************************************************************************
 N	ORDRDT,		DATE,		NOT NULL,		,				        orderDate,	        Order Date,		        订单日期
 N	DEMDDT,		DATE,		        ,		,				        demandDate,	        Demand Date,		    需求日期

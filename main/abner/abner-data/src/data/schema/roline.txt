@@ -9,7 +9,7 @@ N	ROLNID,		ID,			NOT NULL,       ,               		id,					ID,                  
 *****************************************************************************************************************************************************
 N	ROHDID,		BIGINT,		NOT NULL,       ,               		roHeadId,			RO Head,				收货单
 N	ROLNNO,		INT,		NOT NULL,		1,						roLineNo,			RO Line NO,				收货单行号
-N   RDOCID,     INT,                        ,       ,               refDocId,           Ref Doc ID,             参考主键
+N   RDOCID,     BIGINT,                     ,       ,               refDocId,           Ref Doc ID,             参考主键
 *****************************************************************************************************************************************************
 N	MTRLID,		BIGINT,		NOT NULL,       ,               		materialId,			Material,               物料
 K   MTRLMS                  - SKUNO, SKUNAM, MODEL, MTRIMG
@@ -17,8 +17,6 @@ K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD, STKMDE
 N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
 *****************************************************************************************************************************************************
 N	BTCHNO,		VC(16),	NOT NULL,		'',					        batchNo,		    Batch No,				库存批次
-N	BINCDE,		VC(32),		NOT NULL,		,						binCode,		    Bin Code,				存放货位
-N	CARTNO,		VC(128),		NOT NULL,		,					cartonNo,		    Carton No,				存放箱号
 *****************************************************************************************************************************************************
 N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,			Order Qty,				订单数量
 N 	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,	        Receive Qty,		    收货数量

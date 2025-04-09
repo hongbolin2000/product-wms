@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 采购单下发收货单 -->
+    <generic-editor-descriptor name="poConvertRoEdit">po-convert-ro-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

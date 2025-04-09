@@ -37,13 +37,16 @@
             <column type="label" name="startReceiveBy" expr="strcby" title="@POHEAD.STRCBY" width="120" filter="text"/>
             <column type="label" name="finishReceiveBy" expr="fnrcby" title="@POHEAD.FNRCBY" width="120" filter="text"/>
             <column type="label" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" width="120" filter="text"/>
-            <column type="label" name="Amount" expr="amount" title="@POHEAD.AMOUNT" width="100" format="%#.###"/>
-            <column type="label" name="payCount" expr="paycnt" title="@POHEAD.PAYCNT" width="100" format="%#.###"/>
+            <column type="label" name="amount" expr="amount" title="@POHEAD.AMOUNT" width="100" format="%#.###"/>
+            <column type="label" name="payCount" expr="paycnt" title="@POHEAD.PAYCNT" width="100"/>
             <column type="label" name="payAmount" expr="payamt" title="@POHEAD.PAYAMT" width="100" format="%#.###"/>
             <column type="tag" name="payStatus" expr="paysts" title="@POHEAD.PAYSTS" width="100" format="@@POHEAD.PAYSTS" filter="@payStatus"/>
             <column type="label" name="remark" expr="remark" title="@POHEAD.REMARK" width="120" filter="text"/>
             <column type="scriptLink" name="audit" icon="audit" expr="pohdid" title="@audit" width="80" link="/gr03/audit"
                     labelColumn="poHeadNo" disabled="statusValue != '00'" permission="audit"/>
+            <column type="link" mode="drawer" drawerWidth="60%" name="issue.ro" icon="issue" expr="pohdid" title="@issue.ro"
+                    width="80" link="/graces/editor/gr04/poConvertRoEdit" permission="issue.ro"
+                    disabled="statusValue == '00' or statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="pohdid" title="@edit" width="80"
                     link="/graces/editor/gr03/purchasingOrderEdit" disabled="statusValue != '00'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="pohdid" title="@delete" width="80"
@@ -65,9 +68,11 @@
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
             <column type="label" name="orderQty" expr="ordqty" title="@POLINE.ORDQTY" width="100" format="%#.###"/>
+            <column type="label" name="receivedQty" expr="rcvqty" title="@POLINE.RCVQTY" width="120" format="%#.###"/>
+            <column type="label" name="receivedCount" expr="rcvcnt" title="@POLINE.RCVCNT" width="120"/>
             <column type="label" name="price" expr="price" title="@POLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@POLINE.STATUS" width="90" format="@@POLINE.STATUS"
-                    filter="@status" success="statusValue == '10'"/>
+                    filter="@status" success="statusValue == '20'"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@POLINE.REMARK" filter="text"/>
         </columns>
@@ -78,6 +83,7 @@
             <item key="table.title">采购单</item>
 
             <item key="audit">审核通过</item>
+            <item key="issue.ro">下发收货</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
@@ -86,6 +92,7 @@
             <item key="table.title">Purchasing Order</item>
 
             <item key="audit">Approved</item>
+            <item key="issue.ro">Issue RO</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

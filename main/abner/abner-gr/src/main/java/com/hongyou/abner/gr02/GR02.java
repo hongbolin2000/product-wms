@@ -46,7 +46,7 @@ public class GR02 extends UserDataProvider {
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
     public ResponseEntry save(
-            @RequestBody final RequisitionOrderPojo pojo, final HttpServletRequest request
+            @RequestBody final PurchasingOrderPojo pojo, final HttpServletRequest request
     ) {
 
         try {
@@ -66,7 +66,7 @@ public class GR02 extends UserDataProvider {
                     cstmid(rqhead.getCstmid()).
                     ordrdt(new Date(currentTime.getTime())).
                     demddt(rqhead.getDemddt()).
-                    remark(rqhead.getRemark()).
+                    remark(pojo.getRemark()).
                     cretby(operatorBy).
                     crettm(currentTime).
                     oprtby(operatorBy).
@@ -76,19 +76,6 @@ public class GR02 extends UserDataProvider {
 
             Map<String, String> polineDisplays = this.international.getTableValuesDisplay(request, "poline");
             Map<String, String> poheadDisplays = this.international.getTableValuesDisplay(request, "pohead");
-
-            // 记录日志
-            EventLog event = EventLog.builder().
-                    domain(loginUser.getCmpnid()).
-                    operator(operatorBy).
-                    module(GR02.class.getSimpleName()).
-                    name("请购单管理").
-                    action("下发采购").
-                    message(StringUtil.format("请购单[{}]下发采购单[{}]成功", rqhead.getRqhdno(), pohead.getPohdno())).
-                    newValue(vPohead).
-                    enumsDisplay(poheadDisplays).
-                    build();
-            this.eventLogManager.info(event);
 
             for (int i = 0; i < pojo.getMaterials().size(); i++) {
                 RqlinePojo line = pojo.getMaterials().get(i);
@@ -119,7 +106,7 @@ public class GR02 extends UserDataProvider {
                 this.db().rqline().save(rqline);
 
                 // 记录日志
-                event = EventLog.builder().
+                EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(GR02.class.getSimpleName()).
@@ -140,6 +127,19 @@ public class GR02 extends UserDataProvider {
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().rqhead().save(rqhead);
+
+            // 记录日志
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(operatorBy).
+                    module(GR02.class.getSimpleName()).
+                    name("请购单管理").
+                    action("下发采购").
+                    message(StringUtil.format("请购单[{}]下发采购单[{}]成功", rqhead.getRqhdno(), pohead.getPohdno())).
+                    newValue(vPohead).
+                    enumsDisplay(poheadDisplays).
+                    build();
+            this.eventLogManager.info(event);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

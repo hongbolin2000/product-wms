@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        采购单下发收货单
+    </description>
+
+    <etitle>@etitle</etitle>
+    <url>/gr04/save</url>
+
+    <statement>
+        <table name="vpohead"/>
+        <param column="pohdid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="poHeadNo" spans="3">
+        <input type="text" name="id" expr="pohdid" hidden="true"/>
+        <input type="suggestor" name="warehouseId" title="@ROHEAD.WRHSID" module="wb00" suggestor="warehouseSuggestor"
+               required="true"/>
+        <input type="text" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" disabled="true"/>
+        <input type="text" name="status" expr="status" title="@POHEAD.STATUS" format="@@POHEAD.STATUS" disabled="true"/>
+        <input type="text" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" disabled="true"/>
+        <input type="text" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" disabled="true"/>
+        <input type="text" name="projectName" expr="projnm" title="@POHEAD.PROJID" disabled="true"/>
+        <input type="text" name="customerName" expr="cstmnm" title="@POHEAD.CSTMID" disabled="true"/>
+        <input type="date" name="demandDate" expr="demddt" title="@POHEAD.DEMDDT" format="!yyyy-MM-dd" disabled="true"/>
+        <input type="text" name="remark" expr="remark" title="@POHEAD.REMARK" length="254"/>
+    </editor>
+
+    <editor title="@editor.carrier" spans="3">
+        <input type="text" name="carrierCompany" title="@ROHEAD.CARCMP" length="64"/>
+        <input type="text" name="shippingNo" title="@ROHEAD.SHIPNO" length="64"/>
+        <input type="text" name="vehicleNo" title="@ROHEAD.VHCLNO" length="8"/>
+        <input type="text" name="contacts" title="@ROHEAD.CONTCS" length="32"/>
+        <input type="text" name="phoneNo" title="@ROHEAD.PHONNO" length="11"/>
+    </editor>
+
+    <sheeter title="@sheeter.materials" name="materials" labelColumn="skuName" added="false">
+        <statement>
+            <table name="vpoline"/>
+            <param column="status" type="!=" expr="'20'"/>
+            <param column="pohdid" type="=" expr="id"/>
+        </statement>
+
+        <inputs>
+            <input type="selection" name="id" expr="polnid"/>
+            <input type="text" name="skuName" expr="skunam" title="@POLINE.MTRLID" width="120" disabled="true"/>
+            <input type="number" name="orderQty" expr="ordqty" title="下发数量" format="ordqty - rcvqty" width="70"
+                   required="true" default="1" scale="0" min="1"/>
+            <input type="number" name="receivedQty" expr="rcvqty" title="@POLINE.RCVQTY" format="%#.###" width="80" disabled="true"/>
+            <input type="number" name="purchasingQty" expr="ordqty" title="@POLINE.ORDQTY" format="%#.###" width="70" disabled="true"/>
+            <input type="number" name="price" expr="price" title="@POLINE.PRICE" format="%#.###" width="50" disabled="true"/>
+            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>
+            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
+            <input type="text" name="remark" expr="remark" title="@RQLINE.REMARK"/>
+            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="etitle">采购单下发收货</item>
+
+            <item key="editor.carrier">承运信息</item>
+            <item key="sheeter.materials">采购物料</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="etitle">Issue RO</item>
+
+            <item key="editor.carrier">Carrier Info</item>
+            <item key="sheeter.materials">Purchasing Material</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

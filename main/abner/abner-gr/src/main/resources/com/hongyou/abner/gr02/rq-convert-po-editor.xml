@@ -5,7 +5,7 @@
     </developer>
 
     <description>
-        请购单转采购单
+        请购单下发采购单
     </description>
 
     <etitle>@etitle</etitle>
@@ -24,7 +24,7 @@
         <input type="text" name="projectName" expr="projnm" title="@RQHEAD.PROJID" disabled="true"/>
         <input type="text" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" disabled="true"/>
         <input type="date" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" format="!yyyy-MM-dd" disabled="true"/>
-        <input type="text" name="remark" expr="remark" title="@RQHEAD.REMARK" disabled="true"/>
+        <input type="text" name="remark" expr="remark" title="@RQHEAD.REMARK" length="254"/>
     </editor>
 
     <sheeter title="@sheeter.materials" name="materials" added="false" updated="false">
@@ -48,12 +48,12 @@
 
     <intl>
         <lang code="zh-CN">
-            <item key="etitle">下发采购</item>
+            <item key="etitle">请购单下发采购</item>
             <item key="sheeter.materials">请购物料</item>
         </lang>
 
         <lang code="en-US">
-            <item key="etitle">Issue Po</item>
+            <item key="etitle">Issue PO</item>
             <item key="sheeter.materials">Requisition Material</item>
         </lang>
     </intl>

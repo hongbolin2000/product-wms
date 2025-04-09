@@ -12,7 +12,7 @@ K 	WRHSMS 		- WRHSNM
 *****************************************************************************************************************************************************
 N	RVODNO,		VC(32),		        NOT NULL,		,						roHeadNo,		RO Head NO,				收货单号
 N   RDOCNO,     VC(32),             NOT NULL,       '',                     refDocNo,       Ref Doc No,             参考单据
-N   RDOCID,     INT,                        ,       ,                       refDocId,       Ref Doc ID,             参考主键
+N   RDOCID,     BIGINT,                     ,       ,                       refDocId,       Ref Doc ID,             参考主键
 *****************************************************************************************************************************************************
 N	RDOCTY,		C(8),		        NOT NULL,		'RPO',					refDocType,		Ref Doc Type,		    单据类型
     B   RPO     PurchaseReceive 	采购收货
@@ -41,7 +41,7 @@ N	STATUS,		C(2),		        NOT NULL,		'00',					status,			Status,					状态
 *****************************************************************************************************************************************************
 N	CARCMP,		VC(64),		        NOT NULL,		'',						carrierCompany,	Carrier Company,		运输公司
 N	SHIPNO,		VC(64),		        NOT NULL,		'',						shippingNo,	    shoppingNo,		        运输单号
-N	VHCLNO,		VC(16),		        NOT NULL,		'',						vehicleNo,		Vehicle Plate No,		车牌号
+N	VHCLNO,		VC(8),		        NOT NULL,		'',						vehicleNo,		Vehicle Plate No,		车牌号
 N   CONTCS,     VC(32),             NOT NULL,       '',                     contacts,       Contacts,               联系人
 N	PHONNO,		VC(11),		        NOT NULL,		'',						phoneNo,		Phone No,			    联系电话
 *****************************************************************************************************************************************************

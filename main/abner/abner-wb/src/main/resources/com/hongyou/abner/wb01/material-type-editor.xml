@@ -27,9 +27,9 @@
                required="true"/>
         <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" accept="image/*" group="mtrtyp/mtrimg"/>
         <input type="text" name="header" expr="mtsrhd" title="@MTRTYP.MTSRHD" length="6"/>
-        <input type="number" name="seed" expr="srilsd" title="@MTRTYP.SRILSD" format="%#" default="1" min="1" scale="0"
+        <input type="number" name="seed" expr="srilsd" title="@MTRTYP.SRILSD" default="1" min="1" scale="0"
                required="true"/>
-        <input type="number" name="length" expr="srllen" title="@MTRTYP.SRLLEN" format="%#" default="10" min="1" scale="0"
+        <input type="number" name="length" expr="srllen" title="@MTRTYP.SRLLEN" default="10" min="1" scale="0"
                required="true"/>
         <input type="text" mode="textarea" name="remark" expr="remark" title="@MTRTYP.REMARK" length="254"/>
     </editor>

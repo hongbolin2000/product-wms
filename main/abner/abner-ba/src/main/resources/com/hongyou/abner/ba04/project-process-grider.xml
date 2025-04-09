@@ -27,7 +27,7 @@
         <columns>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="projectName" expr="projnm" title="@PROJPC.PROJID" width="150" filter="text"/>
-            <column type="label" name="level" expr="level" title="@PROJPC.LEVEL" width="100" format="%#.###"/>
+            <column type="label" name="level" expr="level" title="@PROJPC.LEVEL" width="100"/>
             <column type="label" name="taskName" expr="tasknm" title="@PROJPC.TASKNM" width="100" filter="text"/>
             <column type="label" name="taskRemark" expr="taskrm" title="@PROJPC.TASKRM" width="100" filter="text"/>
             <column type="label" name="taskLeader" expr="taskld" title="@PROJPC.TASKLD" width="100" filter="text"/>
