@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        付款记录列表
+    </description>
+
+    <datatable title="@table.title">
+        <statement>
+            <table name="vpyhead"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
+            <order by="pohdno"/>
+        </statement>
+        <double.click type="query" datatables="detail" input="pyHeadId"/>
+
+        <columns>
+            <column type="label" name="pyHeadId" expr="pyhdid" hidden="true"/>
+            <column type="file" name="invoiceImage" expr="invcim" title="@PYHEAD.INVCIM" width="110"/>
+            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="120" filter="text"/>
+            <column type="label" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" width="120" filter="text"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="200" filter="text"/>
+            <column type="label" name="paymentAmount" expr="payamt" title="@PYHEAD.PAYAMT" width="100" format="%#.###"/>
+            <column type="label" name="invoiceNo" expr="invcno" title="@PYHEAD.INVCNO" width="120" filter="text"/>
+            <column type="label" name="entryBy" expr="entrby" title="@PYHEAD.ENTRBY" width="100" filter="text"/>
+            <column type="label" name="entryTime" expr="entrtm" title="@PYHEAD.ENTRTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="remark" expr="remark" title="@PYHEAD.REMARK" filter="text"/>
+        </columns>
+    </datatable>
+
+    <subtable name="detail">
+        <statement>
+            <table name="vpyline"/>
+            <param column="pyhdid" type="=" expr="pyHeadId"/>
+            <order by="invcno"/>
+        </statement>
+
+        <columns>
+            <column type="file" name="invoiceImage" expr="invcim" title="@PYLINE.INVCIM" width="110"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
+            <column type="label" name="paymentAmount" expr="payamt" title="@PYLINE.PAYAMT" width="100" format="%#.###"/>
+            <column type="label" name="invoiceNo" expr="invcno" title="@PYLINE.INVCNO" width="100" filter="text"/>
+            <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@PYLINE.REMARK" filter="text"/>
+        </columns>
+    </subtable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">付款记录</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Payment Record</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

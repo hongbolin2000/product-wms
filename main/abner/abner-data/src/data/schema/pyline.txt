@@ -10,6 +10,7 @@ N	PYLNID,		ID,			NOT NULL,       ,               		id,					ID,                  
 N	PYHDID,		BIGINT,		NOT NULL,       ,               		pyHeadId,		    Py Head,				付款记录
 N	POLNID,		BIGINT,		NOT NULL,       ,               		poLineId,		    PO Line,				采购单行
 K 	POLINE:MTRLMS 			- SKUNO, SKUNAM, MODEL, MTRIMG
+K 	POLINE:MTRLMS:MTRTYP 	- MTTYP1, MTTYCD
 *****************************************************************************************************************************************************
 N   PAYAMT,     N(24.3),    NOT NULL,       1,                      paymentAmount,      Payment Amount,         付款金额
 N   INVCNO,     VC(64),     NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
