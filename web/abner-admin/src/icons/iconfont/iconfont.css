@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4755836 */
-  src: url('iconfont.woff2?t=1741790586841') format('woff2'),
-       url('iconfont.woff?t=1741790586841') format('woff'),
-       url('iconfont.ttf?t=1741790586841') format('truetype');
+  src: url('iconfont.woff2?t=1744182431167') format('woff2'),
+       url('iconfont.woff?t=1744182431167') format('woff'),
+       url('iconfont.ttf?t=1744182431167') format('truetype');
 }
 
 .iconfont {
@@ -13,11 +13,119 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-purchasing:before {
+  content: "\e6a9";
+}
+
+.icon-audit:before {
+  content: "\e69a";
+}
+
+.icon-issue:before {
+  content: "\e7d3";
+}
+
+.icon-requisition:before {
+  content: "\e711";
+}
+
+.icon-receive:before {
+  content: "\e6f5";
+}
+
+.icon-bin:before {
+  content: "\e74b";
+}
+
+.icon-area:before {
+  content: "\e66a";
+}
+
+.icon-warehouse:before {
+  content: "\e630";
+}
+
+.icon-material:before {
+  content: "\e61a";
+}
+
+.icon-material-type:before {
+  content: "\e602";
+}
+
+.icon-basic:before {
+  content: "\e681";
+}
+
+.icon-process:before {
+  content: "\e6d5";
+}
+
+.icon-doc:before {
+  content: "\e84a";
+}
+
+.icon-project:before {
+  content: "\e613";
+}
+
+.icon-supplier:before {
+  content: "\e67a";
+}
+
+.icon-log:before {
+  content: "\e615";
+}
+
+.icon-reset-pwd:before {
+  content: "\e620";
+}
+
+.icon-company:before {
+  content: "\e624";
+}
+
+.icon-frozen-user:before {
+  content: "\e95e";
+}
+
+.icon-unfrozen-user:before {
+  content: "\e95f";
+}
+
+.icon-user:before {
+  content: "\e65c";
+}
+
+.icon-role:before {
+  content: "\e787";
+}
+
+.icon-permission:before {
+  content: "\e6e9";
+}
+
+.icon-system:before {
+  content: "\e643";
+}
+
+.icon-upload:before {
+  content: "\e75d";
+}
+
+.icon-csv:before {
+  content: "\e6af";
+}
+
+.icon-delete:before {
+  content: "\e64f";
+}
+
 .icon-add:before {
   content: "\e67b";
 }
 
-.icon-list_expand_right:before {
+.icon-expand:before {
   content: "\e689";
 }
 
@@ -27,41 +135,5 @@
 
 .icon-edit:before {
   content: "\e7e1";
-}
-
-.icon-appstore:before {
-  content: "\f184";
-}
-
-.icon-file-text:before {
-  content: "\e664";
-}
-
-.icon-setting:before {
-  content: "\e78e";
-}
-
-.icon-Partition:before {
-  content: "\e90e";
-}
-
-.icon-location:before {
-  content: "\e790";
-}
-
-.icon-detail:before {
-  content: "\e793";
-}
-
-.icon-interation:before {
-  content: "\e7a7";
-}
-
-.icon-file-unknown:before {
-  content: "\e7b9";
-}
-
-.icon-dashboard:before {
-  content: "\e78b";
 }
 

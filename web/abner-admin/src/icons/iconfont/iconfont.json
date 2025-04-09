@@ -6,6 +6,195 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5645104",
+      "name": "purchasing",
+      "font_class": "purchasing",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
+      "icon_id": "8526692",
+      "name": "audit",
+      "font_class": "audit",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "18211627",
+      "name": "issue",
+      "font_class": "issue",
+      "unicode": "e7d3",
+      "unicode_decimal": 59347
+    },
+    {
+      "icon_id": "7090054",
+      "name": "requisition",
+      "font_class": "requisition",
+      "unicode": "e711",
+      "unicode_decimal": 59153
+    },
+    {
+      "icon_id": "34262243",
+      "name": "receive",
+      "font_class": "receive",
+      "unicode": "e6f5",
+      "unicode_decimal": 59125
+    },
+    {
+      "icon_id": "2134089",
+      "name": "bin",
+      "font_class": "bin",
+      "unicode": "e74b",
+      "unicode_decimal": 59211
+    },
+    {
+      "icon_id": "37183976",
+      "name": "area",
+      "font_class": "area",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "6789072",
+      "name": "warehouse",
+      "font_class": "warehouse",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "22985606",
+      "name": "material",
+      "font_class": "material",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "34974544",
+      "name": "material-type",
+      "font_class": "material-type",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "27756364",
+      "name": "basic",
+      "font_class": "basic",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "11927797",
+      "name": "process",
+      "font_class": "process",
+      "unicode": "e6d5",
+      "unicode_decimal": 59093
+    },
+    {
+      "icon_id": "17436004",
+      "name": "doc",
+      "font_class": "doc",
+      "unicode": "e84a",
+      "unicode_decimal": 59466
+    },
+    {
+      "icon_id": "551331",
+      "name": "project",
+      "font_class": "project",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "18853237",
+      "name": "supplier",
+      "font_class": "supplier",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "36622657",
+      "name": "log",
+      "font_class": "log",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "3458306",
+      "name": "reset-pwd",
+      "font_class": "reset-pwd",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "35681391",
+      "name": "company",
+      "font_class": "company",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "39109867",
+      "name": "frozen-user",
+      "font_class": "frozen-user",
+      "unicode": "e95e",
+      "unicode_decimal": 59742
+    },
+    {
+      "icon_id": "43863517",
+      "name": "unfrozen-user",
+      "font_class": "unfrozen-user",
+      "unicode": "e95f",
+      "unicode_decimal": 59743
+    },
+    {
+      "icon_id": "4320359",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "9351374",
+      "name": "role",
+      "font_class": "role",
+      "unicode": "e787",
+      "unicode_decimal": 59271
+    },
+    {
+      "icon_id": "30505028",
+      "name": "permission",
+      "font_class": "permission",
+      "unicode": "e6e9",
+      "unicode_decimal": 59113
+    },
+    {
+      "icon_id": "10944074",
+      "name": "system",
+      "font_class": "system",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "240135",
+      "name": "upload",
+      "font_class": "upload",
+      "unicode": "e75d",
+      "unicode_decimal": 59229
+    },
+    {
+      "icon_id": "11374065",
+      "name": "csv",
+      "font_class": "csv",
+      "unicode": "e6af",
+      "unicode_decimal": 59055
+    },
+    {
+      "icon_id": "13519374",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
       "icon_id": "4113780",
       "name": "add",
       "font_class": "add",
@@ -14,8 +203,8 @@
     },
     {
       "icon_id": "33493875",
-      "name": "list_expand_right",
-      "font_class": "list_expand_right",
+      "name": "expand",
+      "font_class": "expand",
       "unicode": "e689",
       "unicode_decimal": 59017
     },
@@ -32,69 +221,6 @@
       "font_class": "edit",
       "unicode": "e7e1",
       "unicode_decimal": 59361
-    },
-    {
-      "icon_id": "24553766",
-      "name": "appstore",
-      "font_class": "appstore",
-      "unicode": "f184",
-      "unicode_decimal": 61828
-    },
-    {
-      "icon_id": "39643780",
-      "name": "file-text",
-      "font_class": "file-text",
-      "unicode": "e664",
-      "unicode_decimal": 58980
-    },
-    {
-      "icon_id": "4765891",
-      "name": "setting",
-      "font_class": "setting",
-      "unicode": "e78e",
-      "unicode_decimal": 59278
-    },
-    {
-      "icon_id": "9229180",
-      "name": "Partition",
-      "font_class": "Partition",
-      "unicode": "e90e",
-      "unicode_decimal": 59662
-    },
-    {
-      "icon_id": "4765897",
-      "name": "location",
-      "font_class": "location",
-      "unicode": "e790",
-      "unicode_decimal": 59280
-    },
-    {
-      "icon_id": "4765971",
-      "name": "detail",
-      "font_class": "detail",
-      "unicode": "e793",
-      "unicode_decimal": 59283
-    },
-    {
-      "icon_id": "4766245",
-      "name": "interation",
-      "font_class": "interation",
-      "unicode": "e7a7",
-      "unicode_decimal": 59303
-    },
-    {
-      "icon_id": "4766475",
-      "name": "file-unknown",
-      "font_class": "file-unknown",
-      "unicode": "e7b9",
-      "unicode_decimal": 59321
-    },
-    {
-      "icon_id": "4765881",
-      "name": "dashboard",
-      "font_class": "dashboard",
-      "unicode": "e78b",
-      "unicode_decimal": 59275
     }
   ]
 }
