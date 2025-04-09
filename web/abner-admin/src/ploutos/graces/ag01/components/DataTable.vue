@@ -396,6 +396,10 @@
     let width = 0;
     props.datatable.columns.forEach(column => {
       width += column.width ? parseInt(column.width.toString()) : 100;
+
+      if (ColumnFactories.isLink(column)) {
+        width += 20;
+      }
     });
     return width;
   });
