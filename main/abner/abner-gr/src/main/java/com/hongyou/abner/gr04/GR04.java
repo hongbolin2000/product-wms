@@ -132,14 +132,26 @@ public class GR04 extends UserDataProvider {
                 this.eventLogManager.info(event);
             }
 
-            // 更新采购单状态
+            // 开始收货
+            if (StringUtil.isBlank(pohead.getStrcby())) {
+                pohead.status(Pohead.STATUS.Receiving).
+                        strcby(operatorBy).
+                        strcdt(new Date(currentTime.getTime()));
+            }
+
+            // 采购单状态
             QueryWrapper wrapper = QueryWrapper.create();
             wrapper.and(POLINE.POHDID.eq(pohead.getPohdid())).
                     and(POLINE.STATUS.eq(Poline.STATUS.New).or(POLINE.STATUS.eq(Poline.STATUS.Receiving)));
             List<Poline> polines = this.db().poline().list(wrapper);
 
-            pohead.status(ListUtil.isEmpty(polines) ? Pohead.STATUS.Finished : Pohead.STATUS.Receiving).
-                    oprtby(operatorBy).
+            // 完成收货
+            if (ListUtil.isEmpty(polines)) {
+                pohead.status(Pohead.STATUS.Finished).
+                        fnrcby(operatorBy).
+                        fnrcdt(new Date(currentTime.getTime()));
+            }
+            pohead.oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().pohead().save(pohead);
 

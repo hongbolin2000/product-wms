@@ -48,7 +48,7 @@
             </input>
             <input type="text" name="skuName" expr="skunam" title="@POLINE.MTRLID" width="120" ignore="true"/>
             <input type="number" name="orderQty" expr="ordqty" title="@POLINE.ORDQTY" format="%#.###" min="1"
-                   default="1" scale="0" required="true" width="70"/>
+                   default="0" scale="0" required="true" width="70"/>
             <input type="number" name="price" expr="price" title="@POLINE.PRICE" format="%#.###" min="0"
                    default="0" scale="3" required="true" width="50"/>
             <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>

@@ -14,8 +14,8 @@ K   SOHEAD:SUPLMS           - SUPLNM
 N   PAYAMT,     N(24.3),    NOT NULL,       0,                      paymentAmount,      Payment Amount,         付款金额
 N   INVCNO,     VC(128),    NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
 N   INVCIM,     VC(128),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
-N	EMTYBY,		VC(64),		NOT NULL,		'',						entryBy,			Entry By,				录入人
-N	EMTYTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		entryTime,			Entry Time,			    录入时间
+N	ENTRBY,		VC(64),		NOT NULL,		'',						entryBy,			Entry By,				录入人
+N	ENTRTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		entryTime,			Entry Time,			    录入时间
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
 N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,			Operate By,				操作人

@@ -24,6 +24,7 @@
         <columns>
             <column type="label" name="poHeadId" expr="pohdid" hidden="true"/>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="payStatusValue" expr="paysts" hidden="true"/>
             <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="120" filter="text"/>
             <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="150" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@POHEAD.PROJID" width="150" filter="text"/>
@@ -47,6 +48,10 @@
             <column type="link" mode="drawer" drawerWidth="60%" name="issue.ro" icon="issue" expr="pohdid" title="@issue.ro"
                     width="80" link="/graces/editor/gr04/poConvertRoEdit" permission="issue.ro"
                     disabled="statusValue == '00' or statusValue == '30'"/>
+            <column type="link" mode="drawer" drawerWidth="60%" name="payment.entry" icon="payment" expr="pohdid"
+                    title="@payment.entry" width="100" link="/graces/editor/gr05/poPaymentEdit" permission="payment.entry"
+                    disabled="payStatusValue == '20'"
+            />
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="pohdid" title="@edit" width="80"
                     link="/graces/editor/gr03/purchasingOrderEdit" disabled="statusValue != '00'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="pohdid" title="@delete" width="80"
@@ -84,6 +89,7 @@
 
             <item key="audit">审核通过</item>
             <item key="issue.ro">下发收货</item>
+            <item key="payment.entry">付款录入</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
@@ -93,6 +99,7 @@
 
             <item key="audit">Approved</item>
             <item key="issue.ro">Issue RO</item>
+            <item key="payment.entry">Payment Entry</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

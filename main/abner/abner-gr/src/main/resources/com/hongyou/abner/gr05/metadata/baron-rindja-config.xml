@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 采购单付款录入 -->
+    <generic-editor-descriptor name="poPaymentEdit">po-payment-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>
