@@ -41,21 +41,23 @@
             <column type="label" name="amount" expr="amount" title="@POHEAD.AMOUNT" width="100" format="%#.###"/>
             <column type="label" name="payCount" expr="paycnt" title="@POHEAD.PAYCNT" width="100"/>
             <column type="label" name="payAmount" expr="payamt" title="@POHEAD.PAYAMT" width="100" format="%#.###"/>
-            <column type="tag" name="payStatus" expr="paysts" title="@POHEAD.PAYSTS" width="100" format="@@POHEAD.PAYSTS" filter="@payStatus"/>
+            <column type="tag" name="payStatus" expr="paysts" title="@POHEAD.PAYSTS" width="100" format="@@POHEAD.PAYSTS"
+                    filter="@payStatus" success="payStatusValue == '20'"
+            />
             <column type="label" name="remark" expr="remark" title="@POHEAD.REMARK" width="120" filter="text"/>
             <column type="scriptLink" name="audit" icon="audit" expr="pohdid" title="@audit" width="80" link="/gr03/audit"
                     labelColumn="poHeadNo" disabled="statusValue != '00'" permission="audit"/>
             <column type="link" mode="drawer" drawerWidth="60%" name="issue.ro" icon="issue" expr="pohdid" title="@issue.ro"
-                    width="80" link="/graces/editor/gr04/poConvertRoEdit" permission="issue.ro"
+                    width="100" link="/graces/editor/gr04/poConvertRoEdit" permission="issue.ro"
                     disabled="statusValue == '00' or statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="60%" name="payment.entry" icon="payment" expr="pohdid"
                     title="@payment.entry" width="100" link="/graces/editor/gr05/poPaymentEdit" permission="payment.entry"
                     disabled="payStatusValue == '20'"
             />
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="pohdid" title="@edit" width="80"
-                    link="/graces/editor/gr03/purchasingOrderEdit" disabled="statusValue != '00'" permission="update"/>
-            <column type="scriptLink" name="delete" icon="delete" expr="pohdid" title="@delete" width="80"
-                    link="/gr03/delete" labelColumn="" danger="true" disabled="statusValue != '00'" permission="delete"/>
+                    link="/graces/editor/gr03/purchasingOrderEdit" disabled="statusValue != '00'" permission="update" option="true"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="pohdid" title="@delete" width="80" link="/gr03/delete"
+                    labelColumn="" danger="true" disabled="statusValue != '00'" permission="delete" option="true"/>
         </columns>
     </datatable>
 

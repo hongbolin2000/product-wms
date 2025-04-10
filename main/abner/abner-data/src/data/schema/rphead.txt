@@ -9,7 +9,7 @@ N	RPHDID,		ID,			NOT NULL,       ,               		id,					ID,                  
 *****************************************************************************************************************************************************
 N	SOHDID,		BIGINT,		NOT NULL,       ,               		soHeadId,			SO Head,				销售单
 K   SOHEAD                  - SOHDNO, SOCTNO
-K   SOHEAD:SUPLMS           - SUPLNM
+K   SOHEAD:SUPLMS           - SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N   PAYAMT,     N(24.3),    NOT NULL,       0,                      paymentAmount,      Payment Amount,         付款金额
 N   INVCNO,     VC(128),    NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
