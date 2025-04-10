@@ -5,39 +5,48 @@
     </developer>
 
     <description>
-        采购单编辑
+        发货单编辑
     </description>
 
+    <atitle>@atitle</atitle>
     <etitle>@etitle</etitle>
-    <url>/gr03/save</url>
+    <url>/dn03/save</url>
 
     <statement>
-        <table name="pohead"/>
-        <param column="pohdid" type="=" expr="id"/>
+        <table name="vdohead"/>
+        <param column="dohdid" type="=" expr="id"/>
     </statement>
 
-    <editor labelColumn="poHeadNo" spans="3">
-        <input type="text" name="id" expr="pohdid" hidden="true"/>
-        <input type="text" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" disabled="true" hidden="fill != true"/>
-        <input type="suggestor" name="supplierId" expr="suplid" title="@POHEAD.SUPLID" module="ba00" required="true"
-               suggestor="supplierSuggestor"/>
-        <input type="suggestor" name="projectId" expr="projid" title="@POHEAD.PROJID" module="ba00"
-               suggestor="projectSuggestor"/>
-        <input type="date" name="demandDate" expr="demddt" title="@POHEAD.DEMDDT" format="!yyyy-MM-dd" />
-        <input type="text" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" length="32"/>
-        <input type="text" name="remark" expr="remark" title="@POHEAD.REMARK" length="254"/>
+    <editor labelColumn="doHeadNo" spans="3">
+        <input type="text" name="id" expr="dohdid" hidden="true"/>
+        <input type="text" name="doHeadNo" expr="dlodno" title="@DOHEAD.DLODNO" hidden="!fill" disabled="true"/>
+        <input type="suggestor" name="warehouseId" expr="wrhsid" title="@ROHEAD.WRHSID" module="wb00" suggestor="warehouseSuggestor"
+               required="true"/>
+        <input type="enum" mode="select" name="refDocType" expr="rdocty" title="@DOHEAD.RDOCTY" options="@@DOHEAD.RDOCTY"
+               required="true"/>
+        <input type="text" name="refDocNo" expr="rdocno" title="@DOHEAD.RDOCNO" length="32"/>
+        <input type="suggestor" name="projectId" expr="projid" title="@ROHEAD.PROJID" module="ba00" suggestor="projectSuggestor"/>
+        <input type="text" name="remark" expr="remark" title="@DOHEAD.REMARK" length="254"/>
+    </editor>
+
+    <editor title="@editor.carrier" spans="3">
+        <input type="text" name="carrierCompany" expr="carcmp" title="@DOHEAD.CARCMP" length="64"/>
+        <input type="text" name="shippingNo" expr="shipno" title="@DOHEAD.SHIPNO" length="64"/>
+        <input type="text" name="vehicleNo" expr="vhclno" title="@DOHEAD.VHCLNO" length="8"/>
+        <input type="text" name="contacts" expr="contcs" title="@DOHEAD.CONTCS" length="32"/>
+        <input type="text" name="phoneNo" expr="phonno" title="@DOHEAD.PHONNO" length="11"/>
     </editor>
 
     <sheeter title="@sheeter.materials" name="materials" labelColumn="skuName" unique="skuName">
         <statement>
-            <table name="vpoline"/>
-            <param column="pohdid" type="=" expr="id"/>
+            <table name="vdoline"/>
+            <param column="dohdid" type="=" expr="id"/>
         </statement>
 
         <inputs>
-            <input type="text" name="id" expr="polnid" hidden="true"/>
-            <input type="suggestor" name="materialId" expr="mtrlid" title="@POLINE.MTRLID" module="wb00"
-                   suggestor="rawMaterialSuggestor" required="true">
+            <input type="text" name="id" expr="dolnid" hidden="true"/>
+            <input type="suggestor" name="materialId" expr="mtrlid" title="@DOLINE.MTRLID" module="wb00"
+                   suggestor="materialSuggestor" required="true">
                 <script>
                     row.skuName = option.label;
                     row.price = option.purchasePrice;
@@ -46,27 +55,33 @@
                     row.materialImage = option.materialImage;
                 </script>
             </input>
-            <input type="text" name="skuName" expr="skunam" title="@POLINE.MTRLID" width="120" ignore="true"/>
-            <input type="number" name="orderQty" expr="ordqty" title="@POLINE.ORDQTY" format="%#.###" min="1"
+            <input type="text" name="skuName" expr="skunam" title="@DOLINE.MTRLID" width="120" ignore="true"/>
+            <input type="number" name="orderQty" expr="ordqty" title="@DOLINE.ORDQTY" format="%#.###" min="1"
                    default="0" scale="0" required="true" width="70"/>
-            <input type="number" name="price" expr="price" title="@POLINE.PRICE" format="%#.###" min="0"
+            <input type="number" name="price" expr="price" title="@DOLINE.PRICE" format="%#.###" min="0"
                    default="0" scale="3" required="true" width="50"/>
             <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>
             <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
-            <input type="text" name="remark" expr="remark" title="@RQLINE.REMARK" length="254"/>
+            <input type="text" name="remark" expr="remark" title="@DOLINE.REMARK" length="254"/>
             <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
         </inputs>
     </sheeter>
 
     <intl>
         <lang code="zh-CN">
-            <item key="etitle">修改采购单</item>
-            <item key="sheeter.materials">采购物料</item>
+            <item key="atitle">创建发货单</item>
+            <item key="etitle">修改发货单</item>
+
+            <item key="editor.carrier">承运信息</item>
+            <item key="sheeter.materials">发货物料</item>
         </lang>
 
         <lang code="en-US">
-            <item key="etitle">Modify Purchasing Order</item>
-            <item key="sheeter.materials">Purchasing Material</item>
+            <item key="atitle">Create Deliver Order</item>
+            <item key="etitle">Modify Deliver Order</item>
+
+            <item key="editor.carrier">Carrier Info</item>
+            <item key="sheeter.materials">Deliver Material</item>
         </lang>
     </intl>
 </rindja-generic-editor>

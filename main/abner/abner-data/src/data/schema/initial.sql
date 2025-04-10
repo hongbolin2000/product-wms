@@ -97,9 +97,9 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'gr07', '收货单管理', 'add', '创建');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'gr07', '收货单管理', 'update', '修改');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'gr07', '收货单管理', 'delete', '删除');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'gr07', '收货单管理', 'audit', '审核通过');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'gr07', '收货单管理', 'batch.receive', '批次收货');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 6, 'gr07', '收货单管理', 'serial.receive', '序列号收货');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'gr07', '收货单管理', 'audit', '审核通过');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 6, 'gr07', '收货单管理', 'batch.receive', '批次收货');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 7, 'gr07', '收货单管理', 'serial.receive', '序列号收货');
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'dn01', '销售单管理', 'browse', '查看');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'dn01', '销售单管理', 'add', '创建');
@@ -110,6 +110,12 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 6,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'dn01', '销售单管理', 'receipt.entry', '付款录入');
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'dn03', '发货单管理', 'browse', '查看');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'dn03', '发货单管理', 'add', '创建');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'dn03', '发货单管理', 'update', '修改');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'dn03', '发货单管理', 'delete', '删除');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5, 'dn03', '发货单管理', 'audit', '审核');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 6, 'dn03', '发货单管理', 'batch.deliver', '批次发货');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 7, 'dn03', '发货单管理', 'serial.deliver', '序列号发货');
 
 /**
  * 角色

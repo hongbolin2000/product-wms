@@ -24,7 +24,7 @@ N	RDOCTY,		C(4),           NOT NULL,		'DSO',					refDocType,			Ref Doc Type,			�
 *****************************************************************************************************************************************************
 N 	PROJID,		BIGINT,		    ,				,						projectId,			Project,			    项目
 K 	PROJMS		- PROJNM
-N 	SUPLID,		BIGINT,		    ,				,						supplierId,			Supplier,			    客户
+N 	CSTMID,		BIGINT,		    ,				,						customerId,			Customer,			    客户
 K 	SUPLMS		- SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	ORDRDT,		DATE,		    NOT NULL,		,						orderDate,			Order Date,				订单日期
@@ -34,8 +34,8 @@ N   DELVBY,     VC(32),         NOT NULL,       '',                     deliverB
 N	STATUS,		C(2),		    NOT NULL,		'00',					status,				Status,					状态
 	B	00		No			    待审核
     B   10      Audited         已审核
-	B 	10		Delivering	    正在发货
-	B 	20		Finished 	    完成发货
+	B 	20		Delivering	    正在发货
+	B 	30		Finished 	    完成发货
 *****************************************************************************************************************************************************
 N	CARCMP,		VC(64),		    NOT NULL,		'',						carrierCompany,	    Carrier Company,		运输公司
 N	SHIPNO,		VC(64),		    NOT NULL,		'',						shippingNo,	        shoppingNo,		        运输单号
@@ -54,5 +54,5 @@ U	01 getByDOHeadNO WRHSID, DLODNO
 I	02 listByRefDocType WRHSID, RDOCTY, STATUS
 F	01 listByWarehouse (WRHSID) WRHSMS (WRHSID)
 F 	02 listByProject (PROJID) PROJMS (PROJID)
-F 	03 listByCustomer (SUPLID) SUPLMS (SUPLID)
+F 	03 listByCustomer (CSTMID) SUPLMS (SUPLID)
 =====================================================================================================================================================

@@ -8,6 +8,7 @@ Y	Deliver Line
 N	DOLNID,		ID,			NOT NULL,       ,               		id,				ID,                     主键
 *****************************************************************************************************************************************************
 N	DOHDID,		BIGINT,		NOT NULL,       ,               		doHeadId,		DO Head,				发货单
+K   DOHEAD      - STATUS as DHSTUS alias doHeadStatus
 N	DOLNNO,		INT,		NOT NULL,		1,						doLineNo,		RO Line NO,				发货单行号
 N   RDOCID,     BIGINT,                     ,       ,               refDocId,       Ref Doc ID,             参考主键
 *****************************************************************************************************************************************************
@@ -25,8 +26,8 @@ N	STATUS,		VC(2),		NOT NULL,		'00',					status,			Status,					状态
 	B	20		Finished	完成发货
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
-N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
-N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,			Create Time,			创建时间
+N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,		Create By,				创建人
+N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,		Create Time,			创建时间
 N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================

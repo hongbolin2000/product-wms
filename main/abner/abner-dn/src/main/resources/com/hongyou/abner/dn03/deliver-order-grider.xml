@@ -5,105 +5,110 @@
     </developer>
 
     <description>
-        采购单列表
+        发货单列表
     </description>
 
     <filters>
-        <opts name="status" type="enum" table="POHEAD" column="STATUS"/>
-        <opts name="payStatus" type="enum" table="POHEAD" column="PAYSTS"/>
+        <opts name="refDocType" type="enum" table="DOHEAD" column="RDOCTY"/>
+        <opts name="status" type="enum" table="DOHEAD" column="STATUS"/>
     </filters>
 
     <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add" link="/graces/editor/dn03/deliverOrderEdit"
+                    permission="add"/>
+        </actions>
+
         <statement>
-            <table name="vpohead"/>
-            <param column="cmpnid" type="=" expr="_companyId"/>
-            <order by="pohdno desc"/>
+            <table name="vdohead"/>
+            <param column="wrhsid" type="in" expr="_warehouseIds"/>
+            <order by="wrhsnm, dlodno desc"/>
         </statement>
-        <double.click type="query" datatables="detail" input="poHeadId"/>
+        <double.click type="query" datatables="detail" input="doHeadId"/>
 
         <columns>
-            <column type="label" name="poHeadId" expr="pohdid" hidden="true"/>
+            <column type="label" name="doHeadId" expr="dohdid" hidden="true"/>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
-            <column type="label" name="payStatusValue" expr="paysts" hidden="true"/>
-            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="120" filter="text"/>
-            <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="150" filter="text"/>
-            <column type="label" name="projectName" expr="projnm" title="@POHEAD.PROJID" width="150" filter="text"/>
-            <column type="label" name="customerName" expr="cstmnm" title="@POHEAD.CSTMID" width="150" filter="text"/>
-            <column type="tag" name="status" expr="status" title="@POHEAD.STATUS" width="90" format="@@POHEAD.STATUS"
-                    filter="@status" success="statusValue == '10' or statusValue == '30'"/>
-            <column type="label" name="orderDate" expr="ordrdt" title="@POHEAD.ORDRDT" width="100" format="!yyyy-MM-dd" filter="date"/>
-            <column type="label" name="demandDate" expr="demddt" title="@POHEAD.DEMDDT" width="100" format="!yyyy-MM-dd" filter="date"/>
-            <column type="label" name="startReceiveDate" expr="strcdt" title="@POHEAD.STRCDT" width="120" format="!yyyy-MM-dd" filter="date"/>
-            <column type="label" name="finishReceiveDate" expr="fnrcdt" title="@POHEAD.FNRCDT" width="120" format="!yyyy-MM-dd" filter="date"/>
-            <column type="label" name="startReceiveBy" expr="strcby" title="@POHEAD.STRCBY" width="120" filter="text"/>
-            <column type="label" name="finishReceiveBy" expr="fnrcby" title="@POHEAD.FNRCBY" width="120" filter="text"/>
-            <column type="label" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" width="120" filter="text"/>
-            <column type="label" name="amount" expr="amount" title="@POHEAD.AMOUNT" width="100" format="%#.###"/>
-            <column type="label" name="payCount" expr="paycnt" title="@POHEAD.PAYCNT" width="100"/>
-            <column type="label" name="payAmount" expr="payamt" title="@POHEAD.PAYAMT" width="100" format="%#.###"/>
-            <column type="tag" name="payStatus" expr="paysts" title="@POHEAD.PAYSTS" width="100" format="@@POHEAD.PAYSTS"
-                    filter="@payStatus" success="payStatusValue == '20'"
-            />
-            <column type="label" name="remark" expr="remark" title="@POHEAD.REMARK" width="120" filter="text"/>
-            <column type="scriptLink" name="audit" icon="audit" expr="pohdid" title="@audit" width="80" link="/gr03/audit"
-                    labelColumn="poHeadNo" disabled="statusValue != '00'" permission="audit"/>
-            <column type="link" mode="drawer" drawerWidth="60%" name="issue.ro" icon="issue" expr="pohdid" title="@issue.ro"
-                    width="100" link="/graces/editor/gr04/poConvertRoEdit" permission="issue.ro"
-                    disabled="statusValue == '00' or statusValue == '30'"/>
-            <column type="link" mode="drawer" drawerWidth="60%" name="payment.entry" icon="payment" expr="pohdid"
-                    title="@payment.entry" width="100" link="/graces/editor/gr05/poPaymentEdit" permission="payment.entry"
-                    disabled="payStatusValue == '20'"
-            />
-            <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="pohdid" title="@edit" width="80"
-                    link="/graces/editor/gr03/purchasingOrderEdit" disabled="statusValue != '00'" permission="update" option="true"/>
-            <column type="scriptLink" name="delete" icon="delete" expr="pohdid" title="@delete" width="80" link="/gr03/delete"
-                    labelColumn="" danger="true" disabled="statusValue != '00'" permission="delete" option="true"/>
+            <column type="label" name="warehouseName" expr="wrhsnm" title="@ROHEAD.WRHSID" width="100" filter="text"/>
+            <column type="label" name="doHeadNo" expr="dlodno" title="@DOHEAD.DLODNO" width="120" filter="text"/>
+            <column type="label" name="refDocNo" expr="rdocno" title="@DOHEAD.RDOCNO" width="120" filter="text"/>
+            <column type="tag" name="refDocType" expr="rdocty" title="@DOHEAD.RDOCTY" width="100" format="@@DOHEAD.RDOCTY"
+                    filter="@refDocType"/>
+            <column type="label" name="projectName" expr="projnm" title="@DOHEAD.PROJID" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@DOHEAD.SUPLID" width="150" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@DOHEAD.STATUS" width="80" format="@@DOHEAD.STATUS" filter="@status"/>
+            <column type="label" name="orderDate" expr="ordrdt" title="@DOHEAD.ORDRDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="deliverDate" expr="delvdt" title="@DOHEAD.DELVDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="deliverBy" expr="delvby" title="@DOHEAD.DELVBY" width="100" filter="text"/>
+            <column type="label" name="carrierCompany" expr="carcmp" title="@DOHEAD.CARCMP" width="100" filter="text"/>
+            <column type="label" name="shippingNo" expr="shipno" title="@DOHEAD.SHIPNO" width="100" filter="text"/>
+            <column type="label" name="vehicleNo" expr="vhclno" title="@DOHEAD.VHCLNO" width="100" filter="text"/>
+            <column type="label" name="contacts" expr="contcs" title="@DOHEAD.CONTCS" width="100" filter="text"/>
+            <column type="label" name="phoneNo" expr="phonno" title="@DOHEAD.PHONNO" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@DOHEAD.REMARK" width="100" filter="text"/>
+            <column type="scriptLink" name="audit" icon="audit" expr="dohdid" title="@audit" width="80" link="/dn03/audit"
+                    labelColumn="doHeadNo" disabled="statusValue != '00'" permission="audit"/>
+            <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="dohdid" title="@edit" width="80"
+                    link="/graces/editor/dn03/deliverOrderEdit" permission="update" disabled="statusValue != '00'"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="dohdid" title="@delete" width="80"
+                    link="/dn03/delete" labelColumn="doHeadNo" danger="true" permission="delete" disabled="statusValue != '00'"/>
         </columns>
     </datatable>
 
     <subtable name="detail">
         <statement>
-            <table name="vpoline"/>
-            <param column="pohdid" type="=" expr="poHeadId"/>
-            <order by="polnno"/>
+            <table name="vdoline"/>
+            <param column="dohdid" type="=" expr="doHeadId"/>
+            <order by="dolnno"/>
         </statement>
 
         <columns>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="doHeadStatusValue" expr="dhstus" hidden="true"/>
+            <column type="label" name="stockModeValue" expr="stkmde" hidden="true"/>
             <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
-            <column type="label" name="orderQty" expr="ordqty" title="@POLINE.ORDQTY" width="100" format="%#.###"/>
-            <column type="label" name="receivedQty" expr="rcvqty" title="@POLINE.RCVQTY" width="120" format="%#.###"/>
-            <column type="label" name="receivedCount" expr="rcvcnt" title="@POLINE.RCVCNT" width="120"/>
-            <column type="label" name="price" expr="price" title="@POLINE.PRICE" width="80" format="%#.###"/>
-            <column type="tag" name="status" expr="status" title="@POLINE.STATUS" width="90" format="@@POLINE.STATUS"
+            <column type="label" name="orderQty" expr="ordqty" title="@DOLINE.ORDQTY" width="100" format="%#.###"/>
+            <column type="label" name="deliveredQty" expr="dlvqty" title="@DOLINE.DLVQTY" width="120" format="%#.###"/>
+            <column type="label" name="price" expr="price" title="@DOLINE.PRICE" width="80" format="%#.###"/>
+            <column type="tag" name="status" expr="status" title="@DOLINE.STATUS" width="90" format="@@DOLINE.STATUS"
                     filter="@status" success="statusValue == '20'"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
-            <column type="label" name="remark" expr="remark" title="@POLINE.REMARK" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@DOLINE.REMARK" filter="text"/>
+            <column type="link" mode="dialog" name="batchDeliver" icon="deliver" expr="dolnid" title="@batch.deliver"
+                    width="100" link="/graces/editor/dn07/batchDeliverEdit" permission="batch.deliver"
+                    disabled="stockModeValue == 'SR' or doHeadStatusValue == '00' or statusValue == '20'"/>
+            <column type="link" mode="dialog" name="serialDeliver" icon="deliver" expr="dolnid" title="@serial.deliver"
+                    width="120" link="/graces/editor/dn07/serialDeliverEdit" permission="serial.deliver"
+                    disabled="stockModeValue == 'BT' or doHeadStatusValue == '00' or statusValue == '20'"/>
         </columns>
     </subtable>
 
     <intl>
         <lang code="zh-CN">
-            <item key="table.title">采购单</item>
+            <item key="table.title">发货单</item>
+            <item key="add">新增</item>
 
             <item key="audit">审核通过</item>
-            <item key="issue.ro">下发收货</item>
-            <item key="payment.entry">付款录入</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
+
+            <item key="batch.deliver">批次发货</item>
+            <item key="serial.deliver">序列号发货</item>
         </lang>
 
         <lang code="en-US">
-            <item key="table.title">Purchasing Order</item>
+            <item key="table.title">Deliver Order</item>
+            <item key="add">Add</item>
 
             <item key="audit">Approved</item>
-            <item key="issue.ro">Issue RO</item>
-            <item key="payment.entry">Payment Entry</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
+
+            <item key="batch.deliver">Batch Deliver</item>
+            <item key="serial.deliver">Serial Deliver</item>
         </lang>
     </intl>
 </rindja-generic-grider>

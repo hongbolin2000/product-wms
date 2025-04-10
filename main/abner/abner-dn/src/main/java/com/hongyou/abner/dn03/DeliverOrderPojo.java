@@ -3,22 +3,22 @@
  */
 package com.hongyou.abner.dn03;
 
-import com.hongyou.abner.data.pojo.PoheadPojo;
-import com.hongyou.abner.data.pojo.PolinePojo;
+import com.hongyou.abner.data.pojo.DoheadPojo;
+import com.hongyou.abner.data.pojo.DolinePojo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 /**
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class DeliverOrderPojo extends PoheadPojo {
+public class DeliverOrderPojo extends DoheadPojo {
 
     /**
-     * 采购物料
+     * 发货物料
      */
-    private List<PolinePojo> materials;
+    private List<DolinePojo> materials;
 }
