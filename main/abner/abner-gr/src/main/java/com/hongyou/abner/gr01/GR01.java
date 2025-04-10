@@ -155,8 +155,7 @@ public class GR01 extends UserDataProvider {
 
             // 删除请购物料
             for (Long rqlnid : rqlnids) {
-                Rqline rqline = this.db().rqline().get(rqlnid);
-                VRqline vRqline = new VRqline().rqlnid(rqline.getRqlnid()).oneById();
+                VRqline vRqline = new VRqline().rqlnid(rqlnid).oneById();
 
                 // 记录日志
                 event = EventLog.builder().

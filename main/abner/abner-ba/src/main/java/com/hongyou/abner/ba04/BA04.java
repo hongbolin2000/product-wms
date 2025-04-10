@@ -125,8 +125,7 @@ public class BA04 extends UserDataProvider {
             Map<String, String> displays = this.international.getTableValuesDisplay(request, "projpc");
 
             for (Long id: ids) {
-                Projpc projpc = this.db().projpc().get(id);
-                VProjpc vProjpc = new VProjpc().pjpcid(projpc.getProjid()).oneById();
+                VProjpc vProjpc = new VProjpc().pjpcid(id).oneById();
 
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).

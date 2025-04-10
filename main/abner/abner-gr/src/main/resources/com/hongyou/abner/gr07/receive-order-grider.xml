@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        收货单列表
+    </description>
+
+    <filters>
+        <opts name="refDocType" type="enum" table="ROHEAD" column="RDOCTY"/>
+        <opts name="status" type="enum" table="ROHEAD" column="STATUS"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add" link="/graces/editor/gr07/receiveOrderEdit"
+                    permission="add"/>
+        </actions>
+
+        <statement>
+            <table name="vrohead"/>
+            <param column="wrhsid" type="in" expr="_warehouseIds"/>
+            <order by="wrhsnm, rvodno desc"/>
+        </statement>
+        <double.click type="query" datatables="detail" input="roHeadId"/>
+
+        <columns>
+            <column type="label" name="roHeadId" expr="rohdid" hidden="true"/>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="warehouseName" expr="wrhsnm" title="@ROHEAD.WRHSID" width="100" filter="text"/>
+            <column type="label" name="roHeadNo" expr="rvodno" title="@ROHEAD.RVODNO" width="120" filter="text"/>
+            <column type="label" name="refDocNo" expr="rdocno" title="@ROHEAD.RDOCNO" width="120" filter="text"/>
+            <column type="tag" name="refDocType" expr="rdocty" title="@ROHEAD.RDOCTY" width="100" format="@@ROHEAD.RDOCTY"
+                    filter="@refDocType"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@ROHEAD.SUPLID" width="150" filter="text"/>
+            <column type="label" name="projectName" expr="projnm" title="@ROHEAD.PROJID" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@ROHEAD.CSTMID" width="150" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@ROHEAD.STATUS" width="80" format="@@ROHEAD.STATUS"
+                    filter="@status"/>
+            <column type="label" name="orderDate" expr="ordrdt" title="@ROHEAD.ORDRDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="receiveDate" expr="recvdt" title="@ROHEAD.RECVDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="receiveBy" expr="recvby" title="@ROHEAD.RECVBY" width="100" filter="text"/>
+            <column type="label" name="carrierCompany" expr="carcmp" title="@ROHEAD.CARCMP" width="100" filter="text"/>
+            <column type="label" name="shippingNo" expr="shipno" title="@ROHEAD.SHIPNO" width="100" filter="text"/>
+            <column type="label" name="vehicleNo" expr="vhclno" title="@ROHEAD.VHCLNO" width="100" filter="text"/>
+            <column type="label" name="contacts" expr="contcs" title="@ROHEAD.CONTCS" width="100" filter="text"/>
+            <column type="label" name="phoneNo" expr="phonno" title="@ROHEAD.PHONNO" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@ROHEAD.REMARK" width="100" filter="text"/>
+            <column type="scriptLink" name="audit" icon="audit" expr="rohdid" title="@audit" width="80" link="/gr07/audit"
+                    labelColumn="roHeadNo" disabled="statusValue != '00'" permission="audit"/>
+            <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rohdid" title="@edit"
+                    width="80" link="/graces/editor/gr07/receiveOrderEdit" permission="update" disabled="statusValue != '00'"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="rohdid" title="@delete" width="80"
+                    link="/gr07/delete" labelColumn="roHeadNo" danger="true" permission="delete" disabled="statusValue != '00'"/>
+        </columns>
+    </datatable>
+
+    <subtable name="detail">
+        <statement>
+            <table name="vroline"/>
+            <param column="rohdid" type="=" expr="roHeadId"/>
+            <order by="rolnno"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
+            <column type="label" name="batchNo" expr="btchno" title="@ROLINE.BTCHNO" width="100" filter="text"/>
+            <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="orderQty" expr="ordqty" title="@ROLINE.ORDQTY" width="100" format="%#.###"/>
+            <column type="label" name="receivedQty" expr="rcvqty" title="@ROLINE.RCVQTY" width="120" format="%#.###"/>
+            <column type="label" name="price" expr="price" title="@ROLINE.PRICE" width="80" format="%#.###"/>
+            <column type="tag" name="status" expr="status" title="@ROLINE.STATUS" width="90" format="@@ROLINE.STATUS"
+                    filter="@status" success="statusValue == '20'"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@ROLINE.REMARK" filter="text"/>
+        </columns>
+    </subtable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">收货单</item>
+            <item key="add">创建收货单</item>
+
+            <item key="audit">审核通过</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Create Receive Order</item>
+            <item key="add">Add</item>
+
+            <item key="audit">Approved</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

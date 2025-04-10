@@ -17,12 +17,12 @@ K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD, STKMDE
 N   PRICE,      N(24.3),    NOT NULL,       0,                      price,          Price,                  单价
 *****************************************************************************************************************************************************
 N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,		Order Qty,				订单数量
-N 	DLVQTY,		N(24.3),	NOT NULL,		0,						deliverQty,	    Deliver Qty,		    发货数量
+N 	DLVQTY,		N(24.3),	NOT NULL,		0,						deliveredQty,	Delivered Qty,		    已发货数量
 *****************************************************************************************************************************************************
-N	STATUS,		VC(2),		NOT NULL,		'10',					status,			Status,					状态
-	B	10		No			未发货
-	B	20		Taking		正在发货
-	B	60		Finished	完成发货
+N	STATUS,		VC(2),		NOT NULL,		'00',					status,			Status,					状态
+	B	00		No			未发货
+	B	10		Taking		正在发货
+	B	20		Finished	完成发货
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
 N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人

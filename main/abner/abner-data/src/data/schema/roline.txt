@@ -19,12 +19,12 @@ N   PRICE,      N(24.3),    NOT NULL,       0,                      price,      
 N	BTCHNO,		VC(16),	NOT NULL,		'',					        batchNo,		    Batch No,				库存批次
 *****************************************************************************************************************************************************
 N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,			Order Qty,				订单数量
-N 	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,	        Receive Qty,		    收货数量
+N 	RCVQTY,		N(24.3),	NOT NULL,		0,						receivedQty,	    Received Qty,		    已收货数量
 *****************************************************************************************************************************************************
-N	STATUS,		C(2),		NOT NULL,		'10',					status,			    Status,					状态
-	B	10		No			未收货
-	B	20		Taking		正在收货
-	B	60		Finished	完成收货
+N	STATUS,		C(2),		NOT NULL,		'00',					status,			    Status,					状态
+	B	00		No			未收货
+	B	10		Taking		正在收货
+	B	20		Finished	完成收货
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
 N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人

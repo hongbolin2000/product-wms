@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        收货单编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/gr07/save</url>
+
+    <statement>
+        <table name="vrohead"/>
+        <param column="rohdid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="roHeadNo" spans="3">
+        <input type="text" name="id" expr="rohdid" hidden="true"/>
+        <input type="text" name="roHeadNo" expr="rvodno" title="@ROHEAD.RVODNO" length="32" hidden="!fill" disabled="true"/>
+        <input type="suggestor" name="warehouseId" expr="wrhsid" title="@ROHEAD.WRHSID" module="wb00" suggestor="warehouseSuggestor"
+               required="true"/>
+        <input type="enum" mode="select"  name="refDocType" expr="rdocty" title="@ROHEAD.RDOCTY" options="@@ROHEAD.RDOCTY"
+               required="true"/>
+        <input type="text" name="refDocNo" expr="rdocno" title="@ROHEAD.RDOCNO" length="32"/>
+        <input type="suggestor" name="supplierId" expr="suplid" title="@ROHEAD.SUPLID" module="ba00" suggestor="supplierSuggestor"/>
+        <input type="suggestor" name="projectId" expr="projid" title="@ROHEAD.PROJID" module="ba00"
+               suggestor="projectSuggestor"/>
+        <input type="text" name="remark" expr="remark" title="@ROHEAD.REMARK" length="254"/>
+    </editor>
+
+    <editor title="@editor.carrier" spans="3">
+        <input type="text" name="carrierCompany" expr="carcmp" title="@ROHEAD.CARCMP" length="64"/>
+        <input type="text" name="shippingNo" expr="shipno" title="@ROHEAD.SHIPNO" length="64"/>
+        <input type="text" name="vehicleNo" expr="vhclno" title="@ROHEAD.VHCLNO" length="8"/>
+        <input type="text" name="contacts" expr="contcs" title="@ROHEAD.CONTCS" length="32"/>
+        <input type="text" name="phoneNo" expr="phonno" title="@ROHEAD.PHONNO" length="11"/>
+    </editor>
+
+    <sheeter title="@sheeter.materials" name="materials" labelColumn="skuName" unique="skuName">
+        <statement>
+            <table name="vroline"/>
+            <param column="rohdid" type="=" expr="id"/>
+        </statement>
+
+        <inputs>
+            <input type="text" name="id" expr="rolnid" hidden="true"/>
+            <input type="suggestor" name="materialId" expr="mtrlid" title="@ROLINE.MTRLID" module="wb00"
+                   suggestor="rawMaterialSuggestor" required="true">
+                <script>
+                    row.skuName = option.label;
+                    row.price = option.purchasePrice;
+                    row.model = option.model;
+                    row.materialType = option.materialType;
+                    row.materialImage = option.materialImage;
+                </script>
+            </input>
+            <input type="text" name="skuName" expr="skunam" title="@ROLINE.MTRLID" width="120" ignore="true"/>
+            <input type="number" name="orderQty" expr="ordqty" title="@ROLINE.ORDQTY" format="%#.###" min="1"
+                   default="0" scale="0" required="true" width="70"/>
+            <input type="number" name="price" expr="price" title="@ROLINE.PRICE" format="%#.###" min="0"
+                   default="0" scale="3" required="true" width="50"/>
+            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>
+            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
+            <input type="text" name="remark" expr="remark" title="@RQLINE.REMARK" length="254"/>
+            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增收货单</item>
+            <item key="etitle">修改收货单</item>
+
+            <item key="editor.carrier">承运信息</item>
+            <item key="sheeter.materials">收货物料</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Receive Order</item>
+            <item key="etitle">Modify Receive Order</item>
+
+            <item key="editor.carrier">Carrier Info</item>
+            <item key="sheeter.materials">Receive Material</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>
