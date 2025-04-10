@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * 供应商管理
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/ba01")

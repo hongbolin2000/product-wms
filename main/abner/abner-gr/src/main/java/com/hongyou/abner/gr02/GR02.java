@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * 请购单下发采购单
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/gr02")

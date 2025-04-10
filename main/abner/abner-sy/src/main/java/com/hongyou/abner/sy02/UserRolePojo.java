@@ -9,7 +9,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 public class UserRolePojo {

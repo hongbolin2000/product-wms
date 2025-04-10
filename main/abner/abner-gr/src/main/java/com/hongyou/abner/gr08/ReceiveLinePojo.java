@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 
 /**
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

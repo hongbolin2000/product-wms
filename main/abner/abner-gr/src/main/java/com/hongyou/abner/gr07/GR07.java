@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * 收货单管理
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/gr07")
@@ -151,7 +151,7 @@ public class GR07 extends UserDataProvider {
                         operator(operatorBy).
                         module(GR07.class.getSimpleName()).
                         name("收货单管理").
-                        action(action + "请购物料").
+                        action(action + "收货物料").
                         message(StringUtil.format("收货单[{}] 收货物料[{}]{}成功",
                                 rohead.getRvodno(), vRoline.getSkunam(), action)
                         ).
@@ -185,8 +185,8 @@ public class GR07 extends UserDataProvider {
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
-            logger.error("请购单保存失败", e);
-            throw new RestRuntimeException("请购单保存失败");
+            logger.error("收货单保存失败", e);
+            throw new RestRuntimeException("收货单保存失败");
         }
     }
 

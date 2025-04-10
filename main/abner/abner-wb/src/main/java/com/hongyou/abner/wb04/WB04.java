@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 库区管理
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/wb04")

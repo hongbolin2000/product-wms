@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 数据库国际化语言
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface InternationalManager {
 

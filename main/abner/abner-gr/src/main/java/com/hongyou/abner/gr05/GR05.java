@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 采购单付款录入
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/gr05")

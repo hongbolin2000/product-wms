@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        物料查询建议器
+    </description>
+
+    <maxRows>20</maxRows>
+
+    <statement>
+        <table name="vmtrlms"/>
+        <param column="cmpnid" type="=" expr="_companyId"/>
+        <param column="mtrlid" type="=" expr="fieldValue"/>
+        <param column="skuno" expr="searchValue"/>
+        <param condition="or" column="skunam" expr="searchValue"/>
+        <order by="skuno"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="mtrlid"/>
+        <field name="label" expr="skunam"/>
+        <field name="model" expr="model"/>
+        <field name="purchasePrice" expr="pcsprc"/>
+        <field name="materialType" expr="mttycd"/>
+        <field name="materialImage" expr="mtrimg"/>
+    </fields>
+</rindja-generic-suggestor>

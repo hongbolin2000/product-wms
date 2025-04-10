@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 日志对象
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 @Builder

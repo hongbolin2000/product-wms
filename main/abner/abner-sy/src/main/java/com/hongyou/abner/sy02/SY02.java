@@ -29,7 +29,7 @@ import static com.hongyou.abner.data.model.table.UsrwrhTableDef.USRWRH;
 /**
  * 用户管理
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/sy02")

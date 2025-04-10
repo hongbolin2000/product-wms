@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * 物料管理
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/wb02")

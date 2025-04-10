@@ -29,7 +29,7 @@ import static com.hongyou.abner.data.model.table.RolineTableDef.ROLINE;
 /**
  * 批次/序列号收货
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/gr08")

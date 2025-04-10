@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

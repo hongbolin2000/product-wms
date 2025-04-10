@@ -6,7 +6,7 @@ package com.hongyou.abner.config.event;
 /**
  * 系统消息日志
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 public interface EventLogManager {
 

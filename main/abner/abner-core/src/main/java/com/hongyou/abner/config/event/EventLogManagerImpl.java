@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * 系统消息日志管理器
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Service
 public class EventLogManagerImpl extends DataProvider implements EventLogManager {

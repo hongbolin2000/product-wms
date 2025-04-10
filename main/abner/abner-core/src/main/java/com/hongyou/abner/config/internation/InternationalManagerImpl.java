@@ -23,7 +23,7 @@ import static com.hongyou.abner.data.model.table.VTbfdvlTableDef.VTBFDVL;
 /**
  * 数据库国际化语言
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @Component
 public class InternationalManagerImpl extends DataProvider implements InternationalManager {

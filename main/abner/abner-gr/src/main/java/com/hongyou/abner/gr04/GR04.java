@@ -32,7 +32,7 @@ import static com.hongyou.abner.data.model.table.PolineTableDef.POLINE;
 /**
  * 采购单下发收货单
  *
- * @author Hong Bo Lin
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/gr04")
