@@ -36,8 +36,8 @@ N   RECVBY,     VC(32),             NOT NULL,       '',                     rece
 N	STATUS,		C(2),		        NOT NULL,		'00',					status,			Status,					状态
 	B	00		New			        待审核
     B   10      Audited             已审核
-	B	30		Receiving		    正在收货
-	B	40		Finished	        收货完成
+	B	20		Receiving		    正在收货
+	B	30		Finished	        收货完成
 *****************************************************************************************************************************************************
 N	CARCMP,		VC(64),		        NOT NULL,		'',						carrierCompany,	Carrier Company,		运输公司
 N	SHIPNO,		VC(64),		        NOT NULL,		'',						shippingNo,	    shoppingNo,		        运输单号
