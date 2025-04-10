@@ -30,9 +30,9 @@ N   RECVBY,     VC(32),     NOT NULL,       '',                     receiveBy,  
 *****************************************************************************************************************************************************
 N 	SUPLID,		BIGINT,		,		        ,					    supplierId,		    Supplier,			    供应商
 K 	SUPLMS		- SUPLNM
-N 	PROJID,		BIGINT,		,		        ,						project,		    Project,			    项目
+N 	PROJID,		BIGINT,		,		        ,						projectId,		    Project,			    项目
 K 	PROJMS		- PROJNM
-N	CSTMID,		BIGINT,		 , 		,						        customer,		    Customer,			    客户
+N	CSTMID,		BIGINT,		 , 		,						        customerId,		    Customer,			    客户
 K   STCKIM05    - SUPLNM as CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	BATHNO,		VC(16),		NOT NULL,		'',						batchNo,			Batch No,				库存批次

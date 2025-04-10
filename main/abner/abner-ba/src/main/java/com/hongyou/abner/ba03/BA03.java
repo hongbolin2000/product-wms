@@ -120,8 +120,7 @@ public class BA03 extends UserDataProvider {
             String operatorBy = this.getOperatorBy(loginUser);
 
             for (Long id: ids) {
-                Projdc projdc = this.db().projdc().get(id);
-                VProjdc vProjdc = new VProjdc().pjdcid(projdc.getPjdcid()).oneById();
+                VProjdc vProjdc = new VProjdc().pjdcid(id).oneById();
 
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).

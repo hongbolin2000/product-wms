@@ -4,6 +4,7 @@
       v-model:value="widget.rowData[widget.name]"
       :options="widget.options"
       :clearable="!widget.required"
+      :placeholder="'请选择' + widget.title"
   />
   <n-space :size="10" v-else>
     <n-radio
@@ -42,6 +43,12 @@
    * 组件加载前
    */
   onBeforeMount(() => {
+    // 缺省值
+    let value = props.widget.rowData[props.widget.name];
+    if (!value) {
+      props.widget.rowData[props.widget.name] = null;
+    }
+
     WidgetUtil.disabled(props.widget);
   });
 

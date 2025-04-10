@@ -18,7 +18,7 @@
 
     <editor labelColumn="poHeadNo" spans="3">
         <input type="text" name="id" expr="pohdid" hidden="true"/>
-        <input type="text" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" disabled="true" hidden="fill != true"/>
+        <input type="text" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" disabled="true" hidden="!fill"/>
         <input type="suggestor" name="supplierId" expr="suplid" title="@POHEAD.SUPLID" module="ba00" required="true"
                suggestor="supplierSuggestor"/>
         <input type="suggestor" name="projectId" expr="projid" title="@POHEAD.PROJID" module="ba00"

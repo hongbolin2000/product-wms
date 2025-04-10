@@ -29,6 +29,7 @@
             <menu id="gr01" permission="gr01" url="/graces/grider/gr01/requisitionOrderList" label="请购单管理" icon="requisition"/>
             <menu id="gr03" permission="gr03" url="/graces/grider/gr03/purchasingOrderList" label="采购单管理" icon="purchasing"/>
             <menu id="gr06" permission="gr06" url="/graces/grider/gr06/paymentRecordList" label="付款记录管理" icon="payment"/>
+            <menu id="gr07" permission="gr07" url="/graces/grider/gr07/receiveOrderList" label="收货单管理" icon="receive"/>
         </menu>
 
         <menu id="dn" url="/dn" label="发货管理" icon="deliver">

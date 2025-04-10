@@ -1,6 +1,6 @@
 <template>
   <n-space :size="0" style="justify-content: center;align-items: center">
-    <div v-for="(column, index) of columnActions" :key="column.name" style="display: flex">
+    <div v-for="(column, index) of columnActions" :key="column.name" style="display: flex;align-items: center">
       <n-divider vertical v-if="index != 0" />
       <component :is="() => renderColumn({...column})"/>
     </div>

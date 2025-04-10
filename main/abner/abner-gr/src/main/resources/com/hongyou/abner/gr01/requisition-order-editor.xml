@@ -19,7 +19,7 @@
 
     <editor labelColumn="rqHeadNo" spans="3">
         <input type="text" name="id" expr="rqhdid" hidden="true"/>
-        <input type="text" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" disabled="true" hidden="fill != true"/>
+        <input type="text" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO" disabled="true" hidden="!fill"/>
         <input type="suggestor" name="projectId" expr="projid" title="@PROJDC.PROJID" module="ba00"
                suggestor="projectSuggestor" required="true"/>
         <input type="date" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" format="!yyyy-MM-dd" />

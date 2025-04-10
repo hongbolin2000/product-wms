@@ -150,8 +150,7 @@ public class GR03 extends UserDataProvider {
 
             // 删除请购物料
             for (Long polnid : polnids) {
-                Poline poline = this.db().poline().get(polnid);
-                VPoline vPoline = new VPoline().polnid(poline.getPolnid()).oneById();
+                VPoline vPoline = new VPoline().polnid(polnid).oneById();
 
                 // 记录日志
                 EventLog event = EventLog.builder().

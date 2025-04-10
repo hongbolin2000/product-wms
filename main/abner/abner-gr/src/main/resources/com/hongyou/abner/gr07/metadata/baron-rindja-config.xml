@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 收货单列表 -->
+    <generic-grider-descriptor name="receiveOrderList">receive-order-grider.xml</generic-grider-descriptor>
+
+    <!-- 收货单编辑 -->
+    <generic-editor-descriptor name="receiveOrderEdit">receive-order-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

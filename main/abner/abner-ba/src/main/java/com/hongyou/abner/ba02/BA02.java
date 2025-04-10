@@ -129,8 +129,7 @@ public class BA02 extends UserDataProvider {
             Map<String, String> displays = this.international.getTableValuesDisplay(request, "projms");
 
             for (Long id: ids) {
-                Projms projms = this.db().projms().get(id);
-                VProjms vProjms = new VProjms().projid(projms.getProjid()).oneById();
+                VProjms vProjms = new VProjms().projid(id).oneById();
 
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
@@ -138,7 +137,7 @@ public class BA02 extends UserDataProvider {
                         module(BA02.class.getSimpleName()).
                         name("项目管理").
                         action("删除").
-                        message(StringUtil.format("项目[{}]删除成功", projms.getProjnm())).
+                        message(StringUtil.format("项目[{}]删除成功", vProjms.getProjnm())).
                         newValue(vProjms).
                         enumsDisplay(displays).
                         build();
