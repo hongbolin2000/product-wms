@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        采购单编辑
+    </description>
+
+    <etitle>@etitle</etitle>
+    <url>/gr03/save</url>
+
+    <statement>
+        <table name="pohead"/>
+        <param column="pohdid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="poHeadNo" spans="3">
+        <input type="text" name="id" expr="pohdid" hidden="true"/>
+        <input type="text" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" disabled="true" hidden="fill != true"/>
+        <input type="suggestor" name="supplierId" expr="suplid" title="@POHEAD.SUPLID" module="ba00" required="true"
+               suggestor="supplierSuggestor"/>
+        <input type="suggestor" name="projectId" expr="projid" title="@POHEAD.PROJID" module="ba00"
+               suggestor="projectSuggestor"/>
+        <input type="date" name="demandDate" expr="demddt" title="@POHEAD.DEMDDT" format="!yyyy-MM-dd" />
+        <input type="text" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" length="32"/>
+        <input type="text" name="remark" expr="remark" title="@POHEAD.REMARK" length="254"/>
+    </editor>
+
+    <sheeter title="@sheeter.materials" name="materials" labelColumn="skuName" unique="skuName">
+        <statement>
+            <table name="vpoline"/>
+            <param column="pohdid" type="=" expr="id"/>
+        </statement>
+
+        <inputs>
+            <input type="text" name="id" expr="polnid" hidden="true"/>
+            <input type="suggestor" name="materialId" expr="mtrlid" title="@POLINE.MTRLID" module="wb00"
+                   suggestor="rawMaterialSuggestor" required="true">
+                <script>
+                    row.skuName = option.label;
+                    row.price = option.purchasePrice;
+                    row.model = option.model;
+                    row.materialType = option.materialType;
+                    row.materialImage = option.materialImage;
+                </script>
+            </input>
+            <input type="text" name="skuName" expr="skunam" title="@POLINE.MTRLID" width="120" ignore="true"/>
+            <input type="number" name="orderQty" expr="ordqty" title="@POLINE.ORDQTY" format="%#.###" min="1"
+                   default="0" scale="0" required="true" width="70"/>
+            <input type="number" name="price" expr="price" title="@POLINE.PRICE" format="%#.###" min="0"
+                   default="0" scale="3" required="true" width="50"/>
+            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>
+            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
+            <input type="text" name="remark" expr="remark" title="@RQLINE.REMARK" length="254"/>
+            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="etitle">修改采购单</item>
+            <item key="sheeter.materials">采购物料</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="etitle">Modify Purchasing Order</item>
+            <item key="sheeter.materials">Purchasing Material</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

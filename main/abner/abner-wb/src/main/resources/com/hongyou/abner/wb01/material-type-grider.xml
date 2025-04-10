@@ -29,7 +29,7 @@
             <column type="tag" name="category" expr="mtrctg" title="@MTRTYP.MTRCTG" width="100" format="@@MTRTYP.MTRCTG"
                     filter="@category"/>
             <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="100" filter="text"/>
-            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" filter="text"/>
+            <column type="label" name="materialTypeCode" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" filter="text"/>
             <column type="tag" name="stockMode" expr="stkmde" title="@MTRTYP.STKMDE" width="120" format="@@MTRTYP.STKMDE"
                     filter="@stockMode"/>
             <column type="label" name="header" expr="mtsrhd" title="@MTRTYP.MTSRHD" width="110" filter="text"/>
@@ -39,7 +39,7 @@
             <column type="link" name="edit" icon="edit" expr="mttyid" title="@edit" width="80"
                     link="/graces/editor/wb01/materialTypeEdit" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="mttyid" title="@delete" width="80"
-                    link="/wb01/delete" labelColumn="materialType" danger="true" permission="delete"/>
+                    link="/wb01/delete" labelColumn="materialTypeCode" danger="true" permission="delete"/>
         </columns>
     </datatable>
 

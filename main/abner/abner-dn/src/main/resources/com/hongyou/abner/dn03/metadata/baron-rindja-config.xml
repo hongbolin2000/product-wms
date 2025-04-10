@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 发货单列表 -->
+    <generic-grider-descriptor name="deliverOrderList">deliver-order-grider.xml</generic-grider-descriptor>
+
+    <!-- 发货单编辑 -->
+    <generic-editor-descriptor name="deliverOrderEdit">deliver-order-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

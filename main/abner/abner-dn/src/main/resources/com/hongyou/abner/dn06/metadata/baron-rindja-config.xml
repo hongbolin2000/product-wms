@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 收款记录列表 -->
+    <generic-grider-descriptor name="receiptRecordList">receipt-record-grider.xml</generic-grider-descriptor>
+</baron-rindja-config>

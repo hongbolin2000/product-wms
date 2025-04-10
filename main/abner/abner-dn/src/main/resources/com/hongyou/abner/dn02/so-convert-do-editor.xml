@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        销售单下发发货单
+    </description>
+
+    <etitle>@etitle</etitle>
+    <url>/dn02/save</url>
+
+    <statement>
+        <table name="vsohead"/>
+        <param column="sohdid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="soHeadNo" spans="3">
+        <input type="text" name="id" expr="sohdid" hidden="true"/>
+        <input type="suggestor" name="supplierId" title="@POHEAD.SUPLID" module="ba00" suggestor="supplierSuggestor"
+               required="true"/>
+        <input type="text" name="soHeadNo" expr="sohdno" title="@RQHEAD.RQHDNO" disabled="true"/>
+        <input type="text" name="projectName" expr="projnm" title="@RQHEAD.PROJID" disabled="true"/>
+        <input type="text" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" disabled="true"/>
+        <input type="date" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" format="!yyyy-MM-dd" disabled="true"/>
+        <input type="text" name="remark" expr="remark" title="@RQHEAD.REMARK" length="254"/>
+    </editor>
+
+    <sheeter title="@sheeter.materials" name="materials" added="false" updated="false">
+        <statement>
+            <table name="vsoline"/>
+            <param column="status" type="=" expr="'00'"/>
+            <param column="sohdid" type="=" expr="id"/>
+        </statement>
+
+        <inputs>
+            <input type="selection" name="id" expr="solnid"/>
+            <input type="text" name="skuName" expr="skunam" title="@RQLINE.MTRLID" width="120"/>
+            <input type="number" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" format="%#.###" width="70"/>
+            <input type="number" name="price" expr="price" title="@RQLINE.PRICE" format="%#.###" width="50"/>
+            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90"/>
+            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100"/>
+            <input type="text" name="remark" expr="remark" title="@RQLINE.REMARK"/>
+            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="etitle">销售单下发发货单</item>
+            <item key="sheeter.materials">发货物料</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="etitle">Issue DO</item>
+            <item key="sheeter.materials">Delivery Material</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

@@ -69,8 +69,8 @@ public class WB01 extends UserDataProvider {
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(pojo.getMaterialType(), mtrtyp.getMttycd())) {
-                Mtrtyp existed = this.db().mtrtyp().getByType(loginUser.getCmpnid(), pojo.getMaterialType());
+            if (!ObjectUtil.equal(pojo.getMaterialTypeCode(), mtrtyp.getMttycd())) {
+                Mtrtyp existed = this.db().mtrtyp().getByType(loginUser.getCmpnid(), pojo.getMaterialTypeCode());
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("物料类型已存在").build();
                 }
@@ -78,7 +78,7 @@ public class WB01 extends UserDataProvider {
 
             mtrtyp.mtrctg(pojo.getCategory()).
                     mttyp1(pojo.getMaterialType1()).
-                    mttycd(pojo.getMaterialType()).
+                    mttycd(pojo.getMaterialTypeCode()).
                     mtrimg(pojo.getMaterialImage()).
                     mtsrhd(pojo.getHeader()).
                     srilsd(pojo.getSeed()).

@@ -17,12 +17,12 @@
         <param column="mttyid" type="=" expr="id"/>
     </statement>
 
-    <editor title="@editor.title" labelColumn="materialType" formWidth="50%" spans="1">
+    <editor title="@editor.title" labelColumn="materialTypeCode" formWidth="50%" spans="1">
         <input type="text" name="id" expr="mttyid" hidden="true"/>
         <input type="enum" name="category" expr="mtrctg" title="@MTRTYP.MTRCTG" options="@@MTRTYP.MTRCTG" default="RAW"
                required="true"/>
         <input type="text" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" length="32"/>
-        <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" required="true" length="32"/>
+        <input type="text" name="materialTypeCode" expr="mttycd" title="@MTRTYP.MTTYCD" required="true" length="32"/>
         <input type="enum" name="stockMode" expr="stkmde" title="@MTRTYP.STKMDE" options="@@MTRTYP.STKMDE" default="BT"
                required="true"/>
         <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" accept="image/*" group="mtrtyp/mtrimg"/>

@@ -70,7 +70,7 @@
             <item key="table.title">销售单</item>
             <item key="add">创建销售单</item>
 
-            <item key="issue.po">下发采购</item>
+            <item key="issue.po">下发发货</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
@@ -79,7 +79,7 @@
             <item key="table.title">Sales Order</item>
             <item key="add">Create Sales Order</item>
 
-            <item key="issue.po">Issue PO</item>
+            <item key="issue.po">Issue DO</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

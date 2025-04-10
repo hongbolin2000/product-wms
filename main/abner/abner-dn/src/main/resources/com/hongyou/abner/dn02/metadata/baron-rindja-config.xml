@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 销售单下发发货单 -->
+    <generic-editor-descriptor name="soConvertDoEdit">so-convert-do-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>
