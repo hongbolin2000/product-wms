@@ -30,7 +30,7 @@ N	RDOCTY,		C(3),               NOT NULL,		'RPO',					refDocType,			Ref Doc Type,
 	B   DBR     BorrowDeliver       借用出库
 	B   DBK     BackDeliver         归还出库
     B   DRP     RepairDeliver       送修发货
-N   RDCTIT,     VC(32),             NOT NULL,       '',                     refDocTitle,        Ref Doc Title,          参考单据
+N   RDOCNO,     VC(32),             NOT NULL,       '',                     refDocNo,           Ref Doc No,             参考单据
 *****************************************************************************************************************************************************
 N	STIMNO,		VC(64),		        NOT NULL,		,						stockItemNo,	    Stock Item No,		    库存唯一码
 N	MTRLID,		BIGINT,		        NOT NULL,       ,               		materialId,			Material,               物料

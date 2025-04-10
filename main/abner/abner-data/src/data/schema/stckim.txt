@@ -24,6 +24,7 @@ N	RDOCTY,		C(3),		        NOT NULL,		'RPO',			refDocType,		    Ref Doc Type,		  
     B   RBK     BackReceive         归还收货
     B   RRP     RepairReceive       送修收货
 *****************************************************************************************************************************************************
+N 	RCVQTY,		N(24.3),	NOT NULL,		0,						receiveQty,	        Receive Qty,		    收货数量
 N	RVODNO,		VC(32),		NOT NULL,		'',						roHeadNo,			RO Head NO,				收货单号
 N	RCVDAT,		DATE,		,		        ,					    receivedDate,		Received Date,			收货日期
 N   RECVBY,     VC(32),     NOT NULL,       '',                     receiveBy,          Receive By,             收货人
@@ -36,11 +37,14 @@ N	CSTMID,		BIGINT,		 , 		,						        customerId,		    Customer,			    客户
 K   STCKIM05    - SUPLNM as CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	BATHNO,		VC(16),		NOT NULL,		'',						batchNo,			Batch No,				库存批次
-N	BINCDE,		VC(32),		NOT NULL,		,						binCode,		    Bin Code,				存放货位
+N   BINMID,     BIGINT,     NOT NULL,       ,                       binId,              Bin,                    存放货位
+K   BINMAS                  - BINCDE
+K   BINMAS:BINARA           - BNARNM
 N	CARTNO,		VC(32),		NOT NULL,		,						cartonNo,		    Carton No,				存放箱号
 *****************************************************************************************************************************************************
 N	ONHDQT,		N(24.3),	NOT NULL,		0,						onhandQty,			Onhand Qty,				在库库存
 *****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,			    Remark,					备注
 N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
 N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,			Create Time,			创建时间
 N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,			Operate By,				操作人
@@ -50,8 +54,9 @@ P 	STIMID
 U	01 getByStockItemNo WRHSID, STIMNO
 I	01 listByBatchNo WRHSID, BATHNO
 F	01 listByWarehouse (WRHSID) WRHSMS (WRHSID)
-F	02 listByWarehouseStock (STCKID) STCKMS (STCKID)
+F	02 listByStock (STCKID) STCKMS (STCKID)
 F 	03 listBySupplier (SUPLID) SUPLMS (SUPLID)
 F 	04 listByProject (PROJID) PROJMS (PROJID)
 F 	05 listByCustomer (CSTMID) SUPLMS (SUPLID)
+F	06 listByBin (BINMID) BINMAS (BINMID)
 =====================================================================================================================================================

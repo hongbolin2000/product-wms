@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库位查询建议器
+    </description>
+
+    <maxRows>20</maxRows>
+
+    <statement>
+        <table name="binmas"/>
+        <param column="binmid" type="=" expr="fieldValue"/>
+        <param column="bincde" expr="searchValue"/>
+        <order by="bincde"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="binmid" />
+        <field name="label" expr="bincde" />
+    </fields>
+</rindja-generic-suggestor>

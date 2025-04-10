@@ -66,6 +66,8 @@
 
         <columns>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="roHeadStatusValue" expr="rhstus" hidden="true"/>
+            <column type="label" name="stockModeValue" expr="stkmde" hidden="true"/>
             <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
             <column type="label" name="batchNo" expr="btchno" title="@ROLINE.BTCHNO" width="100" filter="text"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
@@ -78,6 +80,12 @@
                     filter="@status" success="statusValue == '20'"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@ROLINE.REMARK" filter="text"/>
+            <column type="link" mode="dialog" name="batchReceive" icon="receive" expr="rolnid" title="@batch.receive"
+                    width="100" link="/graces/editor/gr08/batchReceiveEdit" permission="batch.receive"
+                    disabled="stockModeValue == 'SR' or roHeadStatusValue == '00' or statusValue == '20'"/>
+            <column type="link" mode="dialog" name="serialReceive" icon="receive" expr="rolnid" title="@serial.receive"
+                    width="120" link="/graces/editor/gr08/serialReceiveEdit" permission="serial.receive"
+                    disabled="stockModeValue == 'BT' or roHeadStatusValue == '00' or statusValue == '20'"/>
         </columns>
     </subtable>
 
@@ -89,6 +97,9 @@
             <item key="audit">审核通过</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
+
+            <item key="batch.receive">批次收货</item>
+            <item key="serial.receive">序列号收货</item>
         </lang>
 
         <lang code="en-US">
@@ -98,6 +109,9 @@
             <item key="audit">Approved</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
+
+            <item key="batch.receive">Batch Receive</item>
+            <item key="serial.receive">Serial Receive</item>
         </lang>
     </intl>
 </rindja-generic-grider>

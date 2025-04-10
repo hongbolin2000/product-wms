@@ -215,12 +215,12 @@
     childMenus.value = menus;
 
     // 路由到第一个菜单
-    for (let i = 0; i < menus.length; i++) {
-      if (!menus[i].children) {
-        router.push(menus[i].key);
-        break;
-      }
-    }
+    // for (let i = 0; i < menus.length; i++) {
+    //   if (!menus[i].children) {
+    //     router.push(menus[i].key);
+    //     break;
+    //   }
+    // }
   }
 
   /**

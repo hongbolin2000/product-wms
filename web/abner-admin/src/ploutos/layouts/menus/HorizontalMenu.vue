@@ -167,14 +167,15 @@
     // 顶部+左侧菜单模式
     if (layoutStore.layoutMode == LayoutMode.TopLeft) {
       matchChildMenus(key);
+      currentPath.value = key;
 
       // 路由到第一个菜单
-      for (let i = 0; i < appStore.topLeftChildMenus.length; i++) {
-        if (!appStore.topLeftChildMenus[i].children) {
-          router.push(appStore.topLeftChildMenus[i].key);
-          break;
-        }
-      }
+      // for (let i = 0; i < appStore.topLeftChildMenus.length; i++) {
+      //   if (!appStore.topLeftChildMenus[i].children) {
+      //     router.push(appStore.topLeftChildMenus[i].key);
+      //     break;
+      //   }
+      // }
     }
   }
 
