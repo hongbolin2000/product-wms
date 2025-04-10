@@ -71,7 +71,7 @@
 
     <intl>
         <lang code="zh-CN">
-            <item key="atitle">新增收货单</item>
+            <item key="atitle">创建收货单</item>
             <item key="etitle">修改收货单</item>
 
             <item key="editor.carrier">承运信息</item>
@@ -79,7 +79,7 @@
         </lang>
 
         <lang code="en-US">
-            <item key="atitle">Add Receive Order</item>
+            <item key="atitle">Create Receive Order</item>
             <item key="etitle">Modify Receive Order</item>
 
             <item key="editor.carrier">Carrier Info</item>
