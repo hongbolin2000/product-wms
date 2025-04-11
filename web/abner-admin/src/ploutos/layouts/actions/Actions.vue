@@ -1,15 +1,15 @@
 <template>
   <div class="action-items-wrapper">
-    <n-tooltip trigger="hover">
-      <template #trigger>
-        <n-button secondary @click="onRefreshRoute" class="action-item">
-          <n-icon size="18">
-            <RefreshOutline />
-          </n-icon>
-        </n-button>
-      </template>
-      刷新
-    </n-tooltip>
+<!--    <n-tooltip trigger="hover">-->
+<!--      <template #trigger>-->
+<!--        <n-button secondary @click="onRefreshRoute" class="action-item">-->
+<!--          <n-icon size="18">-->
+<!--            <RefreshOutline />-->
+<!--          </n-icon>-->
+<!--        </n-button>-->
+<!--      </template>-->
+<!--      刷新-->
+<!--    </n-tooltip>-->
 
     <n-tooltip trigger="hover">
       <template #trigger>

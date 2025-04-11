@@ -420,15 +420,17 @@
           default: () => h(Expand),
         })
       },
-    },{
-      label: '刷新页面',
-      key: 'refresh',
-      icon() {
-        return h(NIcon, null, {
-          default: () => h(Refresh),
-        })
-      },
-    },{
+    },
+    //   {
+    //   label: '刷新页面',
+    //   key: 'refresh',
+    //   icon() {
+    //     return h(NIcon, null, {
+    //       default: () => h(Refresh),
+    //     })
+    //   },
+    // },
+      {
       label: '关闭当前',
       key: 'closeCurrent',
       disabled: contextCurrentMenu.value.fixed || appStore.visitedMenus.length == 1,

@@ -24,6 +24,7 @@
                suggestor="projectSuggestor" required="true"/>
         <input type="date" name="demandDate" expr="demddt" title="@SOHEAD.DEMDDT" format="!yyyy-MM-dd"/>
         <input type="date" name="planDueDate" expr="duedat" title="@SOHEAD.DUEDAT" format="!yyyy-MM-dd"/>
+        <input type="text" name="contractNo" expr="soctno" title="@SOHEAD.SOCTNO" length="32"/>
         <input type="text" name="remark" expr="remark" title="@SOHEAD.REMARK" length="254"/>
     </editor>
 

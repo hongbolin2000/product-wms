@@ -79,6 +79,7 @@ public class DN01 extends UserDataProvider {
                     ordrdt(new Date(currentTime.getTime())).
                     demddt(pojo.getDemandDate()).
                     duedat(pojo.getPlanDueDate()).
+                    soctno(pojo.getContractNo()).
                     remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
