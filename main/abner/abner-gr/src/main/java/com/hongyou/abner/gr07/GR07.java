@@ -68,6 +68,7 @@ public class GR07 extends UserDataProvider {
                 String roHeadNo = DateUtil.format(currentTime, "yyMMddHHmmss");
                 rohead = new Rohead();
                 rohead.rvodno(roHeadNo).
+                        status(Rohead.STATUS.Audited).
                         cretby(operatorBy).
                         crettm(currentTime);
             }

@@ -10,6 +10,7 @@
 
     <filters>
         <opts name="status" type="enum" table="SOHEAD" column="STATUS"/>
+        <opts name="receiptStatus" type="enum" table="SOHEAD" column="RCPSTS"/>
     </filters>
 
     <datatable title="@table.title">
@@ -27,15 +28,31 @@
         <columns>
             <column type="label" name="soHeadId" expr="sohdid" hidden="true"/>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="receiptStatusValue" expr="rcpsts" hidden="true"/>
             <column type="label" name="soHeadNo" expr="sohdno" title="@SOHEAD.SOHDNO" width="130" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@SOHEAD.PROJID" width="150" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@SOHEAD.CSTMID" width="150" filter="text"/>
             <column type="tag" name="status" expr="status" title="@SOHEAD.STATUS" width="90" format="@@SOHEAD.STATUS"
                     filter="@status" success="statusValue == '10' or statusValue == '30'"/>
             <column type="label" name="orderDate" expr="ordrdt" title="@SOHEAD.ORDRDT" width="100" format="!yyyy-MM-dd" filter="date"/>
-            <!--<column type="label" name="applicationBy" expr="aplcby" title="@SOHEAD.APLCBY" width="100" filter="text"/>-->
             <column type="label" name="demandDate" expr="demddt" title="@SOHEAD.DEMDDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="planDueDate" expr="duedat" title="@SOHEAD.DUEDAT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="startDeliverDate" expr="stdldt" title="@SOHEAD.STDLDT" width="120" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="finishDeliverDate" expr="fndldt" title="@SOHEAD.FNDLDT" width="120" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="startDeliverBy" expr="stdlby" title="@SOHEAD.STDLBY" width="120" filter="text"/>
+            <column type="label" name="finishDeliverBy" expr="fndlby" title="@SOHEAD.FNDLBY" width="120" filter="text"/>
+            <column type="label" name="contractNo" expr="soctno" title="@SOHEAD.SOCTNO" width="120" filter="text"/>
+            <column type="label" name="amount" expr="amount" title="@SOHEAD.AMOUNT" width="100" format="%#.###"/>
+            <column type="label" name="receiptCount" expr="rcpcnt" title="@SOHEAD.RCPCNT" width="100" format="%#.###"/>
+            <column type="label" name="receiptAmount" expr="rcpamt" title="@SOHEAD.RCPAMT" width="100" format="%#.###"/>
+            <column type="tag" name="receiptStatus" expr="rcpsts" title="@SOHEAD.RCPSTS" width="100" format="@@SOHEAD.RCPSTS"
+                    filter="@receiptStatus" success="receiptStatusValue == '20'"/>
             <column type="label" name="remark" expr="remark" title="@SOHEAD.REMARK" filter="text"/>
+            <column type="scriptLink" name="audit" icon="audit" expr="sohdid" title="@audit" width="80" link="/dn01/audit"
+                    labelColumn="soHeadNo" disabled="statusValue != '00'" permission="audit"/>
+            <column type="link" mode="drawer" drawerWidth="60%" name="issue.do" icon="issue" expr="sohdid" title="@issue.do"
+                    width="100" link="/graces/editor/dn02/soConvertDoEdit" permission="issue.do"
+                    disabled="statusValue == '00' or statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="sohdid" title="@edit" width="80"
                     link="/graces/editor/dn01/salesOrderEdit" disabled="statusValue != '00'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="sohdid" title="@delete" width="80"
@@ -46,7 +63,7 @@
     <subtable name="detail">
         <statement>
             <table name="vsoline"/>
-            <param column="sohdid" type="=" expr="eventId"/>
+            <param column="sohdid" type="=" expr="soHeadId"/>
             <order by="solnno"/>
         </statement>
 
@@ -62,15 +79,6 @@
             <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="120" filter="text"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@SOLINE.REMARK" filter="text"/>
-            <column type="scriptLink" name="audit" icon="audit" expr="rqhdid" title="@audit" width="80" link="/dn01/audit"
-                    labelColumn="soHeadNo" disabled="statusValue != '00'" permission="audit"/>
-            <column type="link" mode="drawer" drawerWidth="50%" name="issue.po" icon="issue" expr="rqhdid" title="@issue.po"
-                    width="80" link="/graces/editor/gr02/rqConvertPoEdit" permission="issue.po"
-                    disabled="statusValue == '00' or statusValue == '30'"/>
-            <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
-                    link="/graces/editor/gr01/requisitionOrderEdit" disabled="statusValue != '00'" permission="update"/>
-            <column type="scriptLink" name="delete" icon="delete" expr="rqhdid" title="@delete" width="80"
-                    link="/gr01/delete" labelColumn="rqHeadNo" danger="true" disabled="statusValue != '00'" permission="delete"/>
         </columns>
     </subtable>
 
@@ -79,7 +87,8 @@
             <item key="table.title">销售单</item>
             <item key="add">创建销售单</item>
 
-            <item key="issue.po">下发发货</item>
+            <item key="audit">审核通过</item>
+            <item key="issue.do">下发发货</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
@@ -88,7 +97,8 @@
             <item key="table.title">Sales Order</item>
             <item key="add">Create Sales Order</item>
 
-            <item key="issue.po">Issue DO</item>
+            <item key="audit">Approved</item>
+            <item key="issue.do">Issue DO</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

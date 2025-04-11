@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * 销售单管理
  *
- * @author Kevin Qian
+ * @author Berlin
  */
 @RestController
 @RequestMapping("/dn01")
@@ -78,6 +78,7 @@ public class DN01 extends UserDataProvider {
                     cstmid(projms.getCstmid()).
                     ordrdt(new Date(currentTime.getTime())).
                     demddt(pojo.getDemandDate()).
+                    duedat(pojo.getPlanDueDate()).
                     remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
@@ -207,6 +208,42 @@ public class DN01 extends UserDataProvider {
         } catch (Exception e) {
             logger.error("销售单删除失败", e);
             throw new RestRuntimeException("销售单已被使用");
+        }
+    }
+
+    /**
+     * 审核销售单
+     */
+    @PostMapping("/audit")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry audit(@RequestBody final List<Long> ids) {
+
+        try {
+            Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
+            Timestamp currentTime = this.getCurrentTime();
+
+            for (Long id: ids) {
+                Sohead sohead = this.db().sohead().get(id);
+                sohead.status(Sohead.STATUS.Audited).
+                        oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().sohead().save(sohead);
+
+                EventLog event = EventLog.builder().
+                        domain(loginUser.getCmpnid()).
+                        operator(operatorBy).
+                        module(DN01.class.getSimpleName()).
+                        name("销售单管理").
+                        action("审核").
+                        message(StringUtil.format("销售单[{}]审核通过", sohead.getSohdno())).
+                        build();
+                this.eventLogManager.info(event);
+            }
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("销售单审核失败", e);
+            throw new RestRuntimeException("销售单审核失败");
         }
     }
 }

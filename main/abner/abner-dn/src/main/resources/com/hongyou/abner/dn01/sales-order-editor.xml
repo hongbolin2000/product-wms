@@ -19,11 +19,12 @@
 
     <editor labelColumn="soHeadNo" spans="3">
         <input type="text" name="id" expr="sohdid" hidden="true"/>
-        <input type="text" name="soHeadNo" expr="sohdno" title="@SOHEAD.SOHDNO" disabled="true" hidden="fill != true"/>
+        <input type="text" name="soHeadNo" expr="sohdno" title="@SOHEAD.SOHDNO" disabled="true" hidden="!fill"/>
         <input type="suggestor" name="projectId" expr="projid" title="@PROJDC.PROJID" module="ba00"
                suggestor="projectSuggestor" required="true"/>
-        <input type="date" name="demandDate" expr="demddt" title="@SOHEAD.DEMDDT" format="!yyyy-MM-dd" />
-        <input type="text" mode="textarea" name="remark" expr="remark" title="@SOHEAD.REMARK" length="254"/>
+        <input type="date" name="demandDate" expr="demddt" title="@SOHEAD.DEMDDT" format="!yyyy-MM-dd"/>
+        <input type="date" name="planDueDate" expr="duedat" title="@SOHEAD.DUEDAT" format="!yyyy-MM-dd"/>
+        <input type="text" name="remark" expr="remark" title="@SOHEAD.REMARK" length="254"/>
     </editor>
 
     <sheeter title="@sheeter.materials" name="materials" labelColumn="skuName" unique="skuName">
@@ -35,10 +36,10 @@
         <inputs>
             <input type="text" name="id" expr="solnid" hidden="true"/>
             <input type="suggestor" name="materialId" expr="mtrlid" title="@SOLINE.MTRLID" module="wb00"
-                   suggestor="rawMaterialSuggestor" required="true">
+                   suggestor="materialSuggestor" required="true">
                 <script>
                     row.skuName = option.label;
-                    row.price = option.purchasePrice;
+                    row.price = option.salesPrice;
                     row.model = option.model;
                     row.materialType = option.materialType;
                     row.materialImage = option.materialImage;

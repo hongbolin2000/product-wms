@@ -23,7 +23,7 @@
         <field name="value" expr="mtrlid"/>
         <field name="label" expr="skunam"/>
         <field name="model" expr="model"/>
-        <field name="purchasePrice" expr="pcsprc"/>
+        <field name="salesPrice" expr="slsprc"/>
         <field name="materialType" expr="mttycd"/>
         <field name="materialImage" expr="mtrimg"/>
     </fields>

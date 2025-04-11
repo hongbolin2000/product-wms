@@ -32,7 +32,7 @@ N	DELVDT,		DATE,		    ,				,						deliverDate,	    deliver Date,		    发货日�
 N   DELVBY,     VC(32),         NOT NULL,       '',                     deliverBy,          Deliver By,             发货人
 *****************************************************************************************************************************************************
 N	STATUS,		C(2),		    NOT NULL,		'00',					status,				Status,					状态
-	B	00		No			    待审核
+	B	00		New			    待审核
     B   10      Audited         已审核
 	B 	20		Delivering	    正在发货
 	B 	30		Finished 	    完成发货

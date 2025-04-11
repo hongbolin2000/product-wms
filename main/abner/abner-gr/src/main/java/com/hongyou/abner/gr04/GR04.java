@@ -66,6 +66,7 @@ public class GR04 extends UserDataProvider {
                     rdocno(pohead.getPohdno()).
                     rdocid(pohead.getPohdid()).
                     rdocty(Rohead.RDOCTY.PurchaseReceive).
+                    status(Rohead.STATUS.Audited).
                     suplid(pohead.getSuplid()).
                     projid(pohead.getProjid()).
                     cstmid(pohead.getCstmid()).

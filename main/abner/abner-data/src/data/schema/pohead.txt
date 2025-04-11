@@ -20,7 +20,7 @@ N	CSTMID,		BIGINT,		        , 		,						customerId,		    Customer,			    客户
 K   POHEAD05    - SUPLNM as CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
-    B   00      New         新采购单
+    B   00      New         待审核
     B   10      Audited     已审核
     B	20		Receiving	正在收货
     B   30      Finished    采购完成

@@ -18,8 +18,8 @@ K 	SUPLMS		- SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N	STATUS,		C(2),		NOT NULL,		'00',					status,				Status,					状态
     B   00      New         待审核
-    B   10      Audited     已审核
-    B	20		Receiving	正在发货
+    B   10      Audited     新采购单
+    B	20		Delivering	正在发货
     B   30      Finish      发货完成
 *****************************************************************************************************************************************************
 N	ORDRDT,		DATE,		NOT NULL,		,				        orderDate,	        Order Date,		        订单日期
@@ -32,10 +32,10 @@ N   STDLBY,     VC(32),     NOT NULL,       '',                     startDeliver
 N   FNDLBY,     VC(32),     NOT NULL,       '',                     finishDeliverBy,    finish Deliver By,      完成发货人
 *****************************************************************************************************************************************************
 N	SOCTNO,		VC(32),		NOT NUKK,		'',						contractNo,	        Contract No,	        销售合同号
-N   AMOUNT,     N(24.3),    NOT NULL,       0,                      Amount,             Amount,                 订单金额
-N   PAYCNT,     INT,        NOT NULL,       0,                      payCount,           Pay Count,              收款次数
-N   PAYAMT,     N(24.3),    NOT NULL,       0,                      payAmount,          Pay Amount,             收款金额
-N	PAYSTS,		C(2),		NOT NULL,		'00',					payStatus,			Pay Status,				收款状态
+N   AMOUNT,     N(24.3),    NOT NULL,       0,                      amount,             Amount,                 订单金额
+N   RCPCNT,     INT,        NOT NULL,       0,                      receiptCount,       Receipt Count,          收款次数
+N   RCPAMT,     N(24.3),    NOT NULL,       0,                      receiptAmount,      Receipt Amount,         收款金额
+N	RCPSTS,		C(2),		NOT NULL,		'00',					receiptStatus,		Receipt Status,			收款状态
 	B	00		No			未收款
 	B	10		Part		部分收款
 	B	20		Finished	收款完成

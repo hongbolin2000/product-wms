@@ -27,7 +27,7 @@
         <input type="text" name="projectName" expr="projnm" title="@POHEAD.PROJID" disabled="true"/>
         <input type="text" name="customerName" expr="cstmnm" title="@POHEAD.CSTMID" disabled="true"/>
         <input type="date" name="demandDate" expr="demddt" title="@POHEAD.DEMDDT" format="!yyyy-MM-dd" disabled="true"/>
-        <input type="text" name="remark" expr="remark" title="@POHEAD.REMARK" length="254"/>
+        <input type="text" name="remark" title="@POHEAD.REMARK" length="254"/>
     </editor>
 
     <editor title="@editor.carrier" spans="3">
@@ -55,7 +55,7 @@
             <input type="number" name="price" expr="price" title="@POLINE.PRICE" format="%#.###" width="50" disabled="true"/>
             <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>
             <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
-            <input type="text" name="remark" expr="remark" title="@RQLINE.REMARK"/>
+            <input type="text" name="remark" title="@RQLINE.REMARK"/>
             <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
         </inputs>
     </sheeter>

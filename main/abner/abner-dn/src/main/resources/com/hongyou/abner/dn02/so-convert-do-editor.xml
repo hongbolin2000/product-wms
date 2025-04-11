@@ -18,43 +18,63 @@
 
     <editor labelColumn="soHeadNo" spans="3">
         <input type="text" name="id" expr="sohdid" hidden="true"/>
-        <input type="suggestor" name="supplierId" title="@POHEAD.SUPLID" module="ba00" suggestor="supplierSuggestor"
+        <input type="suggestor" name="warehouseId" title="@ROHEAD.WRHSID" module="wb00" suggestor="warehouseSuggestor"
                required="true"/>
-        <input type="text" name="soHeadNo" expr="sohdno" title="@RQHEAD.RQHDNO" disabled="true"/>
-        <input type="text" name="projectName" expr="projnm" title="@RQHEAD.PROJID" disabled="true"/>
-        <input type="text" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID" disabled="true"/>
-        <input type="date" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" format="!yyyy-MM-dd" disabled="true"/>
-        <input type="text" name="remark" expr="remark" title="@RQHEAD.REMARK" length="254"/>
+        <input type="text" name="soHeadNo" expr="sohdno" title="@SOHEAD.SOHDNO" disabled="true"/>
+        <input type="text" name="status" expr="status" title="@SOHEAD.STATUS" format="@@SOHEAD.STATUS" disabled="true"/>
+        <input type="text" name="contractNo" expr="soctno" title="@SOHEAD.SOCTNO" disabled="true"/>
+        <input type="text" name="projectName" expr="projnm" title="@SOHEAD.PROJID" disabled="true"/>
+        <input type="text" name="customerName" expr="cstmnm" title="@SOHEAD.CSTMID" disabled="true"/>
+        <input type="date" name="demandDate" expr="demddt" title="@SOHEAD.DEMDDT" format="!yyyy-MM-dd" disabled="true"/>
+        <input type="date" name="planDueDate" expr="duedat" title="@SOHEAD.DUEDAT" format="!yyyy-MM-dd" disabled="true"/>
+        <input type="text" name="remark" expr="remark" title="@POHEAD.REMARK" length="254"/>
     </editor>
 
-    <sheeter title="@sheeter.materials" name="materials" added="false" updated="false">
+    <editor title="@editor.carrier" spans="3">
+        <input type="text" name="carrierCompany" title="@DOHEAD.CARCMP" length="64"/>
+        <input type="text" name="shippingNo" title="@DOHEAD.SHIPNO" length="64"/>
+        <input type="text" name="vehicleNo" title="@DOHEAD.VHCLNO" length="8"/>
+        <input type="text" name="contacts" title="@DOHEAD.CONTCS" length="32"/>
+        <input type="text" name="phoneNo" title="@DOHEAD.PHONNO" length="11"/>
+    </editor>
+
+    <sheeter title="@sheeter.materials" name="materials" labelColumn="skuName" added="false">
         <statement>
             <table name="vsoline"/>
-            <param column="status" type="=" expr="'00'"/>
+            <param column="status" type="!=" expr="'20'"/>
             <param column="sohdid" type="=" expr="id"/>
         </statement>
 
         <inputs>
             <input type="selection" name="id" expr="solnid"/>
-            <input type="text" name="skuName" expr="skunam" title="@RQLINE.MTRLID" width="120"/>
-            <input type="number" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" format="%#.###" width="70"/>
-            <input type="number" name="price" expr="price" title="@RQLINE.PRICE" format="%#.###" width="50"/>
-            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90"/>
-            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100"/>
-            <input type="text" name="remark" expr="remark" title="@RQLINE.REMARK"/>
-            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100"/>
+            <input type="text" name="skuName" expr="skunam" title="@SOLINE.MTRLID" width="120" disabled="true"/>
+            <input type="number" name="orderQty" expr="ordqty" title="@issue.qty" format="ordqty - dlvqty" width="70"
+                   required="true" default="0" scale="0" min="1"/>
+            <input type="number" name="deliveredQty" expr="dlvqty" title="@SOLINE.DLVQTY" format="%#.###" width="80" disabled="true"/>
+            <input type="number" name="salesQty" expr="ordqty" title="@SOLINE.ORDQTY" format="%#.###" width="70" disabled="true"/>
+            <input type="number" name="price" expr="price" title="@SOLINE.PRICE" format="%#.###" width="50" disabled="true"/>
+            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>
+            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
+            <input type="text" name="remark" expr="remark" title="@SOLINE.REMARK"/>
+            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
         </inputs>
     </sheeter>
 
     <intl>
         <lang code="zh-CN">
-            <item key="etitle">销售单下发发货单</item>
-            <item key="sheeter.materials">发货物料</item>
+            <item key="etitle">销售单下发发货</item>
+
+            <item key="editor.carrier">承运信息</item>
+            <item key="sheeter.materials">销售物料</item>
+            <item key="issue.qty">下发数量</item>
         </lang>
 
         <lang code="en-US">
             <item key="etitle">Issue DO</item>
-            <item key="sheeter.materials">Delivery Material</item>
+
+            <item key="editor.carrier">Carrier Info</item>
+            <item key="sheeter.materials">Sales Material</item>
+            <item key="issue.qty">Issue Qty</item>
         </lang>
     </intl>
 </rindja-generic-editor>

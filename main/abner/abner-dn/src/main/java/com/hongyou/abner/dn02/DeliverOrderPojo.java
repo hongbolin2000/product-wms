@@ -3,8 +3,8 @@
  */
 package com.hongyou.abner.dn02;
 
-import com.hongyou.abner.data.pojo.PoheadPojo;
-import com.hongyou.abner.data.pojo.RqlinePojo;
+import com.hongyou.abner.data.pojo.DoheadPojo;
+import com.hongyou.abner.data.pojo.DolinePojo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,10 +15,10 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class DeliverOrderPojo extends PoheadPojo {
+public class DeliverOrderPojo extends DoheadPojo {
 
     /**
-     * 请购物料
+     * 销售物料
      */
-    private List<RqlinePojo> materials;
+    private List<DolinePojo> materials;
 }
