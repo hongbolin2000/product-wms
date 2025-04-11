@@ -11,6 +11,7 @@
       @search="handleSearch"
       @clear="() => handleSearch('')"
       @update:value="handleUpdateValue"
+      @focus="() => handleSearch('', props.widget.rowData[props.widget.name])"
   />
   <n-select
       v-else
