@@ -163,10 +163,11 @@
   function renderMenu(menus: MenuOption[]) {
     menus.forEach((menu) => {
       menu.icon = renderIcon(menu.icons);
-      menu.key = menu.url;
       if (menu.children && menu.children.length > 0) {
+        menu.key = menu.fullUrl;
         renderMenu(menu.children);
       } else {
+        menu.key = menu.url;
         delete menu.children;
       }
     });

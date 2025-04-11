@@ -24,12 +24,15 @@
             <menu id="wb05" permission="wb05" url="/graces/grider/wb05/binList" label="库位管理" icon="bin"/>
         </menu>
 
-        <menu id="gr" url="/gr" label="收货管理" icon="receive">
-            <menu id="gr01Create" permission="gr01" url="/graces/editor/gr01/requisitionOrderEdit" label="创建请购单"/>
+        <menu id="pr" url="/pr" label="采购管理" icon="purchasing">
+            <menu id="gr01Create" permission="gr01Create" url="/graces/editor/gr01/requisitionOrderEdit" label="创建请购单"/>
             <menu id="gr01" permission="gr01" url="/graces/grider/gr01/requisitionOrderList" label="请购单管理" icon="requisition"/>
             <menu id="gr03" permission="gr03" url="/graces/grider/gr03/purchasingOrderList" label="采购单管理" icon="purchasing"/>
             <menu id="gr06" permission="gr06" url="/graces/grider/gr06/paymentRecordList" label="付款记录管理" icon="payment"/>
-            <menu id="gr07Create" permission="gr07" url="/graces/editor/gr07/receiveOrderEdit" label="创建收货单"/>
+        </menu>
+
+        <menu id="gr" url="/gr" label="收货管理" icon="receive">
+            <menu id="gr07Create" permission="gr07Create" url="/graces/editor/gr07/receiveOrderEdit" label="创建收货单"/>
             <menu id="gr07" permission="gr07" url="/graces/grider/gr07/receiveOrderList" label="收货单管理" icon="receive"/>
         </menu>
 
