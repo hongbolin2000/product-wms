@@ -62,6 +62,15 @@
             <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="120" filter="text"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@SOLINE.REMARK" filter="text"/>
+            <column type="scriptLink" name="audit" icon="audit" expr="rqhdid" title="@audit" width="80" link="/dn01/audit"
+                    labelColumn="soHeadNo" disabled="statusValue != '00'" permission="audit"/>
+            <column type="link" mode="drawer" drawerWidth="50%" name="issue.po" icon="issue" expr="rqhdid" title="@issue.po"
+                    width="80" link="/graces/editor/gr02/rqConvertPoEdit" permission="issue.po"
+                    disabled="statusValue == '00' or statusValue == '30'"/>
+            <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
+                    link="/graces/editor/gr01/requisitionOrderEdit" disabled="statusValue != '00'" permission="update"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="rqhdid" title="@delete" width="80"
+                    link="/gr01/delete" labelColumn="rqHeadNo" danger="true" disabled="statusValue != '00'" permission="delete"/>
         </columns>
     </subtable>
 
