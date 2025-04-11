@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库存序列号查询建议器
+    </description>
+
+    <maxRows>20</maxRows>
+
+    <statement>
+        <table name="vstckim"/>
+        <param column="stkmde" type="=" expr="'SR'"/>
+        <param column="onhdqt" type=">" expr="'0'"/>
+        <param column="stimno" expr="searchValue"/>
+        <order by="stimno"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="stimno"/>
+        <field name="label" expr="stimno" format="stimno + ' 货位: ' + bincde"/>
+        <field name="binCode" expr="bincde"/>
+    </fields>
+</rindja-generic-suggestor>

@@ -12,16 +12,21 @@ K 	DOLINE:MTRLMS			- SKUNO, SKUNAM, MODEL, MTRIMG
 *****************************************************************************************************************************************************
 N	STIMNO,		VC(64),		NOT NULL,		,						stockItemNo,	Stock Item No,			库存唯一码
 *****************************************************************************************************************************************************
-N	BTCHNO,		VC(16),		NOT NULL,		'',						batchNo,		Batch No,				批次号
-N	BINCDE,		VC(32),		NOT NULL,		,						binCode,		Bin Code,				存放货位
+N	BATHNO,		VC(16),		NOT NULL,		'',						batchNo,		Batch No,				批次号
+N   BINMID,     BIGINT,     NOT NULL,       ,                       binId,          Bin,                    存放货位
+K   BINMAS                  - BINCDE
+K   BINMAS:BINARA           - BNARNM
 N	CARTNO,		VC(32),		NOT NULL,		,						cartonNo,		Carton No,				存放箱号
 *****************************************************************************************************************************************************
+N 	DLVQTY,		N(24.3),	NOT NULL,		0,						deliverQty,	    Deliver Qty,		    发货数量
 N	DELVTM,		TS,			,				,						deliverTime,	Deliver Time,			发货时间
 N	DELVBY,		VC(32),		NOT NULL,		'',						deliverBy,		Deliver By,				发货人
 *****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,			Remark,					备注
 N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,		Operate By,				操作人
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P 	DOIMID
 F	01 listByDOLine (DOLNID) DOLINE (DOLNID)
+F	02 listByBin (BINMID) BINMAS (BINMID)
 =====================================================================================================================================================

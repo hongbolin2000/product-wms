@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 批次发货 -->
+    <generic-editor-descriptor name="batchDeliverEdit">batch-deliver-editor.xml</generic-editor-descriptor>
+
+    <!-- 序列号发货 -->
+    <generic-editor-descriptor name="serialDeliverEdit">serial-deliver-editor.xml</generic-editor-descriptor>
+
+    <!-- 库存货位查询建议器 -->
+    <generic-suggestor-descriptor name="stockBinSuggestor">stock-bin-suggestor.xml</generic-suggestor-descriptor>
+
+    <!-- 库存序列号查询建议器 -->
+    <generic-suggestor-descriptor name="stockSerialSuggestor">stock-serial-suggestor.xml</generic-suggestor-descriptor>
+</baron-rindja-config>

@@ -28,7 +28,7 @@
         <input type="text" name="serialNo" title="@serial.no" length="64" required="true"/>
         <input type="suggestor" name="binId" title="@STCKIM.BINMID" module="wb00" suggestor="binSuggestor" required="true"/>
         <input type="text" name="cartonNo" title="@STCKIM.CARTNO" length="32"/>
-        <input type="text" mode="textarea" name="remark" expr="remark" title="@POLINE.REMARK"/>
+        <input type="text" mode="textarea" name="remark" title="@ROLINE.REMARK" length="254"/>
         <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" disabled="true"/>
     </editor>
 

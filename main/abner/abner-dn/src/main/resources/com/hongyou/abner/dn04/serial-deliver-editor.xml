@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        序列号发货
+    </description>
+
+    <etitle>@etitle</etitle>
+    <url>/dn04/deliver</url>
+
+    <statement>
+        <table name="vdoline"/>
+        <param column="dolnid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="skuName" spans="3">
+        <input type="text" name="id" expr="dolnid" hidden="true"/>
+        <input type="number" name="deliverQty" default="1" hidden="true"/>
+        <input type="text" name="skuName" expr="skunam" title="@DOLINE.MTRLID" disabled="true"/>
+        <input type="number" name="deliveredQty" expr="dlvqty" title="@DOLINE.DLVQTY" format="%#.###" disabled="true"/>
+        <input type="number" name="orderQty" expr="ordqty" title="@ROLINE.ORDQTY" format="%#.###" disabled="true"/>
+        <input type="number" name="price" expr="price" title="@DOLINE.PRICE" format="%#.###" disabled="true"/>
+        <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" disabled="true"/>
+        <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" disabled="true"/>
+        <input type="suggestor" name="serialNo" title="@serial.no" module="dn04" suggestor="stockSerialSuggestor" required="true"/>
+        <input type="text" mode="textarea" name="remark" title="@DOLINE.REMARK" length="254"/>
+        <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" disabled="true"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="etitle">序列号发货</item>
+            <item key="serial.no">序列号</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="etitle">Batch Deliver</item>
+            <item key="serial.no">Serial No</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

@@ -17,7 +17,7 @@ K   MTRLMS                  - SKUNO, SKUNAM, MODEL, MTRIMG
 K 	MTRLMS:MTRTYP 			- MTTYP1, MTTYCD, STKMDE
 N   PRICE,      N(24.3),    NOT NULL,       0,                      price,              Price,                  单价
 *****************************************************************************************************************************************************
-N	BTCHNO,		VC(16),	NOT NULL,		'',					        batchNo,		    Batch No,				库存批次
+N	BATHNO,		VC(16),	NOT NULL,		'',					        batchNo,		    Batch No,				库存批次
 *****************************************************************************************************************************************************
 N	ORDQTY,		N(24.3),	NOT NULL,		1,						orderQty,			Order Qty,				订单数量
 N 	RCVQTY,		N(24.3),	NOT NULL,		0,						receivedQty,	    Received Qty,		    已收货数量

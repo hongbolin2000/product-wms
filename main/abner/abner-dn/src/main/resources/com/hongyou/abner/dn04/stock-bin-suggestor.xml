@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库存货位查询建议器
+    </description>
+
+    <statement>
+        <table name="vstckim"/>
+        <param column="stkmde" type="=" expr="'BT'"/>
+        <param column="onhdqt" type=">" expr="'0'"/>
+        <param column="bincde" expr="searchValue"/>
+        <group by="bincde"/>
+        <order by="onHandQty"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="bincde"/>
+        <field name="stockQty" expr="sum(onhdqt)" as="onHandQty" format="%#.###"/>
+        <field name="label" expr="bincde" format="bincde + ' 库存: ' + stockQty"/>
+    </fields>
+</rindja-generic-suggestor>

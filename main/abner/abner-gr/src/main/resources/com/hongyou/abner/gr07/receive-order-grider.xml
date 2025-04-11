@@ -69,7 +69,7 @@
             <column type="label" name="roHeadStatusValue" expr="rhstus" hidden="true"/>
             <column type="label" name="stockModeValue" expr="stkmde" hidden="true"/>
             <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
-            <column type="label" name="batchNo" expr="btchno" title="@ROLINE.BTCHNO" width="100" filter="text"/>
+            <column type="label" name="batchNo" expr="bathno" title="@ROLINE.BATHNO" width="100" filter="text"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>

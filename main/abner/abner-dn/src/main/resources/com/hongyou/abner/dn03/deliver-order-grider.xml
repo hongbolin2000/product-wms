@@ -78,10 +78,10 @@
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@DOLINE.REMARK" filter="text"/>
             <column type="link" mode="dialog" name="batchDeliver" icon="deliver" expr="dolnid" title="@batch.deliver"
-                    width="100" link="/graces/editor/dn07/batchDeliverEdit" permission="batch.deliver"
+                    width="100" link="/graces/editor/dn04/batchDeliverEdit" permission="batch.deliver"
                     disabled="stockModeValue == 'SR' or doHeadStatusValue == '00' or statusValue == '20'"/>
             <column type="link" mode="dialog" name="serialDeliver" icon="deliver" expr="dolnid" title="@serial.deliver"
-                    width="120" link="/graces/editor/dn07/serialDeliverEdit" permission="serial.deliver"
+                    width="120" link="/graces/editor/dn04/serialDeliverEdit" permission="serial.deliver"
                     disabled="stockModeValue == 'BT' or doHeadStatusValue == '00' or statusValue == '20'"/>
         </columns>
     </subtable>
