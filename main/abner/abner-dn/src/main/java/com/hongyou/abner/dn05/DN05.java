@@ -97,6 +97,7 @@ public class DN05 extends UserDataProvider {
             // 录入在明细中时
             if (StringUtil.isBlank(rphead.getInvcno())) {
                 rphead.invcno(String.join("/", invoiceNos));
+                this.db().rphead().save(rphead);
             }
 
             // 更新采购单

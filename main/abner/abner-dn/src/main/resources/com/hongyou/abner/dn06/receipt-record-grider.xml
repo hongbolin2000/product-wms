@@ -10,38 +10,38 @@
 
     <datatable title="@table.title">
         <statement>
-            <table name="vpyhead"/>
+            <table name="vrphead"/>
             <param column="cmpnid" type="=" expr="_companyId"/>
-            <order by="pohdno"/>
+            <order by="sohdno"/>
         </statement>
-        <double.click type="query" datatables="detail" input="pyHeadId"/>
+        <double.click type="query" datatables="detail" input="rpHeadId"/>
 
         <columns>
-            <column type="label" name="pyHeadId" expr="pyhdid" hidden="true"/>
-            <column type="file" name="invoiceImage" expr="invcim" title="@PYHEAD.INVCIM" width="110"/>
-            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="120" filter="text"/>
-            <column type="label" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" width="120" filter="text"/>
-            <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="200" filter="text"/>
-            <column type="label" name="receiptAmount" expr="payamt" title="@PYHEAD.PAYAMT" width="100" format="%#.###"/>
-            <column type="label" name="invoiceNo" expr="invcno" title="@PYHEAD.INVCNO" width="120" filter="text"/>
-            <column type="label" name="entryBy" expr="entrby" title="@PYHEAD.ENTRBY" width="100" filter="text"/>
-            <column type="label" name="entryTime" expr="entrtm" title="@PYHEAD.ENTRTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
-            <column type="label" name="remark" expr="remark" title="@PYHEAD.REMARK" filter="text"/>
+            <column type="label" name="rpHeadId" expr="rphdid" hidden="true"/>
+            <column type="file" name="invoiceImage" expr="invcim" title="@RPHEAD.INVCIM" width="110"/>
+            <column type="label" name="soHeadNo" expr="sohdno" title="@SOHEAD.SOHDNO" width="120" filter="text"/>
+            <column type="label" name="contractNo" expr="soctno" title="@SOHEAD.SOCTNO" width="120" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@SOHEAD.CSTMID" width="200" filter="text"/>
+            <column type="label" name="receiptAmount" expr="rcpamt" title="@RPHEAD.RCPAMT" width="100" format="%#.###"/>
+            <column type="label" name="invoiceNo" expr="invcno" title="@RPHEAD.INVCNO" width="120" filter="text"/>
+            <column type="label" name="entryBy" expr="entrby" title="@RPHEAD.ENTRBY" width="100" filter="text"/>
+            <column type="label" name="entryTime" expr="entrtm" title="@RPHEAD.ENTRTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="remark" expr="remark" title="@RPHEAD.REMARK" filter="text"/>
         </columns>
     </datatable>
 
     <subtable name="detail">
         <statement>
-            <table name="vpyline"/>
-            <param column="pyhdid" type="=" expr="pyHeadId"/>
+            <table name="vrpline"/>
+            <param column="rphdid" type="=" expr="rpHeadId"/>
             <order by="invcno"/>
         </statement>
 
         <columns>
-            <column type="file" name="invoiceImage" expr="invcim" title="@PYLINE.INVCIM" width="110"/>
+            <column type="file" name="invoiceImage" expr="invcim" title="@RPLINE.INVCIM" width="110"/>
             <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
-            <column type="label" name="receiptAmount" expr="payamt" title="@PYLINE.PAYAMT" width="100" format="%#.###"/>
-            <column type="label" name="invoiceNo" expr="invcno" title="@PYLINE.INVCNO" width="100" filter="text"/>
+            <column type="label" name="receiptAmount" expr="rcpamt" title="@RPLINE.RCPAMT" width="100" format="%#.###"/>
+            <column type="label" name="invoiceNo" expr="invcno" title="@RPLINE.INVCNO" width="100" filter="text"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>

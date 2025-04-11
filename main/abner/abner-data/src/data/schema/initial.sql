@@ -124,6 +124,8 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 6, 'dn03', '发货单管理', 'batch.deliver', '批次发货');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 7, 'dn03', '发货单管理', 'serial.deliver', '序列号发货');
 
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'dn06', '收款记录管理', 'browse', '查看');
+
 /**
  * 角色
  */

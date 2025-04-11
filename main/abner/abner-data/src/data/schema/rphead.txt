@@ -8,7 +8,7 @@ Y	Receipt Record
 N	RPHDID,		ID,			NOT NULL,       ,               		id,					ID,                     主键
 *****************************************************************************************************************************************************
 N	SOHDID,		BIGINT,		NOT NULL,       ,               		soHeadId,			SO Head,				销售单
-K   SOHEAD                  - SOHDNO, SOCTNO
+K   SOHEAD                  - CMPNID, SOHDNO, SOCTNO
 K   SOHEAD:SUPLMS           - SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N   RCPAMT,     N(24.3),    NOT NULL,       0,                      receiptAmount,      Receipt Amount,         收款金额

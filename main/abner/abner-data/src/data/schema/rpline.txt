@@ -10,6 +10,7 @@ N	RPLNID,		ID,			NOT NULL,       ,               		id,					ID,                  
 N	RPHDID,		BIGINT,		NOT NULL,       ,               		rpHeadId,		    rp Head,				收款记录
 N	SOLNID,		BIGINT,		NOT NULL,       ,               		soLineId,		    SO Line,				销售单行
 K 	SOLINE:MTRLMS 			- SKUNO, SKUNAM, MODEL, MTRIMG
+K 	SOLINE:MTRLMS:MTRTYP 	- MTTYP1, MTTYCD
 *****************************************************************************************************************************************************
 N   RCPAMT,     N(24.3),    NOT NULL,       1,                      receiptAmount,      Receipt Amount,         收款金额
 N   INVCNO,     VC(64),     NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号

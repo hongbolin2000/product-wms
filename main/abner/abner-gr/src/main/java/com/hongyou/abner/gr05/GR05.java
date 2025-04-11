@@ -97,6 +97,7 @@ public class GR05 extends UserDataProvider {
             // 录入在明细中时
             if (StringUtil.isBlank(pyhead.getInvcno())) {
                 pyhead.invcno(String.join("/", invoiceNos));
+                this.db().pyhead().save(pyhead);
             }
 
             // 更新采购单
