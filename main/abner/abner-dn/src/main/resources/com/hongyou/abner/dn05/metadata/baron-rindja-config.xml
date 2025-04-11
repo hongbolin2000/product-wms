@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <baron-rindja-config>
 
-    <!-- 采购单收款录入 -->
-    <generic-editor-descriptor name="poReceiptEdit">po-receipt-editor.xml</generic-editor-descriptor>
+    <!-- 销售单付款录入 -->
+    <generic-editor-descriptor name="soReceiptEdit">so-receipt-editor.xml</generic-editor-descriptor>
 </baron-rindja-config>

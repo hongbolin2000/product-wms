@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -86,25 +87,11 @@ public class DN01 extends UserDataProvider {
             this.db().sohead().save(sohead);
             VSohead vSohead = new VSohead().sohdid(sohead.getSohdid()).oneById();
 
-            // 记录日志
-            String action = oldVSohead == null ? "创建" : "修改";
-            Map<String, String> displays = this.international.getTableValuesDisplay(request, "sohead");
-            EventLog event = EventLog.builder().
-                    domain(loginUser.getCmpnid()).
-                    operator(operatorBy).
-                    module(DN01.class.getSimpleName()).
-                    name("销售单管理").
-                    action(action).
-                    message(StringUtil.format("销售单[{}]{}成功", sohead.getSohdno(), action)).
-                    oldValue(oldVSohead).
-                    newValue(vSohead).
-                    enumsDisplay(displays).
-                    build();
-            this.eventLogManager.info(event);
-
             // 已经存在的销售物料id
             Set<Long> solnids = this.db().rpline().listByRPHead(sohead.getSohdid()).stream().
                     map(Rpline::getRplnid).collect(Collectors.toSet());
+
+            BigDecimal amount = BigDecimal.ZERO;
             for (int i = 0; i < pojo.getMaterials().size(); i++) {
                 SolinePojo line = pojo.getMaterials().get(i);
 
@@ -133,9 +120,12 @@ public class DN01 extends UserDataProvider {
                 this.db().soline().save(soline);
                 VSoline vSoline = new VSoline().solnid(soline.getSolnid()).oneById();
 
+                // 订单总金额
+                amount = amount.add(soline.getOrdqty().multiply(soline.getPrice()));
+
                 // 记录日志
-                action = oldVSoline == null ? "创建" : "修改";
-                event = EventLog.builder().
+                String action = oldVSoline == null ? "创建" : "修改";
+                EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(DN01.class.getSimpleName()).
@@ -156,7 +146,7 @@ public class DN01 extends UserDataProvider {
                 VSoline vSoline = new VSoline().solnid(soline.getSolnid()).oneById();
 
                 // 记录日志
-                event = EventLog.builder().
+                EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
                         module(DN01.class.getSimpleName()).
@@ -170,6 +160,26 @@ public class DN01 extends UserDataProvider {
                 this.eventLogManager.info(event);
                 this.db().soline().delete(soline);
             }
+
+            // 订单总金额
+            sohead.amount(sohead.getAmount());
+            this.db().sohead().save(sohead);
+
+            // 记录日志
+            String action = oldVSohead == null ? "创建" : "修改";
+            Map<String, String> displays = this.international.getTableValuesDisplay(request, "sohead");
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(operatorBy).
+                    module(DN01.class.getSimpleName()).
+                    name("销售单管理").
+                    action(action).
+                    message(StringUtil.format("销售单[{}]{}成功", sohead.getSohdno(), action)).
+                    oldValue(oldVSohead).
+                    newValue(vSohead).
+                    enumsDisplay(displays).
+                    build();
+            this.eventLogManager.info(event);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

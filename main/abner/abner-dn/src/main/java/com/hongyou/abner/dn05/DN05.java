@@ -1,13 +1,12 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.abner.gr05;
+package com.hongyou.abner.dn05;
 
 import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.*;
-import com.hongyou.abner.data.pojo.PylinePojo;
-import com.hongyou.abner.gr04.GR04;
+import com.hongyou.abner.data.pojo.RplinePojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
@@ -25,35 +24,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 采购单付款录入
+ * 销售单收款录入
  *
  * @author Berlin
  */
 @RestController
-@RequestMapping("/gr05")
-public class GR05 extends UserDataProvider {
+@RequestMapping("/dn05")
+public class DN05 extends UserDataProvider {
 
     /**
      * logger
      */
-    private static final Log logger = LogFactory.getLog(GR04.class);
+    private static final Log logger = LogFactory.getLog(DN05.class);
 
     /**
-     * 付款录入
+     * 收款录入
      */
     @PostMapping("/save")
     @Transactional(rollbackFor = RestRuntimeException.class)
-    public ResponseEntry save(@RequestBody final PaymentPojo pojo) {
+    public ResponseEntry save(@RequestBody final ReceiptPojo pojo) {
 
         try {
             Userms loginUser = this.getLoginUser();
             String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
 
-            Pohead pohead = this.db().pohead().get(pojo.getId());
-            Pyhead pyhead = new Pyhead();
-            pyhead.pohdid(pohead.getPohdid()).
-                    payamt(pojo.getPaymentAmount()).
+            Sohead sohead = this.db().sohead().get(pojo.getId());
+            Rphead rphead = new Rphead();
+            rphead.sohdid(sohead.getSohdid()).
+                    rcpamt(pojo.getReceiptAmount()).
                     invcno(pojo.getInvoiceNo()).
                     invcim(pojo.getInvoiceImage()).
                     entrby(operatorBy).
@@ -61,70 +60,71 @@ public class GR05 extends UserDataProvider {
                     remark(pojo.getRemark()).
                     oprtby(operatorBy).
                     oprttm(currentTime);
-            this.db().pyhead().save(pyhead);
+            this.db().rphead().save(rphead);
 
             List<String> invoiceNos = new ArrayList<>();
-            for (PylinePojo line : pojo.getMaterials()) {
-                VPoline vPoline = new VPoline().polnid(line.getId()).oneById();
+            for (RplinePojo line : pojo.getMaterials()) {
+                VSoline vSoline = new VSoline().solnid(line.getId()).oneById();
 
-                Pyline pyline = new Pyline();
-                pyline.pyhdid(pyhead.getPyhdid()).
-                        polnid(vPoline.getPolnid()).
-                        payamt(line.getPaymentAmount()).
+                Rpline rpline = new Rpline();
+                rpline.rphdid(rphead.getRphdid()).
+                        solnid(vSoline.getSolnid()).
+                        rcpamt(line.getReceiptAmount()).
                         invcno(line.getInvoiceNo()).
                         invcim(line.getInvoiceImage()).
                         remark(line.getRemark()).
                         oprtby(operatorBy).
                         oprttm(currentTime);
-                this.db().pyline().save(pyline);
-                invoiceNos.add(pyline.getInvcno());
+                this.db().rpline().save(rpline);
+
+                invoiceNos.add(rpline.getInvcno());
 
                 // 记录日志
                 EventLog event = EventLog.builder().
                         domain(loginUser.getCmpnid()).
                         operator(operatorBy).
-                        module(GR05.class.getSimpleName()).
-                        name("采购单管理").
-                        action("付款录入").
-                        message(StringUtil.format("采购单[{}] 物料[{}]付款录入成功",
-                                pohead.getPohdno(), vPoline.getSkunam())
+                        module(DN05.class.getSimpleName()).
+                        name("销售单管理").
+                        action("收款录入").
+                        message(StringUtil.format("销售单[{}] 物料[{}]收款录入成功",
+                                sohead.getSohdno(), vSoline.getSkunam())
                         ).
-                        newValue(pyhead).
+                        newValue(rphead).
                         build();
                 this.eventLogManager.info(event);
             }
 
             // 录入在明细中时
-            if (StringUtil.isBlank(pyhead.getInvcno())) {
-                pyhead.invcno(String.join("/", invoiceNos));
+            if (StringUtil.isBlank(rphead.getInvcno())) {
+                rphead.invcno(String.join("/", invoiceNos));
             }
 
             // 更新采购单
-            pohead.paycnt(pohead.getPaycnt() + 1).
-                    payamt(pohead.getPayamt().add(pyhead.getPayamt())).
+            sohead.rcpcnt(sohead.getRcpcnt() + 1).
+                    rcpamt(sohead.getRcpamt().add(rphead.getRcpamt())).
                     oprtby(operatorBy).
                     oprttm(currentTime);
 
-            boolean finished = pohead.getPayamt().compareTo(pohead.getAmount()) >= 0;
-            pohead.paysts(finished ? Pohead.PAYSTS.Finished : Pohead.PAYSTS.Part);
-            this.db().pohead().save(pohead);
+            boolean finished = sohead.getRcpamt().compareTo(sohead.getAmount()) >= 0;
+            sohead.rcpsts(finished ? Sohead.RCPSTS.Finished : Sohead.RCPSTS.Part);
+            this.db().sohead().save(sohead);
 
             // 记录日志
             EventLog event = EventLog.builder().
                     domain(loginUser.getCmpnid()).
                     operator(operatorBy).
-                    module(GR05.class.getSimpleName()).
-                    name("采购单管理").
-                    action("付款录入").
-                    message(StringUtil.format("采购单[{}]付款录入成功", pohead.getPohdno())).
-                    newValue(pyhead).
+                    module(DN05.class.getSimpleName()).
+                    name("销售单管理").
+                    action("收款录入").
+                    message(StringUtil.format("销售单[{}]收款录入成功", sohead.getSohdno())).
+                    newValue(rphead).
                     build();
             this.eventLogManager.info(event);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
-            logger.error("采购单付款录入失败", e);
-            throw new RestRuntimeException("采购单付款录入失败");
+            logger.error("销售单收款录入失败", e);
+            throw new RestRuntimeException("销售单收款录入失败");
         }
     }
 }

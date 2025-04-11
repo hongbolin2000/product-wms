@@ -35,7 +35,7 @@
             <column type="tag" name="refDocType" expr="rdocty" title="@DOHEAD.RDOCTY" width="100" format="@@DOHEAD.RDOCTY"
                     filter="@refDocType"/>
             <column type="label" name="projectName" expr="projnm" title="@DOHEAD.PROJID" width="150" filter="text"/>
-            <column type="label" name="customerName" expr="cstmnm" title="@DOHEAD.SUPLID" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@DOHEAD.CSTMID" width="150" filter="text"/>
             <column type="tag" name="status" expr="status" title="@DOHEAD.STATUS" width="80" format="@@DOHEAD.STATUS" filter="@status"/>
             <column type="label" name="orderDate" expr="ordrdt" title="@DOHEAD.ORDRDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="deliverDate" expr="delvdt" title="@DOHEAD.DELVDT" width="100" format="!yyyy-MM-dd" filter="date"/>
@@ -89,7 +89,7 @@
     <intl>
         <lang code="zh-CN">
             <item key="table.title">发货单</item>
-            <item key="add">新增</item>
+            <item key="add">创建发货单</item>
 
             <item key="audit">审核通过</item>
             <item key="edit">编辑</item>
@@ -101,7 +101,7 @@
 
         <lang code="en-US">
             <item key="table.title">Deliver Order</item>
-            <item key="add">Add</item>
+            <item key="add">Create D</item>
 
             <item key="audit">Approved</item>
             <item key="edit">Edit</item>

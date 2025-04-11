@@ -11,7 +11,7 @@ N	SOHDID,		BIGINT,		NOT NULL,       ,               		soHeadId,			SO Head,				�
 K   SOHEAD                  - SOHDNO, SOCTNO
 K   SOHEAD:SUPLMS           - SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
-N   PAYAMT,     N(24.3),    NOT NULL,       0,                      paymentAmount,      Payment Amount,         付款金额
+N   RCPAMT,     N(24.3),    NOT NULL,       0,                      receiptAmount,      Receipt Amount,         收款金额
 N   INVCNO,     VC(128),    NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
 N   INVCIM,     VC(128),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
 N	ENTRBY,		VC(64),		NOT NULL,		'',						entryBy,			Entry By,				录入人

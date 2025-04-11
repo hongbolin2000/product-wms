@@ -53,6 +53,10 @@
             <column type="link" mode="drawer" drawerWidth="60%" name="issue.do" icon="issue" expr="sohdid" title="@issue.do"
                     width="100" link="/graces/editor/dn02/soConvertDoEdit" permission="issue.do"
                     disabled="statusValue == '00' or statusValue == '30'"/>
+            <column type="link" mode="drawer" drawerWidth="60%" name="receipt.entry" icon="payment" expr="sohdid"
+                    title="@receipt.entry" width="100" link="/graces/editor/dn05/soReceiptEdit" permission="receipt.entry"
+                    disabled="receiptStatusValue == '20'"
+            />
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="sohdid" title="@edit" width="80"
                     link="/graces/editor/dn01/salesOrderEdit" disabled="statusValue != '00'" permission="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="sohdid" title="@delete" width="80"
@@ -89,6 +93,7 @@
 
             <item key="audit">审核通过</item>
             <item key="issue.do">下发发货</item>
+            <item key="receipt.entry">付款录入</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
@@ -99,6 +104,7 @@
 
             <item key="audit">Approved</item>
             <item key="issue.do">Issue DO</item>
+            <item key="receipt.entry">Receipt Entry</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

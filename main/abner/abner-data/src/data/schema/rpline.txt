@@ -11,7 +11,7 @@ N	RPHDID,		BIGINT,		NOT NULL,       ,               		rpHeadId,		    rp Head,			
 N	SOLNID,		BIGINT,		NOT NULL,       ,               		soLineId,		    SO Line,				销售单行
 K 	SOLINE:MTRLMS 			- SKUNO, SKUNAM, MODEL, MTRIMG
 *****************************************************************************************************************************************************
-N   RCPAMT,     INT,        NOT NULL,       1,                      receiptAmount,      Receipt Amount,         收款金额
+N   RCPAMT,     N(24.3),    NOT NULL,       1,                      receiptAmount,      Receipt Amount,         收款金额
 N   INVCNO,     VC(64),     NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
 N   INVCIM,     VC(128),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
 *****************************************************************************************************************************************************
