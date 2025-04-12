@@ -10,7 +10,6 @@ import com.hongyou.abner.data.pojo.PolinePojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
-import com.hongyou.baron.util.DateUtil;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
@@ -66,7 +65,7 @@ public class GR03 extends UserDataProvider {
 
             // 新增
             if (ObjectUtil.isNull(pohead)) {
-                String poHeadNo = DateUtil.format(currentTime, "yyMMddHHmmss");
+                String poHeadNo = this.serialManager.get("pohead.pohdno", loginUser.getCmpnid().toString());
                 pohead = new Pohead();
                 pohead.cmpnid(loginUser.getCmpnid()).
                         pohdno(poHeadNo).

@@ -10,7 +10,6 @@ import com.hongyou.abner.data.pojo.RolinePojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
-import com.hongyou.baron.util.DateUtil;
 import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
@@ -58,7 +57,7 @@ public class GR04 extends UserDataProvider {
             Timestamp currentTime = this.getCurrentTime();
 
             Pohead pohead = this.db().pohead().get(pojo.getId());
-            String roHeadNo = DateUtil.format(currentTime, "yyMMddHHmmss");
+            String roHeadNo = this.serialManager.get("rohead.rvodno", loginUser.getCmpnid().toString());
 
             Rohead rohead = new Rohead();
             rohead.wrhsid(pojo.getWarehouseId()).

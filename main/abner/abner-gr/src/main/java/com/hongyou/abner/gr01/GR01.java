@@ -10,7 +10,6 @@ import com.hongyou.abner.data.pojo.RqlinePojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
-import com.hongyou.baron.util.DateUtil;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
@@ -65,7 +64,7 @@ public class GR01 extends UserDataProvider {
 
             // 新增
             if (ObjectUtil.isNull(rqhead)) {
-                String rqHeadNo = DateUtil.format(currentTime, "yyMMddHHmmss");
+                String rqHeadNo = this.serialManager.get("rqhead.rqhdno", loginUser.getCmpnid().toString());
                 rqhead = new Rqhead();
                 rqhead.cmpnid(loginUser.getCmpnid()).
                         rqhdno(rqHeadNo).

@@ -8,7 +8,6 @@ import com.hongyou.abner.data.model.*;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
-import com.hongyou.baron.util.DateUtil;
 import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
@@ -58,7 +57,7 @@ public class GR08 extends UserDataProvider {
 
             // 生成批次号
             if (StringUtil.isBlank(roline.getBathno())) {
-                String batchNo = DateUtil.format(currentTime, "yyMMddHHmmss");
+                String batchNo = this.serialManager.get("stckim.bathno", loginUser.getCmpnid().toString());
                 roline.bathno(batchNo).
                         status(Roline.STATUS.Receiving);
             }
@@ -97,7 +96,7 @@ public class GR08 extends UserDataProvider {
             // 生成库存唯一码
             String stockItemNo = pojo.getSerialNo();
             if (StringUtil.isBlank(stockItemNo)) {
-                stockItemNo = DateUtil.format(currentTime, "yyMMddHHmmss");
+                stockItemNo = this.serialManager.get("stckim.stimno", loginUser.getCmpnid().toString());
             }
 
             // 保存收货单项

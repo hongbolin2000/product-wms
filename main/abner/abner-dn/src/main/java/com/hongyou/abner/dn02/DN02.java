@@ -10,7 +10,6 @@ import com.hongyou.abner.data.pojo.DolinePojo;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
-import com.hongyou.baron.util.DateUtil;
 import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
@@ -58,7 +57,7 @@ public class DN02 extends UserDataProvider {
             Timestamp currentTime = this.getCurrentTime();
 
             Sohead sohead = this.db().sohead().get(pojo.getId());
-            String doHeadNo = DateUtil.format(currentTime, "yyMMddHHmmss");
+            String doHeadNo = this.serialManager.get("dohead.dlodno", loginUser.getCmpnid().toString());
 
             Dohead dohead = new Dohead();
             dohead.wrhsid(pojo.getWarehouseId()).

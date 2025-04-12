@@ -4,6 +4,17 @@
 insert into cmpnms(cmpnid, cmpncd, cmpnnm, pftitl, pfstil, pfsptl) values (1, '100', '初始化公司', '初始化平台', 'Initial Platform', '初始平台');
 
 /**
+ * 序列号
+ */
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('rqhead.rqhdno', 'DATE', 'yyMM', 'RQ', 10);
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('pohead.pohdno', 'DATE', 'yyMM', 'PO', 10);
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('rohead.rvodno', 'DATE', 'yyMM', 'RO', 10);
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('stckim.bathno', 'DATE', 'yyMM', 'BT', 10);
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('stckim.stimno', 'DATE', 'yyMM', '9', 10);
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('sohead.sohdno', 'DATE', 'yyMM', 'SO', 10);
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('dohead.dlodno', 'DATE', 'yyMM', 'DO', 10);
+
+/**
  * 用户(密码: 12345678)
  */
 insert into userms(userid, cmpnid, usernm, paswrd, fulnam) values (1, 1, 'admin', '2fb5b2be5fade0ffaa98d554c81b7e85', '超级管理员');
@@ -11,7 +22,6 @@ insert into userms(userid, cmpnid, usernm, paswrd, fulnam) values (1, 1, 'admin'
 /**
   * 权限
   */
-
 insert into pmsnms(pmsnid, cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 1, 'sy01', '角色管理', 'browse', '查看');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'sy01', '角色管理', 'add', '新增');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'sy01', '角色管理', 'update', '修改');
