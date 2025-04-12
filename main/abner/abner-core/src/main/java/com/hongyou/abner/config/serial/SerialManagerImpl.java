@@ -13,6 +13,8 @@ import com.hongyou.baron.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 序列号生成
@@ -35,7 +37,17 @@ public class SerialManagerImpl extends DataProvider implements SerialManager {
      */
     @Override
     public String get(final String serialType, final String applicationKey) {
+        return this.get(serialType, applicationKey, 1).get(0);
+    }
 
+    /**
+     * 批量生成序列号
+     *
+     * @param serialType 生成类型
+     * @param applicationKey 应用键值
+     */
+    @Override
+    public List<String> get(final String serialType, final String applicationKey, final int count) {
         synchronized (serialType.intern()) {
             Srgnhd srgnhd = this.db().srgnhd().getByType(serialType);
             if (srgnhd == null) {
@@ -44,7 +56,7 @@ public class SerialManagerImpl extends DataProvider implements SerialManager {
             }
 
             Timestamp currentTime = this.getCurrentTime();
-            StringBuilder builder = new StringBuilder(srgnhd.getSrprfx());
+            StringBuilder headBuilder = new StringBuilder(srgnhd.getSrprfx());
 
             // 生成日期序列号
             String serialKey = "";
@@ -53,7 +65,7 @@ public class SerialManagerImpl extends DataProvider implements SerialManager {
                         currentTime, StringUtil.blankToDefault(srgnhd.getSrptrn(), "yyMMdd")
                 );
             }
-            builder.append(serialKey);
+            headBuilder.append(serialKey);
 
             // 生成序列号
             Srgnln srgnln = this.db().srgnln().getByAppKey(srgnhd.getSghdid(), applicationKey, serialKey);
@@ -65,21 +77,27 @@ public class SerialManagerImpl extends DataProvider implements SerialManager {
                         curseq(0L).
                         oprttm(currentTime);
             }
+            List<String> serialNos = new ArrayList<>();
 
-            // 当前序列号
-            Long currentSequence = srgnln.getCurseq() + 1;
-            srgnln.curseq(currentSequence);
-            this.db().srgnln().save(srgnln);
+            for (int i = 0; i < count; i++) {
+                String serialNo = headBuilder.toString();
 
-            // 补足长度
-            int repairLength = srgnhd.getSrllen() - builder.length() - String.valueOf(currentSequence).length();
-            if (repairLength > 0) {
-                String repairNo = String.format("%-" + repairLength + "s", "").replace(' ', '0');
-                builder.append(repairNo);
+                // 当前序列号
+                Long currentSequence = srgnln.getCurseq() + 1;
+                srgnln.curseq(currentSequence);
+
+                // 补足长度
+                int repairLength = srgnhd.getSrllen() - serialNo.length() - String.valueOf(currentSequence).length();
+                if (repairLength > 0) {
+                    String repairNo = String.format("%-" + repairLength + "s", "").replace(' ', '0');
+                    serialNo += repairNo;
+                }
+
+                serialNo += currentSequence;
+                serialNos.add(serialNo);
             }
-
-            builder.append(currentSequence);
-            return builder.toString();
+            this.db().srgnln().save(srgnln);
+            return serialNos;
         }
     }
 }

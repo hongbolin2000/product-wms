@@ -3,6 +3,8 @@
  */
 package com.hongyou.abner.config.serial;
 
+import java.util.List;
+
 /**
  * 序列号生成
  *
@@ -17,4 +19,12 @@ public interface SerialManager {
      * @param applicationKey 应用键值
      */
     String get(final String serialType, final String applicationKey);
+
+    /**
+     * 批量生成序列号
+     *
+     * @param serialType 生成类型
+     * @param applicationKey 应用键值
+     */
+    List<String> get(final String serialType, final String applicationKey, final int count);
 }
