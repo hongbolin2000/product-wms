@@ -3,7 +3,7 @@
  */
 package com.hongyou.abner.config.event;
 
-import com.hongyou.abner.data.DataProvider;
+import com.hongyou.abner.config.web.DataProvider;
 import com.hongyou.abner.data.model.Evlghd;
 import com.hongyou.abner.data.model.Evlgvl;
 import com.hongyou.baron.Reference;

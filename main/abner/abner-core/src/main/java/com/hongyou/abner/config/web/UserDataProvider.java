@@ -8,20 +8,11 @@ import com.hongyou.abner.config.event.EventLogManager;
 import com.hongyou.abner.config.event.EventLogManagerImpl;
 import com.hongyou.abner.config.internation.InternationalManager;
 import com.hongyou.abner.config.internation.InternationalManagerImpl;
-import com.hongyou.abner.data.DataProvider;
+import com.hongyou.abner.config.serial.SerialManager;
 import com.hongyou.abner.data.model.Userms;
 import com.hongyou.baron.util.StringUtil;
-import com.mybatisflex.core.query.QueryMethods;
-import com.mybatisflex.core.query.QueryWrapper;
-import com.mybatisflex.core.row.Db;
-import com.mybatisflex.core.row.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
-import static com.hongyou.abner.data.model.table.CmpnmsTableDef.CMPNMS;
 
 /**
  * 注入系统数据库以及当前登录用户信息，功能代码继承此类可获取用户以及数据库组件
@@ -43,6 +34,11 @@ public class UserDataProvider extends DataProvider {
     protected InternationalManager international;
 
     /**
+     * 序列号生成器
+     */
+    protected SerialManager serialManager;
+
+    /**
      * 获取当前登录的用户
      */
     protected Userms getLoginUser() {
@@ -60,17 +56,6 @@ public class UserDataProvider extends DataProvider {
     }
 
     /**
-     * 获取当前时间
-     */
-    protected Timestamp getCurrentTime() {
-        QueryWrapper wrapper = new QueryWrapper();
-        wrapper.select(QueryMethods.currentTimestamp()).from(CMPNMS);
-        Row row = Db.selectOneByQuery(wrapper);
-        LocalDateTime localDateTime = row.getLocalDateTime("CURRENT_TIMESTAMP()");
-        return Timestamp.valueOf(localDateTime);
-    }
-
-    /**
      * 注入数据库组件
      */
     @Autowired
@@ -84,5 +69,13 @@ public class UserDataProvider extends DataProvider {
     @Autowired
     public void setInternationalManager(final InternationalManagerImpl international) {
         this.international = international;
+    }
+
+    /**
+     * 注入序列号生成器
+     */
+    @Autowired
+    public void setSerialManager(final SerialManager serialManager) {
+        this.serialManager = serialManager;
     }
 }

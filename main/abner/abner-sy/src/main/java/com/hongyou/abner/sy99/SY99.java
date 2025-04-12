@@ -4,7 +4,7 @@
 package com.hongyou.abner.sy99;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.hongyou.abner.data.DataProvider;
+import com.hongyou.abner.config.web.DataProvider;
 import com.hongyou.baron.web.ResponseEntry;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

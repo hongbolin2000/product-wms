@@ -3,7 +3,7 @@
  */
 package com.hongyou.abner.config.internation;
 
-import com.hongyou.abner.data.DataProvider;
+import com.hongyou.abner.config.web.DataProvider;
 import com.hongyou.abner.data.model.Tbfdds;
 import com.hongyou.abner.data.model.VTbfdvl;
 import com.hongyou.baron.Application;
@@ -12,7 +12,7 @@ import com.hongyou.baron.cache.TimedCache;
 import com.hongyou.baron.util.StringUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,7 +25,7 @@ import static com.hongyou.abner.data.model.table.VTbfdvlTableDef.VTBFDVL;
  *
  * @author Berlin
  */
-@Component
+@Service
 public class InternationalManagerImpl extends DataProvider implements InternationalManager {
 
     /**
