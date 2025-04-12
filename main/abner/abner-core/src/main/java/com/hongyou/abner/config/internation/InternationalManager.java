@@ -21,5 +21,5 @@ public interface InternationalManager {
      * @param table 表名
      * @return key为字段为@枚举值，value为显示值
      */
-    Map<String, String> getTableValuesDisplay(HttpServletRequest request,String table);
+    Map<String, String> getTableValuesDisplay(HttpServletRequest request, String table);
 }
