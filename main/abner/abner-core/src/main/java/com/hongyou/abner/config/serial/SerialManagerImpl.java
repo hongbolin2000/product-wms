@@ -31,46 +31,55 @@ public class SerialManagerImpl extends DataProvider implements SerialManager {
      * 生成单个序列号
      *
      * @param serialType 生成类型
-     * @param appKey 应用键值
+     * @param applicationKey 应用键值
      */
     @Override
-    public String get(final String serialType, final String appKey) {
+    public String get(final String serialType, final String applicationKey) {
 
-        Srgnhd srgnhd = this.db().srgnhd().getByType(serialType);
-        if (srgnhd == null) {
-            logger.error("未找到定义的序列号生成类型: {}", serialType);
-            return null;
+        synchronized (serialType.intern()) {
+            Srgnhd srgnhd = this.db().srgnhd().getByType(serialType);
+            if (srgnhd == null) {
+                logger.error("未找到定义的序列号生成类型: {}", serialType);
+                return null;
+            }
+
+            Timestamp currentTime = this.getCurrentTime();
+            StringBuilder builder = new StringBuilder(srgnhd.getSrprfx());
+
+            // 生成日期序列号
+            String serialKey = "";
+            if (Srgnhd.SRGSTG.DATE.equals(srgnhd.getSrgstg())) {
+                serialKey = DateUtil.format(
+                        currentTime, StringUtil.blankToDefault(srgnhd.getSrptrn(), "yyMMdd")
+                );
+            }
+            builder.append(serialKey);
+
+            // 生成序列号
+            Srgnln srgnln = this.db().srgnln().getByAppKey(srgnhd.getSghdid(), applicationKey, serialKey);
+            if (srgnln == null) {
+                srgnln = new Srgnln();
+                srgnln.sghdid(srgnhd.getSghdid()).
+                        appkey(applicationKey).
+                        srlkey(serialKey).
+                        curseq(0L).
+                        oprttm(currentTime);
+            }
+
+            // 当前序列号
+            Long currentSequence = srgnln.getCurseq() + 1;
+            srgnln.curseq(currentSequence);
+            this.db().srgnln().save(srgnln);
+
+            // 补足长度
+            int repairLength = srgnhd.getSrllen() - builder.length() - String.valueOf(currentSequence).length();
+            if (repairLength > 0) {
+                String repairNo = String.format("%-" + repairLength + "s", "").replace(' ', '0');
+                builder.append(repairNo);
+            }
+
+            builder.append(currentSequence);
+            return builder.toString();
         }
-
-        Timestamp currentTime = this.getCurrentTime();
-        StringBuilder builder = new StringBuilder(srgnhd.getSrprfx());
-
-        // 生成日期序列号
-        String serialKey = "";
-        if (Srgnhd.SRGSTG.DATE.equals(srgnhd.getSrgstg())) {
-            serialKey = DateUtil.format(
-                    currentTime, StringUtil.blankToDefault(srgnhd.getSrptrn(), "yyMMdd")
-            );
-        }
-        builder.append(serialKey);
-
-        // 补足长度
-        String serialNo = String.format("%-" + srgnhd.getSrllen() + "s", "").replace(' ', '0');
-        builder.append(serialNo);
-
-        // 生成序列号
-        Srgnln srgnln = this.db().srgnln().getByAppKey(srgnhd.getSghdid(), appKey, serialKey);
-        if (srgnln == null) {
-            srgnln = new Srgnln();
-            srgnln.sghdid(srgnhd.getSghdid()).
-                    appkey(appKey).
-                    srlkey(serialKey).
-                    curseq(0L).
-                    oprttm(currentTime);
-        }
-        srgnln.curseq(srgnln.getCurseq() + 1);
-
-        builder.append(srgnln.getCurseq() + 1);
-        return builder.toString();
     }
 }
