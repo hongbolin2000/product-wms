@@ -12,10 +12,11 @@
         <opts name="refDocType" type="enum" table="STCKIM" column="RDOCTY"/>
     </filters>
 
-    <datatable>
+    <datatable title="@table.title" labelColumn="skuName">
         <statement>
             <table name="vstckim"/>
             <param column="wrhsid" type="in" expr="_warehouseIds"/>
+            <param column="stckid" type="=" expr="stockId"/>
             <order by="stimno"/>
         </statement>
 
@@ -45,4 +46,14 @@
             <column type="label" name="remark" expr="remark" title="@STCKIM.REMARK" width="100" filter="text"/>
         </columns>
     </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">库存明细</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Stock Item</item>
+        </lang>
+    </intl>
 </rindja-generic-grider>

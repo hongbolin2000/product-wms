@@ -10,7 +10,7 @@
     <artifactId>abner-wr</artifactId>
 
     <name>abner-wr</name>
-    <description>后台管理系统报表管理模块</description>
+    <description>后台管理系统数据报表模块</description>
 
     <dependencies>
         <dependency>
