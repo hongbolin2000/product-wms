@@ -149,7 +149,7 @@
       // 图片
       if (widget.type == UploadWidgetFactory.TYPE) {
         column.render = (rowData) => {
-          const column = {...widget}
+          const column: any = {...widget}
           column.rowData = rowData;
           return h(FileColumn, {column: column});
         }

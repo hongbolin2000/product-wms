@@ -110,10 +110,9 @@
 
     try {
       spining.value = true;
-      const data: object = {...value};
+      const data: any = {...value};
 
       // 密码加密
-      delete data.confirmPwd;
       const key = cryptoHelper.generate256BitKey();
       data.password = cryptoHelper.aesEncrypt(key, data.password);
 

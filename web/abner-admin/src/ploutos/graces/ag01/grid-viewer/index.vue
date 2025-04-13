@@ -226,7 +226,7 @@
 
       // 其他列表跳转的界面
       if (route.query.from) {
-        const datatable = grider.value.datatable;
+        const datatable: any = grider.value.datatable;
         let tabTitle = datatable.title;
         if (datatable.data.length > 0) {
           tabTitle += ' - ' + datatable.data[0][datatable.labelColumn]

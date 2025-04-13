@@ -88,16 +88,15 @@
   /**
    * 提交
    */
-  async function onSave(value: object) {
+  async function onSave(value: any) {
 
     try {
       loading(true);
-      const data: object = {...value};
+      const data: any = {...value};
       let key = "";
 
       // 密码加密
       if (!value.id) {
-        delete data.confirmPwd;
         key = cryptoHelper.generate256BitKey();
         data.password = cryptoHelper.aesEncrypt(key, data.password);
       }

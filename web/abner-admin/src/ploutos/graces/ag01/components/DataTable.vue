@@ -526,7 +526,7 @@
         column.width = parseInt(column.width.toString()) + width;
       });
 
-      column.width += optionWidth + (columnActions.length * 20);
+      column.width += (optionWidth + (columnActions.length * 20)).toString();
       column.key = 'option';
       column.title = '操作';
       column.align = 'center';

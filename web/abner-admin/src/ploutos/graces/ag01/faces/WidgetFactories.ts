@@ -84,7 +84,7 @@ export default class WidgetFactories {
 	 *
 	 * @param widget
 	 */
-	getRule(widget: AbstractWidget): FormItemRule {
+	getRule(widget: AbstractWidget): FormItemRule | FormItemRule[] {
 		return this.get(widget.type).getRule(widget);
 	}
 }
