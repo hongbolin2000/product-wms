@@ -11,7 +11,7 @@
     <datatable title="@table.title">
         <actions>
             <action type="link" mode="drawer" drawerWidth="630" icon="add" title="@add" link="/graces/editor/ba03/projectDocEdit"
-                    permission="add"/>
+                    action="add"/>
         </actions>
 
         <statement>
@@ -31,9 +31,9 @@
             <column type="label" name="uploadTime" expr="upldtm" title="@PROJDC.UPLDTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
             <column type="label" name="remark" expr="remark" title="@PROJDC.REMARK" width="100" filter="text"/>
             <column type="link" mode="drawer" drawerWidth="630" name="edit" icon="edit" expr="pjdcid" title="@edit" width="80"
-                    link="/graces/editor/ba03/projectDocEdit" permission="update"/>
+                    link="/graces/editor/ba03/projectDocEdit" action="update"/>
             <column type="scriptLink" name="drawer" icon="delete" expr="pjdcid" title="@delete" width="80"
-                    link="/ba03/delete" labelColumn="docName" danger="true" permission="delete"/>
+                    link="/ba03/delete" labelColumn="docName" danger="true" action="delete"/>
         </columns>
     </datatable>
 

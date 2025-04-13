@@ -13,10 +13,6 @@
     </filters>
 
     <datatable>
-        <actions>
-            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/模块号/stockItemEdit" permission="add"/>
-        </actions>
-
         <statement>
             <table name="vstckim"/>
             <param column="wrhsid" type="in" expr="_warehouseIds"/>

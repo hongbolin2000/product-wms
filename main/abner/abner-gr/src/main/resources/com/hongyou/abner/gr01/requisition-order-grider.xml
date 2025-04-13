@@ -15,7 +15,7 @@
     <datatable title="@table.title">
         <actions>
             <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add"
-                    link="/graces/editor/gr01/requisitionOrderEdit" permission="add"/>
+                    link="/graces/editor/gr01/requisitionOrderEdit" action="add"/>
         </actions>
 
         <statement>
@@ -37,14 +37,14 @@
             <column type="label" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="remark" expr="remark" title="@RQHEAD.REMARK" filter="text"/>
             <column type="scriptLink" name="audit" icon="audit" expr="rqhdid" title="@audit" width="80" link="/gr01/audit"
-                    labelColumn="rqHeadNo" disabled="statusValue != '00'" permission="audit"/>
+                    labelColumn="rqHeadNo" disabled="statusValue != '00'" action="audit"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="issue.po" icon="issue" expr="rqhdid" title="@issue.po"
-                    width="80" link="/graces/editor/gr02/rqConvertPoEdit" permission="issue.po"
+                    width="80" link="/graces/editor/gr02/rqConvertPoEdit" action="issue.po"
                     disabled="statusValue == '00' or statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
-                    link="/graces/editor/gr01/requisitionOrderEdit" disabled="statusValue != '00'" permission="update"/>
+                    link="/graces/editor/gr01/requisitionOrderEdit" disabled="statusValue != '00'" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="rqhdid" title="@delete" width="80"
-                    link="/gr01/delete" labelColumn="rqHeadNo" danger="true" disabled="statusValue != '00'" permission="delete"/>
+                    link="/gr01/delete" labelColumn="rqHeadNo" danger="true" disabled="statusValue != '00'" action="delete"/>
         </columns>
     </datatable>
 

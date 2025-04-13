@@ -16,7 +16,7 @@
     <datatable title="@table.title">
         <actions>
             <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add"
-                    link="/graces/editor/dn01/salesOrderEdit" permission="add"/>
+                    link="/graces/editor/dn01/salesOrderEdit" action="add"/>
         </actions>
 
         <statement>
@@ -49,18 +49,18 @@
                     filter="@receiptStatus" success="receiptStatusValue == '20'"/>
             <column type="label" name="remark" expr="remark" title="@SOHEAD.REMARK" filter="text"/>
             <column type="scriptLink" name="audit" icon="audit" expr="sohdid" title="@audit" width="80" link="/dn01/audit"
-                    labelColumn="soHeadNo" disabled="statusValue != '00'" permission="audit"/>
+                    labelColumn="soHeadNo" disabled="statusValue != '00'" action="audit"/>
             <column type="link" mode="drawer" drawerWidth="60%" name="issue.do" icon="issue" expr="sohdid" title="@issue.do"
-                    width="100" link="/graces/editor/dn02/soConvertDoEdit" permission="issue.do"
+                    width="100" link="/graces/editor/dn02/soConvertDoEdit" action="issue.do"
                     disabled="statusValue == '00' or statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="60%" name="receipt.entry" icon="payment" expr="sohdid"
-                    title="@receipt.entry" width="100" link="/graces/editor/dn05/soReceiptEdit" permission="receipt.entry"
+                    title="@receipt.entry" width="100" link="/graces/editor/dn05/soReceiptEdit" action="receipt.entry"
                     disabled="receiptStatusValue == '20'"
             />
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="sohdid" title="@edit" width="80"
-                    link="/graces/editor/dn01/salesOrderEdit" disabled="statusValue != '00'" permission="update"/>
+                    link="/graces/editor/dn01/salesOrderEdit" disabled="statusValue != '00'" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="sohdid" title="@delete" width="80"
-                    link="/dn01/delete" labelColumn="soHeadNo" danger="true" disabled="statusValue != '00'" permission="delete"/>
+                    link="/dn01/delete" labelColumn="soHeadNo" danger="true" disabled="statusValue != '00'" action="delete"/>
         </columns>
     </datatable>
 

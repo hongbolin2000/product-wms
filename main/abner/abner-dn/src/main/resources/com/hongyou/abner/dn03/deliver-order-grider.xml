@@ -16,7 +16,7 @@
     <datatable title="@table.title">
         <actions>
             <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add" link="/graces/editor/dn03/deliverOrderEdit"
-                    permission="add"/>
+                    action="add"/>
         </actions>
 
         <statement>
@@ -47,11 +47,11 @@
             <column type="label" name="phoneNo" expr="phonno" title="@DOHEAD.PHONNO" width="100" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@DOHEAD.REMARK" width="100" filter="text"/>
             <column type="scriptLink" name="audit" icon="audit" expr="dohdid" title="@audit" width="80" link="/dn03/audit"
-                    labelColumn="doHeadNo" disabled="statusValue != '00'" permission="audit"/>
+                    labelColumn="doHeadNo" disabled="statusValue != '00'" action="audit"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="dohdid" title="@edit" width="80"
-                    link="/graces/editor/dn03/deliverOrderEdit" permission="update" disabled="statusValue != '00'"/>
+                    link="/graces/editor/dn03/deliverOrderEdit" action="update" disabled="statusValue != '00'"/>
             <column type="scriptLink" name="delete" icon="delete" expr="dohdid" title="@delete" width="80"
-                    link="/dn03/delete" labelColumn="doHeadNo" danger="true" permission="delete" disabled="statusValue != '00'"/>
+                    link="/dn03/delete" labelColumn="doHeadNo" danger="true" action="delete" disabled="statusValue != '00'"/>
         </columns>
     </datatable>
 
@@ -78,10 +78,10 @@
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@DOLINE.REMARK" filter="text"/>
             <column type="link" mode="dialog" name="batchDeliver" icon="deliver" expr="dolnid" title="@batch.deliver"
-                    width="100" link="/graces/editor/dn04/batchDeliverEdit" permission="batch.deliver"
+                    width="100" link="/graces/editor/dn04/batchDeliverEdit" action="batch.deliver"
                     disabled="stockModeValue == 'SR' or doHeadStatusValue == '00' or statusValue == '20'"/>
             <column type="link" mode="dialog" name="serialDeliver" icon="deliver" expr="dolnid" title="@serial.deliver"
-                    width="120" link="/graces/editor/dn04/serialDeliverEdit" permission="serial.deliver"
+                    width="120" link="/graces/editor/dn04/serialDeliverEdit" action="serial.deliver"
                     disabled="stockModeValue == 'BT' or doHeadStatusValue == '00' or statusValue == '20'"/>
         </columns>
     </subtable>

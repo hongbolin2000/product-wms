@@ -16,7 +16,7 @@
     <datatable title="@table.title">
         <actions>
             <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add" link="/graces/editor/gr07/receiveOrderEdit"
-                    permission="add"/>
+                    action="add"/>
         </actions>
 
         <statement>
@@ -49,11 +49,11 @@
             <column type="label" name="phoneNo" expr="phonno" title="@ROHEAD.PHONNO" width="100" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@ROHEAD.REMARK" width="100" filter="text"/>
             <column type="scriptLink" name="audit" icon="audit" expr="rohdid" title="@audit" width="80" link="/gr07/audit"
-                    labelColumn="roHeadNo" disabled="statusValue != '00'" permission="audit"/>
+                    labelColumn="roHeadNo" disabled="statusValue != '00'" action="audit"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rohdid" title="@edit"
-                    width="80" link="/graces/editor/gr07/receiveOrderEdit" permission="update" disabled="statusValue != '00'"/>
+                    width="80" link="/graces/editor/gr07/receiveOrderEdit" action="update" disabled="statusValue != '00'"/>
             <column type="scriptLink" name="delete" icon="delete" expr="rohdid" title="@delete" width="80"
-                    link="/gr07/delete" labelColumn="roHeadNo" danger="true" permission="delete" disabled="statusValue != '00'"/>
+                    link="/gr07/delete" labelColumn="roHeadNo" danger="true" action="delete" disabled="statusValue != '00'"/>
         </columns>
     </datatable>
 
@@ -81,10 +81,10 @@
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@ROLINE.REMARK" filter="text"/>
             <column type="link" mode="dialog" name="batchReceive" icon="receive" expr="rolnid" title="@batch.receive"
-                    width="100" link="/graces/editor/gr08/batchReceiveEdit" permission="batch.receive"
+                    width="100" link="/graces/editor/gr08/batchReceiveEdit" action="batch.receive"
                     disabled="stockModeValue == 'SR' or roHeadStatusValue == '00' or statusValue == '20'"/>
             <column type="link" mode="dialog" name="serialReceive" icon="receive" expr="rolnid" title="@serial.receive"
-                    width="120" link="/graces/editor/gr08/serialReceiveEdit" permission="serial.receive"
+                    width="120" link="/graces/editor/gr08/serialReceiveEdit" action="serial.receive"
                     disabled="stockModeValue == 'BT' or roHeadStatusValue == '00' or statusValue == '20'"/>
         </columns>
     </subtable>

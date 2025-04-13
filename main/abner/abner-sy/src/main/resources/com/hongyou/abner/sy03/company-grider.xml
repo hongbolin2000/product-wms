@@ -44,7 +44,7 @@
             <column type="label" name="zipCode" expr="zipcde" title="@CMPNMS.ZIPCDE" width="100" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@CMPNMS.REMARK" width="100" filter="text"/>
             <column type="link" name="edit" icon="edit" expr="cmpnid" title="@edit" width="80" link="/graces/editor/sy03/companyEdit"
-                    permission="update"/>
+                    action="update"/>
         </columns>
     </datatable>
 

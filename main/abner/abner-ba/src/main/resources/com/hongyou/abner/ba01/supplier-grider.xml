@@ -16,7 +16,7 @@
     <datatable title="@table.title">
         <actions>
             <action type="link" mode="drawer" drawerWidth="50%" icon="add" title="@add" link="/graces/editor/ba01/supplierEdit"
-                    permission="add"/>
+                    action="add"/>
         </actions>
 
         <statement>
@@ -37,9 +37,9 @@
             <column type="label" name="zipCode" expr="zipcde" title="@SUPLMS.ZIPCDE" width="100" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@SUPLMS.REMARK" width="100" filter="text"/>
             <column type="link" mode="drawer" name="edit" icon="edit" expr="suplid" title="@edit" width="80"
-                    link="/graces/editor/ba01/supplierEdit" drawerWidth="50%" permission="update"/>
+                    link="/graces/editor/ba01/supplierEdit" drawerWidth="50%" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="suplid" title="@delete" width="80"
-                    link="/ba02/delete" labelColumn="supplierName" danger="true" permission="delete"/>
+                    link="/ba02/delete" labelColumn="supplierName" danger="true" action="delete"/>
         </columns>
     </datatable>
 

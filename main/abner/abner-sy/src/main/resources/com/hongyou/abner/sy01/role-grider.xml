@@ -10,7 +10,7 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy01/roleEdit" permission="add"/>
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy01/roleEdit" action="add"/>
         </actions>
 
         <statement>
@@ -24,11 +24,11 @@
             <column type="tag" name="superAdmin" expr="supadm" title="@ROLEMS.SUPADM" width="110" format="@@ROLEMS.SUPADM"/>
             <column type="label" name="remark" expr="remark" title="@ROLEMS.REMARK" filter="text"/>
             <column type="link" name="assign" icon="permission" expr="roleid" title="@permission.assign" width="120"
-                    link="/sy01/permission/assign" permission="permission.assign"/>
+                    link="/sy01/permission/assign" action="permission.assign"/>
             <column type="link" mode="drawer" name="edit" icon="edit" expr="roleid" title="@edit" width="80"
-                    link="/graces/editor/sy01/roleEdit" permission="update"/>
+                    link="/graces/editor/sy01/roleEdit" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="roleid" title="@delete" width="80" link="/sy01/delete"
-                    labelColumn="name" danger="true" permission="delete"/>
+                    labelColumn="name" danger="true" action="delete"/>
         </columns>
     </datatable>
 

@@ -10,7 +10,7 @@
 
     <datatable title="@table.title">
         <actions>
-            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/wb03/warehouseEdit" permission="add"/>
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/wb03/warehouseEdit" action="add"/>
         </actions>
 
         <statement>
@@ -30,9 +30,9 @@
             <column type="label" name="zipCode" expr="zipcde" title="@WRHSMS.ZIPCDE" width="100" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@WRHSMS.REMARK" width="100" filter="text"/>
             <column type="link" mode="dialog" name="edit" icon="edit" expr="wrhsid" title="@edit" width="80"
-                    link="/graces/editor/wb03/warehouseEdit" permission="update"/>
+                    link="/graces/editor/wb03/warehouseEdit" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="wrhsid" title="@delete" width="80"
-                    link="/wb03/delete" labelColumn="warehouseName" danger="true" permission="delete"/>
+                    link="/wb03/delete" labelColumn="warehouseName" danger="true" action="delete"/>
         </columns>
     </datatable>
 
