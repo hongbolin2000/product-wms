@@ -136,6 +136,9 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 7,
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'dn06', '收款记录管理', 'browse', '查看');
 
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'wr01', '库存报表', 'browse', '查看');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'wr02', '库存明细报表', 'browse', '查看');
+
 /**
  * 角色
  */

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库存明细报表
+    </description>
+
+    <filters>
+        <opts name="refDocType" type="enum" table="STCKIM" column="RDOCTY"/>
+    </filters>
+
+    <datatable>
+        <actions>
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/模块号/stockItemEdit" permission="add"/>
+        </actions>
+
+        <statement>
+            <table name="vstckim"/>
+            <param column="wrhsid" type="in" expr="_warehouseIds"/>
+            <order by="stimno"/>
+        </statement>
+
+        <columns>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
+            <column type="label" name="warehouseName" expr="wrhsnm" title="@STCKIM.WRHSID" width="100" filter="text"/>
+            <column type="label" name="stockItemNo" expr="stimno" title="@STCKIM.STIMNO" width="120" filter="text"/>
+            <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
+            <column type="label" name="onHandQty" expr="onhdqt" title="@STCKIM.ONHDQT" width="100" format="%#.###"/>
+            <column type="label" name="price" expr="price" title="@STCKIM.PRICE" width="100" format="%#.###"/>
+            <column type="tag" name="refDocType" expr="rdocty" title="@STCKIM.RDOCTY" width="100" format="@@STCKIM.RDOCTY"
+                    filter="@refDocType"/>
+            <column type="label" name="receiveQty" expr="rcvqty" title="@STCKIM.RCVQTY" width="100" format="%#.###"/>
+            <column type="label" name="roHeadNo" expr="rvodno" title="@STCKIM.RVODNO" width="100" filter="text"/>
+            <column type="label" name="receivedDate" expr="rcvdat" title="@STCKIM.RCVDAT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="receivedTime" expr="rcvtim" title="@STCKIM.RCVTIM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="receiveBy" expr="recvby" title="@STCKIM.RECVBY" width="100" filter="text"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@STCKIM.SUPLID" width="150" filter="text"/>
+            <column type="label" name="projectName" expr="projnm" title="@STCKIM.PROJID" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@STCKIM.CSTMID" width="150" filter="text"/>
+            <column type="label" name="batchNo" expr="bathno" title="@STCKIM.BATHNO" width="100" filter="text"/>
+            <column type="label" name="binCode" expr="bincde" title="@STCKIM.BINMID" width="100" filter="text"/>
+            <column type="label" name="cartonNo" expr="cartno" title="@STCKIM.CARTNO" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@STCKIM.REMARK" width="100" filter="text"/>
+        </columns>
+    </datatable>
+</rindja-generic-grider>
