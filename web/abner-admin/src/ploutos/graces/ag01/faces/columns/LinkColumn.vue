@@ -1,6 +1,6 @@
 <template>
   <n-button size="small" @click="onHandelClick" :disabled="props.column.isDisabled" v-if="!column.option">
-    <template #icon>
+    <template #icon v-if="column.icon">
       <n-icon>
         <SvgIcon :name="column.icon"/>
       </n-icon>
@@ -102,7 +102,7 @@
       return;
     }
     const column = props.column;
-    const value = column.rowData[column.name];
+    const value: string = column.rowData[column.name];
 
     if (props.column?.mode != 'router') {
       // 匹配路由（通用界面模式）
@@ -145,12 +145,20 @@
       const name = props.column.moduleName;
       const from = props.column.module + name.substring(0, 1).toUpperCase() + name.substring(1);
 
-      await router.push({
-        path: column?.link! + "/" + value,
-        query: {
-          from: from
-        }
-      });
+      const query: any = {};
+      query.from = from;
+
+      // 传入查询参数
+      if (value.startsWith("?")) {
+        const params = new URLSearchParams(value);
+        params.forEach((v, k) => {
+          query[k] = params.get(k);
+        })
+      }
+
+      let link = column.link;
+      link += !value.startsWith('?') ? '/' : '';
+      await router.push({path: link, query: query});
     }
   }
 </script>

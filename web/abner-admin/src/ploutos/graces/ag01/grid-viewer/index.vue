@@ -42,6 +42,8 @@
 
 <script setup lang="ts">
   import {onMounted, provide, ref, type Ref, watch} from "vue";
+  import {storeToRefs} from "pinia";
+  import {useRoute} from "vue-router";
   /********************************************************************************
    * 通用表格浏览界面
    *
@@ -53,12 +55,14 @@
   import type DoubleClick from "@/ploutos/graces/ag01/faces/DoubleClick.ts";
   import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import {storeToRefs} from "pinia";
+  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
 
   /**
    * 布局状态
    */
   const layoutStore = useLayoutStore();
+  const appStore = useAppStore();
+  const route = useRoute();
 
   /**
    * 浏览表格属性定义
@@ -219,6 +223,16 @@
       grider.value = response.data;
 
       await loadTableData();
+
+      // 其他列表跳转的界面
+      if (route.query.from) {
+        const datatable = grider.value.datatable;
+        let tabTitle = datatable.title;
+        if (datatable.data.length > 0) {
+          tabTitle += ' - ' + datatable.data[0][datatable.labelColumn]
+        }
+        appStore.changeTabTitle(tabTitle);
+      }
     } finally {
       loading(false);
     }

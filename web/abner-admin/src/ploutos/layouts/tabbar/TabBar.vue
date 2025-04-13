@@ -599,7 +599,21 @@
   function toLastTabMenu() {
     // 当前路由被关闭时才切换到最后一个选项卡
     if (appStore.visitedMenus.findIndex(i => i.key == currentPath.value) == -1) {
-      router.push({ path: appStore.visitedMenus[appStore.visitedMenus.length -1].key });
+      const key = appStore.visitedMenus[appStore.visitedMenus.length -1].key;
+      const keys = key.split('?');
+
+      // 带查询参数的页面
+      if (keys.length > 1) {
+        const query = {};
+        const params = new URLSearchParams(keys[1]);
+        params.forEach((v, k) => {
+          query[k] = params.get(k);
+        });
+        router.push({ path: keys[0], query: query });
+      }
+      if (keys.length == 1) {
+        router.push({ path: keys[0] });
+      }
       return;
     }
 

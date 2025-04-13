@@ -12,6 +12,7 @@ import com.mybatisflex.core.query.QueryMethods;
 import com.mybatisflex.core.query.QueryWrapper;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -58,13 +59,20 @@ public class RindjaUserProvider extends UserDataProvider implements RindjaUserLo
 
         // 用户权限
         QueryWrapper wrapper = QueryWrapper.create();
-        wrapper.select(QueryMethods.distinct(PMSNMS.ACTCDE)).
+        wrapper.select(QueryMethods.distinct(PMSNMS.PMSNCD, PMSNMS.ACTCDE)).
                 from(PMSNMS).
                 innerJoin(ROLPMS).on(PMSNMS.PMSNID.eq(ROLPMS.PMSNID)).
                 innerJoin(USRROL).on(ROLPMS.ROLEID.eq(USRROL.ROLEID)).
                 where(USRROL.USERID.eq(loginUserId)).
                 and(PMSNMS.PMSNCD.eq(module));
         List<Pmsnms> pmsnmss = this.db().pmsnms().list(wrapper);
-        return pmsnmss.stream().map(Pmsnms::getActcde).toList();
+
+        List<String> moduleActions = pmsnmss.stream().map(i -> i.getPmsncd() + "@" + i.getActcde()).toList();
+        List<String> actions = pmsnmss.stream().map(Pmsnms::getActcde).toList();
+
+        List<String> permissions = new ArrayList<>();
+        permissions.addAll(actions);
+        permissions.addAll(moduleActions);
+        return permissions;
     }
 }

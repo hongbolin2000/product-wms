@@ -45,6 +45,11 @@ export default class Datatable extends AbstractComponent{
 	striped: boolean;
 
 	/**
+	 * 友好提示的列
+	 */
+	labelColumn: string;
+
+	/**
 	 * 表格数据
 	 */
 	data: [];
