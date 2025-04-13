@@ -157,7 +157,7 @@
       }
 
       let link = column.link;
-      link += !value.startsWith('?') ? '/' : '';
+      link += !value.startsWith('?') ? '/' + value : '';
       await router.push({path: link, query: query});
     }
   }
