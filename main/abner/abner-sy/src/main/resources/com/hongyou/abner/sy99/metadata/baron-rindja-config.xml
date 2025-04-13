@@ -7,6 +7,9 @@
   <!-- 门店编辑 -->
   <generic-editor-descriptor name="storeEditor">store-editor.xml</generic-editor-descriptor>
 
+  <!-- 门店详情-->
+  <generic-viewer-descriptor name="storeViewer">store-viewer.xml</generic-viewer-descriptor>
+
   <!-- 门店查询建议器 -->
   <generic-suggestor-descriptor name="storeSuggestor">store-suggestor.xml</generic-suggestor-descriptor>
 </baron-rindja-config>
