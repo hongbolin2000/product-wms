@@ -25,6 +25,7 @@
         <module>abner-wb</module>
         <module>abner-gr</module>
         <module>abner-dn</module>
+        <module>abner-wr</module>
     </modules>
 
     <properties>

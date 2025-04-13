@@ -36,10 +36,13 @@
             <menu id="gr07" permission="gr07" url="/graces/grider/gr07/receiveOrderList" label="收货单管理" icon="receive"/>
         </menu>
 
-        <menu id="dn" url="/dn" label="发货管理" icon="deliver">
+        <menu id="so" url="/so" label="销售管理" icon="sales">
             <menu id="dn01Create" permission="dn01" url="/graces/editor/dn01/salesOrderEdit" label="创建销售单"/>
             <menu id="dn01" permission="dn01" url="/graces/grider/dn01/salesOrderList" label="销售单管理" icon="sales"/>
             <menu id="dn06" permission="dn06" url="/graces/grider/dn06/receiptRecordList" label="收款记录管理" icon="payment"/>
+        </menu>
+
+        <menu id="dn" url="/dn" label="发货管理" icon="deliver">
             <menu id="dn03Create" permission="dn03Create" url="/graces/editor/dn03/deliverOrderEdit" label="创建发货单"/>
             <menu id="dn03" permission="dn03" url="/graces/grider/dn03/deliverOrderList" label="发货单管理" icon="deliver"/>
         </menu>
