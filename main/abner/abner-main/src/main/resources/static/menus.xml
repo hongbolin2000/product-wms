@@ -8,14 +8,12 @@
             <menu id="sy04" permission="sy04" url="/graces/grider/sy04/eventLogList" label="系统日志" icon="log"/>
             <menu id="sy99" permission="sy99" url="/graces/grider/sy99/storeGrider" label="动态列表"/>
         </menu>
-
         <menu id="ba" url="/ba" label="基础管理" icon="basic">
             <menu id="ba01" permission="ba01" url="/graces/grider/ba01/supplierList" label="供应商管理" icon="supplier"/>
             <menu id="ba02" permission="ba02" url="/graces/grider/ba02/projectList" label="项目管理" icon="project"/>
             <menu id="ba03" permission="ba03" url="/graces/grider/ba03/projectDocList" label="项目文档管理" icon="doc"/>
             <menu id="ba04" permission="ba04" url="/graces/grider/ba04/projectProcessList" label="项目进度管理" icon="process"/>
         </menu>
-
         <menu id="wb" url="/wb" label="仓库管理" icon="warehouse">
             <menu id="wb01" permission="wb01" url="/graces/grider/wb01/materialTypeList" label="物料类型管理" icon="material-type"/>
             <menu id="wb02" permission="wb02" url="/graces/grider/wb02/materialList" label="物料管理" icon="material"/>
@@ -23,30 +21,25 @@
             <menu id="wb04" permission="wb04" url="/graces/grider/wb04/binAreaList" label="库区管理" icon="area"/>
             <menu id="wb05" permission="wb05" url="/graces/grider/wb05/binList" label="库位管理" icon="bin"/>
         </menu>
-
         <menu id="pr" url="/pr" label="采购管理" icon="purchasing">
-            <menu id="gr01Create" permission="gr01Create" url="/graces/editor/gr01/requisitionOrderEdit" label="创建请购单"/>
+            <menu id="gr01Create" permission="gr01" action="add" url="/graces/editor/gr01/requisitionOrderEdit" label="创建请购单"/>
             <menu id="gr01" permission="gr01" url="/graces/grider/gr01/requisitionOrderList" label="请购单管理" icon="requisition"/>
             <menu id="gr03" permission="gr03" url="/graces/grider/gr03/purchasingOrderList" label="采购单管理" icon="purchasing"/>
             <menu id="gr06" permission="gr06" url="/graces/grider/gr06/paymentRecordList" label="付款记录管理" icon="payment"/>
         </menu>
-
         <menu id="gr" url="/gr" label="收货管理" icon="receive">
-            <menu id="gr07Create" permission="gr07Create" url="/graces/editor/gr07/receiveOrderEdit" label="创建收货单"/>
+            <menu id="gr07Create" permission="gr07" action="add" url="/graces/editor/gr07/receiveOrderEdit" label="创建收货单"/>
             <menu id="gr07" permission="gr07" url="/graces/grider/gr07/receiveOrderList" label="收货单管理" icon="receive"/>
         </menu>
-
         <menu id="so" url="/so" label="销售管理" icon="sales">
-            <menu id="dn01Create" permission="dn01" url="/graces/editor/dn01/salesOrderEdit" label="创建销售单"/>
+            <menu id="dn01Create" permission="dn01" action="add" url="/graces/editor/dn01/salesOrderEdit" label="创建销售单"/>
             <menu id="dn01" permission="dn01" url="/graces/grider/dn01/salesOrderList" label="销售单管理" icon="sales"/>
             <menu id="dn06" permission="dn06" url="/graces/grider/dn06/receiptRecordList" label="收款记录管理" icon="payment"/>
         </menu>
-
         <menu id="dn" url="/dn" label="发货管理" icon="deliver">
-            <menu id="dn03Create" permission="dn03Create" url="/graces/editor/dn03/deliverOrderEdit" label="创建发货单"/>
+            <menu id="dn03Create" permission="dn03" action="add" url="/graces/editor/dn03/deliverOrderEdit" label="创建发货单"/>
             <menu id="dn03" permission="dn03" url="/graces/grider/dn03/deliverOrderList" label="发货单管理" icon="deliver"/>
         </menu>
-
         <menu id="wr" url="/wr" label="报表管理" icon="deliver">
             <menu id="wr01" permission="wr01" url="/graces/grider/wr01/stockList" label="库存报表" icon="deliver"/>
             <menu id="wr02" permission="wr02" url="/graces/grider/wr02/stockItemList" label="库存明细报表" icon="deliver"/>

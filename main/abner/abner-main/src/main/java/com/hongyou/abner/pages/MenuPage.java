@@ -9,6 +9,7 @@ import com.hongyou.abner.data.model.Userms;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.ListUtil;
+import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.navigation.Navigate;
 import com.hongyou.baron.web.navigation.NavigationManager;
 import com.mybatisflex.core.query.QueryMethods;
@@ -89,6 +90,10 @@ public class MenuPage extends UserDataProvider {
             if (ListUtil.isEmpty(menu.getChildren()) && !permissions.contains(menu.getPermission())) {
                 continue;
             }
+            if (StringUtil.isNotBlank(menu.getAction()) &&
+                    !permissions.contains(menu.getPermission() + "@" + menu.getAction())) {
+                continue;
+            }
             menus.add(menu);
         }
         return menus;
@@ -100,12 +105,19 @@ public class MenuPage extends UserDataProvider {
     private List<String> loadPermissions() {
         Userms loginUser = this.getLoginUser();
         QueryWrapper wrapper = QueryWrapper.create();
-        wrapper.select(QueryMethods.distinct(PMSNMS.PMSNCD)).
+        wrapper.select(QueryMethods.distinct(PMSNMS.PMSNCD, PMSNMS.ACTCDE)).
                 from(PMSNMS).
                 innerJoin(ROLPMS).on(PMSNMS.PMSNID.eq(ROLPMS.PMSNID)).
                 innerJoin(USRROL).on(ROLPMS.ROLEID.eq(USRROL.ROLEID)).
                 where(USRROL.USERID.eq(loginUser.getUserid()));
         List<Pmsnms> pmsnmss = this.db().pmsnms().list(wrapper);
-        return pmsnmss.stream().map(Pmsnms::getPmsncd).toList();
+
+        List<String> modules = pmsnmss.stream().map(Pmsnms::getPmsncd).toList();
+        List<String> moduleActions = pmsnmss.stream().map(i -> i.getPmsncd() + "@" + i.getActcde()).toList();
+
+        List<String> permissions = new ArrayList<>();
+        permissions.addAll(modules);
+        permissions.addAll(moduleActions);
+        return permissions;
     }
 }
