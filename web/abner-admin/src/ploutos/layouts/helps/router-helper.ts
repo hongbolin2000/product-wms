@@ -44,7 +44,7 @@ namespace routerHelper {
    * 检查理由路径是否在布局中忽略
    */
   export function isIgnoreRoute(route: RouteLocationNormalized) {
-    return ["/login", "/splash", "/refresh/fresh", '/403', '/404'].includes(route.path);
+    return ['/login', '/splash', '/refresh/fresh', '/403', '/404', '/index'].includes(route.path);
 
   }
 }

@@ -16,11 +16,12 @@
       show-download-button
       :disabled="widget.isDisabled"
       :show-trigger="!widget.isDisabled"
+      directory-dnd
   >
     <n-button v-if="widget.mode == 'text' || widget.mode == 'image'">
       点击上传
     </n-button>
-    <n-upload-dragger v-if="widget.mode == 'dragger'">
+    <n-upload-dragger v-else-if="widget.mode == 'dragger'">
       <div style="margin-bottom: 12px">
         <n-icon size="48" :depth="3">
           <ArchiveIcon />

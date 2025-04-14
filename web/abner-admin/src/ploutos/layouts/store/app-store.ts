@@ -104,12 +104,36 @@ const useAppStore = defineStore('appStore', () => {
   /**
    * 关闭当前页面
    */
-  async function closeCurrentTab() {
+  function closeCurrentTab() {
     // 移除当前选项卡并跳转到最后一个选项卡
     store.visitedMenus.value.splice(getCurrentTabIndex(), 1);
-    await router.push({
-      path: store.visitedMenus.value[store.visitedMenus.value.length -1].key
-    });
+    toLastTabMenu();
+  }
+
+  /**
+   * 跳转到最后一个选项卡
+   */
+  function toLastTabMenu() {
+    if (store.visitedMenus.value.length <= 0) {
+      router.push("/");
+      return;
+    }
+
+    const key = store.visitedMenus.value[store.visitedMenus.value.length -1].key;
+    const keys = key.split('?');
+
+    // 带查询参数的页面
+    if (keys.length > 1) {
+      const query = {};
+      const params = new URLSearchParams(keys[1]);
+      params.forEach((v, k) => {
+        query[k] = params.get(k);
+      });
+      router.push({ path: keys[0], query: query });
+    }
+    if (keys.length == 1) {
+      router.push({ path: keys[0] });
+    }
   }
 
   /**
@@ -126,7 +150,7 @@ const useAppStore = defineStore('appStore', () => {
     return store.visitedMenus.value.findIndex(i => i.key == route.fullPath);
   }
 
-  return { ...store, configMenu, closeCurrentTab, changeTabTitle }
+  return { ...store, configMenu, closeCurrentTab, changeTabTitle, toLastTabMenu }
 }, {
   persist: {
     pick: ['visitedMenus', 'platformOption']

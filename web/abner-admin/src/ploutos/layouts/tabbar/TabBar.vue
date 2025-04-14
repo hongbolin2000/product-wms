@@ -22,7 +22,7 @@
           <component :is="renderMenuIcon(item.icons)" @click="itemClick(item)"/>
           {{ item.label }}
         </span>
-        <n-icon class="icon-item" @click="removeTab(item.key)" v-if="!item.fixed && appStore.visitedMenus.length != 1">
+        <n-icon class="icon-item" @click="removeTab(item.key)" v-if="!item.fixed">
           <CloseOutline />
         </n-icon>
       </n-button>
@@ -433,7 +433,7 @@
       {
       label: '关闭当前',
       key: 'closeCurrent',
-      disabled: contextCurrentMenu.value.fixed || appStore.visitedMenus.length == 1,
+      disabled: contextCurrentMenu.value.fixed,
       icon() {
         return h(NIcon, null, {
           default: () => h(Unlink),
@@ -442,7 +442,7 @@
     },{
       label: '关闭其他',
       key: 'closeOther',
-      disabled: (closeLeftDisable() && closeRightDisable()) || appStore.visitedMenus.length == 1,
+      disabled: (closeLeftDisable() && closeRightDisable()),
       icon() {
         return h(NIcon, null, {
           default: () => h(Repeat),
@@ -469,7 +469,7 @@
     }, {
       label: '关闭所有',
       key: 'closeAll',
-      disabled: appStore.visitedMenus.filter(i => !i.fixed).length <= 0 || appStore.visitedMenus.length == 1,
+      disabled: appStore.visitedMenus.filter(i => !i.fixed).length <= 0,
       icon() {
         return h(NIcon, null, {
           default: () => h(CloseOutline),
@@ -599,21 +599,7 @@
   function toLastTabMenu() {
     // 当前路由被关闭时才切换到最后一个选项卡
     if (appStore.visitedMenus.findIndex(i => i.key == currentPath.value) == -1) {
-      const key = appStore.visitedMenus[appStore.visitedMenus.length -1].key;
-      const keys = key.split('?');
-
-      // 带查询参数的页面
-      if (keys.length > 1) {
-        const query = {};
-        const params = new URLSearchParams(keys[1]);
-        params.forEach((v, k) => {
-          query[k] = params.get(k);
-        });
-        router.push({ path: keys[0], query: query });
-      }
-      if (keys.length == 1) {
-        router.push({ path: keys[0] });
-      }
+      appStore.toLastTabMenu();
       return;
     }
 
