@@ -53,6 +53,7 @@ public class BA02 extends UserDataProvider {
             Userms loginUser = this.getLoginUser();
             String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
+            String projectCode = pojo.getProjectCode();
 
             // 修改
             Projms projms = null; VProjms oldVProjms = null;
@@ -67,6 +68,12 @@ public class BA02 extends UserDataProvider {
                 projms.cmpnid(loginUser.getCmpnid()).
                         cretby(operatorBy).
                         crettm(currentTime);
+
+                if (StringUtil.isBlank(projectCode)) {
+                    projectCode = this.serialManager.get("projms.projcd", loginUser.getCmpnid().toString());
+                }
+            } else if (StringUtil.isBlank(projectCode)) {
+                return ResponseEntry.builder().code(-1).message("项目编号不能为空").build();
             }
 
             // 检查是否已存在
@@ -78,7 +85,7 @@ public class BA02 extends UserDataProvider {
             }
 
             projms.cstmid(pojo.getCustomerId()).
-                    projcd(pojo.getProjectCode()).
+                    projcd(projectCode).
                     projnm(pojo.getProjectName()).
                     prjldr(pojo.getProjectLeader()).
                     cntrcd(pojo.getContractCode()).

@@ -60,6 +60,11 @@ public class GR08 extends UserDataProvider {
                 String batchNo = this.serialManager.get("stckim.bathno", loginUser.getCmpnid().toString());
                 roline.bathno(batchNo).
                         status(Roline.STATUS.Receiving);
+            } else {
+                Stckim stckim = this.db().stckim().getByStockItemNo(rohead.getWrhsid(), pojo.getSerialNo());
+                if (ObjectUtil.isNotNull(stckim)) {
+                    return ResponseEntry.builder().code(-1).message("序列号已存在").build();
+                }
             }
 
             roline.rcvqty(roline.getRcvqty().add(pojo.getReceiveQty())).

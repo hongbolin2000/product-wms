@@ -22,7 +22,7 @@
         <statement>
             <table name="vdohead"/>
             <param column="wrhsid" type="in" expr="_warehouseIds"/>
-            <order by="wrhsnm, dlodno desc"/>
+            <order by="dlodno desc"/>
         </statement>
         <double.click type="query" datatables="detail" input="doHeadId"/>
 
@@ -30,8 +30,8 @@
             <column type="label" name="doHeadId" expr="dohdid" hidden="true"/>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="warehouseName" expr="wrhsnm" title="@ROHEAD.WRHSID" width="100" filter="text"/>
-            <column type="label" name="doHeadNo" expr="dlodno" title="@DOHEAD.DLODNO" width="120" filter="text"/>
-            <column type="label" name="refDocNo" expr="rdocno" title="@DOHEAD.RDOCNO" width="120" filter="text"/>
+            <column type="label" name="doHeadNo" expr="dlodno" title="@DOHEAD.DLODNO" width="100" filter="text"/>
+            <column type="label" name="refDocNo" expr="rdocno" title="@DOHEAD.RDOCNO" width="100" filter="text"/>
             <column type="tag" name="refDocType" expr="rdocty" title="@DOHEAD.RDOCTY" width="100" format="@@DOHEAD.RDOCTY"
                     filter="@refDocType"/>
             <column type="label" name="projectName" expr="projnm" title="@DOHEAD.PROJID" width="150" filter="text"/>

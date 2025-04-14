@@ -74,7 +74,7 @@ public class WB02 extends UserDataProvider {
                     this.db().mtrtyp().save(mtrtyp);
                 }
             } else if (StringUtil.isBlank(skuNo)) {
-                return ResponseEntry.builder().code(-1).message("请输入物料号").build();
+                return ResponseEntry.builder().code(-1).message("物料号不能为空").build();
             }
 
             // 检查是否已存在

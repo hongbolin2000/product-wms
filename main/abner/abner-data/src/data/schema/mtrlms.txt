@@ -14,7 +14,7 @@ K   MTRTYP      - MTRCTG, MTTYP1, MTTYCD
 *****************************************************************************************************************************************************
 N	SKUNO,		VC(32),		NOT NULL,		'',						skuNo,			SKU NO,					物料号
 N	SKUNAM,		VC(64),		NOT NULL,		'',						skuName,		SKU Name,				物料名称
-N   MTRIMG,     VC(128),    NOT NULL,       '',                     materialImage,  Material Image,         物料图片
+N   MTRIMG,     VC(512),    NOT NULL,       '',                     materialImage,  Material Image,         物料图片
 *****************************************************************************************************************************************************
 N   MODEL,      VC(32),     NOT NULL,       '',                     model,          model,                  规格型号
 N   PCSPRC,     N(24.3),    NOT NULL,       0,                      purchasePrice,  Purchase Price,         采购单价

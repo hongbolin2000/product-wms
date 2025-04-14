@@ -11,7 +11,8 @@ N	SRGTYP,		VC(32),		NOT NULL, 		,						serialType,	    Serial type,		    生成�
     # 一般存放表.字段名
 ***********************************************************************************************************************************
 N	SRGSTG,		VC(32),		NOT NULL,		,						strategy,	    Strategy,	            生成策略
-    B   DATE    DATE        日期序列
+    B   DATE    Date        日期序列
+    B   DIGITAL Digital     顺序序列
 N	SRPTRN,		VC(128),	NOT NULL,	'',						    pattern,		Pattern,				生成样式
     # 比如yyMM、yy-MM等
 N	SRPRFX,		VC(16),		NOT NULL,		'',						prefix,			Prefix,					序列号前缀

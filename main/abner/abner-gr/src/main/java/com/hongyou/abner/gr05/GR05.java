@@ -50,6 +50,10 @@ public class GR05 extends UserDataProvider {
             Timestamp currentTime = this.getCurrentTime();
 
             Pohead pohead = this.db().pohead().get(pojo.getId());
+            if (Pohead.PAYSTS.Finished.equals(pohead.getPaysts())) {
+                return ResponseEntry.builder().code(-1).message("付款已完成").build();
+            }
+
             Pyhead pyhead = new Pyhead();
             pyhead.pohdid(pohead.getPohdid()).
                     payamt(pojo.getPaymentAmount()).

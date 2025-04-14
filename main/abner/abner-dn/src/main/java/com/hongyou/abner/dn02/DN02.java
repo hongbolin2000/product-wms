@@ -145,7 +145,7 @@ public class DN02 extends UserDataProvider {
 
             // 完成发货
             if (ListUtil.isEmpty(solines)) {
-                sohead.status(Sohead.STATUS.Finish).
+                sohead.status(Sohead.STATUS.Finished).
                         fndlby(operatorBy).
                         fndldt(new Date(currentTime.getTime()));
             }

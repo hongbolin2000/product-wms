@@ -169,7 +169,7 @@ public class GR03 extends UserDataProvider {
             }
 
             // 订单总金额
-            pohead.amount(pohead.getAmount());
+            pohead.amount(amount);
             this.db().pohead().save(pohead);
 
             // 记录日志

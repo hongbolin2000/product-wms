@@ -6,6 +6,8 @@ insert into cmpnms(cmpnid, cmpncd, cmpnnm, pftitl, pfstil, pfsptl) values (1, '1
 /**
  * 序列号
  */
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('suplms.suplcd', 'DIGITAL', '', 'G', 6);
+insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('projms.projcd', 'DIGITAL', '', 'J', 6);
 insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('rqhead.rqhdno', 'DATE', 'yyMM', 'RQ', 10);
 insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('pohead.pohdno', 'DATE', 'yyMM', 'PO', 10);
 insert into srgnhd (srgtyp, srgstg, srptrn, srprfx, srllen) values ('rohead.rvodno', 'DATE', 'yyMM', 'RO', 10);

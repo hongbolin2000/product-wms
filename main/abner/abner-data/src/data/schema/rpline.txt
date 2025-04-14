@@ -14,7 +14,7 @@ K 	SOLINE:MTRLMS:MTRTYP 	- MTTYP1, MTTYCD
 *****************************************************************************************************************************************************
 N   RCPAMT,     N(24.3),    NOT NULL,       1,                      receiptAmount,      Receipt Amount,         收款金额
 N   INVCNO,     VC(64),     NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
-N   INVCIM,     VC(128),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
+N   INVCIM,     VC(512),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
 *****************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
 N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,			Operate By,				操作人

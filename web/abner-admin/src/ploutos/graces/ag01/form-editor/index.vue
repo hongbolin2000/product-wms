@@ -474,15 +474,19 @@
         // 检查是否有选择框
         const selectionWidget = sheeter.widgets.find(i => i.type == SelectionWidgetFactory.TYPE);
         if (selectionWidget) {
-          if (sheeterCheckedKeys.value.length <= 0) {
+          const selectionData = [];
+          sheeterCheckedKeys.value.forEach(key => {
+            const row = sheeter.data.find(i => i[selectionWidget.name] == key);
+            if (row) {
+              selectionData.push(sheeter.data.find(i => i[selectionWidget.name] == key));
+            }
+          });
+          data[sheeter.name] = selectionData;
+
+          if (selectionData.length <= 0) {
             message.error("请选择" + getFormTitle(sheeter.title))
             return;
           }
-          const selectionData = [];
-          sheeterCheckedKeys.value.forEach(key => {
-            selectionData.push(sheeter.data.find(i => i[selectionWidget.name] == key));
-          });
-          data[sheeter.name] = selectionData;
         }
 
         // 非选择模式

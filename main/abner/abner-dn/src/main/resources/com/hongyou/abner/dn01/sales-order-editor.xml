@@ -47,6 +47,8 @@
                 </script>
             </input>
             <input type="text" name="skuName" expr="skunam" title="@SOLINE.MTRLID" width="120" ignore="true"/>
+            <input type="number" name="orderQty" expr="ordqty" title="@SOLINE.ORDQTY" format="%#.###" min="1"
+                   default="0" scale="3" required="true" width="50"/>
             <input type="number" name="price" expr="price" title="@SOLINE.PRICE" format="%#.###" min="0"
                    default="0" scale="3" required="true" width="50"/>
             <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="70" disabled="true"/>

@@ -49,6 +49,10 @@ public class DN05 extends UserDataProvider {
             Timestamp currentTime = this.getCurrentTime();
 
             Sohead sohead = this.db().sohead().get(pojo.getId());
+            if (Sohead.RCPSTS.Finished.equals(sohead.getRcpsts())) {
+                return ResponseEntry.builder().code(-1).message("付款已完成").build();
+            }
+
             Rphead rphead = new Rphead();
             rphead.sohdid(sohead.getSohdid()).
                     rcpamt(pojo.getReceiptAmount()).

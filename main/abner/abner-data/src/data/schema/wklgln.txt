@@ -9,7 +9,7 @@ N	WKLNID,		ID,			NOT NULL,		,						id,					ID,						主键
 *****************************************************************************************************************************************************
 N 	WKLGID,		BIGINT,		NOT NULL,		,						workingLogId,		Working Log,			工作日志
 *****************************************************************************************************************************************************
-N   WRKIMG,     VC(128),    NOT NULL,       '',                     workingImage,       Working Image,          工作图片
+N   WRKIMG,     VC(512),    NOT NULL,       '',                     workingImage,       Working Image,          工作图片
 N   WKCONT,     VC(254),    NOT NULL,       '',                     workingContent,     Working Content,        内容描述
 N   STRTIM,     TIME,               ,       ,                       startTime,          Start Time,             开始时间
 N   ENDTIM,     TIME,               ,       ,                       endTime,            End Time,               结束时间

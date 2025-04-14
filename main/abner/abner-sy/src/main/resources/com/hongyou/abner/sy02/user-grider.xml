@@ -22,7 +22,7 @@
         <statement>
             <table name="userms"/>
             <param column="cmpnid" type="=" expr="_companyId"/>
-            <order by="crettm desc"/>
+            <order by="usernm"/>
         </statement>
 
         <columns>
@@ -43,18 +43,18 @@
             <column type="label" name="lastLoginTime" expr="lslgtm" title="@USERMS.LSLGTM" width="150"
                     format="!yyyy-MM-dd HH:mm:ss"/>
             <column type="label" name="remark" expr="remark" title="@USERMS.REMARK" filter="text" width="100"/>
+            <column type="link" name="edit" icon="edit" expr="userid" title="@edit" width="40" link="/sy02/edit"
+                    disabled="statusValue == '99'" action="update"/>
+            <column type="scriptLink" name="frozen" icon="frozen-user" expr="userid" title="@frozen" width="40" link="/sy02/frozen"
+                    labelColumn="fullName" danger="true" disabled="statusValue == '99'" action="frozen"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="userid" title="@delete" width="40" link="/sy02/delete"
+                    labelColumn="fullName" danger="true" disabled="statusValue == '99'" action="delete"/>
             <column type="link" mode="dialog" name="roleAssign" icon="role" expr="userid" title="@role.assign" width="70"
                     link="/graces/editor/sy02/roleAssignEdit" disabled="statusValue == '99'" dialogWidth="70%"
-                    action="role.assign"/>
+                    action="role.assign" option="true"/>
             <column type="link" mode="dialog" name="warehouseAssign" icon="warehouse" expr="userid" title="@warehouse.assign"
-                    width="80" link="/graces/editor/sy02/warehouseAssignEdit" disabled="statusValue == '99'" dialogWidth="70%"
-                    action="warehouse.assign"/>
-            <column type="link" name="edit" icon="edit" expr="userid" title="@edit" width="70" link="/sy02/edit"
-                    disabled="statusValue == '99'" action="update"/>
-            <column type="scriptLink" name="delete" icon="delete" expr="userid" title="@delete" width="80" link="/sy02/delete"
-                    labelColumn="fullName" danger="true" disabled="statusValue == '99'" option="true" action="delete"/>
-            <column type="scriptLink" name="frozen" icon="frozen-user" expr="userid" title="@frozen" width="80" link="/sy02/frozen"
-                    labelColumn="fullName" danger="true" disabled="statusValue == '99'" option="true" action="frozen"/>
+                    width="70" link="/graces/editor/sy02/warehouseAssignEdit" disabled="statusValue == '99'" dialogWidth="70%"
+                    action="warehouse.assign" option="true"/>
             <column type="scriptLink" name="unfrozen" icon="unfrozen-user" expr="userid" title="@unfrozen" width="100" link="/sy02/frozen"
                     labelColumn="fullName" disabled="statusValue != '99'" option="true" action="unfrozen"/>
             <column type="link" mode="dialog" name="reset" icon="reset-pwd" expr="userid" title="@reset.pwd" width="100" link="/sy02/reset"

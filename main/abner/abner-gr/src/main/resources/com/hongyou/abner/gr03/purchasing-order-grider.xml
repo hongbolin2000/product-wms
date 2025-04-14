@@ -25,7 +25,7 @@
             <column type="label" name="poHeadId" expr="pohdid" hidden="true"/>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="payStatusValue" expr="paysts" hidden="true"/>
-            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="120" filter="text"/>
+            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="100" filter="text"/>
             <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="150" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@POHEAD.PROJID" width="150" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@POHEAD.CSTMID" width="150" filter="text"/>
@@ -52,7 +52,7 @@
                     disabled="statusValue == '00' or statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="60%" name="payment.entry" icon="payment" expr="pohdid"
                     title="@payment.entry" width="100" link="/graces/editor/gr05/poPaymentEdit" action="payment.entry"
-                    disabled="payStatusValue == '20'"
+                    disabled="statusValue == '00' or payStatusValue == '20'"
             />
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="pohdid" title="@edit" width="80"
                     link="/graces/editor/gr03/purchasingOrderEdit" disabled="statusValue != '00'" action="update" option="true"/>

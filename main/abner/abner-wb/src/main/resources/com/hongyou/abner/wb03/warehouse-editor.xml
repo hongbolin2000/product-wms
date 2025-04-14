@@ -27,11 +27,11 @@
 
     <editor title="@editor.contacts" spans="3">
         <input type="text" name="id" expr="wrhsid" hidden="true"/>
-        <input type="text" name="address" expr="addres" title="@WRHSMS.ADDRES" pojolength="128"/>
-        <input type="text" name="contacts" expr="contcs" title="@WRHSMS.CONTCS" pojolength="32"/>
-        <input type="text" name="phoneNo" expr="phonno" title="@WRHSMS.PHONNO" pojolength="11"/>
-        <input type="text" name="email" expr="email" title="@WRHSMS.EMAIL" pojolength="32"/>
-        <input type="text" name="zipCode" expr="zipcde" title="@WRHSMS.ZIPCDE" pojolength="6"/>
+        <input type="text" name="address" expr="addres" title="@WRHSMS.ADDRES" length="128"/>
+        <input type="text" name="contacts" expr="contcs" title="@WRHSMS.CONTCS" length="32"/>
+        <input type="text" name="phoneNo" expr="phonno" title="@WRHSMS.PHONNO" length="11"/>
+        <input type="text" name="email" expr="email" title="@WRHSMS.EMAIL" length="32"/>
+        <input type="text" name="zipCode" expr="zipcde" title="@WRHSMS.ZIPCDE" length="6"/>
     </editor>
 
 

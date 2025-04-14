@@ -87,8 +87,8 @@ public class DN01 extends UserDataProvider {
             VSohead vSohead = new VSohead().sohdid(sohead.getSohdid()).oneById();
 
             // 已经存在的销售物料id
-            Set<Long> solnids = this.db().rpline().listByRPHead(sohead.getSohdid()).stream().
-                    map(Rpline::getRplnid).collect(Collectors.toSet());
+            Set<Long> solnids = this.db().soline().listBySOHead(sohead.getSohdid()).stream().
+                    map(Soline::getSolnid).collect(Collectors.toSet());
 
             BigDecimal amount = BigDecimal.ZERO;
             for (int i = 0; i < pojo.getMaterials().size(); i++) {
@@ -112,6 +112,7 @@ public class DN01 extends UserDataProvider {
 
                 soline.solnno(i + 1).
                         mtrlid(line.getMaterialId()).
+                        ordqty(line.getOrderQty()).
                         price(line.getPrice()).
                         remark(line.getRemark()).
                         oprtby(operatorBy).
@@ -161,7 +162,7 @@ public class DN01 extends UserDataProvider {
             }
 
             // 订单总金额
-            sohead.amount(sohead.getAmount());
+            sohead.amount(amount);
             this.db().sohead().save(sohead);
 
             // 记录日志

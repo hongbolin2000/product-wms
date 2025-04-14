@@ -22,7 +22,7 @@
         <statement>
             <table name="vrohead"/>
             <param column="wrhsid" type="in" expr="_warehouseIds"/>
-            <order by="wrhsnm, rvodno desc"/>
+            <order by="rvodno desc"/>
         </statement>
         <double.click type="query" datatables="detail" input="roHeadId"/>
 
@@ -30,8 +30,8 @@
             <column type="label" name="roHeadId" expr="rohdid" hidden="true"/>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="warehouseName" expr="wrhsnm" title="@ROHEAD.WRHSID" width="100" filter="text"/>
-            <column type="label" name="roHeadNo" expr="rvodno" title="@ROHEAD.RVODNO" width="120" filter="text"/>
-            <column type="label" name="refDocNo" expr="rdocno" title="@ROHEAD.RDOCNO" width="120" filter="text"/>
+            <column type="label" name="roHeadNo" expr="rvodno" title="@ROHEAD.RVODNO" width="100" filter="text"/>
+            <column type="label" name="refDocNo" expr="rdocno" title="@ROHEAD.RDOCNO" width="100" filter="text"/>
             <column type="tag" name="refDocType" expr="rdocty" title="@ROHEAD.RDOCTY" width="100" format="@@ROHEAD.RDOCTY"
                     filter="@refDocType"/>
             <column type="label" name="supplierName" expr="suplnm" title="@ROHEAD.SUPLID" width="150" filter="text"/>
@@ -51,9 +51,11 @@
             <column type="scriptLink" name="audit" icon="audit" expr="rohdid" title="@audit" width="80" link="/gr07/audit"
                     labelColumn="roHeadNo" disabled="statusValue != '00'" action="audit"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rohdid" title="@edit"
-                    width="80" link="/graces/editor/gr07/receiveOrderEdit" action="update" disabled="statusValue != '00'"/>
+                    width="80" link="/graces/editor/gr07/receiveOrderEdit" action="update"
+                    disabled="statusValue != '00' and statusValue != '10'"/>
             <column type="scriptLink" name="delete" icon="delete" expr="rohdid" title="@delete" width="80"
-                    link="/gr07/delete" labelColumn="roHeadNo" danger="true" action="delete" disabled="statusValue != '00'"/>
+                    link="/gr07/delete" labelColumn="roHeadNo" danger="true" action="delete"
+                    disabled="statusValue != '00' and statusValue != '10'"/>
         </columns>
     </datatable>
 

@@ -76,6 +76,14 @@ public class WB01 extends UserDataProvider {
                 }
             }
 
+            // 检查序号头是否已存在
+            if (!ObjectUtil.equal(pojo.getHeader(), mtrtyp.getMtsrhd())) {
+                Mtrtyp existed = this.db().mtrtyp().getByHeader(loginUser.getCmpnid(), pojo.getHeader());
+                if (ObjectUtil.isNotNull(existed)) {
+                    return ResponseEntry.builder().code(-1).message("物料序号头已存在").build();
+                }
+            }
+
             mtrtyp.mtrctg(pojo.getCategory()).
                     mttyp1(pojo.getMaterialType1()).
                     mttycd(pojo.getMaterialTypeCode()).

@@ -519,8 +519,8 @@
     // 展示在表格的操作按钮
     const column: TableBaseColumn = <TableBaseColumn>{width: 0};
     const columnActions = datatable.columns.filter(i => ColumnFactories.isLink(i) && !i.option);
-    if (columnActions.length > 0) {
-      const optionWidth = datatable.columns.filter(i => i.option).length > 0 ? 60 : 0;
+    const optionWidth = datatable.columns.filter(i => i.option).length > 0 ? 60 : 0;
+    if (columnActions.length > 0 || optionWidth > 0) {
       columnActions.forEach(item => {
         const width = item.width ? parseInt(item.width.toString()): 80;
         column.width = parseInt(column.width.toString()) + width;

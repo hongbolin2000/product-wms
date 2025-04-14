@@ -127,7 +127,7 @@ public class GR02 extends UserDataProvider {
             this.db().rqhead().save(rqhead);
 
             // 订单总金额
-            pohead.amount(pohead.getAmount());
+            pohead.amount(amount);
             this.db().pohead().save(pohead);
 
             // 记录日志

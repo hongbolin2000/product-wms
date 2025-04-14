@@ -19,7 +19,7 @@
         <columns>
             <column type="label" name="pyHeadId" expr="pyhdid" hidden="true"/>
             <column type="file" name="invoiceImage" expr="invcim" title="@PYHEAD.INVCIM" width="110"/>
-            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="120" filter="text"/>
+            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="100" filter="text"/>
             <column type="label" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" width="120" filter="text"/>
             <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="200" filter="text"/>
             <column type="label" name="paymentAmount" expr="payamt" title="@PYHEAD.PAYAMT" width="100" format="%#.###"/>

@@ -23,10 +23,10 @@
             <column type="label" name="warehouseCode" expr="wrhscd" title="@WRHSMS.WRHSCD" width="100" filter="text"/>
             <column type="label" name="warehouseName" expr="wrhsnm" title="@WRHSMS.WRHSNM" width="100" filter="text"/>
             <column type="label" name="appCode" expr="apcode" title="@WRHSMS.APCODE" width="100" filter="text"/>
-            <column type="label" name="address" expr="addres" title="@WRHSMS.ADDRES" width="100" filter="text"/>
+            <column type="label" name="address" expr="addres" title="@WRHSMS.ADDRES" filter="text"/>
             <column type="label" name="contacts" expr="contcs" title="@WRHSMS.CONTCS" width="100" filter="text"/>
             <column type="label" name="phoneNo" expr="phonno" title="@WRHSMS.PHONNO" width="100" filter="text"/>
-            <column type="label" name="email" expr="email" title="@WRHSMS.EMAIL" width="100" filter="text"/>
+            <column type="label" name="email" expr="email" title="@WRHSMS.EMAIL" width="120" filter="text"/>
             <column type="label" name="zipCode" expr="zipcde" title="@WRHSMS.ZIPCDE" width="100" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@WRHSMS.REMARK" width="100" filter="text"/>
             <column type="link" mode="dialog" name="edit" icon="edit" expr="wrhsid" title="@edit" width="80"

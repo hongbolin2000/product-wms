@@ -65,6 +65,9 @@ public class DocumentPage {
 
             String fileName = UUID.randomUUID() + "_" + multipart.getOriginalFilename();
             fileName = group + "/" + fileName;
+            if (fileName.length() > 512) {
+                return ResponseEntry.builder().code(-1).message("文件名过长").build();
+            }
 
             // 检查文件夹是否存在
             File file = new File(this.application.getUploadFilePath(), fileName);

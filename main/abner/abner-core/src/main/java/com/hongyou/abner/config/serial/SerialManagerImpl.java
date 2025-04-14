@@ -60,7 +60,7 @@ public class SerialManagerImpl extends DataProvider implements SerialManager {
 
             // 生成日期序列号
             String serialKey = "";
-            if (Srgnhd.SRGSTG.DATE.equals(srgnhd.getSrgstg())) {
+            if (Srgnhd.SRGSTG.Date.equals(srgnhd.getSrgstg())) {
                 serialKey = DateUtil.format(
                         currentTime, StringUtil.blankToDefault(srgnhd.getSrptrn(), "yyMMdd")
                 );

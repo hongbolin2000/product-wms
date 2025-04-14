@@ -29,7 +29,7 @@
             <column type="label" name="soHeadId" expr="sohdid" hidden="true"/>
             <column type="label" name="statusValue" expr="status" hidden="true"/>
             <column type="label" name="receiptStatusValue" expr="rcpsts" hidden="true"/>
-            <column type="label" name="soHeadNo" expr="sohdno" title="@SOHEAD.SOHDNO" width="130" filter="text"/>
+            <column type="label" name="soHeadNo" expr="sohdno" title="@SOHEAD.SOHDNO" width="100" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@SOHEAD.PROJID" width="150" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@SOHEAD.CSTMID" width="150" filter="text"/>
             <column type="tag" name="status" expr="status" title="@SOHEAD.STATUS" width="90" format="@@SOHEAD.STATUS"
@@ -48,18 +48,18 @@
             <column type="tag" name="receiptStatus" expr="rcpsts" title="@SOHEAD.RCPSTS" width="100" format="@@SOHEAD.RCPSTS"
                     filter="@receiptStatus" success="receiptStatusValue == '20'"/>
             <column type="label" name="remark" expr="remark" title="@SOHEAD.REMARK" filter="text"/>
-            <column type="scriptLink" name="audit" icon="audit" expr="sohdid" title="@audit" width="80" link="/dn01/audit"
+            <column type="scriptLink" name="audit" icon="audit" expr="sohdid" title="@audit" width="100" link="/dn01/audit"
                     labelColumn="soHeadNo" disabled="statusValue != '00'" action="audit"/>
             <column type="link" mode="drawer" drawerWidth="60%" name="issue.do" icon="issue" expr="sohdid" title="@issue.do"
                     width="100" link="/graces/editor/dn02/soConvertDoEdit" action="issue.do"
                     disabled="statusValue == '00' or statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="60%" name="receipt.entry" icon="payment" expr="sohdid"
                     title="@receipt.entry" width="100" link="/graces/editor/dn05/soReceiptEdit" action="receipt.entry"
-                    disabled="receiptStatusValue == '20'"
+                    disabled="statusValue == '00' or receiptStatusValue == '20'"
             />
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="sohdid" title="@edit" width="80"
-                    link="/graces/editor/dn01/salesOrderEdit" disabled="statusValue != '00'" action="update"/>
-            <column type="scriptLink" name="delete" icon="delete" expr="sohdid" title="@delete" width="80"
+                    link="/graces/editor/dn01/salesOrderEdit" disabled="statusValue != '00'" action="update" option="true"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="sohdid" title="@delete" width="80" option="true"
                     link="/dn01/delete" labelColumn="soHeadNo" danger="true" disabled="statusValue != '00'" action="delete"/>
         </columns>
     </datatable>
@@ -77,6 +77,7 @@
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="orderQty" expr="ordqty" title="@DOLINE.ORDQTY" width="100" format="%#.###"/>
             <column type="label" name="price" expr="price" title="@SOLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@SOLINE.STATUS" width="90" format="@@SOLINE.STATUS"
                     filter="@status" success="statusValue == '20'"/>
@@ -93,7 +94,7 @@
 
             <item key="audit">审核通过</item>
             <item key="issue.do">下发发货</item>
-            <item key="receipt.entry">付款录入</item>
+            <item key="receipt.entry">收款录入</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>

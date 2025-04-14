@@ -103,8 +103,8 @@ public class GR01 extends UserDataProvider {
             this.eventLogManager.info(event);
 
             // 已经存在的请购物料id
-            Set<Long> rqlnids = this.db().rpline().listByRPHead(rqhead.getRqhdid()).stream().
-                    map(Rpline::getRplnid).collect(Collectors.toSet());
+            Set<Long> rqlnids = this.db().rqline().listByRQHead(rqhead.getRqhdid()).stream().
+                    map(Rqline::getRqlnid).collect(Collectors.toSet());
             for (int i = 0; i < pojo.getMaterials().size(); i++) {
                 RqlinePojo line = pojo.getMaterials().get(i);
 

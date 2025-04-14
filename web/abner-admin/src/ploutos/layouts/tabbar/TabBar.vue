@@ -586,9 +586,6 @@
    */
   function closeAll() {
     const menus = appStore.visitedMenus.filter(i => i.fixed);
-    if (menus.length <= 0) {
-      menus.push(appStore.visitedMenus[0]);
-    }
     appStore.visitedMenus = menus;
     toLastTabMenu();
   }

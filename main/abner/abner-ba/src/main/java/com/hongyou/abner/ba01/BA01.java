@@ -55,6 +55,7 @@ public class BA01 extends UserDataProvider {
             Userms loginUser = this.getLoginUser();
             String operatorBy = this.getOperatorBy(loginUser);
             Timestamp currentTime = this.getCurrentTime();
+            String supplierCode = pojo.getSupplierCode();
 
             // 修改
             Suplms suplms = null; Suplms oldSuplms = null;
@@ -69,17 +70,23 @@ public class BA01 extends UserDataProvider {
                 suplms.cmpnid(loginUser.getCmpnid()).
                         cretby(operatorBy).
                         crettm(currentTime);
+
+                if (StringUtil.isBlank(supplierCode)) {
+                    supplierCode = this.serialManager.get("suplms.suplcd", loginUser.getCmpnid().toString());
+                }
+            } else if (StringUtil.isBlank(supplierCode)) {
+                return ResponseEntry.builder().code(-1).message("供应商编号不能为空").build();
             }
 
             // 检查是否已存在
-            if (!ObjectUtil.equal(pojo.getSupplierCode(), suplms.getSuplcd())) {
-                Suplms existed = this.db().suplms().getByCode(loginUser.getCmpnid(), pojo.getSupplierCode());
+            if (!ObjectUtil.equal(supplierCode, suplms.getSuplcd())) {
+                Suplms existed = this.db().suplms().getByCode(loginUser.getCmpnid(), supplierCode);
                 if (ObjectUtil.isNotNull(existed)) {
                     return ResponseEntry.builder().code(-1).message("供应商编号已存在").build();
                 }
             }
 
-            suplms.suplcd(pojo.getSupplierCode()).
+            suplms.suplcd(supplierCode).
                     suplnm(pojo.getSupplierName()).
                     issupl(pojo.getIsSupplier()).
                     iscstm(pojo.getIsCustomer()).

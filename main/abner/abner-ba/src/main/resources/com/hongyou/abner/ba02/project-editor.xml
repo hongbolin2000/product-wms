@@ -19,7 +19,7 @@
 
     <editor labelColumn="projectName" spans="1">
         <input type="text" name="id" expr="projid" hidden="true"/>
-        <input type="text" name="projectCode" expr="projcd" title="@PROJMS.PROJCD" required="true" length="16"/>
+        <input type="text" name="projectCode" expr="projcd" title="@PROJMS.PROJCD" length="16"/>
         <input type="text" name="projectName" expr="projnm" title="@PROJMS.PROJNM" required="true" length="32"/>
         <input type="suggestor" name="customerId" expr="cstmid" title="@PROJMS.CSTMID" module="ba00"
                suggestor="customerSuggestor"/>

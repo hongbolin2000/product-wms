@@ -13,7 +13,7 @@ K   SOHEAD:SUPLMS           - SUPLNM AS CSTMNM alias customerName
 *****************************************************************************************************************************************************
 N   RCPAMT,     N(24.3),    NOT NULL,       0,                      receiptAmount,      Receipt Amount,         收款金额
 N   INVCNO,     VC(128),    NOT NULL,       '',                     invoiceNo,          Invoice No,             发票号
-N   INVCIM,     VC(128),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
+N   INVCIM,     VC(512),    NOT NULL,       '',                     invoiceImage,       Invoice Image,          发票图片
 N	ENTRBY,		VC(64),		NOT NULL,		'',						entryBy,			Entry By,				录入人
 N	ENTRTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		entryTime,			Entry Time,			    录入时间
 *****************************************************************************************************************************************************
