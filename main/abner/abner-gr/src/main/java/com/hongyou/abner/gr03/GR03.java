@@ -164,7 +164,7 @@ public class GR03 extends UserDataProvider {
                         newValue(vPoline).
                         enumsDisplay(polineDisplays).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
                 this.db().poline().delete(polnid);
             }
 

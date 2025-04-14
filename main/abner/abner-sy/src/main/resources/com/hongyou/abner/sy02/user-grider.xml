@@ -52,11 +52,11 @@
             <column type="link" name="edit" icon="edit" expr="userid" title="@edit" width="70" link="/sy02/edit"
                     disabled="statusValue == '99'" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="userid" title="@delete" width="80" link="/sy02/delete"
-                    labelColumn="username" danger="true" disabled="statusValue == '99'" option="true" action="delete"/>
+                    labelColumn="fullName" danger="true" disabled="statusValue == '99'" option="true" action="delete"/>
             <column type="scriptLink" name="frozen" icon="frozen-user" expr="userid" title="@frozen" width="80" link="/sy02/frozen"
-                    labelColumn="username" danger="true" disabled="statusValue == '99'" option="true" action="frozen"/>
+                    labelColumn="fullName" danger="true" disabled="statusValue == '99'" option="true" action="frozen"/>
             <column type="scriptLink" name="unfrozen" icon="unfrozen-user" expr="userid" title="@unfrozen" width="100" link="/sy02/frozen"
-                    labelColumn="username" disabled="statusValue != '99'" option="true" action="unfrozen"/>
+                    labelColumn="fullName" disabled="statusValue != '99'" option="true" action="unfrozen"/>
             <column type="link" mode="dialog" name="reset" icon="reset-pwd" expr="userid" title="@reset.pwd" width="100" link="/sy02/reset"
                     disabled="statusValue == '99'" option="true" action="reset.pwd"/>
         </columns>

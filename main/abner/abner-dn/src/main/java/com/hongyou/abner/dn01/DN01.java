@@ -156,7 +156,7 @@ public class DN01 extends UserDataProvider {
                         ).
                         newValue(vSoline).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
                 this.db().soline().delete(soline);
             }
 

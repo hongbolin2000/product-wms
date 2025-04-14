@@ -104,8 +104,8 @@
       message.success('用户[ ' + data.username + ' ]' + (key ? '新增' : '修改' + '成功'));
 
       // 刷新列表
-      const func = new Function( null, 'return eval("sy02UserListRefresh").call()');
-      func();
+      const func = new Function( 'name', 'return eval(name).call()');
+      func('sy02UserListRefresh');
     } finally {
       loading(false);
     }

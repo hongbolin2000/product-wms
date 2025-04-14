@@ -173,7 +173,7 @@ public class BA01 extends UserDataProvider {
                         ).
                         newValue(splcts).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
                 this.db().splcts().delete(spctid);
             }
 

@@ -219,7 +219,7 @@ public class SY02 extends UserDataProvider {
                         action(action).
                         message(StringUtil.format("用户[{}]{}成功", userms.getUsernm(), action)).
                         build();
-                this.eventLogManager.critical(event);
+                this.eventLogManager.info(event);
 
                 userms.status(frozen ? Userms.STATUS.Normal : Userms.STATUS.Frozen).
                         oprtby(operatorBy).

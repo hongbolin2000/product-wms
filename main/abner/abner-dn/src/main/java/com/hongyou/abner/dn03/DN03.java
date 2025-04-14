@@ -177,7 +177,7 @@ public class DN03 extends UserDataProvider {
                         newValue(vDoline).
                         enumsDisplay(dolineDisplays).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
                 this.db().doline().delete(dolnid);
             }
 

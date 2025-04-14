@@ -179,7 +179,7 @@ public class GR07 extends UserDataProvider {
                         newValue(vRoline).
                         enumsDisplay(rolineDisplays).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
                 this.db().rqline().delete(rolnid);
             }
 

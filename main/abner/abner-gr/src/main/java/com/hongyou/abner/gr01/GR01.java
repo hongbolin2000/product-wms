@@ -169,7 +169,7 @@ public class GR01 extends UserDataProvider {
                         newValue(vRqline).
                         enumsDisplay(rqlineDisplays).
                         build();
-                this.eventLogManager.info(event);
+                this.eventLogManager.critical(event);
                 this.db().rqline().delete(rqlnid);
             }
 

@@ -21,8 +21,8 @@
             <column type="label" name="rememberUsernameValue" expr="rmbusn" hidden="true"/>
             <column type="label" name="rememberPasswordValue" expr="rmbpsw" hidden="true"/>
             <column type="label" name="companyCode" expr="cmpncd" title="@CMPNMS.CMPNCD" width="100" filter="text"/>
-            <column type="label" name="companyName" expr="cmpnnm" title="@CMPNMS.CMPNNM" width="150" filter="text"/>
-            <column type="label" name="platformTitle" expr="pftitl" title="@CMPNMS.PFTITL" width="150" filter="text"/>
+            <column type="label" name="companyName" expr="cmpnnm" title="@CMPNMS.CMPNNM" width="200" filter="text"/>
+            <column type="label" name="platformTitle" expr="pftitl" title="@CMPNMS.PFTITL" width="180" filter="text"/>
             <column type="label" name="platformSubtitle" expr="pfstil" title="@CMPNMS.PFSTIL" width="150" filter="text"/>
             <column type="label" name="platformSimpleTitle" expr="pfsptl" title="@CMPNMS.PFSPTL" width="150" filter="text"/>
             <column type="tag" name="captchaVerify" expr="capvrf" title="@CMPNMS.CAPVRF" width="110" format="@@CMPNMS.CAPVRF"
