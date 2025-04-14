@@ -23,6 +23,7 @@ export default defineConfig(({ mode }: any) => {
   const env: Record<string, string> = loadEnv(mode, process.cwd());
 
   return {
+    base: env.VITE_BASE_URL,
     plugins: [
       vue(),
       vueJsx(),
@@ -52,7 +53,7 @@ export default defineConfig(({ mode }: any) => {
       port: 9090,
       proxy: {
         [env.VITE_API_BASE_URL]: {
-          target: env.VITE_API_URL,
+          target: env.VITE_API_SERVER_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(env.VITE_API_BASE_URL, ''),
         },
