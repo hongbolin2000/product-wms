@@ -26,7 +26,7 @@
   onMounted(async () => {
     // 初始化http客户端
     http.init({
-      baseURL: '/api'
+      baseURL: import.meta.env.VITE_API_BASE_URL
     });
 
     // 初始化通知消息组件

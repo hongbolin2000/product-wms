@@ -1,9 +1,15 @@
-baron:
-  resources:
-    package: com.hongyou.abner
+server:
+  servlet:
+    context-path: /wms
 
 spring:
+  application:
+    name: abner-main
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 50MB
+
+baron:
+  resources:
+    package: com.hongyou.abner

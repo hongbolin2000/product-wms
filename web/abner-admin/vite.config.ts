@@ -51,10 +51,10 @@ export default defineConfig(({ mode }: any) => {
     server: {
       port: 9090,
       proxy: {
-        '/api': {
+        [env.VITE_API_BASE_URL]: {
           target: env.VITE_API_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(env.VITE_API_BASE_URL, ''),
         },
       },
     }
