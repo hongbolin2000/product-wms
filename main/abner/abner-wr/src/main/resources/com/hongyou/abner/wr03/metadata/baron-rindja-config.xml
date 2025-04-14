@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 库存日志列表 -->
+    <generic-grider-descriptor name="stockTransactionList">stock-transaction-grider.xml</generic-grider-descriptor>
+</baron-rindja-config>

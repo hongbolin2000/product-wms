@@ -43,7 +43,7 @@
         <menu id="wr" url="/wr" label="数据报表" icon="report">
             <menu id="wr01" permission="wr01" url="/graces/grider/wr01/stockList" label="库存报表"/>
             <menu id="wr02" permission="wr02" url="/graces/grider/wr02/stockItemList" label="库存明细报表"/>
+            <menu id="wr03" permission="wr03" url="/graces/grider/wr03/stockTransactionList" label="库存日志报表"/>
         </menu>
-        <menu id="sy99" url="/sy99" label="通用界面测试"/>
     </family>
 </menus>
