@@ -2,34 +2,29 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 /********************************************************************************
- * 编辑表单行属性
+ * （浏览表单）浏览表格行属性
  *
  * @author Berlin
  *******************************************************************************/
-import type FormEditor from "@/ploutos/graces/ag01/faces/FormEditor.ts";
+import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
 
-export default class FormEditorRow {
+export default class DatatableRow {
 
 	/**
-	 * 行下的所有编辑表单
+	 * 行下的所有浏览表格
 	 */
-	editors: FormEditor[];
+	datatables: Datatable[];
 
 	/********************************************************************************
 	 * 以下为前端计算内容
 	 *******************************************************************************/
 	/**
-	 * 一行展示的表单数
+	 * 非选项卡展示的浏览表格
 	 */
-	editorCount: number;
+	noTabDatatables: Datatable[];
 
 	/**
-	 * 非选项卡展示的编辑表单
+	 * 选项卡展示的浏览表格
 	 */
-	noTabEditors: FormEditor[];
-
-	/**
-	 * 选项卡展示的编辑表单
-	 */
-	tabEditors: FormEditor[];
+	tabDatatables: Datatable[];
 }

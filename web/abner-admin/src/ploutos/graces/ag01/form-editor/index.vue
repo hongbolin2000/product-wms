@@ -247,32 +247,41 @@
    * 父组件传入的属性
    */
   const props = defineProps({
+    // 模块号
     module: {
       type: String,
       required: true
     },
+    // 界面名称
     name: {
       type: String,
       required: true
     },
+    // 传入参数
     params: {
       type: Object
     },
+    // 是否需查询数据（用户编辑界面）
     fill: {
       type: Boolean,
     },
+    // 是否弹框展示
     isDialog: {
       type: Boolean
     },
+    // 是否抽屉展示
     isDrawer: {
       type: Boolean
     },
+    // 功能自定义的表单值
     formValue: {
       type: Object
     },
+    // 功能自定义的表单校验规则
     formRules: {
       type: Object
     },
+    // 功能控制是否加载中
     spining: {
       type: Boolean
     }
