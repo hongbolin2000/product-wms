@@ -8,8 +8,6 @@
         物料类型查询建议器
     </description>
 
-    <maxRows>20</maxRows>
-
     <statement>
         <table name="mtrtyp"/>
         <param column="cmpnid" type="=" expr="_companyId"/>

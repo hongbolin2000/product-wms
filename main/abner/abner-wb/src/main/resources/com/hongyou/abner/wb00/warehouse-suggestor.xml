@@ -8,8 +8,6 @@
         仓库查询建议器
     </description>
 
-    <maxRows>20</maxRows>
-
     <statement>
         <table name="wrhsms"/>
         <param column="cmpnid" type="=" expr="_companyId"/>
