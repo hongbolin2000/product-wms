@@ -3,11 +3,13 @@
  */
 package com.hongyou.abner.pages;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Pmsnms;
 import com.hongyou.abner.data.model.Userms;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
+import com.hongyou.baron.util.JsonUtil;
 import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.navigation.Navigate;
@@ -78,23 +80,30 @@ public class MenuPage extends UserDataProvider {
     /**
      * 加载有权限的菜单
      */
-    private List<Navigate> loadMenus(final List<Navigate> navigates, final List<String> permissions) {
+    private List<Navigate> loadMenus(
+            final List<Navigate> navigates, final List<String> permissions
+    ) throws JsonProcessingException {
         List<Navigate> menus = new ArrayList<>();
         for (Navigate menu : navigates) {
-            if (ListUtil.isNotEmpty(menu.getChildren())) {
-                menu.setChildren(this.loadMenus(menu.getChildren(), permissions));
-                if (ListUtil.isEmpty(menu.getChildren())) {
+
+            // 复制菜单项，更改时不影响原菜单
+            String convertMenu = JsonUtil.writeObject(menu);
+            Navigate copyMenu = JsonUtil.readObject(convertMenu, Navigate.class);
+
+            if (ListUtil.isNotEmpty(copyMenu.getChildren())) {
+                copyMenu.setChildren(this.loadMenus(copyMenu.getChildren(), permissions));
+                if (ListUtil.isEmpty(copyMenu.getChildren())) {
                     continue;
                 }
             }
-            if (ListUtil.isEmpty(menu.getChildren()) && !permissions.contains(menu.getPermission())) {
+            if (ListUtil.isEmpty(copyMenu.getChildren()) && !permissions.contains(copyMenu.getPermission())) {
                 continue;
             }
-            if (StringUtil.isNotBlank(menu.getAction()) &&
-                    !permissions.contains(menu.getPermission() + "@" + menu.getAction())) {
+            if (StringUtil.isNotBlank(copyMenu.getAction()) &&
+                    !permissions.contains(copyMenu.getPermission() + "@" + copyMenu.getAction())) {
                 continue;
             }
-            menus.add(menu);
+            menus.add(copyMenu);
         }
         return menus;
     }
