@@ -10,7 +10,6 @@ import com.hongyou.abner.config.event.EventLog;
 import com.hongyou.abner.config.web.UserDataProvider;
 import com.hongyou.abner.data.model.Cmpnms;
 import com.hongyou.abner.data.model.Userms;
-import com.hongyou.abner.sy01.SY01;
 import com.hongyou.abner.util.AesUtil;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
@@ -24,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.hongyou.abner.data.model.table.CmpnmsTableDef.CMPNMS;
 

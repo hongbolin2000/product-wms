@@ -2,9 +2,9 @@ spring:
   config:
     import: classpath:/project.yml
   datasource:
-    url: jdbc:mysql://abner.db.host:3306/test-product-wms?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://abner.db.host:3306/product-wms?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: 1234qwer
+    password: 123.abc
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
@@ -24,4 +24,4 @@ server:
 baron:
   debug: false
   upload:
-    file-path: C:/images
+    file-path: F:/Wms System/files
