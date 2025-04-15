@@ -22,6 +22,6 @@ server:
   port: 18080
 
 baron:
-  debug: false
+  debug: true
   upload:
     file-path: C:/images
