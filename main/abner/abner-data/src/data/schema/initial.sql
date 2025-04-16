@@ -66,8 +66,8 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'ba04', '项目进度管理', 'update', '修改');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'ba04', '项目进度管理', 'delete', '删除');
 
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'ba05Report', '项目工作日志', 'browse', '查看');
-insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'ba05', '填报工作日志', 'add', '填报');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'ba05', '项目工作日志', 'browse', '查看');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'ba05Report', '工作日志填报', 'add', '填报');
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'wb01', '物料类型管理', 'browse', '查看');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'wb01', '物料类型管理', 'add', '新增');
