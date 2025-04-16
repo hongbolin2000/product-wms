@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>kevin.qian</name>
+    </developer>
+
+    <description>
+        盘点任务列表
+    </description>
+
+    <filters>
+        <opts name="status" type="enum" table="IVHEAD" column="STATUS"/>
+    </filters>
+
+    <support-statements>
+    </support-statements>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/wm01/inventoryTaskEdit" action="add"/>
+        </actions>
+
+        <statement>
+            <table name="ivhead"/>
+            <param column="wrhsid" type="in" expr="_warehouseIds"/>
+            <order by="ivtkno desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="id" expr="ivhdid" title="@IVHEAD.IVHDID" width="100" filter="text"/>
+            <column type="label" name="warehouseId" expr="wrhsid" title="@IVHEAD.WRHSID" width="100" filter="text"/>
+            <column type="label" name="inventoryNo" expr="ivtkno" title="@IVHEAD.IVTKNO" width="100" filter="text"/>
+            <column type="label" name="material" expr="mtrlid" title="@IVHEAD.MTRLID" width="100" filter="text"/>
+            <column type="label" name="materialType" expr="mttyid" title="@IVHEAD.MTTYID" width="100" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@IVHEAD.STATUS" width="70" format="@@IVHEAD.STATUS" filter="@status"/>
+            <column type="label" name="remark" expr="remark" title="@IVHEAD.REMARK" width="100" filter="text"/>
+            <column type="label" name="createBy" expr="cretby" title="@IVHEAD.CRETBY" width="100" filter="text"/>
+            <column type="label" name="createTime" expr="crettm" title="@IVHEAD.CRETTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="operateBy" expr="oprtby" title="@IVHEAD.OPRTBY" width="100" filter="text"/>
+            <column type="label" name="operateTime" expr="oprttm" title="@IVHEAD.OPRTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="link" mode="dialog" name="edit" icon="edit" expr="ivhdid" title="@edit" width="80" link="/graces/editor/模块号/inventoryTaskEdit" action="update"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="ivhdid" title="@delete" width="80" link="" labelColumn="" danger="true" action="delete"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">盘点任务</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Inventory Task</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

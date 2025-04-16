@@ -40,6 +40,9 @@
             <menu id="dn03Create" permission="dn03" action="add" url="/graces/editor/dn03/deliverOrderEdit" label="创建发货单"/>
             <menu id="dn03" permission="dn03" url="/graces/grider/dn03/deliverOrderList" label="发货单管理" icon="deliver"/>
         </menu>
+        <menu id="wm" url="/wm" label="盘点管理" icon="inventory">
+            <menu id="wm01" permission="wm01" url="/graces/grider/wm01/inventoryTaskList" label="盘点任务管理" icon="inventory"/>
+        </menu>
         <menu id="wr" url="/wr" label="数据报表" icon="report">
             <menu id="wr01" permission="wr01" url="/graces/grider/wr01/stockList" label="库存报表"/>
             <menu id="wr02" permission="wr02" url="/graces/grider/wr02/stockItemList" label="库存明细报表"/>

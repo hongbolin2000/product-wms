@@ -76,6 +76,12 @@
 
         <dependency>
             <groupId>com.hongyou</groupId>
+            <artifactId>abner-wm</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hongyou</groupId>
             <artifactId>abner-wr</artifactId>
             <version>${project.version}</version>
         </dependency>

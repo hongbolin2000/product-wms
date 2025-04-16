@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 盘点任务列表 -->
+    <generic-grider-descriptor name="inventoryTaskList">inventory-task-grider.xml</generic-grider-descriptor>
+
+    <!-- 盘点任务编辑 -->
+    <generic-editor-descriptor name="inventoryTaskEdit">inventory-task-editor.xml</generic-editor-descriptor>
+
+    <!-- 盘点任务查询建议器 -->
+    <generic-suggestor-descriptor name="inventoryTaskSuggestor">inventory-task-suggestor.xml</generic-suggestor-descriptor>
+
+    <!-- 盘点任务行列表 -->
+    <generic-grider-descriptor name="inventoryLineList">inventory-line-grider.xml</generic-grider-descriptor>
+
+    <!-- 盘点任务行编辑 -->
+    <generic-editor-descriptor name="inventoryLineEdit">inventory-line-editor.xml</generic-editor-descriptor>
+
+    <!-- 盘点任务行查询建议器 -->
+    <generic-suggestor-descriptor name="inventoryLineSuggestor">inventory-line-suggestor.xml</generic-suggestor-descriptor>
+</baron-rindja-config>

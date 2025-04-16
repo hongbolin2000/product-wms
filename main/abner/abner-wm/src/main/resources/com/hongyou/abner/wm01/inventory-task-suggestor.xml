@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>kevin.qian</name>
+    </developer>
+
+    <description>
+        盘点任务查询建议器
+    </description>
+
+    <maxRows>20</maxRows>
+
+    <statement>
+        <table name="ivhead"/>
+        <param column="cmpnid" type="=" expr="_companyId"/>
+        <param column="ivhdid" type="=" expr="fieldValue"/>
+        <param column="ivtkno" expr="searchValue"/>
+        <order by="ivtkno desc"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="XXX"/>
+        <field name="label" expr="XXX"/>
+    </fields>
+</rindja-generic-suggestor>

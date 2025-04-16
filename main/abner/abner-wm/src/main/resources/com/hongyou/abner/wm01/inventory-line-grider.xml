@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>kevin.qian</name>
+    </developer>
+
+    <description>
+        盘点任务行列表
+    </description>
+
+    <filters>
+        <opts name="status" type="enum" table="IVLINE" column="STATUS"/>
+    </filters>
+
+    <support-statements>
+    </support-statements>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/模块号/inventoryLineEdit" action="add"/>
+        </actions>
+
+        <statement>
+            <table name="ivline"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
+            <order by="ivlnno desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="id" expr="ivlnid" title="@IVLINE.IVLNID" width="100" filter="text"/>
+            <column type="label" name="ivHeadId" expr="ivhdid" title="@IVLINE.IVHDID" width="100" filter="text"/>
+            <column type="label" name="ivLineNo" expr="ivlnno" title="@IVLINE.IVLNNO" width="100" format="%#.###"/>
+            <column type="label" name="stockItemNo" expr="stimno" title="@IVLINE.STIMNO" width="100" filter="text"/>
+            <column type="label" name="batchNo" expr="bathno" title="@IVLINE.BATHNO" width="100" filter="text"/>
+            <column type="label" name="binCode" expr="bincde" title="@IVLINE.BINCDE" width="100" filter="text"/>
+            <column type="label" name="cartonNo" expr="cartno" title="@IVLINE.CARTNO" width="100" filter="text"/>
+            <column type="label" name="materialId" expr="mtrlid" title="@IVLINE.MTRLID" width="100" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@IVLINE.STATUS" width="70" format="@@IVLINE.STATUS" filter="@status"/>
+            <column type="label" name="itemQty" expr="itmqty" title="@IVLINE.ITMQTY" width="100" format="%#.###"/>
+            <column type="label" name="existQty" expr="exsqty" title="@IVLINE.EXSQTY" width="100" format="%#.###"/>
+            <column type="label" name="inventoryTime" expr="invttm" title="@IVLINE.INVTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="inventoryBy" expr="invtby" title="@IVLINE.INVTBY" width="100" filter="text"/>
+            <column type="label" name="operateBy" expr="oprtby" title="@IVLINE.OPRTBY" width="100" filter="text"/>
+            <column type="label" name="operateTime" expr="oprttm" title="@IVLINE.OPRTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="link" mode="dialog" name="edit" icon="edit" expr="ivlnid" title="@edit" width="80" link="/graces/editor/模块号/inventoryLineEdit" action="update"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="ivlnid" title="@delete" width="80" link="" labelColumn="" danger="true" action="delete"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">盘点任务行</item>
+            <item key="add">新增</item>
+            <item key="edit">编辑</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Inventory Line</item>
+            <item key="add">Add</item>
+            <item key="edit">Edit</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

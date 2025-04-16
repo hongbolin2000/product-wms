@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>kevin.qian</name>
+    </developer>
+
+    <description>
+        盘点任务行编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>XXX</url>
+
+    <statement>
+        <table name="ivline"/>
+        <param column="ivlnid" type="=" expr="id"/>
+    </statement>
+
+    <editor title="@editor.title" labelColumn="">
+        <input type="text" name="id" expr="ivlnid" hidden="true"/>
+        <input type="text" name="ivHeadId" expr="ivhdid" title="@IVLINE.IVHDID" required="true" length="0"/>
+        <input type="number" name="ivLineNo" expr="ivlnno" title="@IVLINE.IVLNNO" format="%#.###" scale="0" required="true"/>
+        <input type="text" name="stockItemNo" expr="stimno" title="@IVLINE.STIMNO" required="true" length="64"/>
+        <input type="text" name="batchNo" expr="bathno" title="@IVLINE.BATHNO" required="true" length="16"/>
+        <input type="text" name="binCode" expr="bincde" title="@IVLINE.BINCDE" required="true" length="32"/>
+        <input type="text" name="cartonNo" expr="cartno" title="@IVLINE.CARTNO" required="true" length="32"/>
+        <input type="text" name="materialId" expr="mtrlid" title="@IVLINE.MTRLID" required="true" length="0"/>
+        <input type="enum" name="status" expr="status" title="@IVLINE.STATUS" options="@@IVLINE.STATUS" default="00" required="true"/>
+        <input type="number" name="itemQty" expr="itmqty" title="@IVLINE.ITMQTY" format="%#.###" min="0" default="0" scale="3" required="true"/>
+        <input type="number" name="existQty" expr="exsqty" title="@IVLINE.EXSQTY" format="%#.###" min="0" default="0" scale="3" required="true"/>
+        <input type="text" name="inventoryTime" expr="invttm" title="@IVLINE.INVTTM"  length="0"/>
+        <input type="text" name="inventoryBy" expr="invtby" title="@IVLINE.INVTBY" required="true" length="32"/>
+        <input type="text" name="operateBy" expr="oprtby" title="@IVLINE.OPRTBY" required="true" length="32"/>
+        <input type="text" name="operateTime" expr="oprttm" title="@IVLINE.OPRTTM" required="true" length="0"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增盘点任务行</item>
+            <item key="etitle">修改盘点任务行</item>
+            <item key="editor.title">盘点任务行信息</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Inventory Line</item>
+            <item key="etitle">Modify Inventory Line</item>
+            <item key="editor.title">Inventory Line Info</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

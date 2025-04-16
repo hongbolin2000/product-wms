@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>kevin.qian</name>
+    </developer>
+
+    <description>
+        盘点任务编辑
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+    <url>/wm01/save</url>
+
+    <statement>
+        <table name="ivhead"/>
+        <param column="ivhdid" type="=" expr="id"/>
+    </statement>
+
+    <editor title="@editor.title" labelColumn="">
+        <input type="text" name="id" expr="ivhdid" hidden="true"/>
+        <input type="text" name="warehouseId" expr="wrhsid" title="@IVHEAD.WRHSID" required="true" length="0"/>
+        <input type="text" name="inventoryNo" expr="ivtkno" title="@IVHEAD.IVTKNO" required="true" length="32"/>
+        <input type="text" name="material" expr="mtrlid" title="@IVHEAD.MTRLID"  length="0"/>
+        <input type="text" name="materialType" expr="mttyid" title="@IVHEAD.MTTYID"  length="0"/>
+        <input type="enum" name="status" expr="status" title="@IVHEAD.STATUS" options="@@IVHEAD.STATUS" default="N" required="true"/>
+        <input type="text" name="remark" expr="remark" title="@IVHEAD.REMARK" required="true" length="254"/>
+        <input type="text" name="createBy" expr="cretby" title="@IVHEAD.CRETBY" required="true" length="32"/>
+        <input type="text" name="createTime" expr="crettm" title="@IVHEAD.CRETTM" required="true" length="0"/>
+        <input type="text" name="operateBy" expr="oprtby" title="@IVHEAD.OPRTBY" required="true" length="32"/>
+        <input type="text" name="operateTime" expr="oprttm" title="@IVHEAD.OPRTTM" required="true" length="0"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">新增盘点任务</item>
+            <item key="etitle">修改盘点任务</item>
+            <item key="editor.title">盘点任务信息</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Add Inventory Task</item>
+            <item key="etitle">Modify Inventory Task</item>
+            <item key="editor.title">Inventory Task Info</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>
