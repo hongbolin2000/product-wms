@@ -13,6 +13,7 @@
             <menu id="ba02" permission="ba02" url="/graces/grider/ba02/projectList" label="项目管理" icon="project"/>
             <menu id="ba03" permission="ba03" url="/graces/grider/ba03/projectDocList" label="项目文档管理" icon="doc"/>
             <menu id="ba04" permission="ba04" url="/graces/grider/ba04/projectProcessList" label="项目进度管理" icon="process"/>
+            <menu id="ba05" permission="ba05" url="/graces/grider/ba05/workingLogList" label="项目工作日志" icon="log"/>
         </menu>
         <menu id="wb" url="/wb" label="仓库管理" icon="warehouse">
             <menu id="wb01" permission="wb01" url="/graces/grider/wb01/materialTypeList" label="物料类型管理" icon="material-type"/>
@@ -48,5 +49,6 @@
             <menu id="wr02" permission="wr02" url="/graces/grider/wr02/stockItemList" label="库存明细报表"/>
             <menu id="wr03" permission="wr03" url="/graces/grider/wr03/stockTransactionList" label="库存日志报表"/>
         </menu>
+        <menu id="ba05Report" permission="ba05Report"  url="/graces/editor/ba05/workingLogEdit" label="填报工作日志" icon="log"/>
     </family>
 </menus>

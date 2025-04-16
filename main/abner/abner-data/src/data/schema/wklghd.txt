@@ -8,6 +8,7 @@ Y	Working Log
 N	WKLGID,		ID,			NOT NULL,		,						id,					ID,						主键
 *****************************************************************************************************************************************************
 N 	PROJID,		BIGINT,		NOT NULL,		,						projectId,			Project,			    项目
+K   PROJMS      - CMPNID, PROJNM
 *****************************************************************************************************************************************************
 N   WKCONT,     VC(254),    NOT NULL,       '',                     workingContent,     Working Content,        工作内容简述
 *****************************************************************************************************************************************************
@@ -15,12 +16,14 @@ N	STRDAT,		DATE,		        ,		,				        startDate,		    Start Date,			    开�
 N	ENDDAT,		DATE,		        ,		,				        endDate,		    End Date,			    结束日期
 N   STRTIM,     TIME,               ,       ,                       startTime,          Start Time,             开始时间
 N   ENDTIM,     TIME,               ,       ,                       endTime,            End Time,               结束时间
-N	REPTBY,		VC(64),		NOT NULL,		'',						reportBy,			Report By,				汇报人
-N	REPTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		reportTime,			Report Time,			汇报时间
+N	USERID,		BIGINT,		NOT NULL,		,						userId,		        Report By,			    填报人
+K   USERMS      - USERNM, FULNAM
+N	REPTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		reportTime,			Report Time,			填报时间
 *****************************************************************************************************************************************************
 N	OPRTBY,		VC(64),		 NOT NULL,		'',			            operateBy,		    Operate By,				操作人
 N	OPRTTM,		TS,			 NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	    Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P 	WKLGID
 F   01 listByProject (PROJID) PROJMS (PROJID)
+F	02 listByUser (USERID) USERMS (USERID)
 =====================================================================================================================================================

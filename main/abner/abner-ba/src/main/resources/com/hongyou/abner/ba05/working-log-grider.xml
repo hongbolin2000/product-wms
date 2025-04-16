@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        工作日志列表
+    </description>
+
+    <datatable title="@table.title">
+        <statement>
+            <table name="vwklghd"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
+            <order by="repttm desc"/>
+        </statement>
+        <double.click type="query" datatables="detail" input="workingLogId"/>
+
+        <columns>
+            <column type="label" name="workingLogId" expr="wklgid" hidden="true"/>
+            <column type="label" name="projectName" expr="projnm" title="@WKLGHD.PROJID" width="150" filter="text"/>
+            <column type="label" name="startDate" expr="strdat" title="@WKLGHD.STRDAT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="endDate" expr="enddat" title="@WKLGHD.ENDDAT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="startTime" expr="strtim" title="@WKLGHD.STRTIM" width="100" format="!HH:mm:ss"/>
+            <column type="label" name="endTime" expr="endtim" title="@WKLGHD.ENDTIM" width="100" format="!HH:mm:ss"/>
+            <column type="label" name="reportBy" expr="fulnam" title="@WKLGHD.USERID" width="100" filter="text"/>
+            <column type="label" name="reportTime" expr="repttm" title="@WKLGHD.REPTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="workingContent" expr="wkcont" title="@WKLGHD.WKCONT" filter="text"/>
+        </columns>
+    </datatable>
+
+    <subtable name="detail">
+        <statement>
+            <table name="wklgln"/>
+            <param column="wklgid" type="=" expr="workingLogId"/>
+        </statement>
+
+        <columns>
+            <column type="file" name="workingImage" expr="wrkimg" title="@WKLGLN.WRKIMG" width="110"/>
+            <column type="label" name="startTime" expr="strtim" title="@WKLGLN.STRTIM" width="100" format="!HH:mm:ss"/>
+            <column type="label" name="endTime" expr="endtim" title="@WKLGLN.ENDTIM" width="100" format="!HH:mm:ss"/>
+            <column type="label" name="workingContent" expr="wkcont" title="@WKLGLN.WKCONT" filter="text"/>
+        </columns>
+    </subtable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">工作日志</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Working Log</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

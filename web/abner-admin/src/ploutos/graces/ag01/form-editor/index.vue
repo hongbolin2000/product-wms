@@ -303,7 +303,7 @@
     (e: 'onClose'): void;
 
     /**
-     * 刷新表格数据
+     * 刷新上层数据
      */
     (e: 'onRefresh'): void;
 

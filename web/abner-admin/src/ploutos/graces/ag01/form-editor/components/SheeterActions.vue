@@ -1,5 +1,5 @@
 <template>
-  <n-space :size="0">
+  <n-space :size="0" style="justify-content: center">
     <n-button type="primary" text @click="onUpdateClick" v-if="sheeter.updated">修改</n-button>
     <n-divider vertical v-if="sheeter.added && sheeter.updated"/>
 

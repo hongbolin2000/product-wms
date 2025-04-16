@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<baron-rindja-config>
+
+    <!-- 工作日志列表 -->
+    <generic-grider-descriptor name="workingLogList">working-log-grider.xml</generic-grider-descriptor>
+
+    <!-- 工作日志编辑 -->
+    <generic-editor-descriptor name="workingLogEdit">working-log-editor.xml</generic-editor-descriptor>
+</baron-rindja-config>

@@ -22,7 +22,7 @@
 
         <columns>
             <column type="label" name="projectName" expr="projnm" title="@PROJDC.PROJID" width="150" filter="text"/>
-            <column type="file" mode="text" name="docfil" expr="docfil" title="@PROJDC.DOCFIL" width="150"/>
+            <column type="file" mode="text" name="docFile" expr="docfil" title="@PROJDC.DOCFIL" width="150"/>
             <column type="label" name="docName" expr="docnam" title="@PROJDC.DOCNAM" width="120" filter="text"/>
             <column type="label" name="docType" expr="doctyp" title="@PROJDC.DOCTYP" width="120" filter="text"/>
             <column type="label" name="docVersion" expr="docvsn" title="@PROJDC.DOCVSN" width="100" filter="text"/>
