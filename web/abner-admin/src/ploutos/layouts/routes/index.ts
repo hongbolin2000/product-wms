@@ -24,15 +24,16 @@ export const layoutRoutes: RouteRecordRaw[] = [
       {
         path: "/graces/grider/:module/:name",
         component: () => import('@/ploutos/graces/ag01/pages/GridViewerPage.vue'),
-      },
-      {
+      }, {
         path: "/graces/editor/:module/:name/:id",
         component: () => import('@/ploutos/graces/ag01/pages/FormEditorPage.vue'),
-      },
-      {
+      }, {
         path: "/graces/editor/:module/:name",
         component: () => import('@/ploutos/graces/ag01/pages/FormEditorPage.vue'),
-      }
+      }, {
+        path: "/graces/viewer/:module/:name/:id",
+        component: () => import('@/ploutos/graces/ag01/pages/FormViewerPage.vue'),
+      },
     ]
   },
   {

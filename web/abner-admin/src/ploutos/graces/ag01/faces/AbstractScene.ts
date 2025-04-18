@@ -8,10 +8,18 @@
  *******************************************************************************/
 import AbstractComponent from "@/ploutos/graces/ag01/faces/AbstractComponent";
 
-export default class AbstractWidget extends AbstractComponent{
+export default class AbstractScene extends AbstractComponent {
 
-	/**A
+	/**
 	 * 控件占用列数
 	 */
 	spans: number;
+
+	/********************************************************************************
+	 * 以下为前端计算内容
+	 *******************************************************************************/
+	/**
+	 * 表单值
+	 */
+	rowData: any;
 }

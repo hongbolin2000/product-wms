@@ -33,7 +33,7 @@
         <input type="date" name="orderDate" expr="ordrdt" title="@STREMS.ORDRDT" format="!yyyy-MM-dd" required="true"/>
         <input type="date" mode="datetimerange" name="createTime" expr="oprttm,oprttm" title="@STREMS.ORDRDT" format="!yyyy-MM-dd HH:mm:ss"
                required="true"/>
-        <input type="time" name="startTime" expr="bssttm" title="@STREMS.BSSTTM" format="HH:mm:ss"
+        <input type="time" name="startTime" expr="bssttm" title="@STREMS.BSSTTM" format="!HH:mm:ss"
                required="true"/>
         <input type="enum" name="enabled" expr="enabld" title="@STREMS.ENABLD" options="@@STREMS.ENABLD"
                default="Y" required="true"/>

@@ -1,12 +1,12 @@
 <template>
-  <Graces.FormEditor :module="module" :name="name" :params="params" :fill="fill"/>
+  <Graces.FormViewer :module="module" :name="name" :params="params"/>
 </template>
 
 <script setup lang="ts">
   import {useRoute} from "vue-router";
   import {onBeforeMount, type PropType, type Ref, shallowRef} from "vue";
   /********************************************************************************
-   * 通用编辑表单加载页面
+   * 通用浏览表单加载页面
    *
    * @author Berlin
    ********************************************************************************/
@@ -27,12 +27,12 @@
   const route = useRoute();
 
   /**
-   * 通用编辑表单定义模块号
+   * 通用浏览表单定义模块号
    */
   const module = shallowRef('');
 
   /**
-   * 通用编辑表单定义名称
+   * 通用浏览表单定义名称
    */
   const name = shallowRef('');
 
@@ -40,11 +40,6 @@
    * 参数
    */
   const params: Ref = shallowRef({});
-
-  /**
-   * 是否查询数据
-   */
-  const fill = shallowRef(false);
 
   /**
    * 组件加载前
@@ -60,14 +55,12 @@
 
       if (props.params && props.params.value) {
         params.value = {id: props.params.value};
-        fill.value = true;
       }
     }
 
     // 使用router跳转模式
     if (!props.params && route.params.id) {
       params.value = {id: route.params.id};
-      fill.value = true;
     }
   });
 </script>

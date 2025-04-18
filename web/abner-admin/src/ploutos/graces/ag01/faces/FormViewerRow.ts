@@ -13,7 +13,7 @@ export default class FormEditorRow {
 	/**
 	 * 行下的所有浏览表单
 	 */
-	editors: FormViewer[];
+	viewers: FormViewer[];
 
 	/********************************************************************************
 	 * 以下为前端计算内容

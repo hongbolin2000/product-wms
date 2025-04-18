@@ -14,29 +14,29 @@
         >
           <!-- 非选项卡表单 -->
           <n-card
-              :title="formEditor.title"
+              :title="editor.title"
               :segmented="{content: true}"
-              v-for="formEditor of row.noTabEditors" :key="formEditor.name"
-              :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, formEditor)}"
+              v-for="editor of row.noTabEditors" :key="editor.name"
+              :style="{width: getCardWidth(row.tabEditors, row.noTabEditors, false, editor)}"
               :bordered="!props.isDrawer && !props.isDialog"
               :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
           >
             <template #header-extra>
               <n-button @click="onCollapse(row)" text>
-                {{formEditor.collapse ? '展开' : '折叠'}}
+                {{editor.collapse ? '展开' : '折叠'}}
               </n-button>
             </template>
 
-            <n-collapse-transition :show="!formEditor.collapse">
+            <n-collapse-transition :show="!editor.collapse">
               <n-form
                   :model="formValue"
                   :rules="formRules"
                   ref="formRefs"
-                  :style="{width: formEditor.formWidth, margin: 'auto'}"
-                  :label-placement="formEditor.placement"
+                  :style="{width: editor.formWidth, margin: 'auto'}"
+                  :label-placement="editor.placement"
                   label-width="auto"
               >
-                <form-grid :editor="formEditor" :form-value="formValue" :editor-count="row.editorCount" :is-drawer="isDrawer"/>
+                <form-grid :editor="editor" :form-value="formValue" :editor-count="row.editorCount" :is-drawer="isDrawer"/>
               </n-form>
             </n-collapse-transition>
           </n-card>
@@ -451,8 +451,8 @@
 
       // 编辑表格数据
       editor.value.sheeterRows.forEach(row => {
-        row.sheeters.forEach(sheeter => {
-          sheeter.data = response.data.sheeter[sheeter.name]
+        row.sheeters.forEach((sheeter, index) => {
+          sheeter.data = response.data.sheeter[index]
         });
       });
     } finally {
@@ -622,6 +622,9 @@
   const style = computed(() => {
     // 路由页面展示
     if (!props.isDialog && !props.isDrawer) {
+      if (layoutStore.isFullScreen) {
+        return {height: 'calc(100vh - var(--bottom-option-height) - 10px)'};
+      }
       return {height: 'calc(100vh - var(--logo-height) - var(--tab-height) - var(--bottom-option-height))'};
     }
     // 抽屉展示
@@ -638,8 +641,8 @@
    * 底部操作按钮宽度
    */
   const layoutMainSectionWidth = computed(() => {
-    if (props.isDialog || props.isDrawer) {
-      return '100%';
+    if (props.isDialog || props.isDrawer || layoutStore.isFullScreen) {
+      return 'calc(100% - 20px)';
     }
     if (layoutStore.layoutMode == LayoutMode.LeftRight || layoutStore.layoutMode == LayoutMode.TopLeft) {
       if (layoutStore.isCollapse) {

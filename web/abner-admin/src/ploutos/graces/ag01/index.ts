@@ -8,6 +8,7 @@
  *******************************************************************************/
 import createGridViewer from '@/ploutos/graces/ag01/grid-viewer/index.vue';
 import createFormEditor from '@/ploutos/graces/ag01/form-editor/index.vue';
+import createFormViewer from '@/ploutos/graces/ag01/form-viewer/index.vue';
 import createDataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
 
 import Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
@@ -26,6 +27,11 @@ export namespace Graces {
 	 * 通用编辑表单界面
 	 */
 	export const FormEditor = createFormEditor;
+
+	/**
+	 * 通用浏览表单界面
+	 */
+	export const FormViewer = createFormViewer;
 
 	/**
 	 * 数据表格

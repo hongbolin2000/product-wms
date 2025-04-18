@@ -28,7 +28,6 @@
               :main-data-table="grider.datatable"
               :datatable="datatable"
               :max-height="maxHeight"
-              @on-double-click="handelDoubleClick"
               @on-search="loadSubTablesData"
               @on-sort="handelSubSort"
               :module="props.module"
@@ -142,7 +141,7 @@
   }>();
 
   /**
-   * 过滤条件
+   * 查询条件
    */
   const params: Ref = ref(props.params ? props.params : new Object({}));
 

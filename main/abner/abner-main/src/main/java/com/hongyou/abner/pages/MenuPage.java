@@ -96,7 +96,10 @@ public class MenuPage extends UserDataProvider {
                     continue;
                 }
             }
-            if (ListUtil.isEmpty(copyMenu.getChildren()) && !permissions.contains(copyMenu.getPermission())) {
+            if (ListUtil.isEmpty(copyMenu.getChildren()) &&
+                    StringUtil.isNotBlank(copyMenu.getPermission()) &&
+                    !permissions.contains(copyMenu.getPermission())
+            ) {
                 continue;
             }
             if (StringUtil.isNotBlank(copyMenu.getAction()) &&

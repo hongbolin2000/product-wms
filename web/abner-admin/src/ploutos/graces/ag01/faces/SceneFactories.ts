@@ -9,6 +9,7 @@ import type {VNode} from "vue";
  *******************************************************************************/
 import type SceneFactory from "@/ploutos/graces/ag01/faces/SceneFactory.ts";
 import type AbstractScene from "@/ploutos/graces/ag01/faces/AbstractScene.ts";
+import LabelSceneFactory from "@/ploutos/graces/ag01/faces/scenes/LabelSceneFactory.ts";
 
 export default class SceneFactories {
 
@@ -26,6 +27,7 @@ export default class SceneFactories {
 	 * 控件工厂
 	 */
 	constructor() {
+		this.registry(new LabelSceneFactory());
 	}
 
 	/**

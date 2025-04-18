@@ -65,6 +65,7 @@
             <column type="label" name="operatorBy" expr="oprtby" width="160" title="@AREAMS.OPRTBY"/>
             <column type="label" name="operatorTime" expr="oprttm" width="160" title="@AREAMS.OPRTTM"
                     format="!yyyy-MM-dd HH:mm" filter="date" option="true"/>
+            <column type="link" name="detail" icon="detail" expr="streid" title="订单详情" link="/graces/viewer/sy99/storeViewer"/>
             <column type="link" name="edit" icon="edit" expr="streid" title="详情" link="/graces/editor/sy99/storeEditor" option="true"/>
             <column type="link" name="editDialog" icon="edit" expr="streid" title="审核" link="/graces/editor/sy99/storeEditor" mode="dialog" option="true"/>
             <column type="link" name="editDrawer" icon="edit" expr="streid" title="编辑" link="/graces/editor/sy99/storeEditor" mode="drawer"
