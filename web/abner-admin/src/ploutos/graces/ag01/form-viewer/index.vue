@@ -143,6 +143,7 @@ import {onMounted, provide, ref, type Ref, shallowRef} from "vue";
   import type DatatableRow from "@/ploutos/graces/ag01/faces/DatatableRow.ts";
   import DataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
 import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTable.vue";
+import WidgetFactories from "@/ploutos/graces/ag01/faces/WidgetFactories.ts";
 
   /**
    * 应用状态
@@ -288,6 +289,15 @@ import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTa
         row.tabDatatables = row.datatables.filter(i => i.tab);
         row.noTabDatatables = row.datatables.filter(i => !i.tab);
       });
+
+      // 初始化字段值
+      const value =  {};
+      allViewers.forEach(viewer => {
+        viewer.scenes.forEach(scene => {
+          value[scene.name] = '';
+        });
+      });
+      viewerValue.value = value;
 
       await loadData();
 

@@ -10,6 +10,8 @@ import type {VNode} from "vue";
 import type SceneFactory from "@/ploutos/graces/ag01/faces/SceneFactory.ts";
 import type AbstractScene from "@/ploutos/graces/ag01/faces/AbstractScene.ts";
 import LabelSceneFactory from "@/ploutos/graces/ag01/faces/scenes/LabelSceneFactory.ts";
+import TagSceneFactory from "@/ploutos/graces/ag01/faces/scenes/TagSceneFactory.ts";
+import FileSceneFactory from "@/ploutos/graces/ag01/faces/scenes/FileSceneFactory.ts";
 
 export default class SceneFactories {
 
@@ -28,6 +30,8 @@ export default class SceneFactories {
 	 */
 	constructor() {
 		this.registry(new LabelSceneFactory());
+		this.registry(new TagSceneFactory());
+		this.registry(new FileSceneFactory())
 	}
 
 	/**

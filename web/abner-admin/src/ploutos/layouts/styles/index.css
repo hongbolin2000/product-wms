@@ -43,6 +43,9 @@ body,
       padding-top: 5px;
     }
   }
+  .n-tabs .n-tabs-nav {
+    z-index: 0;
+  }
 }
 * {
   box-sizing: border-box;
