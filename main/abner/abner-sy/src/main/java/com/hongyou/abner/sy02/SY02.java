@@ -146,7 +146,7 @@ public class SY02 extends UserDataProvider {
                     module(SY02.class.getSimpleName()).
                     name("用户管理").
                     action("重置密码").
-                    message(StringUtil.format("用户[{}]重置成功", userms.getUsernm())).
+                    message(StringUtil.format("用户[{}]密码重置成功", userms.getUsernm())).
                     oldValue(oldUserms).
                     newValue(userms).
                     build();

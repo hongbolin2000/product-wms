@@ -102,7 +102,7 @@
       return;
     }
     const column = props.column;
-    const value: string = column.rowData[column.name];
+    const id: string = column.rowData[column.name];
 
     if (props.column?.mode != 'router') {
       // 匹配路由（通用界面模式）
@@ -111,7 +111,7 @@
 
       // 匹配路由，正常模式
       if (!route.components) {
-        const resolved: RouteLocationResolved = router.resolve(props.column?.link + "/" + value);
+        const resolved: RouteLocationResolved = router.resolve(props.column?.link + "/" + id);
         route = resolved.matched[resolved.matched.length - 1];
       } else {
         module.value = resolved.params.module.toString();
@@ -128,7 +128,7 @@
     }
 
     const params = {
-      value: value, module: module.value, name: name.value
+      id: id, module: module.value, name: name.value
     }
     if (column.mode == 'dialog') {
       onShowModal(column, component.value, params);
@@ -149,15 +149,15 @@
       query.from = from;
 
       // 传入查询参数
-      if (value.startsWith("?")) {
-        const params = new URLSearchParams(value);
+      if (id.startsWith("?")) {
+        const params = new URLSearchParams(id);
         params.forEach((v, k) => {
           query[k] = params.get(k);
         })
       }
 
       let link = column.link;
-      link += !value.startsWith('?') ? '/' + value : '';
+      link += !id.startsWith('?') ? '/' + id : '';
       await router.push({path: link, query: query});
     }
   }

@@ -17,7 +17,7 @@
    */
   const props = defineProps({
     params: {
-      type: Object as PropType<{value: string, module: string, name: string}>
+      type: Object as PropType<{id: string, module: string, name: string}>
     }
   });
 
@@ -58,8 +58,8 @@
       module.value = props.params.module;
       name.value = props.params.name;
 
-      if (props.params && props.params.value) {
-        params.value = {id: props.params.value};
+      if (props.params && props.params.id) {
+        params.value = {id: props.params.id};
         fill.value = true;
       }
     }

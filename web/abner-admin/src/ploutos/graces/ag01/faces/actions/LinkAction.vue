@@ -15,14 +15,14 @@
       :mask-closable="false"
       :close-on-esc="false"
     >
-      <component :is="component" :params="{module: module, name: name}" :is-dialog="true"
+      <component :is="component" :params="{module: module, name: name, id: id}" :is-dialog="true"
                  @on-close="showModal = false" @on-refresh="handleRefresh" @on-change-title="(value) => title = value"
       />
     </n-modal>
 
     <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right" :mask-closable="false" :close-on-esc="false">
       <n-drawer-content :title="title" closable :body-content-style="{padding: 0}">
-        <component :is="component" :params="{module: module, name: name}" :is-drawer="true"
+        <component :is="component" :params="{module: module, name: name, id: id}" :is-drawer="true"
                    @on-close="showDrawer = false" @on-refresh="handleRefresh" @on-change-title="(value) => title = value"
         />
       </n-drawer-content>
@@ -67,6 +67,11 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
   const name = shallowRef('');
 
   /**
+   * link中的id（用于dialog和drawer）
+   */
+  const id = shallowRef('');
+
+  /**
    * 新增/编辑时的弹框标题
    */
   const title = shallowRef('');
@@ -89,9 +94,9 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
   });
 
   /**
-   * 注入查询函数
+   * 注入刷新函数
    */
-  const onSearch = inject<Function>('onSearch');
+  const onRefresh = inject<Function>('onRefresh');
 
   /**
    * 组件加载
@@ -106,6 +111,11 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
         route = resolved.matched[resolved.matched.length - 1];
         module.value = resolved.params.module.toString();
         name.value = resolved.params.name.toString();
+
+        // dialog/drawer模式（浏览表单界面）
+        if (resolved.params.id) {
+          id.value = resolved.params.id.toString();
+        }
       }
 
       // 路由组件未加载时进行加载
@@ -146,7 +156,7 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
    * 查询
    */
   function handleRefresh() {
-    onSearch();
+    onRefresh();
   }
 </script>
 

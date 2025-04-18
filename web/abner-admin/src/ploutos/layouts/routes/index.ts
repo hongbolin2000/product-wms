@@ -31,6 +31,9 @@ export const layoutRoutes: RouteRecordRaw[] = [
         path: "/graces/editor/:module/:name",
         component: () => import('@/ploutos/graces/ag01/pages/FormEditorPage.vue'),
       }, {
+        path: "/graces/viewer/:module/:name",
+        component: () => import('@/ploutos/graces/ag01/pages/FormViewerPage.vue'),
+      }, {
         path: "/graces/viewer/:module/:name/:id",
         component: () => import('@/ploutos/graces/ag01/pages/FormViewerPage.vue'),
       },

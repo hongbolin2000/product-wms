@@ -604,6 +604,7 @@
     emit('onSearch');
   }
   provide('onSearch', onSearch);
+  provide('onRefresh', onSearch);
 
   /**
    * 关闭右键菜单
@@ -630,7 +631,7 @@
    */
   function onShowDrawer(
       column: LinkColumnProps, components: any,
-      params: {value: string, module: string, name: string}
+      params: {id: string, module: string, name: string}
   ) {
     showDrawer.value = true;
     selectColumn.value = column;

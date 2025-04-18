@@ -7,125 +7,144 @@
     </template>
 
     <div v-if="viewer">
-      <!-- 浏览表单 -->
-      <div v-for="(row, index) of viewer.viewerRows" :key="index"
-           :class="[props.isDrawer || props.isDialog ? 'viewer-row-drawer' : 'viewer-row']"
-      >
-        <!-- 非选项卡表单 -->
+      <n-scrollbar :style="style">
         <n-card
-            :title="formViewer.title"
-            :segmented="{content: true}"
-            v-for="formViewer of row.noTabViewers" :key="formViewer.name"
-            :style="{width: getCardWidth(row.tabViewers, row.noTabViewers, false, formViewer)}"
+            style="margin-bottom: 10px"
+            v-if="viewer.actions.length > 0"
             :bordered="!props.isDrawer && !props.isDialog"
             :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
         >
-          <template #header-extra>
-            <n-button @click="onCollapse(row)" text>
-              {{formViewer.collapse ? '展开' : '折叠'}}
-            </n-button>
-          </template>
-
-          <n-collapse-transition :show="!formViewer.collapse">
-            <viewer-grid :viewer="formViewer" :viewer-value="viewerValue" :viewer-count="row.viewerCount"/>
-          </n-collapse-transition>
+          <n-space :size="10">
+            <component v-for="action of viewer.actions" :key="action.name" :is="() => {
+              action.module = props.module;
+              action.moduleName = props.name;
+              return ActionFactories.getInstance().create(action)
+            }"/>
+            <n-button @click="onClose()">关闭</n-button>
+          </n-space>
         </n-card>
 
-        <!-- 选项卡表单 -->
-        <n-card
-            v-if="row.tabViewers.length > 0"
-            class="n-card-tab"
-            :style="{width: getCardWidth(row.tabViewers, row.noTabViewers, false)}"
-            :bordered="!props.isDrawer && !props.isDialog"
-            :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
+        <!-- 浏览表单 -->
+        <div v-for="(row, index) of viewer.viewerRows" :key="index"
+             :class="[props.isDrawer || props.isDialog ? 'viewer-row-drawer' : 'viewer-row']"
         >
-          <n-tabs type="line" animated>
-            <template #suffix>
+          <!-- 非选项卡表单 -->
+          <n-card
+              :title="formViewer.title"
+              :segmented="{content: true}"
+              v-for="formViewer of row.noTabViewers" :key="formViewer.name"
+              :style="{width: getCardWidth(row.tabViewers, row.noTabViewers, false, formViewer)}"
+              :bordered="!props.isDrawer && !props.isDialog"
+              :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
+          >
+            <template #header-extra>
               <n-button @click="onCollapse(row)" text>
-                {{row.tabViewers[0].collapse ? '展开' : '折叠'}}
+                {{formViewer.collapse ? '展开' : '折叠'}}
               </n-button>
             </template>
 
-            <n-tab-pane :name="viewer.name" :tab="viewer.title" v-for="viewer of row.tabViewers" :key="viewer.name">
-              <n-collapse-transition :show="!viewer.collapse">
-                <viewer-grid :viewer="viewer" :viewer-value="viewerValue" :viewer-count="row.viewerCount"/>
-              </n-collapse-transition>
-            </n-tab-pane>
-          </n-tabs>
-        </n-card>
-      </div>
+            <n-collapse-transition :show="!formViewer.collapse">
+              <viewer-grid :viewer="formViewer" :viewer-value="viewerValue" :viewer-count="row.viewerCount"/>
+            </n-collapse-transition>
+          </n-card>
 
-      <!-- 浏览表格 -->
-      <div v-for="(row, index) of viewer.datatableRows" :key="index"
-           :class="[props.isDrawer || props.isDialog ? 'viewer-row-drawer' : 'viewer-row']"
-      >
-        <!-- 非选项卡表格 -->
-        <n-card
-            :title="datatable.title"
-            v-for="datatable of row.noTabDatatables" :key="datatable.name"
-            :style="{width: getCardWidth(row.tabDatatables, row.noTabDatatables, true, datatable)}"
-            :bordered="!props.isDrawer && !props.isDialog"
-            :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
-            :segmented="{content: true}"
-        >
-          <template #header-extra>
-            <n-button @click="onDatatableCollapse(row)" text>
-              {{datatable.collapse ? '展开' : '折叠'}}
-            </n-button>
-          </template>
-
-          <n-collapse-transition :show="!datatable.collapse">
-            <DataTable
-                :main-data-table="datatable"
-                :datatable="datatable"
-                :max-height="datatable.maxHeight"
-                @on-search="loadData"
-                @on-sort="handelSort"
-                :module="props.module"
-                :module-name="props.name"
-            />
-          </n-collapse-transition>
-        </n-card>
-
-        <!-- 选项卡表格 -->
-        <n-card
-            v-if="row.tabDatatables.length > 0"
-            :class="['n-card-tab', props.isDrawer || props.isDialog ? 'viewer-row-drawer' : 'viewer-row']"
-            :bordered="!props.isDrawer && !props.isDialog"
-            :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
-            :style="{width: getCardWidth(row.tabDatatables, row.noTabDatatables, true)}"
-        >
-          <n-tabs type="line" animated>
-            <template #suffix>
-              <n-space :size="10">
-                <n-button @click="onDatatableCollapse(row)" text>
-                  {{row.tabDatatables[0].collapse ? '展开' : '折叠'}}
+          <!-- 选项卡表单 -->
+          <n-card
+              v-if="row.tabViewers.length > 0"
+              class="n-card-tab"
+              :style="{width: getCardWidth(row.tabViewers, row.noTabViewers, false)}"
+              :bordered="!props.isDrawer && !props.isDialog"
+              :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
+          >
+            <n-tabs type="line" animated>
+              <template #suffix>
+                <n-button @click="onCollapse(row)" text>
+                  {{row.tabViewers[0].collapse ? '展开' : '折叠'}}
                 </n-button>
-              </n-space>
+              </template>
+
+              <n-tab-pane :name="viewer.name" :tab="viewer.title" v-for="viewer of row.tabViewers" :key="viewer.name">
+                <n-collapse-transition :show="!viewer.collapse">
+                  <viewer-grid :viewer="viewer" :viewer-value="viewerValue" :viewer-count="row.viewerCount"/>
+                </n-collapse-transition>
+              </n-tab-pane>
+            </n-tabs>
+          </n-card>
+        </div>
+
+        <!-- 浏览表格 -->
+        <div v-for="(row, index) of viewer.datatableRows" :key="index"
+             :class="[props.isDrawer || props.isDialog ? 'viewer-row-drawer' : 'viewer-row']"
+        >
+          <!-- 非选项卡表格 -->
+          <n-card
+              :title="datatable.title"
+              v-for="datatable of row.noTabDatatables" :key="datatable.name"
+              :style="{width: getCardWidth(row.tabDatatables, row.noTabDatatables, true, datatable)}"
+              :bordered="!props.isDrawer && !props.isDialog"
+              :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
+              :segmented="{content: true}"
+          >
+            <template #header-extra>
+              <n-button @click="onDatatableCollapse(row)" text>
+                {{datatable.collapse ? '展开' : '折叠'}}
+              </n-button>
             </template>
 
-            <n-tab-pane :name="datatable.name" :tab="datatable.title" v-for="datatable of row.tabDatatables" :key="datatable.name">
-              <n-collapse-transition :show="!datatable.collapse">
-                <DataTable
-                    :main-data-table="datatable"
-                    :datatable="datatable"
-                    :max-height="datatable.maxHeight"
-                    @on-search="loadData"
-                    @on-sort="handelSort"
-                    :module="props.module"
-                    :module-name="props.name"
-                />
-              </n-collapse-transition>
-            </n-tab-pane>
-          </n-tabs>
-        </n-card>
-      </div>
+            <n-collapse-transition :show="!datatable.collapse">
+              <DataTable
+                  :main-data-table="datatable"
+                  :datatable="datatable"
+                  :max-height="datatable.maxHeight"
+                  @on-search="loadData"
+                  @on-sort="handelSort"
+                  :module="props.module"
+                  :module-name="props.name"
+              />
+            </n-collapse-transition>
+          </n-card>
+
+          <!-- 选项卡表格 -->
+          <n-card
+              v-if="row.tabDatatables.length > 0"
+              :class="['n-card-tab', props.isDrawer || props.isDialog ? 'viewer-row-drawer' : 'viewer-row']"
+              :bordered="!props.isDrawer && !props.isDialog"
+              :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
+              :style="{width: getCardWidth(row.tabDatatables, row.noTabDatatables, true)}"
+          >
+            <n-tabs type="line" animated>
+              <template #suffix>
+                <n-space :size="10">
+                  <n-button @click="onDatatableCollapse(row)" text>
+                    {{row.tabDatatables[0].collapse ? '展开' : '折叠'}}
+                  </n-button>
+                </n-space>
+              </template>
+
+              <n-tab-pane :name="datatable.name" :tab="datatable.title" v-for="datatable of row.tabDatatables" :key="datatable.name">
+                <n-collapse-transition :show="!datatable.collapse">
+                  <DataTable
+                      :main-data-table="datatable"
+                      :datatable="datatable"
+                      :max-height="datatable.maxHeight"
+                      @on-search="loadData"
+                      @on-sort="handelSort"
+                      :module="props.module"
+                      :module-name="props.name"
+                  />
+                </n-collapse-transition>
+              </n-tab-pane>
+            </n-tabs>
+          </n-card>
+        </div>
+      </n-scrollbar>
     </div>
   </n-spin>
 </template>
 
 <script setup lang="ts">
-import {onMounted, provide, ref, type Ref, shallowRef} from "vue";
+import {computed, onMounted, provide, ref, type Ref, shallowRef} from "vue";
+  import {useRoute} from "vue-router";
   /********************************************************************************
    * 通用浏览表单界面
    *
@@ -142,8 +161,17 @@ import {onMounted, provide, ref, type Ref, shallowRef} from "vue";
   import ViewerGrid from "@/ploutos/graces/ag01/form-viewer/components/ViewerGrid.vue";
   import type DatatableRow from "@/ploutos/graces/ag01/faces/DatatableRow.ts";
   import DataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
-import SheeterTable from "@/ploutos/graces/ag01/form-editor/components/SheeterTable.vue";
-import WidgetFactories from "@/ploutos/graces/ag01/faces/WidgetFactories.ts";
+  import ActionFactories from "@/ploutos/graces/ag01/faces/ActionFactories.ts";
+
+  /**
+   * 当前路由
+   */
+  const route = useRoute();
+
+  /**
+   * 来源界面
+   */
+  const fromPage = shallowRef('');
 
   /**
    * 应用状态
@@ -238,6 +266,13 @@ import WidgetFactories from "@/ploutos/graces/ag01/faces/WidgetFactories.ts";
    * 组件加载
    */
   onMounted(() => {
+    // 将刷新事件写入window
+    const name = props.module + props.name.substring(0, 1).toUpperCase() + props.name.substring(1) + "Refresh";
+    window[name] = onRefreshViewer;
+
+    if (!props.isDialog && !props.isDrawer) {
+      fromPage.value = route.query.from.toString();
+    }
     loadDefine();
   });
 
@@ -342,6 +377,22 @@ import WidgetFactories from "@/ploutos/graces/ag01/faces/WidgetFactories.ts";
   provide('params', params.value);
 
   /**
+   * 操作后刷新
+   */
+  async function onRefreshViewer() {
+    await loadData();
+
+    // 刷新上层界面数据
+    if (props.isDialog || props.isDrawer) {
+      emit('onRefresh');
+    } else {
+      const func = new Function( 'name', 'return eval(name).call()');
+      func(fromPage.value + 'Refresh');
+    }
+  }
+  provide('onRefresh', onRefreshViewer);
+
+  /**
    * 关闭
    */
   function onClose() {
@@ -401,6 +452,16 @@ import WidgetFactories from "@/ploutos/graces/ag01/faces/WidgetFactories.ts";
     // 未设置宽度的表单宽度
     return 'calc((' + restWidth + ') / ' + restCount + ' - ' + gap + 'px)';
   }
+
+  /**
+   * 页面高度
+   */
+  const style = computed(() => {
+    // 弹框展示
+    if (props.isDialog) {
+      return {maxHeight: '80vh'};
+    }
+  });
 
   /**
    * 折叠面板

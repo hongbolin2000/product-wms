@@ -11,7 +11,9 @@
     <title>@title</title>
 
     <actions>
-        <action type="link" icon="add" title="@add" link="/add/@{_companyId}" hidden="storeType == 'AAA'"/>
+        <action type="link" icon="edit" title="编辑" link="/graces/editor/sy99/storeEditor/@{id}" hidden="storeType == 'AAA'"/>
+        <action type="link" mode="dialog" icon="edit" title="编辑" link="/graces/editor/sy99/storeEditor/@{id}" hidden="storeType == 'AAA'"/>
+        <action type="link" mode="drawer" icon="edit" title="编辑" link="/graces/editor/sy99/storeEditor/@{id}" hidden="storeType == 'AAA'"/>
     </actions>
 
     <support-statements>

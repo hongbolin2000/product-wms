@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-  import {h, type PropType} from 'vue'
+import {h, inject, type PropType} from 'vue'
   /********************************************************************************
    * 选择项动作按钮
    *
@@ -38,6 +38,11 @@
       required: true
     }
   });
+
+  /**
+   * 注入刷新函数
+   */
+  const onRefresh = inject<Function>('onRefresh');
 
   /**
    * 按钮点击
@@ -87,6 +92,7 @@
       loading(true);
       await http.post(props.action.link, datatable.checkedKeys);
       message.success(datatable.title + props.action.title + '成功');
+      onRefresh();
     } finally {
       loading(false);
     }

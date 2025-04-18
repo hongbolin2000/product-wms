@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-  import {type PropType} from 'vue'
+import {inject, type PropType} from 'vue'
   import type {UploadFileInfo} from "naive-ui";
   /********************************************************************************
    * 文件上传动作控件
@@ -37,6 +37,11 @@
       required: true
     }
   });
+
+  /**
+   * 注入刷新函数
+   */
+  const onRefresh = inject<Function>('onRefresh');
 
   /**
    * 传入的header
@@ -67,6 +72,7 @@
     } else {
       message.success(props.action.title + '成功');
     }
+    onRefresh();
     return options.file;
   }
 
