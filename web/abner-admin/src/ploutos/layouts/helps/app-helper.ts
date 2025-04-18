@@ -7,7 +7,8 @@
  * @author Berlin
  *******************************************************************************/
 import useAppStore from "@/ploutos/layouts/store/app-store";
-import type {PlatformConfigure, MenuOption} from "@/ploutos/layouts/types";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import type {MenuOption} from "@/ploutos/layouts/types";
 
 /**
  * 应用系统的帮助类（提供给功能应用调用）
@@ -83,6 +84,12 @@ namespace appHelper {
   /**
    * 计算主内容最大高度
    */
-  export const maxHeight = '100vh - var(--logo-height) - var(--tab-height)'
+  export const maxHeight = () => {
+    const layoutStore = useLayoutStore();
+    if (layoutStore.isFullScreen) {
+      return '100vh - 10px';
+    }
+    return '100vh - var(--logo-height) - var(--tab-height)'
+  }
 }
 export default appHelper;

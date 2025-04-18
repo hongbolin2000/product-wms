@@ -44,7 +44,7 @@
             :node-props="nodeProps"
             @update:checkedKeys="onChecked"
             virtual-scroll
-            :style="{maxHeight: 'calc(' + appHelper.maxHeight + ' - 154px)'}"
+            :style="{maxHeight: 'calc(' + appHelper.maxHeight() + ' - 154px)'}"
             :override-default-node-click-behavior="override"
         />
       </n-card>
@@ -63,7 +63,7 @@
             size="small"
             children-key="none"
             :row-key="rowKey"
-            :max-height="'calc(' + appHelper.maxHeight + ' - 150px)'"
+            :max-height="'calc(' + appHelper.maxHeight() + ' - 150px)'"
         />
       </n-card>
     </n-gi>

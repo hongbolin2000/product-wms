@@ -5,7 +5,7 @@
       <TabBar/>
     </section>
 
-    <section class="main-section" style="height: calc(100vh - var(--logo-height) - var(--tab-height))">
+    <section class="main-section">
       <MainContent id="layout-main-content"/>
     </section>
   </div>
