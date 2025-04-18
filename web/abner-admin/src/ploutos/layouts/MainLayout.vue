@@ -280,10 +280,12 @@
     }
   }
   .page-full-screen-light {
+    overflow-y: auto;
     padding: 10px;
     background-color: #f0f2f5;
   }
   .page-full-screen-dark {
+    overflow-y: auto;
     padding: 10px;
     background-color: #101014FF;
   }
