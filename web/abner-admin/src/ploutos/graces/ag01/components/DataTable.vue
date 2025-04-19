@@ -1,5 +1,6 @@
 <template>
   <div class="datatable-action-wrapper" v-if="showTools">
+    <!-- 按钮 -->
     <div style="flex: 1;overflow: hidden;margin-right: 10px">
       <n-scrollbar x-scrollable>
         <n-space :size="10" style="align-items: center;flex-wrap: nowrap">
@@ -35,6 +36,7 @@
       </n-scrollbar>
     </div>
 
+    <!-- 工具栏 -->
     <n-space size="small">
       <n-tooltip trigger="hover" v-if="!layoutStore.bordered">
         <template #trigger>
@@ -83,6 +85,7 @@
     </n-space>
   </div>
 
+  <!-- 服务端数据表 -->
   <n-data-table
       :columns="renderColumns(datatable)"
       :data="datatable.data"
@@ -102,6 +105,7 @@
       :striped="mainDataTable.striped || layoutStore.striped"
       v-if="!static"
   />
+  <!-- 静态数据表 -->
   <n-data-table
       v-else
       :columns="renderColumns(datatable)"
@@ -119,6 +123,7 @@
       :striped="mainDataTable.striped || layoutStore.striped"
   />
 
+  <!-- 表格右键菜单 -->
   <n-dropdown
     :x="x" :y="y"
     trigger="manual"
@@ -128,6 +133,7 @@
     :on-clickoutside="onCloseContextMenu"
   />
 
+  <!-- dialog操作页面 -->
   <n-modal
       v-model:show="showModal"
       :title="title"
@@ -142,6 +148,7 @@
     />
   </n-modal>
 
+  <!-- drawer操作页面 -->
   <n-drawer v-model:show="showDrawer" :width="selectColumn.drawerWidth" placement="right" :mask-closable="false" :close-on-esc="false">
     <n-drawer-content :title="title" closable :body-content-style="{padding: 0}">
       <component :is="component" :params="componentParams" :is-drawer="true" @on-change-title="(value) => title = value"
