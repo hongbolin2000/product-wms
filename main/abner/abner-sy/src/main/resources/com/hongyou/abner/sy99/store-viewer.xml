@@ -13,7 +13,7 @@
     <actions>
         <action type="link" icon="edit" title="编辑" link="/graces/editor/sy99/storeEditor/@{id}" disabled="storeCode == 'AAA'"/>
         <action type="link" mode="dialog" icon="edit" title="编辑" link="/graces/editor/sy99/storeEditor/@{id}" hidden="storeType == 'AAA'"/>
-        <action type="link" mode="drawer" icon="edit" title="编辑" link="/graces/editor/sy99/storeEditor/@{id}" hidden="storeType == 'AAA'"/>
+        <action type="link" mode="drawer" icon="edit" title="编辑" link="/graces/editor/sy99/storeEditor/@{id}" hidden="storeType == 'AAA'" option="true"/>
         <action type="scriptLink" mode="script" icon="delete" title="取消订单" link="sy99Cancel" danger="true"/>
         <action type="scriptLink" mode="remote" option="true" icon="delete" title="取消订单" link="/sy99/deleteBatch" danger="true"
                 labelColumn="storeName" disabled="storeCode == 'AAA'"/>

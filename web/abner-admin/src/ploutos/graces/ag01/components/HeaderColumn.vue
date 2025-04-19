@@ -1,7 +1,7 @@
 <template>
   <n-popover placement="bottom" trigger="hover" v-if="showPopover">
     <template #trigger>
-      <span :class="{'title-active' : value[column?.name]}">
+      <span :class="{'title-active' : params[column?.name]}">
         {{column.title}}
       </span>
     </template>
@@ -11,13 +11,13 @@
         <n-input
             type="text"
             :placeholder="column?.title!"
-            v-model:value="value[column?.name]"
+            v-model:value="params[column?.name]"
             style="width: 150px"
             clearable
             v-if="column?.filter == 'text'"
         />
         <n-date-picker
-            v-model:value="value[column?.name]"
+            v-model:value="params[column?.name]"
             type="datetimerange"
             clearable
             v-if="column?.filter == 'date'"
@@ -35,13 +35,13 @@
   </n-popover>
 
   <n-popselect
-      v-model:value="value[column?.name]"
+      v-model:value="params[column?.name]"
       :options="column?.filterOptions!"
       trigger="hover"
       v-if="column?.filterOptions"
       :onUpdate:value="handleSearch"
   >
-    <span :class="{'title-active' : value[column?.name]}">
+    <span :class="{'title-active' : params[column?.name]}">
       {{column.title}}
     </span>
   </n-popselect>
@@ -59,7 +59,7 @@
   /**
    * 注入查询参数
    */
-  const value: Ref = ref(inject('params'));
+  const params: Ref = ref(inject('params'));
 
   /**
    * 父组件传入的属性

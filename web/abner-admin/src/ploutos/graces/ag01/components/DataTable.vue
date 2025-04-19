@@ -1,6 +1,6 @@
 <template>
   <div class="datatable-action-wrapper" v-if="showTools">
-    <n-space :size="10">
+    <n-space :size="10" style="align-items: center">
       <component v-for="action of actions" :key="action.name" :is="() => {
         action.datatable = datatable;
         action.module = props.module;
@@ -18,9 +18,20 @@
           更多操作
         </n-button>
       </n-dropdown>
+      <n-divider vertical style="margin: 0"/>
+
+      <n-select
+          v-for="column of enumFilterColumns"
+          :style="{width: '108px'}"
+          :options="column.filterOptions"
+          :clearable="true"
+          :placeholder="column.title"
+          v-model:value="params[column?.name]"
+          :onUpdate:value="onSearch"
+      ></n-select>
     </n-space>
 
-    <div style="flex: 1" v-if="datatable.actions.length > 0"></div>
+    <div style="flex: 1" v-if="datatable.actions.length > 0 || enumFilterColumns.length > 0"></div>
     <n-space size="small" :style="datatable.actions.length <= 0 ? 'flex-direction: row-reverse' : ''">
       <n-tooltip trigger="hover" v-if="!layoutStore.bordered">
         <template #trigger>
@@ -138,19 +149,19 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    computed,
-    h,
-    type HTMLAttributes,
-    nextTick,
-    type PropType,
-    provide,
-    ref,
-    type Ref,
-    shallowRef,
-    type VNode,
-    onBeforeMount
-  } from "vue";
+import {
+  computed,
+  h,
+  type HTMLAttributes,
+  nextTick,
+  type PropType,
+  provide,
+  ref,
+  type Ref,
+  shallowRef,
+  type VNode,
+  onBeforeMount, inject
+} from "vue";
     import {type DataTableSortState, type DropdownOption, NIcon} from "naive-ui";
     import {ChevronDown, Expand, RefreshOutline} from '@vicons/ionicons5'
   import {Parser} from "expr-eval";
@@ -263,6 +274,11 @@
   const optionActions: Ref<DropdownOption[]> = shallowRef([]);
 
   /**
+   * 枚举过滤
+   */
+  const enumFilterColumns: Ref<AbstractColumn[]> = ref([]);
+
+  /**
    * 右键菜单位置
    */
   const x = ref(0);
@@ -363,6 +379,11 @@
   });
 
   /**
+   * 注入查询参数
+   */
+  const params: Ref = ref(inject('params'));
+
+  /**
    * 组件加载
    */
   onBeforeMount(() => {
@@ -387,6 +408,9 @@
       });
       optionActions.value = actionOptions;
     }
+
+    // 枚举过滤
+    enumFilterColumns.value = props.datatable.columns.filter(i => i.filterOptions);
   });
 
   /**
