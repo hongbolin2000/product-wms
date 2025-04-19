@@ -8,9 +8,12 @@
         库区查询建议器
     </description>
 
+    <maxRows>20</maxRows>
+
     <statement>
         <table name="binara"/>
         <param column="bnarid" type="=" expr="fieldValue"/>
+        <param column="wrhsid" type="=" expr="warehouseId"/>
         <param column="bnarcd" expr="searchValue"/>
         <param condition="or" column="bnarnm" expr="searchValue"/>
         <order by="bnarcd"/>

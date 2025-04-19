@@ -19,8 +19,10 @@
 
     <editor labelColumn="binCode" spans="1">
         <input type="text" name="id" expr="binmid" hidden="true"/>
+        <input type="suggestor" name="warehouseId" expr="wrhsid" title="@BINARA.WRHSID" module="wb00"
+               suggestor="warehouseSuggestor" required="true"/>
         <input type="suggestor" name="binAreaId" expr="bnarid" title="@BINMAS.BNARID" module="wb00"
-               suggestor="binAreaSuggestor" required="true"/>
+               suggestor="binAreaSuggestor" required="true" input="warehouseId"/>
         <input type="text" name="binCode" expr="bincde" title="@BINMAS.BINCDE" required="true" length="32"/>
         <input type="enum" name="status" expr="status" title="@BINMAS.STATUS" options="@@BINMAS.STATUS" default="N" required="true"/>
         <input type="text" mode="textarea" name="remark" expr="remark" title="@BINMAS.REMARK" length="254"/>

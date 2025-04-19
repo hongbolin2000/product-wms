@@ -99,14 +99,21 @@
   async function handleSearch(searchValue: string, fieldValue?: string) {
     try {
       loading.value = true;
+      const params = {
+        searchValue: searchValue, fieldValue: fieldValue,
+      }
+
+      // 动态输入参数
+      const inputs = props.widget.input.split(",");
+      for (let input of inputs) {
+        params[input] = props.widget.rowData[input];
+      }
+
       const response = await http.post("/ag01/suggestor/loadData", {
         module: props.widget.module,
         name: props.widget.suggestor,
         local: navigator.language,
-        params: {
-          searchValue: searchValue,
-          fieldValue: fieldValue,
-        }
+        params: params
       });
       options.value = response.data.data;
       limited.value = response.data.maxRows == -1;

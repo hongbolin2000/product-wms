@@ -24,4 +24,9 @@ export default class SuggestorWidgetProps extends AbstractWidget {
 	 * 建议器选择时的脚步
 	 */
 	script: string;
+
+	/**
+	 * 输入参数
+	 */
+	input: string;
 }
