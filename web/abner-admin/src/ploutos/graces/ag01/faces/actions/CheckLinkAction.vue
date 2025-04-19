@@ -1,13 +1,13 @@
 <template>
-  <n-button type="primary" @click="onHandelClick" v-if="!props.action.option">
+  <n-button type="primary" @click="onHandelClick" v-if="!props.action.option && !props.action.danger">
     <template #icon v-if="action.icon">
       <SvgIcon :name="action.icon"/>
     </template>
     {{action.title}}
   </n-button>
 
-  <n-tag v-else checkable class="tag-item" :type="action.danger && 'error'"
-      :style="{color: action.danger && '#e88080'}" @click="onHandelClick"
+  <n-tag v-else :checkable="props.action.option" class="tag-item" :type="action.danger ? 'error' : 'default'"
+         :style="{color: action.danger && '#e88080', cursor: 'pointer'}" @click="onHandelClick"
   >
     <template #icon v-if="action.icon">
       <SvgIcon :name="action.icon" style="margin-right: 5px"/>

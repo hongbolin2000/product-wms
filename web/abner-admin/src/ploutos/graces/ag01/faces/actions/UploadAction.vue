@@ -7,12 +7,21 @@
       :show-file-list="false"
       @change="handleChange"
   >
-    <n-button :disabled="props.action.isDisabled">
+    <n-button v-if="!props.action.option && !props.action.danger" :disabled="props.action.isDisabled">
       <template #icon v-if="action.icon">
         <SvgIcon :name="action.icon"/>
       </template>
       {{action.title}}
     </n-button>
+
+    <n-tag v-else :checkable="props.action.option" class="tag-item" :type="action.danger ? 'error' : 'default'"
+           :style="{color: action.danger && '#e88080', cursor: 'pointer'}" :disabled="props.action.isDisabled"
+    >
+      <template #icon v-if="action.icon">
+        <SvgIcon :name="action.icon" style="margin-right: 5px"/>
+      </template>
+      {{action.title}}
+    </n-tag>
   </n-upload>
 </template>
 
@@ -118,5 +127,9 @@
 </script>
 
 <style scoped lang="scss">
-
+  .tag-item {
+    padding: 17px 9.5px;
+    margin: 0 4px;
+    width: calc(100% - 8px);
+  }
 </style>

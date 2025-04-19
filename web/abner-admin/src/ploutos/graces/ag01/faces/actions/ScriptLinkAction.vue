@@ -8,7 +8,7 @@
     {{action.title}}
   </n-button>
 
-  <n-tag v-else :checkable="props.action.option" class="tag-item" :type="action.danger && 'error'"
+  <n-tag v-else :checkable="props.action.option" class="tag-item" :type="action.danger ? 'error' : 'default'"
          :style="{color: action.danger && '#e88080', cursor: 'pointer'}" @click="onHandelClick"
          :disabled="props.action.isDisabled"
   >

@@ -1,32 +1,43 @@
 <template>
-    <n-button type="primary" @click="onHandelClick" :disabled="props.action.isDisabled">
-      <template #icon v-if="action.icon">
-        <SvgIcon :name="action.icon"/>
-      </template>
-      {{action.title}}
-    </n-button>
+  <n-button type="primary" @click="onHandelClick" v-if="!props.action.option && !props.action.danger"
+            :disabled="props.action.isDisabled">
+    <template #icon v-if="action.icon">
+      <SvgIcon :name="action.icon"/>
+    </template>
+    {{action.title}}
+  </n-button>
 
-    <n-modal
-      v-model:show="showModal"
-      :title="title"
-      :draggable="{bounds: 'none'}"
-      :style="{width: props.action?.dialogWidth}"
-      preset="dialog"
-      :mask-closable="false"
-      :close-on-esc="false"
-    >
-      <component :is="component" :params="{module: module, name: name, id: id}" :is-dialog="true"
-                 @on-close="showModal = false" @on-refresh="handleRefresh" @on-change-title="(value) => title = value"
+  <n-tag v-else :checkable="props.action.option" class="tag-item" :type="action.danger ? 'error' : 'default'"
+         :style="{color: action.danger && '#e88080', cursor: 'pointer'}" @click="onHandelClick"
+         :disabled="props.action.isDisabled"
+  >
+    <template #icon v-if="action.icon">
+      <SvgIcon :name="action.icon" style="margin-right: 5px"/>
+    </template>
+    {{action.title}}
+  </n-tag>
+
+  <n-modal
+    v-model:show="showModal"
+    :title="title"
+    :draggable="{bounds: 'none'}"
+    :style="{width: props.action?.dialogWidth}"
+    preset="dialog"
+    :mask-closable="false"
+    :close-on-esc="false"
+  >
+    <component :is="component" :params="{module: module, name: name, id: id}" :is-dialog="true"
+               @on-close="showModal = false" @on-refresh="handleRefresh" @on-change-title="(value) => title = value"
+    />
+  </n-modal>
+
+  <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right" :mask-closable="false" :close-on-esc="false">
+    <n-drawer-content :title="title" closable :body-content-style="{padding: 0}">
+      <component :is="component" :params="{module: module, name: name, id: id}" :is-drawer="true"
+                 @on-close="showDrawer = false" @on-refresh="handleRefresh" @on-change-title="(value) => title = value"
       />
-    </n-modal>
-
-    <n-drawer v-model:show="showDrawer" :width="action.drawerWidth" placement="right" :mask-closable="false" :close-on-esc="false">
-      <n-drawer-content :title="title" closable :body-content-style="{padding: 0}">
-        <component :is="component" :params="{module: module, name: name, id: id}" :is-drawer="true"
-                   @on-close="showDrawer = false" @on-refresh="handleRefresh" @on-change-title="(value) => title = value"
-        />
-      </n-drawer-content>
-    </n-drawer>
+    </n-drawer-content>
+  </n-drawer>
 </template>
 
 <script setup lang="ts">
@@ -179,5 +190,9 @@
 </script>
 
 <style scoped lang="scss">
-
+  .tag-item {
+    padding: 17px 9.5px;
+    margin: 0 4px;
+    width: calc(100% - 8px);
+  }
 </style>

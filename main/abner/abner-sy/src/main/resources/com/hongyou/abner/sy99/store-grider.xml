@@ -28,12 +28,13 @@
 
     <datatable title="门店" bordered="true" striped="true">
         <actions>
-            <action type="link" icon="add" title="@add" link="/add/@{_companyId}" hidden="storeType == 'AAA'" />
+            <action type="link" icon="add" title="@add" link="/add/@{_companyId}" hidden="storeType == 'AAA'" option="true"/>
             <action type="link" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" />
-            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" />
-            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" option="true"/>
+            <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/sy99/storeEditor"/>
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy99/storeEditor"
+                    danger="true" option="true"/>
             <action type="scriptLink" option="true" icon="delete" title="取消订单" link="sy99Cancel" danger="true"/>
-            <action type="checkLink" option="true" icon="delete" title="批量删除" labelColumn="storeName"
+            <action type="checkLink" icon="delete" title="批量删除" labelColumn="storeName"
                     link="/sy99/deleteBatch" danger="true"
             />
             <action type="upload" icon="upload" title="导入" link="/sy99/import" />
