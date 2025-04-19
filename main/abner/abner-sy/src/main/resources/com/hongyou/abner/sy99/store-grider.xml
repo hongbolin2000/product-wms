@@ -72,7 +72,7 @@
             <column type="link" name="edit" icon="edit" expr="streid" title="详情" link="/graces/editor/sy99/storeEditor" option="true"/>
             <column type="link" name="editDialog" icon="edit" expr="streid" title="审核" link="/graces/editor/sy99/storeEditor" mode="dialog" option="true"/>
             <column type="link" name="editDrawer" icon="edit" expr="streid" title="编辑" link="/graces/editor/sy99/storeEditor" mode="drawer"
-                    disabled="storeCode == 'GP-SH003'"
+                    disabled="storeCode == 'GP-SH003'" danger="true"
             />
             <column type="scriptLink" name="delete" icon="delete" expr="streid" title="删除" link="/sy99/deleteBatch"
                     labelColumn="storeName" danger="true"

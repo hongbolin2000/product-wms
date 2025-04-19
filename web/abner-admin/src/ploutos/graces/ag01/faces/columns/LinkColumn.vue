@@ -1,5 +1,12 @@
 <template>
-  <n-button size="small" @click="onHandelClick" :disabled="props.column.isDisabled" v-if="!column.option">
+  <n-button
+      :text="column.danger"
+      size="small"
+      @click="onHandelClick"
+      :disabled="props.column.isDisabled"
+      v-if="!column.option"
+      :type="column.danger ? 'error' : 'default'"
+  >
     <template #icon v-if="column.icon">
       <n-icon>
         <SvgIcon :name="column.icon"/>
@@ -8,8 +15,13 @@
     {{column.title}}
   </n-button>
 
-  <n-tag checkable class="tag-item" @click="onHandelClick" :disabled="props.column.isDisabled"
-         v-if="column.option"
+  <n-tag
+      checkable
+      class="tag-item"
+      @click="onHandelClick"
+      :style="{color: column.danger && '#e88080', padding: !column.option && 1}"
+      :disabled="props.column.isDisabled"
+      v-if="column.option"
   >
     <template #icon v-if="column.icon">
       <SvgIcon :name="column.icon" style="margin-right: 5px"/>
