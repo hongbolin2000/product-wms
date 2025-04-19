@@ -32,7 +32,7 @@
             </n-button>
           </n-dropdown>
 
-          <n-button @click="onClose()">关闭</n-button>
+          <n-button @click="onClose()">关闭页面</n-button>
         </n-space>
       </n-card>
 

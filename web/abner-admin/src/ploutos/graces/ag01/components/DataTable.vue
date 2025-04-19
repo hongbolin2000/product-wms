@@ -1,38 +1,41 @@
 <template>
   <div class="datatable-action-wrapper" v-if="showTools">
-    <n-space :size="10" style="align-items: center">
-      <component v-for="action of actions" :key="action.name" :is="() => {
-        action.datatable = datatable;
-        action.module = props.module;
-        action.moduleName = props.moduleName;
-        return ActionFactories.getInstance().create(action)
-      }"/>
+    <div style="flex: 1;overflow: hidden;margin-right: 10px">
+      <n-scrollbar x-scrollable>
+        <n-space :size="10" style="align-items: center;flex-wrap: nowrap">
+          <component v-for="action of actions" :key="action.name" :is="() => {
+            action.datatable = datatable;
+            action.module = props.module;
+            action.moduleName = props.moduleName;
+            return ActionFactories.getInstance().create(action)
+        }"/>
+          <n-dropdown trigger="hover" :options="optionActions" v-if="optionActions.length > 0">
+            <n-button icon-placement="right" class="more-action">
+              <template #icon>
+                <n-icon class="tip">
+                  <ChevronDown style="font-size: 14px"/>
+                </n-icon>
+              </template>
+              更多操作
+            </n-button>
+          </n-dropdown>
+          <n-button @click="appStore.closeCurrentTab()">关闭页面</n-button>
+          <n-divider vertical style="margin: 0"/>
 
-      <n-dropdown trigger="hover" :options="optionActions" v-if="optionActions.length > 0">
-        <n-button icon-placement="right" class="more-action">
-          <template #icon>
-            <n-icon class="tip">
-              <ChevronDown style="font-size: 14px"/>
-            </n-icon>
-          </template>
-          更多操作
-        </n-button>
-      </n-dropdown>
-      <n-divider vertical style="margin: 0"/>
+          <n-select
+              v-for="column of enumFilterColumns"
+              :style="{width: '108px'}"
+              :options="column.filterOptions"
+              :clearable="true"
+              :placeholder="column.title"
+              v-model:value="params[column?.name]"
+              :onUpdate:value="onSearch"
+          ></n-select>
+        </n-space>
+      </n-scrollbar>
+    </div>
 
-      <n-select
-          v-for="column of enumFilterColumns"
-          :style="{width: '108px'}"
-          :options="column.filterOptions"
-          :clearable="true"
-          :placeholder="column.title"
-          v-model:value="params[column?.name]"
-          :onUpdate:value="onSearch"
-      ></n-select>
-    </n-space>
-
-    <div style="flex: 1" v-if="datatable.actions.length > 0 || enumFilterColumns.length > 0"></div>
-    <n-space size="small" :style="datatable.actions.length <= 0 ? 'flex-direction: row-reverse' : ''">
+    <n-space size="small">
       <n-tooltip trigger="hover" v-if="!layoutStore.bordered">
         <template #trigger>
           <n-switch v-model:value="mainDataTable.bordered" size="small"/>
@@ -185,6 +188,12 @@ import {
   import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import ColumnActions from "@/ploutos/graces/ag01/components/ColumnActions.vue";
+  import useAppStore from "@/ploutos/layouts/store/app-store.ts";
+
+  /**
+   * 应用状态
+   */
+  const appStore = useAppStore();
 
   /**
    * 父组件传入的属性
