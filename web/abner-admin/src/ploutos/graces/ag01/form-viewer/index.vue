@@ -13,11 +13,25 @@
           :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
       >
         <n-space :size="10">
-          <component v-for="action of viewer.actions" :key="action.name" :is="() => {
+          <component v-for="action of actions" :key="action.name" :is="() => {
               action.module = props.module;
               action.moduleName = props.name;
+              action.rowData = viewerValue;
+              action.viewerTitle = viewer.title;
               return ActionFactories.getInstance().create(action)
-            }"/>
+          }"/>
+
+          <n-dropdown trigger="hover" :options="optionActions" v-if="optionActions.length > 0">
+            <n-button icon-placement="right" class="more-action">
+              <template #icon>
+                <n-icon class="tip">
+                  <ChevronDown style="font-size: 14px"/>
+                </n-icon>
+              </template>
+              更多操作
+            </n-button>
+          </n-dropdown>
+
           <n-button @click="onClose()">关闭</n-button>
         </n-space>
       </n-card>
@@ -156,11 +170,13 @@ import {computed, onMounted, provide, ref, type Ref, shallowRef} from "vue";
   import type FormViewer from "@/ploutos/graces/ag01/faces/FormViewer.ts";
   import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
   import FormViewerRow from "@/ploutos/graces/ag01/faces/FormViewerRow.ts";
-  import {SettingsOutline} from "@vicons/ionicons5";
+import {ChevronDown, SettingsOutline} from "@vicons/ionicons5";
   import ViewerGrid from "@/ploutos/graces/ag01/form-viewer/components/ViewerGrid.vue";
   import type DatatableRow from "@/ploutos/graces/ag01/faces/DatatableRow.ts";
   import DataTable from "@/ploutos/graces/ag01/components/DataTable.vue";
   import ActionFactories from "@/ploutos/graces/ag01/faces/ActionFactories.ts";
+  import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction.ts";
+  import {type DropdownOption, NIcon} from "naive-ui";
 
   /**
    * 当前路由
@@ -187,6 +203,12 @@ import {computed, onMounted, provide, ref, type Ref, shallowRef} from "vue";
    * 浏览表单界面属性定义
    */
   const viewer: Ref<ViewerProps> = ref();
+
+  /**
+   * 展示按钮
+   */
+  const actions: Ref<AbstractAction[]> = shallowRef([]);
+  const optionActions: Ref<DropdownOption[]> = shallowRef([]);
 
   /**
    * 父组件传入的属性
@@ -264,7 +286,7 @@ import {computed, onMounted, provide, ref, type Ref, shallowRef} from "vue";
   /**
    * 组件加载
    */
-  onMounted(() => {
+  onMounted(async () => {
     // 将刷新事件写入window
     const name = props.module + props.name.substring(0, 1).toUpperCase() + props.name.substring(1) + "Refresh";
     window[name] = onRefreshViewer;
@@ -272,7 +294,26 @@ import {computed, onMounted, provide, ref, type Ref, shallowRef} from "vue";
     if (!props.isDialog && !props.isDrawer) {
       fromPage.value = route.query.from.toString();
     }
-    loadDefine();
+    await loadDefine();
+
+    // 更多操作
+    actions.value = viewer.value.actions.filter(i => !i.option);
+    const options = viewer.value.actions.filter(i => i.option);
+    const actionOptions: DropdownOption[] = []
+    options.forEach(action => {
+      actionOptions.push({
+        key: action.name,
+        type: 'render',
+        render: () => {
+          action.module = props.module;
+          action.moduleName = props.name;
+          action.rowData = viewerValue.value;
+          action.viewerTitle = viewer.value.title;
+          return ActionFactories.getInstance().create(action);
+        },
+      });
+    });
+    optionActions.value = actionOptions;
   });
 
   /**

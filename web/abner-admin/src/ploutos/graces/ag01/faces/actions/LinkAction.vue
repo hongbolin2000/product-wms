@@ -1,5 +1,5 @@
 <template>
-    <n-button type="primary" @click="onHandelClick">
+    <n-button type="primary" @click="onHandelClick" :disabled="props.action.isDisabled">
       <template #icon v-if="action.icon">
         <SvgIcon :name="action.icon"/>
       </template>
@@ -30,8 +30,9 @@
 </template>
 
 <script setup lang="ts">
-import {computed, inject, onMounted, type PropType, ref, shallowRef} from 'vue'
-import {type RouteLocationResolved, useRouter} from "vue-router";
+  import {computed, inject, onBeforeUpdate, onMounted, type PropType, ref, shallowRef} from 'vue'
+  import {type RouteLocationResolved, useRouter} from "vue-router";
+  import {Parser} from "expr-eval";
   /********************************************************************************
    * 路由动作按钮
    *
@@ -126,7 +127,24 @@ import {type RouteLocationResolved, useRouter} from "vue-router";
         component.value = route?.components!.default!;
       }
     }
+    disabled();
   });
+
+  /**
+   * 组件更新前
+   */
+  onBeforeUpdate(() => {
+    disabled();
+  });
+
+  /**
+   * 禁用
+   */
+  function disabled() {
+    if (props.action.rowData && props.action.disabled) {
+      props.action.isDisabled = Parser.parse(props.action.disabled).evaluate(props.action.rowData);
+    }
+  }
 
   /**
    * 按钮点击

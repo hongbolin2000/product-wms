@@ -65,9 +65,9 @@
   });
 
   /**
-   * 注入查询函数
+   * 注入刷新函数
    */
-  const onSearch = inject<Function>('onSearch');
+  const onRefresh = inject<Function>('onRefresh');
 
   /**
    * 组件加载前
@@ -131,7 +131,7 @@
       loading(true);
       await http.post(props.column.link, [props.column.rowData[props.column.name]]);
       message.success(props.column.datatableTitle + '[ ' + label + ' ]' + props.column.title + '成功');
-      onSearch();
+      onRefresh();
     } finally {
       loading(false);
     }

@@ -31,7 +31,7 @@
             <action type="link" icon="add" title="@add" link="/add/@{_companyId}" hidden="storeType == 'AAA'" />
             <action type="link" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" />
             <action type="link" mode="dialog" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" />
-            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" />
+            <action type="link" mode="drawer" icon="add" title="@add" link="/graces/editor/sy99/storeEditor" option="true"/>
             <action type="scriptLink" option="true" icon="delete" title="取消订单" link="sy99Cancel" danger="true"/>
             <action type="checkLink" option="true" icon="delete" title="批量删除" labelColumn="storeName"
                     link="/sy99/deleteBatch" danger="true"

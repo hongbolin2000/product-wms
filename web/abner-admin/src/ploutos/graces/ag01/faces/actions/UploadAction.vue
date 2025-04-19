@@ -7,7 +7,7 @@
       :show-file-list="false"
       @change="handleChange"
   >
-    <n-button>
+    <n-button :disabled="props.action.isDisabled">
       <template #icon v-if="action.icon">
         <SvgIcon :name="action.icon"/>
       </template>
@@ -17,8 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import {inject, type PropType} from 'vue'
+  import {inject, onBeforeMount, onBeforeUpdate, type PropType} from 'vue'
   import type {UploadFileInfo} from "naive-ui";
+  import {Parser} from "expr-eval";
   /********************************************************************************
    * 文件上传动作控件
    *
@@ -48,6 +49,29 @@ import {inject, type PropType} from 'vue'
    */
   const headers = {};
   headers[http.TOKEN_NAME] = http.getToken();
+
+  /**
+   * 组件加载前
+   */
+  onBeforeMount(() => {
+    disabled();
+  });
+
+  /**
+   * 组件更新前
+   */
+  onBeforeUpdate(() => {
+    disabled();
+  })
+
+  /**
+   * 禁用
+   */
+  function disabled() {
+    if (props.action.rowData && props.action.disabled) {
+      props.action.isDisabled = Parser.parse(props.action.disabled).evaluate(props.action.rowData);
+    }
+  }
 
   /**
    * 文件上传完成

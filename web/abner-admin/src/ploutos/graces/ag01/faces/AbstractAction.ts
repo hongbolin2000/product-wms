@@ -26,6 +26,11 @@ export default class AbstractAction extends AbstractComponent {
 	 */
 	danger: boolean;
 
+	/**
+	 * 禁用表达式(用于浏览表单)
+	 */
+	disabled: string;
+
 	/********************************************************************************
 	 * 以下为前端计算内容
 	 *******************************************************************************/
@@ -43,4 +48,19 @@ export default class AbstractAction extends AbstractComponent {
 	 * 通用界面名称
 	 */
 	moduleName: string
+
+	/**
+	 * 当前行数据(用于浏览表单)
+	 */
+	rowData: any;
+
+	/**
+	 * 浏览表单标题
+	 */
+	viewerTitle: string;
+
+	/**
+	 * 是否禁用(用于浏览表单)
+	 */
+	isDisabled: boolean;
 }
