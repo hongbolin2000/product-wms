@@ -7,23 +7,22 @@
     </template>
 
     <div v-if="viewer">
-      <n-scrollbar :style="style">
-        <n-card
-            style="margin-bottom: 10px"
-            v-if="viewer.actions.length > 0"
-            :bordered="!props.isDrawer && !props.isDialog"
-            :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
-        >
-          <n-space :size="10">
-            <component v-for="action of viewer.actions" :key="action.name" :is="() => {
+      <n-card
+          style="margin-bottom: 10px"
+          :bordered="!props.isDrawer && !props.isDialog"
+          :content-style="{paddingBottom: (props.isDrawer || props.isDialog) && 0}"
+      >
+        <n-space :size="10">
+          <component v-for="action of viewer.actions" :key="action.name" :is="() => {
               action.module = props.module;
               action.moduleName = props.name;
               return ActionFactories.getInstance().create(action)
             }"/>
-            <n-button @click="onClose()">关闭</n-button>
-          </n-space>
-        </n-card>
+          <n-button @click="onClose()">关闭</n-button>
+        </n-space>
+      </n-card>
 
+      <n-scrollbar :style="style">
         <!-- 浏览表单 -->
         <div v-for="(row, index) of viewer.viewerRows" :key="index"
              :class="[props.isDrawer || props.isDialog ? 'viewer-row-drawer' : 'viewer-row']"
@@ -457,9 +456,20 @@ import {computed, onMounted, provide, ref, type Ref, shallowRef} from "vue";
    * 页面高度
    */
   const style = computed(() => {
+    // 路由页面展示
+    if (!props.isDialog && !props.isDrawer) {
+      if (layoutStore.isFullScreen) {
+        return {height: 'calc(100vh - var(--top-option-height) - 10px)'};
+      }
+      return {height: 'calc(100vh - var(--logo-height) - var(--tab-height) - var(--top-option-height))'};
+    }
+    // 抽屉展示
+    if (props.isDrawer) {
+      return {height: 'calc(100vh - var(--top-option-height) - 30px)'};
+    }
     // 弹框展示
     if (props.isDialog) {
-      return {maxHeight: '80vh'};
+      return {maxHeight: '60vh'};
     }
   });
 

@@ -62,7 +62,7 @@ namespace appHelper {
     /**
      * 关闭当前选项卡
      */
-    await appStore.closeCurrentTab();
+    appStore.closeCurrentTab();
   }
 
   /**
