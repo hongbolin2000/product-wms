@@ -20,7 +20,9 @@
               更多操作
             </n-button>
           </n-dropdown>
+
           <n-button @click="appStore.closeCurrentTab()">关闭页面</n-button>
+          <n-button @click="showFilterBar = !showFilterBar">查询条件</n-button>
           <n-divider vertical style="margin: 0"/>
 
           <n-select
@@ -156,6 +158,26 @@
       />
     </n-drawer-content>
   </n-drawer>
+
+  <!-- 查询条件 -->
+  <n-drawer v-model:show="showFilterBar" :width="500" placement="right">
+    <n-drawer-content title="查询条件" closable :native-scrollbar="false">
+      <FilterBar :columns="datatable.columns"/>
+
+      <template #footer>
+        <n-space :size="10">
+          <n-button @click="showFilterBar = false">关闭</n-button>
+          <n-button @click="() => {
+            datatable.columns.forEach(column => {
+              params[column.name] = null;
+            });
+            onSearch();
+          }">重置</n-button>
+          <n-button type="primary" @click="onSearch">查询</n-button>
+        </n-space>
+      </template>
+    </n-drawer-content>
+  </n-drawer>
 </template>
 
 <script setup lang="ts">
@@ -196,6 +218,7 @@ import {
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import ColumnActions from "@/ploutos/graces/ag01/components/ColumnActions.vue";
   import useAppStore from "@/ploutos/layouts/store/app-store.ts";
+import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
 
   /**
    * 应用状态
@@ -292,6 +315,7 @@ import {
   /**
    * 枚举过滤
    */
+  const showFilterBar = ref(false);
   const enumFilterColumns: Ref<AbstractColumn[]> = ref([]);
 
   /**

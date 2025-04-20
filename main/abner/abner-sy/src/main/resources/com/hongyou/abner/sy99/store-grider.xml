@@ -63,8 +63,8 @@
                     format="!HH:mm"/>
             <column type="label" name="businessEndTime" expr="bsedtm" width="160" title="@STREMS.BSEDTM"
                     format="!HH:mm"/>
-            <column type="label" name="operatorBy" expr="oprtby" width="160" title="@AREAMS.OPRTBY"/>
-            <column type="label" name="operatorTime" expr="oprttm" width="160" title="@AREAMS.OPRTTM"
+            <column type="label" name="operatorBy" expr="oprtby" width="160" title="@STREMS.OPRTBY"/>
+            <column type="label" name="operatorTime" expr="oprttm" width="160" title="@STREMS.OPRTTM"
                     format="!yyyy-MM-dd HH:mm" filter="date" option="true"/>
             <column type="link" name="detail" icon="detail" expr="streid" title="订单详情" link="/graces/viewer/sy99/storeViewer"/>
             <column type="link" mode="dialog" name="detail" icon="detail" expr="streid" title="订单详情" link="/graces/viewer/sy99/storeViewer"/>

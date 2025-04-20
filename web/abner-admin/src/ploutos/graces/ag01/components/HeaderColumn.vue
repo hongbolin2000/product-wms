@@ -24,11 +24,11 @@
             update-value-on-close
         />
 
-        <n-button @click="handleSearch">
+        <n-button @click="onSearch">
           查询
         </n-button>
         <n-button @click="handleClear">
-          清除
+          重置
         </n-button>
       </n-input-group>
     </n-space>
@@ -39,7 +39,7 @@
       :options="column?.filterOptions!"
       trigger="hover"
       v-if="column?.filterOptions"
-      :onUpdate:value="handleSearch"
+      :onUpdate:value="onSearch"
   >
     <span :class="{'title-active' : params[column?.name]}">
       {{column.title}}
@@ -94,17 +94,10 @@
   });
 
   /**
-   * 查询
-   */
-  function handleSearch() {
-    onSearch();
-  }
-
-  /**
    * 清除
    */
   function handleClear() {
-    value.value[props.column.name] = null;
+    params.value[props.column.name] = null;
     onSearch();
   }
 </script>

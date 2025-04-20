@@ -8,6 +8,13 @@
         公司列表
     </description>
 
+    <filters>
+        <opts name="captchaVerify" type="enum" table="CMPNMS" column="CAPVRF"/>
+        <opts name="autoLogin" type="enum" table="CMPNMS" column="AUTLGN"/>
+        <opts name="rememberUsername" type="enum" table="CMPNMS" column="RMBUSN"/>
+        <opts name="rememberPassword" type="enum" table="CMPNMS" column="RMBPSW"/>
+    </filters>
+
     <datatable>
         <statement>
             <table name="cmpnms"/>
@@ -26,13 +33,13 @@
             <column type="label" name="platformSubtitle" expr="pfstil" title="@CMPNMS.PFSTIL" width="150" filter="text"/>
             <column type="label" name="platformSimpleTitle" expr="pfsptl" title="@CMPNMS.PFSPTL" width="150" filter="text"/>
             <column type="tag" name="captchaVerify" expr="capvrf" title="@CMPNMS.CAPVRF" width="110" format="@@CMPNMS.CAPVRF"
-                    success="captchaVerifyValue == 'O'" error="captchaVerifyValue == 'C'"/>
+                    success="captchaVerifyValue == 'O'" error="captchaVerifyValue == 'C'" filter="@captchaVerify"/>
             <column type="tag" name="autoLogin" expr="autlgn" title="@CMPNMS.AUTLGN" width="100" format="@@CMPNMS.AUTLGN"
-                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'"/>
+                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'" filter="@autoLogin"/>
             <column type="tag" name="rememberUsername" expr="rmbusn" title="@CMPNMS.RMBUSN" width="100" format="@@CMPNMS.RMBUSN"
-                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'"/>
+                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'" filter="@rememberUsername"/>
             <column type="tag" name="rememberPassword" expr="rmbpsw" title="@CMPNMS.RMBPSW" width="100" format="@@CMPNMS.RMBPSW"
-                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'"/>
+                    success="autoLoginValue == 'C'" error="autoLoginValue == 'O'" filter="@rememberPassword"/>
             <column type="label" name="companyType" expr="cmpnty" title="@CMPNMS.CMPNTY" width="150" filter="text"/>
             <column type="label" name="companyProfile" expr="cmpmpf" title="@CMPNMS.CMPMPF" width="100" filter="text"/>
             <column type="label" name="industry" expr="indsty" title="@CMPNMS.INDSTY" width="100" filter="text"/>
