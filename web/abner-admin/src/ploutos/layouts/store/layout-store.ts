@@ -27,6 +27,9 @@ const useLayoutStore = defineStore('layoutStore', () => {
     deviceType: shallowRef(DeviceType.PC),
     layoutMode: shallowRef(LayoutMode.LeftRight),
     isCollapse: shallowRef(true),
+    closeOnSearch: shallowRef(true),
+    closeOnAdd: shallowRef(true),
+    closeOnUpdate: shallowRef(true),
     bordered: shallowRef(false),
     striped: shallowRef(false),
     loading: shallowRef(false),
@@ -89,6 +92,21 @@ type LayoutStoreOption = {
    * 是否折叠菜单
    */
   isCollapse: Ref<boolean>,
+
+  /**
+   * 查询后是否关闭弹框
+   */
+  closeOnSearch: Ref<boolean>,
+
+  /**
+   * 新增后是否关闭弹框
+   */
+  closeOnAdd: Ref<boolean>,
+
+  /**
+   * 修改后是否关闭弹框
+   */
+  closeOnUpdate: Ref<boolean>,
 
   /**
    * 是否显示表格边框

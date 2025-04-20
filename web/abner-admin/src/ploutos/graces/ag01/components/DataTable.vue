@@ -666,6 +666,10 @@ import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
 
     doubleRowIndex.value = -1;
     emit('onSearch');
+
+    if (layoutStore.closeOnSearch) {
+      showFilterBar.value = false;
+    }
   }
   provide('onSearch', onSearch);
   provide('onRefresh', onSearch);

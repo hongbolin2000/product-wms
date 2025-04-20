@@ -528,17 +528,23 @@
         await http.post(editor.value.url, data);
         message.success(title + (titleValue ? '[ ' + titleValue + ' ]' : '') + '成功');
 
-        // 刷新表单数据
-        if (props.fill) {
-          await loadData();
-        }
-
         // 刷新上层界面数据
         if (props.isDialog || props.isDrawer) {
           emit('onRefresh');
         } else {
           const func = new Function( 'name', 'return eval(name).call()');
           func(route.query.from + 'Refresh');
+        }
+
+        // 刷新表单数据
+        if (props.fill) {
+          if (layoutStore.closeOnUpdate) {
+            onClose();
+          } else {
+            await loadData();
+          }
+        } else if (layoutStore.closeOnAdd) {
+          onClose();
         }
       } finally {
         spin(false);

@@ -53,14 +53,28 @@
         />
       </n-grid>
 
+      <n-divider dashed>数据操作</n-divider>
+      <div class="setting-item-wrapper">
+        <span>查询后关闭弹框</span>
+        <n-switch v-model:value="layoutStore.closeOnSearch" size="small"/>
+      </div>
+      <div class="setting-item-wrapper">
+        <span>新增后关闭弹框</span>
+        <n-switch v-model:value="layoutStore.closeOnAdd" size="small"/>
+      </div>
+      <div class="setting-item-wrapper">
+        <span>修改后关闭弹框</span>
+        <n-switch v-model:value="layoutStore.closeOnUpdate" size="small"/>
+      </div>
+
       <n-divider dashed>数据表格</n-divider>
       <div class="setting-item-wrapper">
         <span>边框</span>
-        <n-switch v-model:value="layoutStore.bordered"/>
+        <n-switch v-model:value="layoutStore.bordered" size="small"/>
       </div>
       <div class="setting-item-wrapper">
         <span>斑马格</span>
-        <n-switch v-model:value="layoutStore.striped"/>
+        <n-switch v-model:value="layoutStore.striped" size="small"/>
       </div>
     </n-drawer-content>
   </n-drawer>
