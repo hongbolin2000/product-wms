@@ -123,7 +123,7 @@ public class GR03 extends UserDataProvider {
                         remark(line.getRemark()).
                         oprtby(operatorBy).
                         oprttm(currentTime);
-                this.db().pohead().save(pohead);
+                this.db().poline().save(poline);
                 VPoline vPoline = new VPoline().polnid(poline.getPolnid()).oneById();
 
                 // 订单总金额

@@ -796,6 +796,10 @@
     if (sheeterRowIndex.value != -1) {
       selectSheeter.value.data[sheeterRowIndex.value] = sheeterFormValue.value;
       message.success(messageTitle + "已保存！可继续修改或关闭弹框");
+
+      if (layoutStore.closeOnUpdate) {
+        showFormModal.value = false;
+      }
     }
 
     // 添加
@@ -806,6 +810,10 @@
       data.push({...sheeterFormValue.value});
       selectSheeter.value.data = data;
       message.success(messageTitle + "已保存！可继续添加或关闭弹框");
+
+      if (layoutStore.closeOnAdd) {
+        showFormModal.value = false;
+      }
     }
   }
 

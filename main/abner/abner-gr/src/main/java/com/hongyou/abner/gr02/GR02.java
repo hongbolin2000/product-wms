@@ -87,14 +87,17 @@ public class GR02 extends UserDataProvider {
                         rqlnid(rqline.getRqlnid()).
                         mtrlid(rqline.getMtrlid()).
                         price(rqline.getPrice()).
-                        ordqty(rqline.getOrdqty()).
-                        remark(rqline.getRemark()).
+                        ordqty(line.getOrderQty()).
+                        remark(line.getRemark()).
                         cretby(operatorBy).
                         crettm(currentTime).
                         oprtby(operatorBy).
                         oprttm(currentTime);
                 this.db().poline().save(poline);
                 VPoline vPoline = new VPoline().polnid(poline.getPolnid()).oneById();
+
+                rqline.ordqty(line.getOrderQty());
+                this.db().rqline().save(rqline);
 
                 // 订单总金额
                 amount = amount.add(poline.getOrdqty().multiply(poline.getPrice()));
