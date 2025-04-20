@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-selector version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        门店查询选择器
+    </description>
+
+    <maxRows>10</maxRows>
+
+    <datatable>
+        <statement>
+            <table name="strems"/>
+            <order by="oprttm desc"/>
+        </statement>
+
+        <columns>
+            <column type="selection" mode="single" name="storeId" expr="streid"/>
+            <column type="file" name="installImage" expr="eqisim" title="@STREMS.EQISIM" width="110" align="center"/>
+            <column type="tag" name="enabled" expr="enabld" width="70" title="@STREMS.ENABLD" format="@@STREMS.ENABLD"
+                    filter="@enabled" success="enabled == '可用'" error="enabled != '可用'"/>
+            <column type="label" name="storeType" expr="strety" width="160" title="@STREMS.STRETY" filter="text"/>
+            <column type="label" name="storeCode" expr="strecd" width="160" title="@STREMS.STRECD" filter="text" tm="3:7"/>
+            <column type="label" name="storeName" expr="strenm" width="160" title="@STREMS.STRENM" filter="text"/>
+            <column type="label" name="provinceName" expr="prvcnm" width="160" title="@STREMS.PRVCNM" filter="text"/>
+            <column type="label" name="cityName" expr="citynm" width="160" title="@STREMS.CITYNM" filter="text"/>
+            <column type="label" name="storeAddress" expr="stread" width="160" title="@STREMS.STREAD" filter="text"/>
+        </columns>
+    </datatable>
+</rindja-generic-selector>
