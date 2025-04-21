@@ -38,7 +38,7 @@
             <column type="label" name="remark" expr="remark" title="@RQHEAD.REMARK" filter="text"/>
             <column type="scriptLink" name="audit" icon="audit" expr="rqhdid" title="@audit" width="100" link="/gr01/audit"
                     labelColumn="rqHeadNo" disabled="statusValue != '00'" action="audit"/>
-            <column type="link" mode="drawer" drawerWidth="50%" name="issue.po" icon="issue" expr="rqhdid" title="@issue.po"
+            <column type="link" mode="drawer" drawerWidth="60%" name="issue.po" icon="issue" expr="rqhdid" title="@issue.po"
                     width="100" link="/graces/editor/gr02/rqConvertPoEdit" action="issue.po"
                     disabled="statusValue == '00' or statusValue == '30'"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
@@ -62,9 +62,11 @@
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
             <column type="label" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" width="100" format="%#.###"/>
+            <column type="label" name="purchasedQty" expr="pcsqty" title="@RQLINE.PCSQTY" width="120" format="%#.###"/>
+            <column type="label" name="purchasedCount" expr="pcscnt" title="@RQLINE.PCSCNT" width="120"/>
             <column type="label" name="price" expr="price" title="@RQLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@RQLINE.STATUS" width="90" format="@@RQLINE.STATUS"
-                    filter="@status" success="statusValue == '10'"/>
+                    filter="@status" success="statusValue == '20'"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@RQLINE.REMARK" filter="text"/>
         </columns>

@@ -27,17 +27,20 @@
         <input type="text" name="remark" title="@RQHEAD.REMARK" length="254"/>
     </editor>
 
-    <sheeter title="@sheeter.materials" name="materials" added="false">
+    <sheeter title="@sheeter.materials" name="materials" labelColumn="skuName" added="false">
         <statement>
             <table name="vrqline"/>
-            <param column="status" type="=" expr="'00'"/>
+            <param column="status" type="!=" expr="'20'"/>
             <param column="rqhdid" type="=" expr="id"/>
         </statement>
 
         <inputs>
             <input type="selection" name="id" expr="rqlnid"/>
             <input type="text" name="skuName" expr="skunam" title="@RQLINE.MTRLID" width="120" disabled="true"/>
-            <input type="number" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" format="%#.###" width="70"/>
+            <input type="number" name="orderQty" expr="ordqty" title="@issue.qty" format="ordqty - pcsqty" width="70"
+                   required="true" default="0" scale="0" min="1"/>
+            <input type="number" name="purchasedQty" expr="pcsqty" title="@RQLINE.PCSQTY" format="%#.###" width="80" disabled="true"/>
+            <input type="number" name="requisitionQty" expr="ordqty" title="@RQLINE.ORDQTY" format="%#.###" width="70" disabled="true"/>
             <input type="number" name="price" expr="price" title="@RQLINE.PRICE" format="%#.###" width="50" disabled="true"/>
             <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>
             <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
@@ -50,11 +53,13 @@
         <lang code="zh-CN">
             <item key="etitle">请购单下发采购</item>
             <item key="sheeter.materials">请购物料</item>
+            <item key="issue.qty">下发数量</item>
         </lang>
 
         <lang code="en-US">
             <item key="etitle">Issue PO</item>
             <item key="sheeter.materials">Requisition Material</item>
+            <item key="issue.qty">Issue Qty</item>
         </lang>
     </intl>
 </rindja-generic-editor>

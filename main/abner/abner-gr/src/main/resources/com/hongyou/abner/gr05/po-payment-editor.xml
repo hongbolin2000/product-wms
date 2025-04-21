@@ -41,7 +41,7 @@
             <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
             <input type="number" name="paymentAmount" title="@PYLINE.PAYAMT" format="%#.###" min="1"
                    default="0" scale="3" width="80" required="true"/>
-            <input type="text" name="invoiceNo" title="@PYLINE.INVCNO" length="64" width="100" required="true"/>
+            <input type="text" name="invoiceNo" title="@PYLINE.INVCNO" length="64" width="100"/>
             <input type="text" name="remark" title="@PYLINE.REMARK" length="254"/>
             <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
             <input type="upload" name="invoiceImage" title="@PYLINE.INVCIM" accept="image/*" group="pyline/invcim" width="100"/>

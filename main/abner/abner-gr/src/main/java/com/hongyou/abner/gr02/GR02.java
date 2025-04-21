@@ -13,6 +13,7 @@ import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.ListUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
+import com.mybatisflex.core.query.QueryWrapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+
+import static com.hongyou.abner.data.model.table.RqlineTableDef.RQLINE;
 
 /**
  * 请购单下发采购单
@@ -96,14 +99,18 @@ public class GR02 extends UserDataProvider {
                 this.db().poline().save(poline);
                 VPoline vPoline = new VPoline().polnid(poline.getPolnid()).oneById();
 
-                rqline.ordqty(line.getOrderQty());
-                this.db().rqline().save(rqline);
-
                 // 订单总金额
                 amount = amount.add(poline.getOrdqty().multiply(poline.getPrice()));
-                rqline.status(Rqline.STATUS.Finish).
+
+                // 更新采购单行
+                rqline.status(Rqline.STATUS.Purchase).
+                        pcscnt(rqline.getPcscnt() + 1).
+                        pcsqty(rqline.getPcsqty().add(line.getOrderQty())).
                         oprtby(operatorBy).
                         oprttm(currentTime);
+                if (rqline.getPcsqty().compareTo(rqline.getOrdqty()) >= 0) {
+                    rqline.status(Rqline.STATUS.Finish);
+                }
                 this.db().rqline().save(rqline);
 
                 // 记录日志
@@ -122,8 +129,13 @@ public class GR02 extends UserDataProvider {
                 this.eventLogManager.info(event);
             }
 
-            // 更新请购单状态
-            List<Rqline> rqlines = this.db().rqline().listByStatus(rqhead.getRqhdid(), Rqline.STATUS.New);
+            // 请购单状态
+            QueryWrapper wrapper = QueryWrapper.create();
+            wrapper.and(RQLINE.RQHDID.eq(rqhead.getRqhdid())).
+                    and(RQLINE.STATUS.eq(Rqline.STATUS.New).or(RQLINE.STATUS.eq(Rqline.STATUS.Purchase)));
+            List<Rqline> rqlines = this.db().rqline().list(wrapper);
+
+            // 完成请购
             rqhead.status(ListUtil.isEmpty(rqlines) ? Rqhead.STATUS.Finished : Rqhead.STATUS.Purchase).
                     oprtby(operatorBy).
                     oprttm(currentTime);
