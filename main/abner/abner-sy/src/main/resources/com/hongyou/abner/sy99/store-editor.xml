@@ -47,6 +47,8 @@
                 row.storeName = option.label;
             </script>
         </input>
+        <input type="selector" name="store2" expr="streid" title="选择器" module="sy99"
+               selector="storeSelector" labelColumn="storeName" required="true"/>
         <input type="upload" name="image" expr="eqisim" title="设备安装图示" group="strems/eqisim" required="true"
                accept="image/*"
         />

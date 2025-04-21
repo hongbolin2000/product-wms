@@ -309,8 +309,10 @@
   let doubleClick: DoubleClick = undefined!;
   function handelDoubleClick(rowData: any) {
     doubleClick = grider.value.datatable.doubleClick;
-    params.value[doubleClick.input] = rowData[doubleClick.input];
-    loadSubTablesData();
+    if (doubleClick) {
+      params.value[doubleClick.input] = rowData[doubleClick.input];
+      loadSubTablesData();
+    }
   }
 
   /********************************************************************************

@@ -476,11 +476,7 @@ import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
     return {
       onDblclick: () => {
         doubleRowIndex.value = rowIndex;
-
-        // 定义了双击事件
-        if (props.datatable?.doubleClick!) {
-          emit('onDoubleClick', rowData);
-        }
+        emit('onDoubleClick', rowData);
       },
       onContextmenu: (e: MouseEvent) => {
         if (contextMenuOptions.value.length <= 0) {
@@ -719,7 +715,10 @@ import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
     return value;
   }
   function getCsvHeader(column) {
-    return props.datatable.columns.find(i => i.name == column.key).title;
+    const exportColumn = props.datatable.columns.find(i => i.name == column.key);
+    if (exportColumn) {
+      return exportColumn.title;
+    }
   }
 </script>
 

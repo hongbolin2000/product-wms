@@ -2,19 +2,16 @@
  * Copyright 2024, Hongyou Software Development Studio.
  */
 /********************************************************************************
- * Value Label
+ * 通用查询选择器界面属性定义
  *
  * @author Berlin
  *******************************************************************************/
-export default class ValueModel {
+import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
+
+export default class SelectorProps {
 
 	/**
-	 * 标签
+	 * 数据表
 	 */
-	label: string;
-
-	/**
-	 * 值
-	 */
-	value: string | number;
+	datatable: Datatable | null = <Datatable>{};
 }

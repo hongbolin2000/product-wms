@@ -104,6 +104,6 @@
 
 <style scoped lang="scss">
   .title-active {
-    color: var(--primary-color)
+    color: var(--n-th-icon-color-active)
   }
 </style>

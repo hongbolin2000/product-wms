@@ -18,6 +18,7 @@ import EnumWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/EnumWidgetFac
 import CheckWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/CheckWidgetFactory.ts";
 import SuggestorWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/SuggestorWidgetFactory.ts";
 import UploadWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/UploadWidgetFactory.ts";
+import SelectorWidgetFactory from "@/ploutos/graces/ag01/faces/widgets/SelectorWidgetFactory.ts";
 
 export default class WidgetFactories {
 
@@ -43,6 +44,7 @@ export default class WidgetFactories {
 		this.registry(new CheckWidgetFactory());
 		this.registry(new SuggestorWidgetFactory());
 		this.registry(new UploadWidgetFactory());
+		this.registry(new SelectorWidgetFactory());
 	}
 
 	/**
