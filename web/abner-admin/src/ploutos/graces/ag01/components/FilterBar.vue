@@ -23,6 +23,7 @@
               :placeholder="column.title"
               v-model:value="params[column?.name]"
               v-if="column.filterOptions"
+              :onUpdate:value="onSearch"
           ></n-select>
 
           <n-button @click="onSearch">

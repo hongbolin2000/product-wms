@@ -80,7 +80,7 @@
     if (props.column?.filterOptions) {
       props.column.filterOptions.unshift({
         label: '全部',
-        value: ''
+        value: null
       })
     }
   });
