@@ -49,6 +49,5 @@
             <menu id="wr03" permission="wr03" url="/graces/grider/wr03/stockTransactionList" label="库存日志报表"/>
         </menu>
         <menu id="ba05Report" permission="ba05Report"  url="/graces/editor/ba05/workingLogEdit" label="填报工作日志" icon="log"/>
-        <menu id="sy99" url="/graces/grider/sy99/storeGrider" label="动态列表"/>
     </family>
 </menus>
