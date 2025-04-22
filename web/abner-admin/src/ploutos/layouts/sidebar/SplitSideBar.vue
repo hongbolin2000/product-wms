@@ -139,15 +139,16 @@
 
     // 未找到菜单
     if (!currentMenu) {
-      if (appStore.menus.length > 0) {
-        appStore.menus[0].checked = true;
-        childMenus.value.push(...appStore.menus[0].children);
-      }
       return;
     }
 
     // 找到子路由
     appStore.menus.forEach((menu) => {
+      if (!menu.children && menu.key == currentMenu.fullUrl) {
+        menu.checked = true;
+        menus.push(menu);
+        return;
+      }
       if (menu.key == '/' + currentMenu.fullUrl.split("/")[1]) {
         menu.checked = true
         if (menu.children) {
@@ -213,14 +214,6 @@
       menus.push(item);
     }
     childMenus.value = menus;
-
-    // 路由到第一个菜单
-    // for (let i = 0; i < menus.length; i++) {
-    //   if (!menus[i].children) {
-    //     router.push(menus[i].key);
-    //     break;
-    //   }
-    // }
   }
 
   /**
