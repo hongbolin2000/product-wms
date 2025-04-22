@@ -1,6 +1,32 @@
 <template>
+  <n-auto-complete
+      v-if="widget.mode == 'input'"
+      v-model:value="widget.rowData[widget.name]"
+      :options="options"
+      :loading="loading"
+      clearable
+      @update:value="handleSearch"
+      :show-empty="false"
+      :get-show="handleGetShow"
+  >
+    <template
+        #default="{ handleInput, handleBlur, handleFocus, value: slotValue }"
+    >
+      <n-input
+          :value="slotValue"
+          :placeholder="'输入' + widget.title"
+          :disabled="widget.isDisabled"
+          clearable
+          :maxlength="widget.maxLength"
+          :show-count="widget.maxLength > 0"
+          @input="handleInput"
+          @focus="handleFocus"
+          @blur="handleBlur"
+      />
+    </template>
+  </n-auto-complete>
   <n-select
-      v-if="!limited"
+      v-else-if="!limited"
       v-model:value="widget.rowData[widget.name]"
       filterable
       :placeholder="'选择' + widget.title"
@@ -12,6 +38,7 @@
       @clear="() => handleSearch('')"
       @update:value="handleUpdateValue"
       @focus="() => handleSearch('', props.widget.rowData[props.widget.name])"
+      :disabled="widget.isDisabled"
   />
   <n-select
       v-else
@@ -19,6 +46,7 @@
       :placeholder="'选择' + widget.title"
       :options="options"
       @update-value="handleUpdateValue"
+      :disabled="widget.isDisabled"
   />
 </template>
 
@@ -130,6 +158,13 @@
       const func = new Function( 'row', 'option', 'script', 'return eval(script)');
       func(props.widget.rowData, option, props.widget.script);
     }
+  }
+
+  /**
+   * 自动填充始终展示
+   */
+  function handleGetShow() {
+    return true;
   }
 </script>
 

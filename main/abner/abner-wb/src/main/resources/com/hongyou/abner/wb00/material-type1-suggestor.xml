@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-suggestor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        物料品类查询建议器
+    </description>
+
+    <statement>
+        <table name="mtrtyp"/>
+        <param column="cmpnid" type="=" expr="_companyId"/>
+        <param column="mttyp1" expr="searchValue"/>
+        <group by="mttyp1"/>
+        <order by="mttyp1"/>
+    </statement>
+
+    <fields>
+        <field name="value" expr="mttyp1" />
+        <field name="label" expr="mttyp1" />
+    </fields>
+</rindja-generic-suggestor>

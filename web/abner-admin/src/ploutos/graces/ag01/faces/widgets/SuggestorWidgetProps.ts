@@ -16,6 +16,11 @@ export default class SuggestorWidgetProps extends AbstractWidget {
 	mode: 'select' | 'input';
 
 	/**
+	 * 最大长度
+	 */
+	maxLength: number;
+
+	/**
 	 * 模块号
 	 */
 	module: string;

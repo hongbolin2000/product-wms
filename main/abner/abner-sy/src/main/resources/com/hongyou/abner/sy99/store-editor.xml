@@ -18,7 +18,7 @@
     </statement>
 
     <editor title="门店信息" spans="1" formWidth="50%" placement="left" labelColumn="storeName">
-        <input type="text" name="storeId" expr="streid" hidden="true"/>
+        <input type="text" name="id" expr="streid" hidden="true"/>
         <input type="text" name="storeType" expr="strety" title="@STREMS.STRETY" length="16" default="aaa" prefix="icon-delete"/>
         <input type="text" mode="textarea" name="storeCode" expr="strecd" title="@STREMS.STRECD" length="16" required="true" disabled="storeType == 'a'"/>
         <input type="text" mode="password"  name="storeName" expr="strenm" title="@STREMS.STRENM" length="32" required="true" disabled="storeType == 'a'"/>
@@ -47,7 +47,10 @@
                 row.storeName = option.label;
             </script>
         </input>
-        <input type="selector" name="store2" expr="streid" title="选择器" module="sy99"
+        <input type="suggestor" mode="input" name="store2" expr="streid" title="@STREMS.STRECD" module="sy99"
+               suggestor="storeSuggestor">
+        </input>
+        <input type="selector" name="store3" expr="streid" title="选择器" module="sy99"
                selector="storeSelector" labelColumn="storeName" required="true"/>
         <input type="upload" name="image" expr="eqisim" title="设备安装图示" group="strems/eqisim" required="true"
                accept="image/*"
