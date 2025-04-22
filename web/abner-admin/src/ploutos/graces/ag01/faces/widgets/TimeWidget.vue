@@ -4,6 +4,7 @@
       clearable
       style="width: 100%"
       :placeholder="'选择' + widget.title"
+      :disabled="widget.isDisabled"
   />
 </template>
 

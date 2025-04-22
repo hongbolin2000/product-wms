@@ -11,6 +11,11 @@ import AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
 export default class SuggestorWidgetProps extends AbstractWidget {
 
 	/**
+	 * 执行模式(select/input)
+	 */
+	mode: 'select' | 'input';
+
+	/**
 	 * 模块号
 	 */
 	module: string;

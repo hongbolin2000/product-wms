@@ -4,12 +4,14 @@
       v-model:checked="widget.rowData[widget.name]"
       :checked-value="widget.checked"
       :unchecked-value="widget.unchecked"
+      :disabled="widget.isDisabled"
    />
   <n-switch
       v-else
       v-model:checked="widget.rowData[widget.name]"
       :checked-value="widget.checked"
       :unchecked-value="widget.unchecked"
+      :disabled="widget.isDisabled"
   />
 </template>
 

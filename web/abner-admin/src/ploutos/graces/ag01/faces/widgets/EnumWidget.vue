@@ -5,6 +5,7 @@
       :options="widget.options"
       :clearable="!widget.required"
       :placeholder="'请选择' + widget.title"
+      :disabled="widget.isDisabled"
   />
   <n-space :size="10" v-else>
     <n-radio
@@ -13,6 +14,7 @@
         :value="option.value"
         :name="option.value"
         @change="handleChange"
+        :disabled="widget.isDisabled"
     >
       {{option.label}}
     </n-radio>

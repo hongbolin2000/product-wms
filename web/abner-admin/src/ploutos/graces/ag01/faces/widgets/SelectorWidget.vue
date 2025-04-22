@@ -8,6 +8,7 @@
           v-model:value="widget.rowData[widget.name]"
           :options="options"
           clearable
+          :disabled="widget.isDisabled"
       />
     </template>
 
