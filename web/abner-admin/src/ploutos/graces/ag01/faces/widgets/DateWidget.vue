@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
   import {onBeforeUpdate, onBeforeMount, type PropType} from 'vue'
+  import moment from "moment";
   /********************************************************************************
    * 日期输入控件
    *
@@ -35,9 +36,6 @@
    * 组件加载前
    */
   onBeforeMount(() => {
-    // 缺省值
-    let value = props.widget.rowData[props.widget.name];
-    props.widget.rowData[props.widget.name] = !value ? null : value;
 
     // 格式化
     let valueFormat = '', mode = props.widget.mode;
@@ -65,6 +63,13 @@
         valueFormat = 'yyyy-MM-dd';
     }
     props.widget.valueFormat = valueFormat;
+
+    // 缺省日期
+    let value = props.widget.rowData[props.widget.name];
+    if (props.widget.default == 'current') {
+      value = moment().format(valueFormat.toUpperCase());
+    }
+    props.widget.rowData[props.widget.name] = !value ? null : value;
 
     WidgetUtil.disabled(props.widget);
   });

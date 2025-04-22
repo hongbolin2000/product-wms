@@ -21,10 +21,10 @@
         <input type="text" name="id" expr="wklgid" hidden="true"/>
         <input type="suggestor" name="projectId" expr="projid" title="@WKLGHD.PROJID" module="ba00"
                suggestor="projectSuggestor" required="true"/>
-        <input type="date" name="startDate" expr="strdat" title="@WKLGHD.STRDAT" format="!yyyy-MM-dd" />
-        <input type="date" name="endDate" expr="enddat" title="@WKLGHD.ENDDAT" format="!yyyy-MM-dd" />
-        <input type="time" name="startTime" expr="strtim" title="@WKLGHD.STRTIM" format="!HH:mm:ss" />
-        <input type="time" name="endTime" expr="endtim" title="@WKLGHD.ENDTIM" format="!HH:mm:ss" />
+        <input type="date" name="startDate" expr="strdat" title="@WKLGHD.STRDAT" format="!yyyy-MM-dd" default="current"/>
+        <input type="date" name="endDate" expr="enddat" title="@WKLGHD.ENDDAT" format="!yyyy-MM-dd" default="current"/>
+        <input type="time" name="startTime" expr="strtim" title="@WKLGHD.STRTIM" format="!HH:mm:ss" default="09:00:00"/>
+        <input type="time" name="endTime" expr="endtim" title="@WKLGHD.ENDTIM" format="!HH:mm:ss" default="18:00:00"/>
         <input type="text" name="workingContent" expr="wkcont" title="@WKLGHD.WKCONT" required="true" length="254"/>
     </editor>
 

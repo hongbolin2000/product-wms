@@ -49,7 +49,7 @@
       } else {
         setTimeout(() => {
           router.replace("/login");
-        }, 1000);
+        }, 500);
       }
       return;
     }
@@ -57,7 +57,7 @@
     // 跳转页面
     setTimeout(() => {
       router.replace("/");
-    }, 1000);
+    }, 500);
   });
 </script>
 
