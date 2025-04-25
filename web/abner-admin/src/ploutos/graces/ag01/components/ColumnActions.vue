@@ -20,15 +20,15 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, type PropType, shallowRef, type VNode} from "vue";
+  import {onMounted, type PropType, shallowRef, type VNode} from "vue";
+  import {ChevronDown} from "@vicons/ionicons5";
+  import {NIcon} from "naive-ui";
   /********************************************************************************
    * @author Berlin
    ********************************************************************************/
   import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
   import ColumnFactories from "@/ploutos/graces/ag01/faces/ColumnFactories.ts";
-  import {ChevronDown} from "@vicons/ionicons5";
-  import {NIcon} from "naive-ui";
-  import {Graces} from "@/ploutos";
+  import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
 
   /**
    * 更多选项
@@ -52,29 +52,29 @@ import {onMounted, type PropType, shallowRef, type VNode} from "vue";
       required: true,
     },
     datatable: {
-      type: Object as PropType<Graces.DatatableProps>,
+      type: Object as PropType<Datatable>,
       required: true
     }
   });
 
-/**
- * 组件加载
- */
-onMounted(() => {
-  const menuOptions = [];
-  props.datatable.columns.filter(i => ColumnFactories.isLink(i) && i.option).forEach(column => {
-    menuOptions.push({
-      key: 'more',
-      type: 'render',
-      render: () => {
-        column.rowData = props.rowData;
-        column.datatableTitle = props.datatable.title;
-        return ColumnFactories.getInstance().create({...column});
-      },
+  /**
+   * 组件加载
+   */
+  onMounted(() => {
+    const menuOptions = [];
+    props.datatable.columns.filter(i => ColumnFactories.isLink(i) && i.option).forEach(column => {
+      menuOptions.push({
+        key: 'more',
+        type: 'render',
+        render: () => {
+          column.rowData = props.rowData;
+          column.datatableTitle = props.datatable.title;
+          return ColumnFactories.getInstance().create({...column});
+        },
+      });
     });
+    contextMenuOptions.value = menuOptions;
   });
-  contextMenuOptions.value = menuOptions;
-});
 
   /**
    * 生成表格列
