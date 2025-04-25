@@ -56,6 +56,10 @@ public class DN04 extends UserDataProvider {
             Dohead dohead = this.db().dohead().get(doline.getDohdid());
             Stckms stckms = this.db().stckms().getByMaterial(dohead.getWrhsid(), doline.getMtrlid());
 
+            if (stckms == null) {
+                return ResponseEntry.builder().code(-1).message("没有库存").build();
+            }
+
             // 查询库存
             QueryWrapper wrapper = QueryWrapper.create();
             wrapper.and(STCKIM.STCKID.eq(stckms.getStckid())).
