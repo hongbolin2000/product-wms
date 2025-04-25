@@ -49,7 +49,7 @@
                    suggestor="materialSuggestor" required="true">
                 <script>
                     row.skuName = option.label;
-                    row.price = option.purchasePrice;
+                    row.price = option.salesPrice;
                     row.model = option.model;
                     row.materialType = option.materialType;
                     row.materialImage = option.materialImage;
