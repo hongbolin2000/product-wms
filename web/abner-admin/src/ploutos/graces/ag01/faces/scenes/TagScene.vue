@@ -1,4 +1,5 @@
 <template>
+  <span style="display: none">{{scene.rowData[scene.name]}}</span>
   <n-tag :type="scene.tagType">
     {{scene.rowData[scene.name]}}
   </n-tag>

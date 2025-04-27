@@ -371,6 +371,9 @@ import {ChevronDown, SettingsOutline} from "@vicons/ionicons5";
         viewer.scenes.forEach(scene => {
           value[scene.name] = '';
         });
+
+        // 过滤掉隐藏的控件
+        viewer.scenes = viewer.scenes.filter(i => !i.hidden);
       });
       viewerValue.value = value;
 
