@@ -80,7 +80,7 @@
             <column type="label" name="orderQty" expr="ordqty" title="@DOLINE.ORDQTY" width="100" format="%#.###"/>
             <column type="label" name="price" expr="price" title="@SOLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@SOLINE.STATUS" width="90" format="@@SOLINE.STATUS"
-                    filter="@status" success="statusValue == '20'"/>
+                    success="statusValue == '20'"/>
             <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="120" filter="text"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@SOLINE.REMARK" filter="text"/>

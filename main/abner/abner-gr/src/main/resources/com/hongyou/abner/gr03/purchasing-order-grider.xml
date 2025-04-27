@@ -79,7 +79,7 @@
             <column type="label" name="receivedCount" expr="rcvcnt" title="@POLINE.RCVCNT" width="120"/>
             <column type="label" name="price" expr="price" title="@POLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@POLINE.STATUS" width="90" format="@@POLINE.STATUS"
-                    filter="@status" success="statusValue == '20'"/>
+                    success="statusValue == '20'"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@POLINE.REMARK" filter="text"/>
         </columns>

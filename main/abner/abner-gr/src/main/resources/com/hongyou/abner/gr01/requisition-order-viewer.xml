@@ -10,6 +10,11 @@
 
     <title>@title</title>
 
+    <filters>
+        <opts name="poStatus" type="enum" table="POHEAD" column="STATUS"/>
+        <opts name="roStatus" type="enum" table="ROHEAD" column="STATUS"/>
+    </filters>
+
     <statement>
         <table name="vrqhead"/>
         <param column="rqhdid" type="=" expr="id"/>
@@ -58,7 +63,7 @@
             <column type="label" name="purchasedCount" expr="pcscnt" title="@RQLINE.PCSCNT" width="120"/>
             <column type="label" name="price" expr="price" title="@RQLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@RQLINE.STATUS" width="90" format="@@RQLINE.STATUS"
-                    filter="@status" success="statusValue == '20'"/>
+                    success="statusValue == '20'"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@RQLINE.REMARK" filter="text"/>
         </columns>
@@ -76,7 +81,7 @@
             <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="100" filter="text"/>
             <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="150" filter="text"/>
             <column type="tag" name="status" expr="status" title="@POHEAD.STATUS" width="90" format="@@POHEAD.STATUS"
-                    filter="@status" success="statusValue == '10' or statusValue == '30'"/>
+                    filter="@poStatus" success="statusValue == '10' or statusValue == '30'"/>
             <column type="label" name="startReceiveDate" expr="strcdt" title="@POHEAD.STRCDT" width="120" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="finishReceiveDate" expr="fnrcdt" title="@POHEAD.FNRCDT" width="120" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="startReceiveBy" expr="strcby" title="@POHEAD.STRCBY" width="120" filter="text"/>
@@ -99,7 +104,7 @@
             <column type="label" name="refDocNo" expr="rdocno" title="@ROHEAD.RDOCNO" width="100" filter="text"/>
             <column type="label" name="supplierName" expr="suplnm" title="@ROHEAD.SUPLID" width="150" filter="text"/>
             <column type="tag" name="status" expr="status" title="@ROHEAD.STATUS" width="80" format="@@ROHEAD.STATUS"
-                    filter="@status" success="statusValue == '10' or statusValue == '30'"/>
+                    filter="@roStatus" success="statusValue == '10' or statusValue == '30'"/>
             <column type="label" name="receiveDate" expr="recvdt" title="@ROHEAD.RECVDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="receiveBy" expr="recvby" title="@ROHEAD.RECVBY" width="100" filter="text"/>
             <column type="label" name="carrierCompany" expr="carcmp" title="@ROHEAD.CARCMP" width="100" filter="text"/>

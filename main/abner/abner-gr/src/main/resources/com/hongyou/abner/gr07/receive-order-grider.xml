@@ -79,7 +79,7 @@
             <column type="label" name="receivedQty" expr="rcvqty" title="@ROLINE.RCVQTY" width="120" format="%#.###"/>
             <column type="label" name="price" expr="price" title="@ROLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@ROLINE.STATUS" width="90" format="@@ROLINE.STATUS"
-                    filter="@status" success="statusValue == '20'"/>
+                    success="statusValue == '20'"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@ROLINE.REMARK" filter="text"/>
             <column type="link" mode="dialog" name="batchReceive" icon="receive" expr="rolnid" title="@batch.receive"

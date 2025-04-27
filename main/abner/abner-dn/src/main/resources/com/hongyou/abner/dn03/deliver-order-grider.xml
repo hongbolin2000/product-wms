@@ -74,7 +74,7 @@
             <column type="label" name="deliveredQty" expr="dlvqty" title="@DOLINE.DLVQTY" width="120" format="%#.###"/>
             <column type="label" name="price" expr="price" title="@DOLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@DOLINE.STATUS" width="90" format="@@DOLINE.STATUS"
-                    filter="@status" success="statusValue == '20'"/>
+                    success="statusValue == '20'"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@DOLINE.REMARK" filter="text"/>
             <column type="link" mode="dialog" name="batchDeliver" icon="deliver" expr="dolnid" title="@batch.deliver"
