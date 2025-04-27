@@ -10,7 +10,7 @@ import type {FormItemRule} from "naive-ui/es/form/src/interface";
  *******************************************************************************/
 import type WidgetFactory from "@/ploutos/graces/ag01/faces/WidgetFactory.ts";
 import SelectorWidget from "@/ploutos/graces/ag01/faces/widgets/SelectorWidget.vue";
-import type SelectionWidgetProps from "@/ploutos/graces/ag01/faces/widgets/SelectionWidgetProps";
+import type SelectorWidgetProps from "@/ploutos/graces/ag01/faces/widgets/SelectorWidgetProps.ts";
 
 export default class SelectorWidgetFactory implements WidgetFactory {
 
@@ -31,14 +31,14 @@ export default class SelectorWidgetFactory implements WidgetFactory {
 	 *
 	 * @param widget 控件定义属性
 	 */
-	create(widget: SelectionWidgetProps): VNode {
+	create(widget: SelectorWidgetProps): VNode {
 		return h(SelectorWidget, {widget: widget});
 	}
 
 	/**
 	 * 控件校验规则
 	 */
-	getRule(widget: SelectionWidgetProps): FormItemRule {
+	getRule(widget: SelectorWidgetProps): FormItemRule {
 		return {
 			required: true,
 			message: '请选择' + widget.title,
