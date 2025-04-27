@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-viewer version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        请购单详情
+    </description>
+
+    <title>@title</title>
+
+    <statement>
+        <table name="vrqhead"/>
+        <param column="rqhdid" type="=" expr="id"/>
+    </statement>
+
+    <support-statements>
+        <statement name="purchaseOrderIds" result="values">
+            <column expr="pohdid"/>
+            <table name="pohead"/>
+            <param column="rqhdid" type="=" expr="id"/>
+        </statement>
+    </support-statements>
+
+    <master title="@master.title" labelColumn="rqHeadNo">
+        <scene type="label" name="statusValue" expr="status" hidden="true"/>
+        <scene type="label" name="rqHeadNo" expr="rqhdno" title="@RQHEAD.RQHDNO"/>
+        <scene type="label" name="applicationBy" expr="aplcby" title="@RQHEAD.APLCBY"/>
+        <scene type="label" name="applicationDate" expr="aplcdt" title="@RQHEAD.APLCDT" format="!yyyy-MM-dd"/>
+        <scene type="label" name="demandDate" expr="demddt" title="@RQHEAD.DEMDDT" format="!yyyy-MM-dd"/>
+        <scene type="label" name="projectName" expr="projnm" title="@RQHEAD.PROJID"/>
+        <scene type="label" name="customerName" expr="cstmnm" title="@RQHEAD.CSTMID"/>
+        <scene type="tag" name="status" expr="status" title="@RQHEAD.STATUS" format="@@RQHEAD.STATUS"
+               success="statusValue == '10' or statusValue == '30'"/>
+        <scene type="label" name="remark" expr="remark" title="@RQHEAD.REMARK"/>
+        <scene type="label" name="createBy" expr="cretby" title="@RQHEAD.CRETBY"/>
+        <scene type="label" name="createTime" expr="crettm" title="@RQHEAD.CRETTM" format="!yyyy-MM-dd HH:mm:ss"/>
+        <scene type="label" name="operateBy" expr="oprtby" title="@RQHEAD.OPRTBY"/>
+        <scene type="label" name="operateTime" expr="oprttm" title="@RQHEAD.OPRTTM" format="!yyyy-MM-dd HH:mm:ss"/>
+    </master>
+
+    <datatable title="@table.material" tab="true" row="1">
+        <statement>
+            <table name="vrqline"/>
+            <param column="rqhdid" type="=" expr="id"/>
+            <order by="rqlnno"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
+            <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" width="100" format="%#.###"/>
+            <column type="label" name="purchasedQty" expr="pcsqty" title="@RQLINE.PCSQTY" width="120" format="%#.###"/>
+            <column type="label" name="purchasedCount" expr="pcscnt" title="@RQLINE.PCSCNT" width="120"/>
+            <column type="label" name="price" expr="price" title="@RQLINE.PRICE" width="80" format="%#.###"/>
+            <column type="tag" name="status" expr="status" title="@RQLINE.STATUS" width="90" format="@@RQLINE.STATUS"
+                    filter="@status" success="statusValue == '20'"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@RQLINE.REMARK" filter="text"/>
+        </columns>
+    </datatable>
+
+    <datatable title="@table.purchase" tab="true" row="1">
+        <statement>
+            <table name="vpohead"/>
+            <param column="rqhdid" type="=" expr="id"/>
+            <order by="pohdno desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="100" filter="text"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="150" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@POHEAD.STATUS" width="90" format="@@POHEAD.STATUS"
+                    filter="@status" success="statusValue == '10' or statusValue == '30'"/>
+            <column type="label" name="startReceiveDate" expr="strcdt" title="@POHEAD.STRCDT" width="120" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="finishReceiveDate" expr="fnrcdt" title="@POHEAD.FNRCDT" width="120" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="startReceiveBy" expr="strcby" title="@POHEAD.STRCBY" width="120" filter="text"/>
+            <column type="label" name="finishReceiveBy" expr="fnrcby" title="@POHEAD.FNRCBY" width="120" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@POHEAD.REMARK" width="120" filter="text"/>
+        </columns>
+    </datatable>
+
+    <datatable title="@table.receive" tab="true" row="1">
+        <statement>
+            <table name="vrohead"/>
+            <param column="rdocid" type="in" expr="purchaseOrderIds"/>
+            <order by="rvodno desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="warehouseName" expr="wrhsnm" title="@ROHEAD.WRHSID" width="100" filter="text"/>
+            <column type="label" name="roHeadNo" expr="rvodno" title="@ROHEAD.RVODNO" width="100" filter="text"/>
+            <column type="label" name="refDocNo" expr="rdocno" title="@ROHEAD.RDOCNO" width="100" filter="text"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@ROHEAD.SUPLID" width="150" filter="text"/>
+            <column type="tag" name="status" expr="status" title="@ROHEAD.STATUS" width="80" format="@@ROHEAD.STATUS"
+                    filter="@status" success="statusValue == '10' or statusValue == '30'"/>
+            <column type="label" name="receiveDate" expr="recvdt" title="@ROHEAD.RECVDT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="receiveBy" expr="recvby" title="@ROHEAD.RECVBY" width="100" filter="text"/>
+            <column type="label" name="carrierCompany" expr="carcmp" title="@ROHEAD.CARCMP" width="100" filter="text"/>
+            <column type="label" name="shippingNo" expr="shipno" title="@ROHEAD.SHIPNO" width="100" filter="text"/>
+            <column type="label" name="vehicleNo" expr="vhclno" title="@ROHEAD.VHCLNO" width="100" filter="text"/>
+            <column type="label" name="contacts" expr="contcs" title="@ROHEAD.CONTCS" width="100" filter="text"/>
+            <column type="label" name="phoneNo" expr="phonno" title="@ROHEAD.PHONNO" width="100" filter="text"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="title">请购单详情</item>
+            <item key="master.title">请购单信息</item>
+            <item key="table.material">请购物料</item>
+            <item key="table.purchase">关联采购单</item>
+            <item key="table.receive">关联收货单</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Requisition Order Detail</item>
+            <item key="master.title">Requisition Order Info</item>
+            <item key="table.material">Requisition Material</item>
+            <item key="table.purchase">Be Purchasing Order</item>
+            <item key="table.receive">Be Receive Order</item>
+        </lang>
+    </intl>
+</rindja-generic-viewer>

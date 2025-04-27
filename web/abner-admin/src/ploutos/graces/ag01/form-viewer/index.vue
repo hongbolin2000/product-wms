@@ -408,8 +408,10 @@ import {ChevronDown, SettingsOutline} from "@vicons/ionicons5";
       }
 
       // 编辑表格数据
+      let index = -1;
       viewer.value.datatableRows.forEach(row => {
-        row.datatables.forEach((datatable, index) => {
+        row.datatables.forEach(datatable => {
+          index++;
           datatable.data = response.data.datatable[index]
         });
       });

@@ -41,6 +41,8 @@
             <column type="link" mode="drawer" drawerWidth="60%" name="issue.po" icon="issue" expr="rqhdid" title="@issue.po"
                     width="100" link="/graces/editor/gr02/rqConvertPoEdit" action="issue.po"
                     disabled="statusValue == '00' or statusValue == '30'"/>
+            <column type="link" name="detail" icon="detail" expr="rqhdid" title="@detail" width="80" option="true" action="browse"
+                    link="/graces/viewer/gr01/requisitionOrderView"/>
             <column type="link" mode="drawer" drawerWidth="50%" name="edit" icon="edit" expr="rqhdid" title="@edit" width="80"
                     link="/graces/editor/gr01/requisitionOrderEdit" disabled="statusValue != '00'" option="true" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="rqhdid" title="@delete" width="80" link="/gr01/delete"
@@ -79,6 +81,7 @@
 
             <item key="audit">审核通过</item>
             <item key="issue.po">下发采购</item>
+            <item key="detail">详情</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
         </lang>
@@ -89,6 +92,7 @@
 
             <item key="audit">Approved</item>
             <item key="issue.po">Issue PO</item>
+            <item key="detail">Detail</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
         </lang>

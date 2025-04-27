@@ -6,4 +6,7 @@
 
     <!-- 请购单编辑 -->
     <generic-editor-descriptor name="requisitionOrderEdit">requisition-order-editor.xml</generic-editor-descriptor>
+
+    <!-- 请购单详情 -->
+    <generic-viewer-descriptor name="requisitionOrderView">requisition-order-viewer.xml</generic-viewer-descriptor>
 </baron-rindja-config>
