@@ -7,25 +7,27 @@
     </n-icon>
 
     <n-scrollbar ref="scrollbar" :on-scroll="onScroll">
-      <n-button
-          v-for="item of appStore.visitedMenus"
-          :key="item.key"
-          :type="currentPath == item.key ? 'primary' : 'default'"
-          class="tab-item"
-          secondary
-          :style="buttonStyle(item)"
-          :data="item.key"
-          @click.self="itemClick(item)"
-          @contextmenu="onContextMenu(item, $event)"
-      >
-        <span @click.self="itemClick(item)">
-          <component :is="renderMenuIcon(item.icons)" @click="itemClick(item)"/>
-          {{ item.label }}
-        </span>
-        <n-icon class="icon-item" @click="removeTab(item.key)" v-if="!item.fixed">
-          <CloseOutline />
-        </n-icon>
-      </n-button>
+      <draggable :list="appStore.visitedMenus">
+        <n-button
+            v-for="item of appStore.visitedMenus"
+            :key="item.key"
+            :type="currentPath == item.key ? 'primary' : 'default'"
+            class="tab-item"
+            secondary
+            :style="buttonStyle(item)"
+            :data="item.key"
+            @click.self="itemClick(item)"
+            @contextmenu="onContextMenu(item, $event)"
+        >
+          <span @click.self="itemClick(item)">
+            <component :is="renderMenuIcon(item.icons)" @click="itemClick(item)"/>
+            {{ item.label }}
+          </span>
+          <n-icon class="icon-item" @click="removeTab(item.key)" v-if="!item.fixed">
+            <CloseOutline />
+          </n-icon>
+        </n-button>
+      </draggable>
     </n-scrollbar>
 
     <n-icon class="arrow-wrapper" style="transform: rotate(180deg)" @click="arrowClick(false)"
@@ -67,6 +69,7 @@
   import {h, type Ref, ref, watch} from "vue";
   import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
   import {type DropdownOption, NIcon, NScrollbar} from "naive-ui";
+  import { VueDraggableNext as draggable } from 'vue-draggable-next'
   /********************************************************************************
    * 路由选项卡组件
    *
