@@ -1,42 +1,7 @@
 <template>
   <div class="datatable-action-wrapper" v-if="showTools">
     <!-- 按钮 -->
-    <div style="flex: 1;overflow: hidden;margin-right: 10px">
-      <n-scrollbar x-scrollable>
-        <n-space :size="10" style="align-items: center;flex-wrap: nowrap">
-          <component v-for="action of actions" :key="action.name" :is="() => {
-            action.datatable = datatable;
-            action.module = props.module;
-            action.moduleName = props.moduleName;
-            return ActionFactories.getInstance().create(action)
-        }"/>
-          <n-dropdown trigger="hover" :options="optionActions" v-if="optionActions.length > 0">
-            <n-button icon-placement="right" class="more-action">
-              <template #icon>
-                <n-icon class="tip">
-                  <ChevronDown style="font-size: 14px"/>
-                </n-icon>
-              </template>
-              更多操作
-            </n-button>
-          </n-dropdown>
-
-          <n-button @click="appStore.closeCurrentTab()">关闭页面</n-button>
-          <n-button @click="showFilterBar = !showFilterBar">查询条件</n-button>
-          <n-divider vertical style="margin: 0"/>
-
-          <n-select
-              v-for="column of enumFilterColumns"
-              :style="{width: '108px'}"
-              :options="column.filterOptions"
-              :clearable="true"
-              :placeholder="column.title"
-              v-model:value="params[column?.name]"
-              :onUpdate:value="onSearch"
-          ></n-select>
-        </n-space>
-      </n-scrollbar>
-    </div>
+    <HeaderActions :datatable="datatable" :module="module" :module-name="moduleName" @on-search="onSearch"/>
 
     <!-- 工具栏 -->
     <n-space size="small">
@@ -158,26 +123,6 @@
       />
     </n-drawer-content>
   </n-drawer>
-
-  <!-- 查询条件 -->
-  <n-drawer v-model:show="showFilterBar" :width="500" placement="right">
-    <n-drawer-content title="查询条件" closable :native-scrollbar="false">
-      <FilterBar :columns="datatable.columns"/>
-
-      <template #footer>
-        <n-space :size="10">
-          <n-button @click="showFilterBar = false">关闭</n-button>
-          <n-button @click="() => {
-            datatable.columns.forEach(column => {
-              params[column.name] = null;
-            });
-            onSearch();
-          }">重置</n-button>
-          <n-button type="primary" @click="onSearch">查询</n-button>
-        </n-space>
-      </template>
-    </n-drawer-content>
-  </n-drawer>
 </template>
 
 <script setup lang="ts">
@@ -192,10 +137,10 @@ import {
   type Ref,
   shallowRef,
   type VNode,
-  onBeforeMount, inject
+  onBeforeMount
 } from "vue";
     import {type DataTableSortState, type DropdownOption, NIcon} from "naive-ui";
-    import {ChevronDown, Expand, RefreshOutline} from '@vicons/ionicons5'
+    import {Expand, RefreshOutline} from '@vicons/ionicons5'
   import {Parser} from "expr-eval";
   /********************************************************************************
    * 数据表格
@@ -212,13 +157,11 @@ import {
   import SelectionColumnFactory from "@/ploutos/graces/ag01/faces/columns/SelectionColumnFactory.ts";
   import type SelectionColumnProps from "@/ploutos/graces/ag01/faces/columns/SelectionColumnProps.ts";
   import TagColumnFactory from "@/ploutos/graces/ag01/faces/columns/TagColumnFactory.ts";
-  import ActionFactories from "@/ploutos/graces/ag01/faces/ActionFactories.ts";
-  import type AbstractAction from "@/ploutos/graces/ag01/faces/AbstractAction.ts";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
   import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import ColumnActions from "@/ploutos/graces/ag01/components/ColumnActions.vue";
   import useAppStore from "@/ploutos/layouts/store/app-store.ts";
-import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
+  import HeaderActions from "@/ploutos/graces/ag01/components/HeaderActions.vue";
 
   /**
    * 应用状态
@@ -255,10 +198,12 @@ import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
     static: {
       type: Boolean
     },
+    // 功能模块号
     module: {
       type: String,
       required: true,
     },
+    // 通用界面名
     moduleName: {
       type: String,
       required: true,
@@ -305,18 +250,6 @@ import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
    * 当前排序字段
    */
   const currentSorter: Ref<DataTableSortState> = ref(undefined);
-
-  /**
-   * 展示按钮
-   */
-  const actions: Ref<AbstractAction[]> = shallowRef([]);
-  const optionActions: Ref<DropdownOption[]> = shallowRef([]);
-
-  /**
-   * 枚举过滤
-   */
-  const showFilterBar = ref(false);
-  const enumFilterColumns: Ref<AbstractColumn[]> = ref([]);
 
   /**
    * 右键菜单位置
@@ -419,38 +352,12 @@ import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
   });
 
   /**
-   * 注入查询参数
-   */
-  const params: Ref = ref(inject('params'));
-
-  /**
    * 组件加载
    */
   onBeforeMount(() => {
     if (!mainDataTable.value) {
       mainDataTable.value = props.datatable;
     }
-
-    if (props.datatable.actions) {
-      actions.value = props.datatable.actions.filter(i => !i.option);
-      const options = props.datatable.actions.filter(i => i.option);
-
-      const actionOptions: DropdownOption[] = []
-      options.forEach(action => {
-        actionOptions.push({
-          key: action.name,
-          type: 'render',
-          render: () => {
-            action.datatable = props.datatable;
-            return ActionFactories.getInstance().create(action);
-          },
-        });
-      });
-      optionActions.value = actionOptions;
-    }
-
-    // 枚举过滤
-    enumFilterColumns.value = props.datatable.columns.filter(i => i.filterOptions);
   });
 
   /**
@@ -662,10 +569,6 @@ import FilterBar from "@/ploutos/graces/ag01/components/FilterBar.vue";
 
     doubleRowIndex.value = -1;
     emit('onSearch');
-
-    if (layoutStore.closeOnSearch) {
-      showFilterBar.value = false;
-    }
   }
   provide('onSearch', onSearch);
   provide('onRefresh', onSearch);
