@@ -63,6 +63,8 @@
   import {type DropdownOption, NIcon} from "naive-ui";
   import {inject, onBeforeMount, type PropType, provide, ref, type Ref, shallowRef} from "vue";
   /********************************************************************************
+   * 表格头部操作按钮
+   *
    * @author Berlin
    ********************************************************************************/
   import ActionFactories from "@/ploutos/graces/ag01/faces/ActionFactories.ts";
@@ -173,6 +175,17 @@
     .action-wrapper {
       align-items: center;
       flex-wrap: nowrap
+    }
+
+    .more-action {
+      .tip {
+        transition: transform $transitionTime;
+      }
+      &:hover {
+        .tip {
+          transform: rotate(180deg);
+        }
+      }
     }
   }
 </style>

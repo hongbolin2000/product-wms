@@ -24,6 +24,8 @@
   import {ChevronDown} from "@vicons/ionicons5";
   import {NIcon} from "naive-ui";
   /********************************************************************************
+   * 表格列操作按钮
+   *
    * @author Berlin
    ********************************************************************************/
   import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";

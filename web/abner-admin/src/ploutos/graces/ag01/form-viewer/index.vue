@@ -554,4 +554,14 @@ import {ChevronDown, SettingsOutline} from "@vicons/ionicons5";
   .viewer-row + .viewer-row {
     margin-top: 10px;
   }
+  .more-action {
+    .tip {
+      transition: transform $transitionTime;
+    }
+    &:hover {
+      .tip {
+        transform: rotate(180deg);
+      }
+    }
+  }
 </style>

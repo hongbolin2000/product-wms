@@ -4,52 +4,7 @@
     <HeaderActions :datatable="datatable" :module="module" :module-name="moduleName" @on-search="onSearch"/>
 
     <!-- 工具栏 -->
-    <n-space size="small">
-      <n-tooltip trigger="hover" v-if="!layoutStore.bordered">
-        <template #trigger>
-          <n-switch v-model:value="mainDataTable.bordered" size="small"/>
-        </template>
-        边框
-      </n-tooltip>
-
-      <n-tooltip trigger="hover" v-if="!layoutStore.striped">
-        <template #trigger>
-          <n-switch v-model:value="mainDataTable.striped" size="small"/>
-        </template>
-        斑马格
-      </n-tooltip>
-
-      <n-tooltip trigger="hover">
-        <template #trigger>
-          <n-button secondary size="small" @click="onSearch()" class="tool-item">
-            <n-icon size="18">
-              <RefreshOutline/>
-            </n-icon>
-          </n-button>
-        </template>
-        刷新
-      </n-tooltip>
-
-      <n-tooltip trigger="hover">
-        <template #trigger>
-          <n-button secondary size="small" @click="layoutStore.fullScreen()" class="tool-item">
-            <n-icon size="18">
-              <Expand/>
-            </n-icon>
-          </n-button>
-        </template>
-        全屏
-      </n-tooltip>
-
-      <n-tooltip trigger="hover">
-        <template #trigger>
-          <n-button secondary size="small" @click="exportCsv()" class="tool-item">
-            <SvgIcon name="csv"/>
-          </n-button>
-        </template>
-        导出csv 导出后请使用记事本另存为同名文件编码选择ASNI后再打开
-      </n-tooltip>
-    </n-space>
+    <HeaderTools :main-data-table="mainDataTable" @on-export-csv="exportCsv"/>
   </div>
 
   <!-- 服务端数据表 -->
@@ -126,21 +81,20 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  h,
-  type HTMLAttributes,
-  nextTick,
-  type PropType,
-  provide,
-  ref,
-  type Ref,
-  shallowRef,
-  type VNode,
-  onBeforeMount
-} from "vue";
-    import {type DataTableSortState, type DropdownOption, NIcon} from "naive-ui";
-    import {Expand, RefreshOutline} from '@vicons/ionicons5'
+  import {
+    computed,
+    h,
+    type HTMLAttributes,
+    nextTick,
+    type PropType,
+    provide,
+    ref,
+    type Ref,
+    shallowRef,
+    type VNode,
+    onBeforeMount
+  } from "vue";
+  import {type DataTableSortState, type DropdownOption} from "naive-ui";
   import {Parser} from "expr-eval";
   /********************************************************************************
    * 数据表格
@@ -158,10 +112,10 @@ import {
   import type SelectionColumnProps from "@/ploutos/graces/ag01/faces/columns/SelectionColumnProps.ts";
   import TagColumnFactory from "@/ploutos/graces/ag01/faces/columns/TagColumnFactory.ts";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
-  import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
   import ColumnActions from "@/ploutos/graces/ag01/components/ColumnActions.vue";
   import useAppStore from "@/ploutos/layouts/store/app-store.ts";
   import HeaderActions from "@/ploutos/graces/ag01/components/HeaderActions.vue";
+  import HeaderTools from "@/ploutos/graces/ag01/components/HeaderTools.vue";
 
   /**
    * 应用状态
@@ -633,22 +587,5 @@ import {
     display: flex;
     margin-bottom: 10px;
     height: 34px;
-
-    .more-action {
-      .tip {
-        transition: transform $transitionTime;
-      }
-      &:hover {
-        .tip {
-          transform: rotate(180deg);
-        }
-      }
-    }
-    .tool-item {
-      &:hover {
-        cursor: pointer;
-        color: var(--primary-color-hover);
-      }
-    }
   }
 </style>
