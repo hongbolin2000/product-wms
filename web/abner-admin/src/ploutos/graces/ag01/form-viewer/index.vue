@@ -33,6 +33,8 @@
           </n-dropdown>
 
           <n-button @click="onClose()">关闭页面</n-button>
+          <n-button @click="loadData()">刷新数据</n-button>
+          <n-button @click="layoutStore.fullScreen()">全屏显示</n-button>
         </n-space>
       </n-card>
 
