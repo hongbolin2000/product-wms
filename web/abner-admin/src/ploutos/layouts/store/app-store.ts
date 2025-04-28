@@ -34,7 +34,8 @@ const useAppStore = defineStore('appStore', () => {
       rememberPassword: true,
     }),
     version: shallowRef(''),
-    visitedMenus: ref([])
+    visitedMenus: ref([]),
+    prevFullPath: shallowRef(''),
   }
 
   // 路由对象
@@ -119,7 +120,12 @@ const useAppStore = defineStore('appStore', () => {
       return;
     }
 
-    const key = store.visitedMenus.value[store.visitedMenus.value.length -1].key;
+    let prevMenu = store.visitedMenus.value.find(i => i.key == store.prevFullPath.value);
+    let key = store.visitedMenus.value[store.visitedMenus.value.length -1].key;
+    if (prevMenu) {
+      key = prevMenu.key;
+    }
+
     const keys = key.split('?');
 
     // 带查询参数的页面
@@ -192,4 +198,9 @@ type AppStoreOption = {
    * 应用版本
    */
   version: Ref<string>,
+
+  /**
+   * 上一路由路径
+   */
+  prevFullPath: Ref<string>
 }

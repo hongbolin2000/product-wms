@@ -55,34 +55,24 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    ArrowBack,
-    ArrowForward,
-    ChevronBack,
-    CloseOutline,
-    Expand,
-    Menu,
-    Refresh,
-    Repeat,
-    Unlink
-  } from '@vicons/ionicons5';
-  import {h, type Ref, ref, watch} from "vue";
-  import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
-  import {type DropdownOption, NIcon, NScrollbar} from "naive-ui";
-  import { VueDraggableNext as draggable } from 'vue-draggable-next'
-  /********************************************************************************
-   * 路由选项卡组件
-   *
-   * @author Berlin
-   ********************************************************************************/
-  import useAppStore from "@/ploutos/layouts/store/app-store";
-  import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
-  import {type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
-  import {screen, routerHelper} from "@/ploutos";
-  import useLayoutStore from "@/ploutos/layouts/store/layout-store";
-  import {storeToRefs} from "pinia";
+import {ArrowBack, ArrowForward, ChevronBack, CloseOutline, Expand, Menu, Repeat, Unlink} from '@vicons/ionicons5';
+import {h, type Ref, ref, watch} from "vue";
+import {type RouteLocationNormalized, useRoute, useRouter} from "vue-router";
+import {type DropdownOption, NIcon, NScrollbar} from "naive-ui";
+import {VueDraggableNext as draggable} from 'vue-draggable-next'
+/********************************************************************************
+ * 路由选项卡组件
+ *
+ * @author Berlin
+ ********************************************************************************/
+import useAppStore from "@/ploutos/layouts/store/app-store";
+import SvgIcon from "@/ploutos/layouts/icons/SvgIcon.vue";
+import {type MenuOption, ThemeMode} from "@/ploutos/layouts/types";
+import {routerHelper} from "@/ploutos";
+import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import {storeToRefs} from "pinia";
 
-  /**
+/**
    * 全局应用状态
    */
   const appStore = useAppStore();
@@ -208,6 +198,7 @@
    * 路由进入前
    */
   router.beforeEach((to: RouteLocationNormalized) => {
+    appStore.prevFullPath = route.fullPath;
     return addVisitedRouter(to);
   });
   function addVisitedRouter(to: RouteLocationNormalized) {
@@ -588,8 +579,7 @@
    * 关闭全部
    */
   function closeAll() {
-    const menus = appStore.visitedMenus.filter(i => i.fixed);
-    appStore.visitedMenus = menus;
+    appStore.visitedMenus = appStore.visitedMenus.filter(i => i.fixed);
     toLastTabMenu();
   }
 
