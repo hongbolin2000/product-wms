@@ -58,9 +58,9 @@
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
-            <column type="label" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" width="100" format="%#.###"/>
-            <column type="label" name="purchasedQty" expr="pcsqty" title="@RQLINE.PCSQTY" width="120" format="%#.###"/>
-            <column type="label" name="purchasedCount" expr="pcscnt" title="@RQLINE.PCSCNT" width="120"/>
+            <column type="label" name="orderQty" expr="ordqty" title="@RQLINE.ORDQTY" width="100" format="%#.###" summary="true"/>
+            <column type="label" name="purchasedQty" expr="pcsqty" title="@RQLINE.PCSQTY" width="120" format="%#.###" summary="true"/>
+            <column type="label" name="purchasedCount" expr="pcscnt" title="@RQLINE.PCSCNT" width="120" summary="true"/>
             <column type="label" name="price" expr="price" title="@RQLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@RQLINE.STATUS" width="90" format="@@RQLINE.STATUS"
                     success="statusValue == '20'"/>

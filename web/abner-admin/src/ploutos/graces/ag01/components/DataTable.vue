@@ -26,6 +26,7 @@
       :single-line="!mainDataTable.bordered && !layoutStore.bordered"
       :striped="mainDataTable.striped || layoutStore.striped"
       v-if="!static"
+      :summary="summaryColumns.length > 0 && renderSummary"
   />
   <!-- 静态数据表 -->
   <n-data-table
@@ -94,7 +95,7 @@
     type VNode,
     onBeforeMount
   } from "vue";
-  import {type DataTableSortState, type DropdownOption} from "naive-ui";
+  import {DataTableCreateSummary, type DataTableSortState, type DropdownOption} from "naive-ui";
   import {Parser} from "expr-eval";
   /********************************************************************************
    * 数据表格
@@ -102,7 +103,12 @@
    * @author Berlin
    ********************************************************************************/
   import type Datatable from "@/ploutos/graces/ag01/faces/Datatable.ts";
-  import type {TableBaseColumn, TableColumn, TableSelectionColumn} from "naive-ui/es/data-table/src/interface";
+  import type {
+    RowData,
+    TableBaseColumn,
+    TableColumn,
+    TableSelectionColumn
+  } from "naive-ui/es/data-table/src/interface";
   import ColumnFactories from "@/ploutos/graces/ag01/faces/ColumnFactories.ts";
   import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
   import HeaderColumn from "@/ploutos/graces/ag01/components/HeaderColumn.vue";
@@ -262,6 +268,11 @@
   const title = shallowRef('');
 
   /**
+   * 总结栏列
+   */
+  const summaryColumns: Ref<AbstractColumn[]> = shallowRef([]);
+
+  /**
    * 分页器
    */
   const pager = ref({
@@ -312,6 +323,7 @@
     if (!mainDataTable.value) {
       mainDataTable.value = props.datatable;
     }
+    summaryColumns.value = props.datatable.columns.filter(i => i.summary);
   });
 
   /**
@@ -576,6 +588,22 @@
     if (exportColumn) {
       return exportColumn.title;
     }
+  }
+
+  /**
+   * 总结栏
+   */
+  function renderSummary(pageData: unknown): unknown | DataTableCreateSummary {
+    const options = {};
+    for (let column of summaryColumns.value) {
+      options[column.name] = {
+        value: h('span', {style: {color: 'var(--primary-color)'}}, (pageData as unknown as RowData[]).reduce(
+            (prevValue, row) => prevValue + parseFloat(row[column.name]), 0)
+        ),
+        colSpan: 1
+      }
+    }
+    return options;
   }
 </script>
 
