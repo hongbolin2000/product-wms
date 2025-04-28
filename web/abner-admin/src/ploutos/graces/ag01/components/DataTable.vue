@@ -95,7 +95,7 @@
     type VNode,
     onBeforeMount
   } from "vue";
-  import {DataTableCreateSummary, type DataTableSortState, type DropdownOption} from "naive-ui";
+  import type {DataTableCreateSummary, DataTableSortState, DropdownOption} from "naive-ui";
   import {Parser} from "expr-eval";
   /********************************************************************************
    * 数据表格
