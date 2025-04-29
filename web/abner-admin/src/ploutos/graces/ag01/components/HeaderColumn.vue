@@ -15,6 +15,7 @@
             style="width: 150px"
             clearable
             v-if="column?.filter == 'text'"
+            @keyup.enter="onSearch"
         />
         <n-date-picker
             v-model:value="params[column?.name]"

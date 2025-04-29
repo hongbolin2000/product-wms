@@ -9,6 +9,7 @@
               v-model:value="params[column.name]"
               clearable
               v-if="column?.filter == 'text'"
+              @keyup.enter="onSearch"
           />
           <n-date-picker
               v-model:value="params[column.name]"
