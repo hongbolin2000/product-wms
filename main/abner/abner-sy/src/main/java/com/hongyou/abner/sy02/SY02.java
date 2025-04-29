@@ -228,8 +228,8 @@ public class SY02 extends UserDataProvider {
             }
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
-            logger.error("用户删除失败", e);
-            throw new RestRuntimeException("用户已被使用");
+            logger.error("用户冻结失败", e);
+            throw new RestRuntimeException("用户冻结失败");
         }
     }
 

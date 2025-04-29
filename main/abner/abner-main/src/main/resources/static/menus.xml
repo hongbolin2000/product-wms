@@ -6,6 +6,7 @@
             <menu id="sy01" permission="sy01" url="/graces/grider/sy01/roleList" label="角色管理" icon="role"/>
             <menu id="sy02" permission="sy02" url="/graces/grider/sy02/userList" label="用户管理" icon="user"/>
             <menu id="sy04" permission="sy04" url="/graces/grider/sy04/eventLogList" label="系统日志" icon="log"/>
+            <menu id="sy05" permission="sy05" url="/graces/grider/sy05/scheduleJobList" label="系统任务" icon="schedule"/>
         </menu>
         <menu id="ba" url="/ba" label="基础管理" icon="basic">
             <menu id="ba01" permission="ba01" url="/graces/grider/ba01/supplierList" label="供应商管理" icon="supplier"/>

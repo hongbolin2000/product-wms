@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        系统任务列表
+    </description>
+
+    <filters>
+        <opts name="enabled" type="enum" table="SCHJOB" column="ENABLD"/>
+        <opts name="status" type="enum" table="SCHJOB" column="STATUS"/>
+    </filters>
+
+    <datatable title="@table.title">
+        <statement>
+            <table name="schjob"/>
+            <order by="jbname"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="enabledValue" expr="enabld" hidden="true"/>
+            <column type="label" name="statusValue" expr="status" hidden="true"/>
+            <column type="label" name="jobName" expr="jbname" title="@SCHJOB.JBNAME" width="150" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@SCHJOB.REMARK" filter="text"/>
+            <column type="label" name="scheduleCron" expr="sccron" title="@SCHJOB.SCCRON" width="130" filter="text"/>
+            <column type="tag" name="enabled" expr="enabld" title="@SCHJOB.ENABLD" width="100" format="@@SCHJOB.ENABLD"
+                    filter="@enabled" success="enabledValue == 'Y'" error="enabledValue == 'N'"/>
+            <column type="tag" name="status" expr="status" title="@SCHJOB.STATUS" width="100" format="@@SCHJOB.STATUS"
+                    filter="@status" success="statusValue == 'S'" error="statusValue == 'F'"/>
+            <column type="label" name="hostName" expr="hostnm" title="@SCHJOB.HOSTNM" width="120" filter="text"/>
+            <column type="label" name="hostIP" expr="hostip" title="@SCHJOB.HOSTIP" width="120" filter="text"/>
+            <column type="label" name="startTime" expr="strttm" title="@SCHJOB.STRTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="finishTime" expr="fnshtm" title="@SCHJOB.FNSHTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
+            <column type="label" name="durationTime" expr="durtim" title="@SCHJOB.DURTIM" width="80" format="%#.###"/>
+            <column type="scriptLink" name="run" icon="run" expr="scjbid" title="@run" link="/sy05/run"
+                    width="80" labelColumn="jobName" disabled="enabledValue == 'N' or statusValue == 'P'" action="run"
+            />
+            <column type="scriptLink" name="enable" icon="enable" expr="scjbid" title="@enable" link="/sy05/disable"
+                    width="80" labelColumn="jobName" disabled="enabledValue == 'Y'" action="enable"
+            />
+            <column type="scriptLink" name="disable" icon="disable" expr="scjbid" title="@disable" link="/sy05/disable"
+                    width="80" labelColumn="jobName" danger="true" disabled="enabledValue == 'N' or statusValue == 'P'" action="disable"
+            />
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">系统任务</item>
+            <item key="run">运行</item>
+            <item key="enable">启用</item>
+            <item key="disable">禁用</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">System Job</item>
+            <item key="run">Run</item>
+            <item key="enable">Enable</item>
+            <item key="disable">Disable</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

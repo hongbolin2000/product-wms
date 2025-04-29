@@ -2,7 +2,7 @@
 T	SCHJOB
 S
 L	Schedule Job
-C	后台任务
+C	系统任务
 Y	Schedule Job
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 N	SCJBID,		ID,			NOT NULL, 		,						id,				    ID,						ID
@@ -14,9 +14,6 @@ N   SCCRON,     VC(254),    NOT NULL,       ,                       scheduleCron
 N   ENABLD,     C(1),       NOT NULL,       'Y',                    enabled,            Enabled,                是否启用
     B   Y       Yes         启用
     B   N       No          禁用
-N   CLUSTE,     C(1),       NOT NULL,       'Y',                    cluster,            Cluster,                是否集群
-    B   Y       Yes         是
-    B   N       No          否
 *****************************************************************************************************************************************************
 N	STATUS,		VC(1),		NOT NULL,		'N',					status,			    Status,					执行状态
 	B	N		None		未执行
@@ -28,7 +25,7 @@ N	HOSTNM,		VC(32),		NOT NULL,		'',						hostName,		    Host Name,				执行主�
 N	HOSTIP,		VC(32),		NOT NULL,		'',						hostIP,			    Host IP,				执行主机地址
 N	STRTTM,		TS,	        ,				,						startTime,		    Start Time,				开始执行时间
 N	FNSHTM,		TS,	        ,				,						finishTime,		    Finish Time,			结束执行时间
-N   DURTIM,     INT,        NOT NULL,       0,                      durationTime,       Duration Time,          耗时
+N   DURTIM,     BIGINT,        NOT NULL,       0,                   durationTime,       Duration Time,          耗时
 *****************************************************************************************************************************************************
 N   PARAM1,     VC(64),     ,               ,                       parameter1,         Parameter 1,            参数1
 N   PARAM2,     VC(64),     ,               ,                       parameter2,         Parameter 2,            参数2
@@ -44,5 +41,6 @@ N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,		    Operate By,				
 N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	    Operate Time,			操作时间
 ====1===========2===========3===============4=======================5===================6=======================7====================================
 P	SCJBID
-U	01 getByGroupAndName JBNAME
+U	01 getByName JBNAME
+I   01 listByEnabled ENABLD
 =====================================================================================================================================================
