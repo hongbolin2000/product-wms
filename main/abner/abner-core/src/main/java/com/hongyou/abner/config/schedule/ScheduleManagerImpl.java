@@ -117,13 +117,13 @@ public class ScheduleManagerImpl extends DataProvider implements ScheduleManager
         // 执行任务前
         Schjob schjob = this.db().schjob().getByName(jobName);
         if (schjob == null) {
-            logger.info("系统任务 ({}) 执行失败, 未注册在任务表中...", jobName);
+            logger.error("系统任务 ({}) 执行失败, 未注册在任务表中...", jobName);
             return;
         }
 
         // 正在执行中
         if (Schjob.STATUS.Process.equals(schjob.getStatus())) {
-            logger.info("系统任务 ({}) 执行失败, 任务正在执行中...", jobName);
+            logger.error("系统任务 ({}) 执行失败, 任务正在执行中...", jobName);
             return;
         }
         schjob.status(Schjob.STATUS.Process).
@@ -191,7 +191,7 @@ public class ScheduleManagerImpl extends DataProvider implements ScheduleManager
             this.execute(jobName, this.jobClazz.get(jobName));
             logger.info("系统任务 ({}) 手动运行成功...", jobName);
         } else {
-            logger.info("系统任务 ({}) 手动运行失败, 未映射到对应的运行程序...", jobName);
+            logger.error("系统任务 ({}) 手动运行失败, 未映射到对应的运行程序...", jobName);
         }
     }
 }
