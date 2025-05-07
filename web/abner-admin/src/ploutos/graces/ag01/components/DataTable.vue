@@ -26,7 +26,7 @@
       :single-line="!mainDataTable.bordered && !layoutStore.bordered"
       :striped="mainDataTable.striped || layoutStore.striped"
       v-if="!static"
-      :summary="summaryColumns.length > 0 && renderSummary"
+      :summary="summaryColumns.length > 0 ? renderSummary : undefined"
   />
   <!-- 静态数据表 -->
   <n-data-table
@@ -44,6 +44,7 @@
       :get-csv-header="getCsvHeader"
       :single-line="!mainDataTable.bordered && !layoutStore.bordered"
       :striped="mainDataTable.striped || layoutStore.striped"
+      :summary="summaryColumns.length > 0 ? renderSummary : undefined"
   />
 
   <!-- 表格右键菜单 -->
