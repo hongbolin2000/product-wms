@@ -38,11 +38,11 @@
 
     <n-tooltip trigger="hover">
       <template #trigger>
-        <n-button secondary size="small" @click="emit('onExportCsv')" class="tool-item">
+        <n-button secondary size="small" @click="emit('onExportExcel')" class="tool-item">
           <SvgIcon name="csv"/>
         </n-button>
       </template>
-      导出csv 导出后请使用记事本另存为同名文件编码选择ASNI后再打开
+      导出Excel
     </n-tooltip>
   </n-space>
 </template>
@@ -77,9 +77,9 @@
   const emit = defineEmits<{
 
     /**
-     * 导出CSV
+     * 导出Excel
      */
-    (e: 'onExportCsv'): void;
+    (e: 'onExportExcel'): void;
   }>();
 
   /**

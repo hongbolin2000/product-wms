@@ -74,8 +74,8 @@ namespace http {
   /**
    * POST请求
    */
-  export function post(url: string, data?: any) {
-    return client.post(url, data);
+  export function post(url: string, data?: any, config?: AxiosRequestConfig) {
+    return client.post(url, data, config);
   }
 
   /**

@@ -4,7 +4,7 @@
     <HeaderActions :datatable="datatable" :module="module" :module-name="moduleName" @on-search="onSearch"/>
 
     <!-- 工具栏 -->
-    <HeaderTools :main-data-table="mainDataTable" @on-export-csv="exportCsv"/>
+    <HeaderTools :main-data-table="mainDataTable" @on-export-excel="exportExcel"/>
   </div>
 
   <!-- 服务端数据表 -->
@@ -20,9 +20,6 @@
       :max-height="maxHeight"
       :row-key="rowKey"
       v-model:checked-row-keys="datatable.checkedKeys"
-      ref="tableRef"
-      :get-csv-cell="getCsvCell"
-      :get-csv-header="getCsvHeader"
       :single-line="!mainDataTable.bordered && !layoutStore.bordered"
       :striped="mainDataTable.striped || layoutStore.striped"
       v-if="!static"
@@ -39,9 +36,6 @@
       :max-height="maxHeight"
       :row-key="rowKey"
       v-model:checked-row-keys="datatable.checkedKeys"
-      ref="tableRef"
-      :get-csv-cell="getCsvCell"
-      :get-csv-header="getCsvHeader"
       :single-line="!mainDataTable.bordered && !layoutStore.bordered"
       :striped="mainDataTable.striped || layoutStore.striped"
       :summary="summaryColumns.length > 0 ? renderSummary : undefined"
@@ -83,21 +77,22 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    computed,
-    h,
-    type HTMLAttributes,
-    nextTick,
-    type PropType,
-    provide,
-    ref,
-    type Ref,
-    shallowRef,
-    type VNode,
-    onBeforeMount
-  } from "vue";
+import {
+  computed,
+  h,
+  type HTMLAttributes,
+  nextTick,
+  type PropType,
+  provide,
+  ref,
+  type Ref,
+  shallowRef,
+  type VNode,
+  onBeforeMount, inject
+} from "vue";
   import type {DataTableCreateSummary, DataTableSortState, DropdownOption} from "naive-ui";
   import {Parser} from "expr-eval";
+  import moment from "moment";
   /********************************************************************************
    * 数据表格
    *
@@ -123,6 +118,7 @@
   import useAppStore from "@/ploutos/layouts/store/app-store.ts";
   import HeaderActions from "@/ploutos/graces/ag01/components/HeaderActions.vue";
   import HeaderTools from "@/ploutos/graces/ag01/components/HeaderTools.vue";
+  import {http, loading} from "@/ploutos";
 
   /**
    * 应用状态
@@ -257,11 +253,6 @@
    * 右键link执行传出的参数
    */
   const componentParams: Ref = ref(undefined);
-
-  /**
-   * 表格Ref
-   */
-  const tableRef = ref();
 
   /**
    * 新增/编辑时的弹框标题
@@ -516,15 +507,17 @@
 
     pager.value.pageNumber = 1;
     props.datatable.checkedKeys = [];
-
+    emit('onSort', getSorter());
+  }
+  function getSorter() {
     let sorter = null;
-    if (state.order) {
+    if (currentSorter.value && currentSorter.value.order) {
       sorter = {
-        name: state.columnKey,
-        order: state.order == 'ascend' ? 'asc' : 'desc'
+        name: currentSorter.value.columnKey,
+        order: currentSorter.value.order == 'ascend' ? 'asc' : 'desc'
       }
     }
-    emit('onSort', sorter);
+    return sorter;
   }
 
   /**
@@ -576,18 +569,39 @@
   provide('onShowDrawer', onShowDrawer);
 
   /**
-   * 导出csv
+   * 导出Excel
    */
-  function exportCsv() {
-    tableRef.value?.downloadCsv({ fileName: props.datatable.title + '数据表' + new Date().getTime()});
-  }
-  function getCsvCell(value) {
-    return value;
-  }
-  function getCsvHeader(column) {
-    const exportColumn = props.datatable.columns.find(i => i.name == column.key);
-    if (exportColumn) {
-      return exportColumn.title;
+  const params: Ref = ref(inject('params'));
+  async function exportExcel() {
+
+    try {
+      loading(true);
+      const param = {
+        module: props.module, name: props.moduleName, local: navigator.language,
+        params: params.value, sorter: getSorter()
+      };
+
+      const response = await http.post("/ag01/grider/export", param, {
+        responseType: 'blob', timeout: 60 * 5 * 1000
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      const title = props.datatable.title + moment().format('YYYY-MM-DD HH.mm')
+
+      // 创建链接
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download',  title + '.xlsx');
+
+      // 模拟点击链接
+      document.body.appendChild(link);
+      link.click();
+
+      // 移除链接
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } finally {
+      loading(false);
     }
   }
 
