@@ -1,15 +1,16 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.abner.config.serial;
+package com.hongyou.abner.impl;
 
-import com.hongyou.abner.config.web.DataProvider;
+import com.hongyou.abner.web.DataProvider;
 import com.hongyou.abner.data.model.Srgnhd;
 import com.hongyou.abner.data.model.Srgnln;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.DateUtil;
 import com.hongyou.baron.util.StringUtil;
+import com.hongyou.baron.web.serial.SerialManager;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;

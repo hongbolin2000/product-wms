@@ -1,7 +1,7 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.abner.config.web;
+package com.hongyou.abner.web;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.hongyou.abner.data.model.Pmsnms;

@@ -4,7 +4,7 @@
 package com.hongyou.abner.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.hongyou.abner.config.web.UserDataProvider;
+import com.hongyou.abner.web.UserDataProvider;
 import com.hongyou.abner.data.model.Pmsnms;
 import com.hongyou.abner.data.model.Userms;
 import com.hongyou.baron.logging.Log;

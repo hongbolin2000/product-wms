@@ -1,14 +1,14 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.abner.config.web;
+package com.hongyou.abner.web;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.hongyou.abner.config.event.EventLogManager;
-import com.hongyou.abner.config.event.EventLogManagerImpl;
-import com.hongyou.abner.config.internation.InternationalManager;
-import com.hongyou.abner.config.internation.InternationalManagerImpl;
-import com.hongyou.abner.config.serial.SerialManager;
+import com.hongyou.baron.web.event.EventLogManager;
+import com.hongyou.abner.impl.EventLogManagerImpl;
+import com.hongyou.baron.web.internation.InternationalManager;
+import com.hongyou.abner.impl.InternationalManagerImpl;
+import com.hongyou.baron.web.serial.SerialManager;
 import com.hongyou.abner.data.model.Userms;
 import com.hongyou.baron.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;

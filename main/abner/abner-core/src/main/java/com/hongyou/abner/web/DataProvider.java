@@ -1,7 +1,7 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-package com.hongyou.abner.config.web;
+package com.hongyou.abner.web;
 
 import com.hongyou.abner.data.WMSDB;
 import com.mybatisflex.core.query.QueryMethods;

@@ -3,8 +3,8 @@
  */
 package com.hongyou.abner.wb03;
 
-import com.hongyou.abner.config.event.EventLog;
-import com.hongyou.abner.config.web.UserDataProvider;
+import com.hongyou.baron.web.event.EventLog;
+import com.hongyou.abner.web.UserDataProvider;
 import com.hongyou.abner.data.model.Userms;
 import com.hongyou.abner.data.model.Wrhsms;
 import com.hongyou.abner.data.pojo.WrhsmsPojo;

@@ -39,7 +39,7 @@
             <column type="link" mode="drawer" name="edit" icon="edit" expr="suplid" title="@edit" width="80"
                     link="/graces/editor/ba01/supplierEdit" drawerWidth="50%" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="suplid" title="@delete" width="80"
-                    link="/ba02/delete" labelColumn="supplierName" danger="true" action="delete"/>
+                    link="/ba01/delete" labelColumn="supplierName" danger="true" action="delete"/>
         </columns>
     </datatable>
 

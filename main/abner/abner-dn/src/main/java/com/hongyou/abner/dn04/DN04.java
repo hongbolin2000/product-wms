@@ -3,7 +3,7 @@
  */
 package com.hongyou.abner.dn04;
 
-import com.hongyou.abner.config.web.UserDataProvider;
+import com.hongyou.abner.web.UserDataProvider;
 import com.hongyou.abner.data.model.*;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
