@@ -1,13 +1,15 @@
 /*
  * Copyright 2024, Hongyou Software Development Studio.
  */
-import {type VNode} from "vue";
+import {h, type VNode} from "vue";
 /********************************************************************************
  * 标签列工厂
  *
  * @author Berlin
  *******************************************************************************/
 import type ColumnFactory from "@/ploutos/graces/ag01/faces/ColumnFactory.ts";
+import type TagColumnProps from "@/ploutos/graces/ag01/faces/columns/TagColumnProps.ts";
+import LabelColumn from "@/ploutos/graces/ag01/faces/columns/LabelColumn.vue";
 
 export default class LabelColumnFactory implements ColumnFactory {
 
@@ -26,7 +28,7 @@ export default class LabelColumnFactory implements ColumnFactory {
 	/**
 	 * 生成标签列
 	 */
-	create(): VNode {
-		return null;
+	create(column: TagColumnProps): VNode {
+		return h(LabelColumn, {column: column});
 	}
 }

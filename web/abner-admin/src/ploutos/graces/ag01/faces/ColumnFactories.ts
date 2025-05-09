@@ -13,6 +13,7 @@ import LinkColumnFactory from "@/ploutos/graces/ag01/faces/columns/LinkColumnFac
 import ScriptLinkColumnFactory from "@/ploutos/graces/ag01/faces/columns/ScriptLinkColumnFactory.ts";
 import TagColumnFactory from "@/ploutos/graces/ag01/faces/columns/TagColumnFactory.ts";
 import FileColumnFactory from "@/ploutos/graces/ag01/faces/columns/FileColumnFactory.ts";
+import LabelColumnFactory from "@/ploutos/graces/ag01/faces/columns/LabelColumnFactory.ts";
 
 export default class ColumnFactories {
 
@@ -30,6 +31,7 @@ export default class ColumnFactories {
 	 * 表格列工厂
 	 */
 	constructor() {
+		this.registry(new LabelColumnFactory());
 		this.registry(new LinkColumnFactory());
 		this.registry(new ScriptLinkColumnFactory());
 		this.registry(new TagColumnFactory());

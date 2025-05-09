@@ -435,9 +435,7 @@ import {
       }
 
       // 渲染表格数据列
-      if (item.type != LabelColumnFactory.TYPE) {
-        column.render = (rowData, rowIndex) => renderColumn(rowData, rowIndex, {...item});
-      }
+      column.render = (rowData, rowIndex) => renderColumn(rowData, rowIndex, {...item});
       columns.push(column);
     });
 
