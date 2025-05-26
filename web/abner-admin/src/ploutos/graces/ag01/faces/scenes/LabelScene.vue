@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
   import {type PropType} from 'vue'
+  import clipboard3 from  'vue-clipboard3'
   /********************************************************************************
    * 文本显示控件
    *
@@ -23,10 +24,15 @@
   });
 
   /**
+   * 剪切板
+   */
+  const { toClipboard } = clipboard3();
+
+  /**
    * 文本点击
    */
   async function onTextClick() {
-    await navigator.clipboard.writeText(props.scene.rowData[props.scene.name]);
+    await toClipboard(props.scene.rowData[props.scene.name]);
     message.success("复制成功");
   }
 </script>
