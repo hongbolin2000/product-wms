@@ -8,8 +8,7 @@ Y	Table Field
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 N	TFDSID,		ID,			NOT NULL, 		,						id,				ID,						主键
 *****************************************************************************************************************************************************
-N	TBMSID,		BIGINT,		NOT NULL, 		,						tableId,		Table,				    表
-K   TBDFMS      - TBLNAM
+N	TBLNAM,		VC(32),		NOT NULL,		,						tableName,		Table Name,				表名
 *****************************************************************************************************************************************************
 N	FLDNAM,		VC(128),	NOT NULL,		,						fieldName,		Field Name,				字段名
 	# 表的字段名
@@ -37,7 +36,7 @@ N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		Operate by,				操�
 N	OPRTTM,		TS,	        NOT NULL,		CURRENT_TIMESTAMP,		operateTime,	Operate time,			操作时间
 ====1===========2===========3===============4=======================5===============6=======================7========================================
 P	TFDSID
-U	01 getByFieldName TBMSID, FLDNAM, LANGUG
-U	02 getByFieldAlias TBMSID, FLDALS, LANGUG
-F	01 listByTable (TBMSID) TBDFMS (TBMSID)
+I	01 listByTable TBLNAM
+U	01 getByFieldName TBLNAM, FLDNAM, LANGUG
+U	02 getByFieldAlias TBLNAM, FLDALS, LANGUG
 =====================================================================================================================================================
