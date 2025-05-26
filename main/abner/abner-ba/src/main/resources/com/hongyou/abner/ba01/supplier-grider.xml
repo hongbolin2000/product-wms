@@ -11,6 +11,7 @@
     <filters>
         <opts name="isSupplier" type="enum" table="SUPLMS" column="ISSUPL"/>
         <opts name="isBuyer" type="enum" table="SUPLMS" column="ISCSTM"/>
+        <opts name="isOwner" type="enum" table="SUPLMS" column="ISOWNR"/>
     </filters>
 
     <datatable title="@table.title">
@@ -30,6 +31,7 @@
             <column type="label" name="supplierName" expr="suplnm" title="@SUPLMS.SUPLNM" width="200" filter="text"/>
             <column type="tag" name="isSupplier" expr="issupl" title="@SUPLMS.ISSUPL" width="80" format="@@SUPLMS.ISSUPL" filter="@isSupplier"/>
             <column type="tag" name="isBuyer" expr="iscstm" title="@SUPLMS.ISCSTM" width="70" format="@@SUPLMS.ISCSTM" filter="@isBuyer"/>
+            <column type="tag" name="isOwner" expr="isownr" title="@SUPLMS.ISOWNR" width="70" format="@@SUPLMS.ISOWNR" filter="@isOwner"/>
             <column type="label" name="address" expr="addres" title="@SUPLMS.ADDRES" filter="text"/>
             <column type="label" name="contacts" expr="contcs" title="@SUPLMS.CONTCS" width="80" filter="text"/>
             <column type="label" name="phoneNo" expr="phonno" title="@SUPLMS.PHONNO" width="100" filter="text"/>

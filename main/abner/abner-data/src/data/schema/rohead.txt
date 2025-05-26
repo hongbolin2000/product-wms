@@ -28,6 +28,8 @@ N 	PROJID,		BIGINT,		        ,		        ,						projectId,		Project,			    项目
 K 	PROJMS		- PROJNM
 N	CSTMID,		BIGINT,		        , 		,						        customerId,		Customer,			    客户
 K   ROHEAD04    - SUPLNM as CSTMNM alias customerName
+N	OWNRID,		BIGINT,		        , 		,						        ownerId,		Owner,			        货主
+K   ROHEAD05    - SUPLNM as OWNRNM alias ownerName
 *****************************************************************************************************************************************************
 N	ORDRDT,		DATE,		        ,				,						orderDate,		Order Date,				订单日期
 N	RECVDT,		DATE,		        ,				,						receiveDate,	Receive Date,		    收货日期
@@ -59,4 +61,5 @@ F	01 listByWarehouse (WRHSID) WRHSMS (WRHSID)
 F 	02 listBySupplier (SUPLID) SUPLMS (SUPLID)
 F 	03 listByProject (PROJID) PROJMS (PROJID)
 F 	04 listByCustomer (CSTMID) SUPLMS (SUPLID)
+F 	05 listByOwner (OWNRID) SUPLMS (SUPLID)
 =====================================================================================================================================================

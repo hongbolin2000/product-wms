@@ -149,6 +149,7 @@ public class GR08 extends UserDataProvider {
                     suplid(rohead.getSuplid()).
                     projid(rohead.getProjid()).
                     cstmid(rohead.getCstmid()).
+                    ownrid(rohead.getOwnrid()).
                     bathno(roline.getBathno()).
                     binmid(pojo.getBinId()).
                     cartno(pojo.getCartonNo()).

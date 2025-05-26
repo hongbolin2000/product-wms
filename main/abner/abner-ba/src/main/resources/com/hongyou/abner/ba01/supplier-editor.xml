@@ -17,14 +17,16 @@
         <param column="suplid" type="=" expr="id"/>
     </statement>
 
-    <editor spans="2" labelColumn="supplierName">
+    <editor labelColumn="supplierName">
         <input type="text" name="id" expr="suplid" hidden="true"/>
-        <input type="text" name="supplierCode" expr="suplcd" title="@SUPLMS.SUPLCD" length="16"/>
-        <input type="text" name="supplierName" expr="suplnm" title="@SUPLMS.SUPLNM" required="true" length="32"/>
-        <input type="text" name="remark" expr="remark" title="@SUPLMS.REMARK" length="254" spans="2"/>
+        <input type="text" name="supplierCode" expr="suplcd" title="@SUPLMS.SUPLCD" length="16" spans="2"/>
+        <input type="text" name="supplierName" expr="suplnm" title="@SUPLMS.SUPLNM" required="true" length="32" spans="2"/>
+        <input type="text" name="remark" expr="remark" title="@SUPLMS.REMARK" length="254" spans="4"/>
         <input type="enum" name="isSupplier" expr="issupl" title="@SUPLMS.ISSUPL" options="@@SUPLMS.ISSUPL" default="N"
                required="true"/>
         <input type="enum" name="isCustomer" expr="iscstm" title="@SUPLMS.ISCSTM" options="@@SUPLMS.ISCSTM" default="N"
+               required="true"/>
+        <input type="enum" name="isOwner" expr="isownr" title="@SUPLMS.ISOWNR" options="@@SUPLMS.ISOWNR" default="N"
                required="true"/>
     </editor>
 

@@ -40,6 +40,7 @@
             <column type="label" name="supplierName" expr="suplnm" title="@STCKIM.SUPLID" width="150" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@STCKIM.PROJID" width="150" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@STCKIM.CSTMID" width="150" filter="text"/>
+            <column type="label" name="ownerName" expr="ownrnm" title="@STCKIM.OWNRID" width="150" filter="text"/>
             <column type="label" name="batchNo" expr="bathno" title="@STCKIM.BATHNO" width="100" filter="text"/>
             <column type="label" name="binCode" expr="bincde" title="@STCKIM.BINMID" width="100" filter="text"/>
             <column type="label" name="cartonNo" expr="cartno" title="@STCKIM.CARTNO" width="100" filter="text"/>

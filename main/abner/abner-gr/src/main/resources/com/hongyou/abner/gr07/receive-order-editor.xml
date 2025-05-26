@@ -27,6 +27,7 @@
         <input type="text" name="refDocNo" expr="rdocno" title="@ROHEAD.RDOCNO" length="32"/>
         <input type="suggestor" name="supplierId" expr="suplid" title="@ROHEAD.SUPLID" module="ba00" suggestor="supplierSuggestor"/>
         <input type="suggestor" name="projectId" expr="projid" title="@ROHEAD.PROJID" module="ba00" suggestor="projectSuggestor"/>
+        <input type="suggestor" name="ownerId" expr="ownrid" title="@ROHEAD.OWNRID" module="ba00" suggestor="ownerSuggestor"/>
         <input type="text" name="remark" expr="remark" title="@ROHEAD.REMARK" length="254"/>
     </editor>
 

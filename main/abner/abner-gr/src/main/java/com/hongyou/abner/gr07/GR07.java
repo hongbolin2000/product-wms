@@ -82,6 +82,7 @@ public class GR07 extends UserDataProvider {
                     rdocno(pojo.getRefDocNo()).
                     rdocty(pojo.getRefDocType()).
                     suplid(pojo.getSupplierId()).
+                    ownrid(pojo.getOwnerId()).
                     ordrdt(new Date(currentTime.getTime())).
                     carcmp(pojo.getCarrierCompany()).
                     shipno(pojo.getShippingNo()).

@@ -9,4 +9,7 @@
 
     <!-- 项目查询建议器 -->
     <generic-suggestor-descriptor name="projectSuggestor">project-suggestor.xml</generic-suggestor-descriptor>
+
+    <!-- 货主查询建议器 -->
+    <generic-suggestor-descriptor name="ownerSuggestor">owner-suggestor.xml</generic-suggestor-descriptor>
 </baron-rindja-config>

@@ -36,6 +36,8 @@ N 	PROJID,		BIGINT,		,		        ,						projectId,		    Project,			    项目
 K 	PROJMS		- PROJNM
 N	CSTMID,		BIGINT,		 , 		,						        customerId,		    Customer,			    客户
 K   STCKIM05    - SUPLNM as CSTMNM alias customerName
+N	OWNRID,		BIGINT,		        , 		,						ownerId,		    Owner,			        货主
+K   STCKIM07    - SUPLNM as OWNRNM alias ownerName
 *****************************************************************************************************************************************************
 N	BATHNO,		VC(16),		NOT NULL,		'',						batchNo,			Batch No,				库存批次
 N   BINMID,     BIGINT,     NOT NULL,       ,                       binId,              Bin,                    存放货位
@@ -58,4 +60,5 @@ F 	03 listBySupplier (SUPLID) SUPLMS (SUPLID)
 F 	04 listByProject (PROJID) PROJMS (PROJID)
 F 	05 listByCustomer (CSTMID) SUPLMS (SUPLID)
 F	06 listByBin (BINMID) BINMAS (BINMID)
+F 	07 listByOwner (OWNRID) SUPLMS (SUPLID)
 =====================================================================================================================================================

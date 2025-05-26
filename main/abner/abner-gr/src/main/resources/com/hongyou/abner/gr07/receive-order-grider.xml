@@ -37,6 +37,7 @@
             <column type="label" name="supplierName" expr="suplnm" title="@ROHEAD.SUPLID" width="150" filter="text"/>
             <column type="label" name="projectName" expr="projnm" title="@ROHEAD.PROJID" width="150" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@ROHEAD.CSTMID" width="150" filter="text"/>
+            <column type="label" name="ownerName" expr="ownrnm" title="@ROHEAD.OWNRID" width="150" filter="text"/>
             <column type="tag" name="status" expr="status" title="@ROHEAD.STATUS" width="80" format="@@ROHEAD.STATUS"
                     filter="@status" success="statusValue == '10' or statusValue == '30'"/>
             <column type="label" name="orderDate" expr="ordrdt" title="@ROHEAD.ORDRDT" width="100" format="!yyyy-MM-dd" filter="date"/>
