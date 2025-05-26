@@ -52,6 +52,7 @@
           @click="colorClick(item)"
         />
       </n-grid>
+      <n-color-picker v-model:value="layoutStore.themeColor"/>
 
       <n-divider dashed>数据操作</n-divider>
       <div class="setting-item-wrapper">
