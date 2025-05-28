@@ -30,7 +30,7 @@
         <input type="number" name="salesPrice" expr="slsprc" title="@MTRLMS.SLSPRC" format="%#.###" min="0"
                default="0" scale="3" required="true"/>
         <input type="number" name="minStockQty" expr="mnstqt" title="@MTRLMS.MNSTQT" format="%#" min="0"
-               default="0" scale="0" required="true"/>
+               default="0" scale="3" required="true"/>
         <input type="text" mode="textarea" name="remark" expr="remark" title="@MTRLMS.REMARK" length="254"/>
     </editor>
 

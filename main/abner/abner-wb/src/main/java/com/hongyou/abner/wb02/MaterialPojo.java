@@ -1,9 +1,9 @@
 /*
  * Copyright 2014, Chengyou Software Development Studio.
  */
-package com.hongyou.abner.sy02;
+package com.hongyou.abner.wb02;
 
-import com.hongyou.abner.data.pojo.WrhsmsPojo;
+import com.hongyou.abner.data.pojo.PrdmtrPojo;
 import lombok.Data;
 
 import java.util.List;
@@ -12,15 +12,15 @@ import java.util.List;
  * @author Berlin
  */
 @Data
-public class UserWarehousePojo {
+public class MaterialPojo {
 
     /**
-     * 用户ID
+     * 成品物料ID
      */
     private Long id;
 
     /**
-     * 分配的仓库
+     * 物料清单
      */
-    private List<WrhsmsPojo> warehouses;
+    private List<PrdmtrPojo> materials;
 }

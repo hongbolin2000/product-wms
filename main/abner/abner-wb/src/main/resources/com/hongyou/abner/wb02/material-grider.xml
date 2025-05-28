@@ -20,6 +20,7 @@
         </statement>
 
         <columns>
+            <column type="label" name="category" expr="mtrctg" hidden="true"/>
             <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
@@ -30,6 +31,9 @@
             <column type="label" name="salesPrice" expr="slsprc" title="@MTRLMS.SLSPRC" width="100" format="%#.###"/>
             <column type="label" name="minStockQty" expr="mnstqt" title="@MTRLMS.MNSTQT" width="120" format="%#.###"/>
             <column type="label" name="remark" expr="remark" title="@MTRLMS.REMARK" filter="text"/>
+            <column type="link" mode="dialog" name="rawAssign" icon="material" expr="mtrlid" title="@raw.assign"
+                    width="70" link="/graces/editor/wb02/rawAssignEdit" disabled="category == 'RAW'" dialogWidth="70%"
+                    action="raw.assign"/>
             <column type="link" name="edit" icon="edit" expr="mtrlid" title="@edit" width="80"
                     link="/graces/editor/wb02/materialEdit" action="update"/>
             <column type="scriptLink" name="delete" icon="delete" expr="mtrlid" title="@delete" width="80"
@@ -43,6 +47,8 @@
             <item key="add">新增</item>
             <item key="edit">编辑</item>
             <item key="delete">删除</item>
+
+            <item key="raw.assign">原料关联</item>
         </lang>
 
         <lang code="en-US">
@@ -50,6 +56,8 @@
             <item key="add">Add</item>
             <item key="edit">Edit</item>
             <item key="delete">Delete</item>
+
+            <item key="raw.assign">RAW Assign</item>
         </lang>
     </intl>
 </rindja-generic-grider>

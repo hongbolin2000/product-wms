@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        原料关联
+    </description>
+
+    <url>/wb02/rawAssign</url>
+    <etitle>@etitle</etitle>
+
+    <statement>
+        <table name="vmtrlms"/>
+        <param column="mtrlid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="skuName">
+        <input type="text" name="id" expr="mtrlid" hidden="true"/>
+        <input type="text" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" disabled="true"/>
+        <input type="text" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" disabled="true"/>
+        <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" disabled="true"/>
+        <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" disabled="true"/>
+    </editor>
+
+    <sheeter title="@sheeter.title" name="materials" labelColumn="skuName" unique="skuName">
+        <statement>
+            <table name="vprdmtr"/>
+            <param column="pdmtid" type="=" expr="id"/>
+        </statement>
+
+        <inputs>
+            <input type="suggestor" name="materialId" expr="mtrlid" title="@PRDMTR.MTRLID" module="wb00"
+                   suggestor="rawMaterialSuggestor" required="true">
+                <script>
+                    row.skuName = option.label;
+                    row.price = option.purchasePrice;
+                    row.model = option.model;
+                    row.materialType = option.materialType;
+                    row.materialImage = option.materialImage;
+                </script>
+            </input>
+            <input type="text" name="skuName" expr="skunam" title="@PRDMTR.MTRLID" width="120" ignore="true"/>
+            <input type="number" name="quantity" expr="quanty" title="@PRDMTR.QUANTY" format="%#.###" min="1"
+                   default="0" scale="3" required="true" width="70"/>
+            <input type="check" name="needProductInput" expr="ndpdip" title="@PRDMTR.NDPDIP" checked="Y" unchecked="N"
+                   default="Y"/>
+            <input type="number" name="price" expr="pcsprc" title="@MTRLMS.PCSPRC" format="%#.###" scale="3" width="50"
+                   disabled="true"/>
+            <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" width="90" disabled="true"/>
+            <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="100" disabled="true"/>
+            <input type="text" name="remark" expr="remark" title="@PRDMTR.REMARK" length="254"/>
+            <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="100" disabled="true"/>
+        </inputs>
+    </sheeter>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="etitle">成品原料关联</item>
+            <item key="sheeter.title">原料清单</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="etitle">Raw Assign</item>
+            <item key="sheeter.title">RAW List</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

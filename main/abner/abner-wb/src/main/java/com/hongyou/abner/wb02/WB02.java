@@ -3,19 +3,17 @@
  */
 package com.hongyou.abner.wb02;
 
-import com.hongyou.baron.web.event.EventLog;
-import com.hongyou.abner.web.UserDataProvider;
-import com.hongyou.abner.data.model.Mtrlms;
-import com.hongyou.abner.data.model.Mtrtyp;
-import com.hongyou.abner.data.model.Userms;
-import com.hongyou.abner.data.model.VMtrlms;
+import com.hongyou.abner.data.model.*;
 import com.hongyou.abner.data.pojo.MtrlmsPojo;
+import com.hongyou.abner.web.UserDataProvider;
 import com.hongyou.baron.exceptions.RestRuntimeException;
 import com.hongyou.baron.logging.Log;
 import com.hongyou.baron.logging.LogFactory;
 import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
+import com.hongyou.baron.web.event.EventLog;
+import com.mybatisflex.core.query.QueryWrapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.List;
+
+import static com.hongyou.abner.data.model.table.PrdmtrTableDef.PRDMTR;
 
 /**
  * 物料管理
@@ -150,6 +150,54 @@ public class WB02 extends UserDataProvider {
         } catch (Exception e) {
             logger.error("物料删除失败", e);
             throw new RestRuntimeException("物料已被使用");
+        }
+    }
+
+    /**
+     * 原料关联
+     */
+    @PostMapping("/rawAssign")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry roleAssign(@RequestBody final MaterialPojo pojo) {
+
+        try {
+            Mtrlms mtrlms = this.db().mtrlms().get(pojo.getId());
+            Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
+            Timestamp currentTime = this.getCurrentTime();
+
+            // 删除原料清单
+            QueryWrapper wrapper = QueryWrapper.create();
+            wrapper.where(PRDMTR.PDMTID.eq(mtrlms.getMtrlid()));
+            this.db().prdmtr().deleteQuery(wrapper);
+
+            pojo.getMaterials().forEach(prdmtrPojo -> {
+                Mtrlms rawMtrlms = this.db().mtrlms().get(prdmtrPojo.getMaterialId());
+                Prdmtr prdmtr = new Prdmtr();
+                prdmtr.pdmtid(mtrlms.getMtrlid()).
+                        mtrlid(rawMtrlms.getMtrlid()).
+                        quanty(prdmtrPojo.getQuantity()).
+                        ndpdip(prdmtrPojo.getNeedProductInput()).
+                        remark(prdmtrPojo.getRemark()).
+                        oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().prdmtr().save(prdmtr);
+            });
+
+            // 记录日志
+            EventLog event = EventLog.builder().
+                    domain(loginUser.getCmpnid()).
+                    operator(operatorBy).
+                    module(WB02.class.getSimpleName()).
+                    name("物料管理").
+                    action("原料关联").
+                    message(StringUtil.format("物料[{}]原料关联成功", mtrlms.getSkunam())).
+                    build();
+            this.eventLogManager.info(event);
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("原料关联失败", e);
+            throw new RestRuntimeException("原料关联失败");
         }
     }
 

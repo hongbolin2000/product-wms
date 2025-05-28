@@ -6,4 +6,7 @@
 
     <!-- 物料编辑 -->
     <generic-editor-descriptor name="materialEdit">material-editor.xml</generic-editor-descriptor>
+
+    <!-- 原料关联 -->
+    <generic-editor-descriptor name="rawAssignEdit">raw-assign-editor.xml</generic-editor-descriptor>
 </baron-rindja-config>

@@ -49,7 +49,7 @@
             <input type="selection" name="id" expr="polnid"/>
             <input type="text" name="skuName" expr="skunam" title="@POLINE.MTRLID" width="120" disabled="true"/>
             <input type="number" name="orderQty" expr="ordqty" title="@issue.qty" format="ordqty - rcvqty" width="70"
-                   required="true" default="0" scale="0" min="1"/>
+                   required="true" default="0" scale="3" min="1"/>
             <input type="number" name="receivedQty" expr="rcvqty" title="@POLINE.RCVQTY" format="%#.###" width="80" disabled="true"/>
             <input type="number" name="purchasingQty" expr="ordqty" title="@POLINE.ORDQTY" format="%#.###" width="70" disabled="true"/>
             <input type="number" name="price" expr="price" title="@POLINE.PRICE" format="%#.###" width="50" disabled="true"/>

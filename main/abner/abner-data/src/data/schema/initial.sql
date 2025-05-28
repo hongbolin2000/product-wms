@@ -83,6 +83,7 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'wb02', '物料管理', 'add', '新增');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'wb02', '物料管理', 'update', '修改');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'wb02', '物料管理', 'delete', '删除');
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 4, 'wb02', '物料管理', 'raw.assign', '原料关联');
 
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'wb03', '仓库管理', 'browse', '查看');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'wb03', '仓库管理', 'add', '新增');

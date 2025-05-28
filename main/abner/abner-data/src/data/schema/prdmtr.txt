@@ -10,9 +10,13 @@ N	PRDMID,		ID,			NOT NULL,       ,               		id,				    ID,               
 N	PDMTID,		BIGINT,		NOT NULL,       ,               		productMaterial,    Product Material,       成品
 *************************************************************************************************************************************************
 N 	MTRLID,		BIGINT,		NOT NULL,		,						materialId,	        Material,		        原料
-K 	MTRLMS				    - SKUNO, SKUNAM, MODEL, PCSPRC, MTRIMG
-K 	MTRLMS:MTRTYP 		    - MTTYP1, MTTYCD
+K 	PRDMTR02				- SKUNO, SKUNAM, MODEL, PCSPRC, MTRIMG
+K 	PRDMTR02:MTRTYP 		- MTTYP1, MTTYCD
 N   QUANTY,     N(24.3),    NOT NULL,       0,                      quantity,           Quantity,               需求数量
+*************************************************************************************************************************************************
+N   NDPDIP,     C(1),       NOT NULL,       'Y',                    needProductInput,   Need Product Input,     是否需生产录入
+	B	Y		Yes			是
+	B	N		No			否
 *************************************************************************************************************************************************
 N	REMARK,		VC(254),	NOT NULL, 		'',						remark,			    Remark,					备注
 N	OPRTBY,		VC(32),		NOT NULL,		'',			            operateBy,		    Operate By,				操作人

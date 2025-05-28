@@ -38,7 +38,7 @@
             <input type="selection" name="id" expr="rqlnid"/>
             <input type="text" name="skuName" expr="skunam" title="@RQLINE.MTRLID" width="120" disabled="true"/>
             <input type="number" name="orderQty" expr="ordqty" title="@issue.qty" format="ordqty - pcsqty" width="70"
-                   required="true" default="0" scale="0" min="1"/>
+                   required="true" default="0" scale="3" min="1"/>
             <input type="number" name="purchasedQty" expr="pcsqty" title="@RQLINE.PCSQTY" format="%#.###" width="80" disabled="true"/>
             <input type="number" name="requisitionQty" expr="ordqty" title="@RQLINE.ORDQTY" format="%#.###" width="70" disabled="true"/>
             <input type="number" name="price" expr="price" title="@RQLINE.PRICE" format="%#.###" width="50" disabled="true"/>
