@@ -1,0 +1,40 @@
+=====================================================================================================================================================
+T	PDHEAD
+S
+L	Production Record Head
+C	生产记录
+Y	Production Record
+====1===========2===========3===============4=======================5===================6=======================7====================================
+N	PDHDID,		ID,			NOT NULL,       ,               		id,					ID,                     主键
+*****************************************************************************************************************************************************
+N	CMPNID,		BIGINT,		NOT NULL,		,						companyId,		    Company,				公司
+N   RDOCNO,     VC(32),     NOT NULL,       '',                     refDocNo,           Ref Doc No,             参考单据
+*****************************************************************************************************************************************************
+N   FGSRNO,     VC(64),     NOT NULL,       ,                       fgSerialNo,         FG Serial No,           成品序列号
+N	PDMTID,		BIGINT,		NOT NULL,       ,               		productMaterial,    Product Material,       成品物料
+K 	MTRLMS				    - SKUNO, SKUNAM, MODEL, PCSPRC, MTRIMG
+K 	MTRLMS:MTRTYP 		    - MTTYP1, MTTYCD
+*****************************************************************************************************************************************************
+N 	SUPLID,		BIGINT,		        ,		        ,			    supplierId,		    Supplier,			    供应商
+K 	SUPLMS		- SUPLNM
+N 	PROJID,		BIGINT,		        ,		        ,				projectId,		    Project,			    项目
+K 	PROJMS		- PROJNM
+N	CSTMID,		BIGINT,		        , 		,						customerId,		    Customer,			    客户
+K   PDHEAD04    - SUPLNM as CSTMNM alias customerName
+*****************************************************************************************************************************************************
+N	PRDDAT,		DATE,		,				,						produceDate,	    Produce Date,		    生产日期
+N 	ISPTOR,		VC(32),		NOT NULL,		'',						inspector,		    Inspector,			    质检员
+*****************************************************************************************************************************************************
+N	REMARK,		VC(254),	NOT NULL,		'',						remark,				Remark,					备注
+N	CRETBY,		VC(64),		NOT NULL,		'',						createBy,			Create By,				创建人
+N	CRETTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		createTime,			Create Time,			创建时间
+N	OPRTBY,		VC(64),		NOT NULL,		'',			            operateBy,			Operate By,				操作人
+N	OPRTTM,		TS,			NOT NULL,		CURRENT_TIMESTAMP,		operateTime,		Operate Time,			操作时间
+*****************************************************************************************************************************************************
+P 	PDHDID
+U	01 getByFGSerialNo CMPNID, FGSRNO
+F	01 listByProduct (PDMTID) MTRLMS (MTRLID)
+F 	02 listBySupplier (SUPLID) SUPLMS (SUPLID)
+F 	03 listByProject (PROJID) PROJMS (PROJID)
+F 	04 listByCustomer (CSTMID) SUPLMS (SUPLID)
+=====================================================================================================================================================

@@ -82,6 +82,8 @@ T	usrwrh.txt			* 用户和仓库关系表, User and Warehouse Relation
 ***********************************************************************************************************************
 T   mohead.txt          * 生产单, Manufacture Order Head
 T   moline.txt          * 生产单行, Manufacture Order Line
+T   pdhead.txt          * 生产记录头, Production Record Head
+T   pdline.txt          * 生产记录行, Production Record Line
 
 ***********************************************************************************************************************
 *  采购
