@@ -63,7 +63,7 @@
 
       const widgets: TextWidgetProps[] = <TextWidgetProps[]>[];
       for (let i = 0; i < materials.value.length; i++) {
-        const material: unknown = materials.value[i];
+        const material: any = materials.value[i];
 
         // 输入控件
         widgets.push(<TextWidgetProps>{
@@ -75,7 +75,7 @@
       // 表单
       let formEditors: FormEditorProps[] = [];
       formEditors.push(<FormEditorProps>{
-        name: 'productionLine', title: '生产原料', spans: 4, widgets: widgets, placement: 'left'
+        name: 'productionLine', title: '生产原料', spans: 4, widgets: <TextWidgetProps[]> widgets, placement: 'left'
       });
 
       // 生成表单行
