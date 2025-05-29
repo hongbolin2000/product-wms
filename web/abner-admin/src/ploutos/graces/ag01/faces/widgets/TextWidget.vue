@@ -11,6 +11,7 @@
       :input-props="{autocomplete: false}"
       @keyup.enter="handleEnter"
       :ref="renderRef"
+      :autosize="widget.mode == 'textarea' ? {minRows: 3, maxRows: 10} : false"
   >
     <template #prefix v-if="widget.prefix">
       <SvgIcon :name="props.widget.prefixIcon" v-if="props.widget.prefixIcon"/>

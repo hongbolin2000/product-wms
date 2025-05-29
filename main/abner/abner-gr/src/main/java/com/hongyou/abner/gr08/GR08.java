@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.hongyou.abner.data.model.table.RolineTableDef.ROLINE;
@@ -55,28 +57,113 @@ public class GR08 extends UserDataProvider {
             Rohead rohead = this.db().rohead().get(roline.getRohdid());
             Binmas binmas = this.db().binmas().get(pojo.getBinId());
 
+            // 检查序列号
+            List<String> serialNos = new ArrayList<>();
+            if (StringUtil.isNotBlank(pojo.getSerialNo())) {
+                serialNos.addAll(Arrays.stream(pojo.getSerialNo().split("\n")).toList());
+
+                for (String serialNo : serialNos) {
+                    Stckim stckim = this.db().stckim().getByStockItemNo(rohead.getWrhsid(), serialNo);
+                    if (ObjectUtil.isNotNull(stckim)) {
+                        return ResponseEntry.builder().code(-1).message("序列号[ " + serialNo + " ]已存在").build();
+                    }
+                }
+            }
+
             // 生成批次号
             if (StringUtil.isBlank(roline.getBathno())) {
                 String batchNo = this.serialManager.get("stckim.bathno", loginUser.getCmpnid().toString());
                 roline.bathno(batchNo).
                         status(Roline.STATUS.Receiving);
-            } else {
-                Stckim stckim = this.db().stckim().getByStockItemNo(rohead.getWrhsid(), pojo.getSerialNo());
-                if (ObjectUtil.isNotNull(stckim)) {
-                    return ResponseEntry.builder().code(-1).message("序列号已存在").build();
+            }
+
+            // 生成库存主信息
+            Stckms stckms = this.db().stckms().getByMaterial(rohead.getWrhsid(), roline.getMtrlid());
+            if (ObjectUtil.isNull(stckms)) {
+                stckms = new Stckms();
+                stckms.wrhsid(rohead.getWrhsid()).
+                        mtrlid(roline.getMtrlid()).
+                        cretby(operatorBy).
+                        crettm(currentTime);
+            }
+
+            // 生成库存唯一码
+            if (ListUtil.isEmpty(serialNos)) {
+                String  stockItemNo = this.serialManager.get("stckim.stimno", loginUser.getCmpnid().toString());
+                serialNos.add(stockItemNo);
+            }
+
+            for (String serialNo : serialNos) {
+
+                // 更新收货单行数量
+                roline.rcvqty(roline.getRcvqty().add(pojo.getReceiveQty())).
+                        status(Roline.STATUS.Receiving);
+
+                // 收货单行完成收货
+                if (roline.getRcvqty().compareTo(roline.getOrdqty()) >= 0) {
+                    roline.status(Roline.STATUS.Finished);
                 }
-            }
+                roline.oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().roline().save(roline);
 
-            roline.rcvqty(roline.getRcvqty().add(pojo.getReceiveQty())).
-                    status(Roline.STATUS.Receiving);
+                // 保存收货单项
+                Roitem roitem = new Roitem();
+                roitem.rolnid(roline.getRolnid()).
+                        stimno(serialNo).
+                        binmid(binmas.getBinmid()).
+                        cartno(pojo.getCartonNo()).
+                        rcvqty(pojo.getReceiveQty()).
+                        rcvtim(currentTime).
+                        recvby(operatorBy).
+                        remark(pojo.getRemark()).
+                        oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().roitem().save(roitem);
 
-            // 收货单行完成收货
-            if (roline.getRcvqty().compareTo(roline.getOrdqty()) >= 0) {
-                roline.status(Roline.STATUS.Finished);
+                // 生成库存项
+                Stckim stckim = new Stckim();
+                stckim.stckid(stckms.getStckid()).
+                        price(roline.getPrice()).
+                        wrhsid(rohead.getWrhsid()).
+                        stimno(serialNo).
+                        rdocty(rohead.getRdocty()).
+                        rcvqty(pojo.getReceiveQty()).
+                        rvodno(rohead.getRvodno()).
+                        rcvtim(currentTime).
+                        rcvdat(new Date(currentTime.getTime())).
+                        recvby(operatorBy).
+                        suplid(rohead.getSuplid()).
+                        projid(rohead.getProjid()).
+                        cstmid(rohead.getCstmid()).
+                        ownrid(rohead.getOwnrid()).
+                        bathno(roline.getBathno()).
+                        binmid(pojo.getBinId()).
+                        cartno(pojo.getCartonNo()).
+                        onhdqt(pojo.getReceiveQty()).
+                        remark(pojo.getRemark()).
+                        oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().stckim().save(stckim);
+
+                // 生成库存日志
+                Stcktn stcktn = new Stcktn();
+                stcktn.wrhsid(rohead.getWrhsid()).
+                        trntyp(Stcktn.TRNTYP.Receive).
+                        rdocty(rohead.getRdocty()).
+                        rdocno(rohead.getRdocno()).
+                        stimno(stckim.getStimno()).
+                        mtrlid(roline.getMtrlid()).
+                        price(roline.getPrice()).
+                        rvodno(rohead.getRvodno()).
+                        bathno(roline.getBathno()).
+                        bincde(binmas.getBincde()).
+                        cartno(pojo.getCartonNo()).
+                        nohdqt(pojo.getReceiveQty()).
+                        oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().stcktn().save(stcktn);
             }
-            roline.oprtby(operatorBy).
-                    oprttm(currentTime);
-            this.db().roline().save(roline);
 
             // 收货单开始收货
             if (StringUtil.isBlank(rohead.getRecvby())) {
@@ -89,7 +176,6 @@ public class GR08 extends UserDataProvider {
             QueryWrapper wrapper = QueryWrapper.create();
             wrapper.and(ROLINE.ROHDID.eq(rohead.getRohdid())).
                     and(ROLINE.STATUS.eq(Roline.STATUS.No).or(ROLINE.STATUS.eq(Roline.STATUS.Receiving)));
-
             List<Roline> rolines = this.db().roline().list(wrapper);
             if (ListUtil.isEmpty(rolines)) {
                 rohead.status(Rohead.STATUS.Finished);
@@ -98,84 +184,11 @@ public class GR08 extends UserDataProvider {
                     oprttm(currentTime);
             this.db().rohead().save(rohead);
 
-            // 生成库存唯一码
-            String stockItemNo = pojo.getSerialNo();
-            if (StringUtil.isBlank(stockItemNo)) {
-                stockItemNo = this.serialManager.get("stckim.stimno", loginUser.getCmpnid().toString());
-            }
-
-            // 保存收货单项
-            Roitem roitem = new Roitem();
-            roitem.rolnid(roline.getRolnid()).
-                    stimno(stockItemNo).
-                    binmid(binmas.getBinmid()).
-                    cartno(pojo.getCartonNo()).
-                    rcvqty(pojo.getReceiveQty()).
-                    rcvtim(currentTime).
-                    recvby(operatorBy).
-                    remark(pojo.getRemark()).
-                    oprtby(operatorBy).
-                    oprttm(currentTime);
-            this.db().roitem().save(roitem);
-
-            // 生成库存主信息
-            Stckms stckms = this.db().stckms().getByMaterial(rohead.getWrhsid(), roline.getMtrlid());
-            if (ObjectUtil.isNull(stckms)) {
-                stckms = new Stckms();
-                stckms.wrhsid(rohead.getWrhsid()).
-                        mtrlid(roline.getMtrlid()).
-                        cretby(operatorBy).
-                        crettm(currentTime);
-            }
-
             // 更新库存主信息
             stckms.onhdqt(stckms.getOnhdqt().add(pojo.getReceiveQty())).
                     oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().stckms().save(stckms);
-
-            // 生成库存项
-            Stckim stckim = new Stckim();
-            stckim.stckid(stckms.getStckid()).
-                    price(roline.getPrice()).
-                    wrhsid(rohead.getWrhsid()).
-                    stimno(stockItemNo).
-                    rdocty(rohead.getRdocty()).
-                    rcvqty(pojo.getReceiveQty()).
-                    rvodno(rohead.getRvodno()).
-                    rcvtim(currentTime).
-                    rcvdat(new Date(currentTime.getTime())).
-                    recvby(operatorBy).
-                    suplid(rohead.getSuplid()).
-                    projid(rohead.getProjid()).
-                    cstmid(rohead.getCstmid()).
-                    ownrid(rohead.getOwnrid()).
-                    bathno(roline.getBathno()).
-                    binmid(pojo.getBinId()).
-                    cartno(pojo.getCartonNo()).
-                    onhdqt(pojo.getReceiveQty()).
-                    remark(pojo.getRemark()).
-                    oprtby(operatorBy).
-                    oprttm(currentTime);
-            this.db().stckim().save(stckim);
-
-            // 生成库存日志
-            Stcktn stcktn = new Stcktn();
-            stcktn.wrhsid(rohead.getWrhsid()).
-                    trntyp(Stcktn.TRNTYP.Receive).
-                    rdocty(rohead.getRdocty()).
-                    rdocno(rohead.getRdocno()).
-                    stimno(stckim.getStimno()).
-                    mtrlid(roline.getMtrlid()).
-                    price(roline.getPrice()).
-                    rvodno(rohead.getRvodno()).
-                    bathno(roline.getBathno()).
-                    bincde(binmas.getBincde()).
-                    cartno(pojo.getCartonNo()).
-                    nohdqt(pojo.getReceiveQty()).
-                    oprtby(operatorBy).
-                    oprttm(currentTime);
-            this.db().stcktn().save(stcktn);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
