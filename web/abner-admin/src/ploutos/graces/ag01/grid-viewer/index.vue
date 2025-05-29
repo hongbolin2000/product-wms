@@ -227,7 +227,7 @@
       if (route.query.from) {
         const datatable: any = grider.value.datatable;
         let tabTitle = datatable.title;
-        if (datatable.data.length > 0) {
+        if (datatable.data.length > 0 && datatable.labelColumn != "") {
           tabTitle += ' - ' + datatable.data[0][datatable.labelColumn]
         }
         appStore.changeTabTitle(tabTitle);

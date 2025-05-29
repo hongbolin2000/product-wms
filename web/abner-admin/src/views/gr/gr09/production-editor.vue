@@ -121,6 +121,10 @@
       loading(true);
       await http.post("/gr09/save", value);
       message.success('生产序列号[ ' + value.fgSerialNo + ' ]录入成功');
+
+      // 刷新列表
+      const func = new Function( 'name', 'return eval(name).call()');
+      func('gr09ProductionListRefresh');
     } finally {
       loading(false);
     }

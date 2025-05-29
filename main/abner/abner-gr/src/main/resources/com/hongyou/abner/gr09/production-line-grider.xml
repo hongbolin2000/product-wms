@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        生产用料清单
+    </description>
+
+    <filters>
+    </filters>
+
+    <datatable title="@table.title" labelColumn="">
+        <statement>
+            <table name="vpdline"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
+            <order by="rwsrno desc"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="fgSerialNo" expr="fgsrno" title="@PDHEAD.FGSRNO" width="120" filter="text"/>
+            <column type="label" name="rawSerialNo" expr="rwsrno" title="@PDLINE.RWSRNO" width="100" filter="text"/>
+            <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
+        </columns>
+    </datatable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">生产用料清单</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Production Material List</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <baron-rindja-config>
 
+    <!-- 生产记录列表 -->
+    <generic-grider-descriptor name="productionList">production-grider.xml</generic-grider-descriptor>
+
+    <!-- 生产用料清单 -->
+    <generic-grider-descriptor name="productionLineList">production-line-grider.xml</generic-grider-descriptor>
+
     <!-- 生产录入 -->
     <generic-editor-descriptor name="productionEdit">production-editor.xml</generic-editor-descriptor>
 </baron-rindja-config>

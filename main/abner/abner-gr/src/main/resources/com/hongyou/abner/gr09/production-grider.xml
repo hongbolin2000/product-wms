@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-grider version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        生产记录管理
+    </description>
+
+    <datatable title="@table.title">
+        <actions>
+            <action type="link" icon="menu" title="@pd.mt.list" link="/graces/grider/gr09/productionLineList"
+                    action="browse"/>
+        </actions>
+
+        <statement>
+            <table name="vpdhead"/>
+            <param column="cmpnid" type="=" expr="_companyId"/>
+            <order by="fgsrno desc"/>
+        </statement>
+        <double.click type="query" datatables="detail" input="pdHeadId"/>
+
+        <columns>
+            <column type="label" name="pdHeadId" expr="pdhdid" hidden="true"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
+            <column type="label" name="fgSerialNo" expr="fgsrno" title="@PDHEAD.FGSRNO" width="120" filter="text"/>
+            <column type="label" name="refDocNo" expr="rdocno" title="@PDHEAD.RDOCNO" width="100" filter="text"/>
+            <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
+            <column type="label" name="supplierName" expr="suplnm" title="@PDHEAD.SUPLID" width="150" filter="text"/>
+            <column type="label" name="projectName" expr="projnm" title="@PDHEAD.PROJID" width="150" filter="text"/>
+            <column type="label" name="customerName" expr="cstmnm" title="@PDHEAD.CSTMID" width="150" filter="text"/>
+            <column type="label" name="produceDate" expr="prddat" title="@PDHEAD.PRDDAT" width="100" format="!yyyy-MM-dd" filter="date"/>
+            <column type="label" name="inspector" expr="isptor" title="@PDHEAD.ISPTOR" width="100" filter="text"/>
+            <column type="label" name="remark" expr="remark" title="@PDHEAD.REMARK" width="100" filter="text"/>
+            <column type="scriptLink" name="delete" icon="delete" expr="pdhdid" title="@delete" width="80"
+                    link="/gr09/delete" labelColumn="fgSerialNo" danger="true" action="delete"/>
+        </columns>
+    </datatable>
+
+    <subtable name="detail">
+        <statement>
+            <table name="vpdline"/>
+            <param column="pdhdid" type="=" expr="pdHeadId"/>
+            <order by="rwsrno"/>
+        </statement>
+
+        <columns>
+            <column type="label" name="rawSerialNo" expr="rwsrno" title="@PDLINE.RWSRNO" width="100" filter="text"/>
+            <column type="label" name="lineSkuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
+            <column type="label" name="lineSkuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
+            <column type="label" name="lineModel" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
+            <column type="label" name="lineMaterialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
+        </columns>
+    </subtable>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="table.title">生产记录</item>
+
+            <item key="pd.mt.list">生产用料清单</item>
+            <item key="delete">删除</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="table.title">Production Record</item>
+
+            <item key="pd.mt.list">Production Material List</item>
+            <item key="delete">Delete</item>
+        </lang>
+    </intl>
+</rindja-generic-grider>

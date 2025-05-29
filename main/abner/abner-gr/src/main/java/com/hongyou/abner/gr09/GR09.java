@@ -15,12 +15,14 @@ import com.hongyou.baron.util.ObjectUtil;
 import com.hongyou.baron.util.StringUtil;
 import com.hongyou.baron.web.ResponseEntry;
 import com.hongyou.baron.web.event.EventLog;
+import com.mybatisflex.core.query.QueryWrapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
 
+import static com.hongyou.abner.data.model.table.PdlineTableDef.PDLINE;
 import static com.hongyou.abner.data.model.table.VPrdmtrTableDef.VPRDMTR;
 
 /**
@@ -80,6 +82,13 @@ public class GR09 extends UserDataProvider {
                 return ResponseEntry.builder().code(-1).message("生产序列号已存在").build();
             }
 
+            for (PdlinePojo line : pojo.getProductionLines()) {
+                Pdline pdline = this.db().pdline().getByRAWSerialNo(loginUser.getCmpnid(), line.getRawSerialNo());
+                if (ObjectUtil.isNotNull(pdline)) {
+                    return ResponseEntry.builder().code(-1).message("原料序列号[ " + pdline.getRwsrno() + " ]已被使用").build();
+                }
+            }
+
             Pdhead pdhead = new Pdhead();
             if (ObjectUtil.isNotNull(pojo.getSupplierId())) {
                 pdhead.suplid(pojo.getSupplierId());
@@ -118,7 +127,8 @@ public class GR09 extends UserDataProvider {
 
             for (PdlinePojo line : pojo.getProductionLines()) {
                 Pdline pdline = new Pdline();
-                pdline.pdhdid(pdhead.getPdhdid()).
+                pdline.cmpnid(loginUser.getCmpnid()).
+                        pdhdid(pdhead.getPdhdid()).
                         rwsrno(line.getRawSerialNo()).
                         mtrlid(line.getMaterialId()).
                         cretby(operatorBy).
@@ -144,6 +154,46 @@ public class GR09 extends UserDataProvider {
         } catch (Exception e) {
             logger.error("生产记录保存失败", e);
             throw new RestRuntimeException("生产记录保存失败");
+        }
+    }
+
+    /**
+     * 删除生产记录
+     */
+    @PostMapping("/delete")
+    @Transactional(rollbackFor = RestRuntimeException.class)
+    public ResponseEntry delete(@RequestBody final List<Long> ids) {
+
+        try {
+            Userms loginUser = this.getLoginUser();
+            String operatorBy = this.getOperatorBy(loginUser);
+
+            for (Long id: ids) {
+                VPdhead vPdhead = new VPdhead().pdhdid(id).oneById();
+                EventLog event = EventLog.builder().
+                        domain(loginUser.getCmpnid()).
+                        operator(operatorBy).
+                        module(GR09.class.getSimpleName()).
+                        name("生产记录管理").
+                        action("删除").
+                        message(StringUtil.format("生产序列号[{}]删除成功", vPdhead.getFgsrno())).
+                        newValue(vPdhead).
+                        build();
+                this.eventLogManager.critical(event);
+
+                // 删除生产记录行
+                QueryWrapper wrapper = QueryWrapper.create();
+                wrapper.where(PDLINE.PDHDID.eq(vPdhead.getPdhdid()));
+                this.db().pdline().deleteQuery(wrapper);
+
+                // 删除生产记录
+                this.db().pdhead().delete(id);
+            }
+
+            return ResponseEntry.SUCCESS;
+        } catch (Exception e) {
+            logger.error("生产记录删除失败", e);
+            throw new RestRuntimeException("生产记录已被使用");
         }
     }
 }
