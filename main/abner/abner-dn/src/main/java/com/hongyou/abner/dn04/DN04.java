@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.hongyou.abner.data.model.table.DolineTableDef.DOLINE;
@@ -56,6 +57,9 @@ public class DN04 extends UserDataProvider {
             Dohead dohead = this.db().dohead().get(doline.getDohdid());
             Stckms stckms = this.db().stckms().getByMaterial(dohead.getWrhsid(), doline.getMtrlid());
 
+            if (StringUtil.isBlank(pojo.getBinCode()) && StringUtil.isBlank(pojo.getSerialNo())) {
+                return ResponseEntry.builder().code(-1).message("请选择序列号").build();
+            }
             if (stckms == null) {
                 return ResponseEntry.builder().code(-1).message("没有库存").build();
             }
@@ -63,9 +67,11 @@ public class DN04 extends UserDataProvider {
             // 查询库存
             QueryWrapper wrapper = QueryWrapper.create();
             wrapper.and(STCKIM.STCKID.eq(stckms.getStckid())).
+                    and(STCKIM.ONHDQT.gt(BigDecimal.ZERO)).
                     orderBy(STCKIM.BATHNO.getName());
 
             // 批次发货
+            BigDecimal restDeliverQty = pojo.getDeliverQty();
             if (StringUtil.isNotBlank(pojo.getBinCode())) {
                 Binmas binmas = this.db().binmas().getByBinCode(dohead.getWrhsid(), pojo.getBinCode());
                 wrapper.and(STCKIM.BINMID.eq(binmas.getBinmid()));
@@ -73,7 +79,8 @@ public class DN04 extends UserDataProvider {
 
             // 序列号发货
             if (StringUtil.isNotBlank(pojo.getSerialNo())) {
-                wrapper.and(STCKIM.STIMNO.eq(pojo.getSerialNo()));
+                List<String> serialNos = Arrays.stream(pojo.getSerialNo().split("\n")).toList();
+                wrapper.and(STCKIM.STIMNO.in(serialNos));
             }
             List<Stckim> stckims = this.db().stckim().list(wrapper);
 
@@ -84,38 +91,11 @@ public class DN04 extends UserDataProvider {
                 return ResponseEntry.builder().code(-1).message("库存数不足").build();
             }
 
-            doline.dlvqty(doline.getDlvqty().add(pojo.getDeliverQty())).
-                    status(Doline.STATUS.Delivering);
-
-            // 发货单行完成发货
-            if (doline.getDlvqty().compareTo(doline.getOrdqty()) >= 0) {
-                doline.status(Doline.STATUS.Finished);
-            }
-            doline.oprtby(operatorBy).
-                    oprttm(currentTime);
-            this.db().doline().save(doline);
-
-            // 发货单开始发货
-            if (StringUtil.isBlank(dohead.getDelvby())) {
-                dohead.status(Dohead.STATUS.Delivering).
-                        delvby(operatorBy).
-                        delvdt(new Date(currentTime.getTime()));
+            // 序列号发货
+            if (StringUtil.isNotBlank(pojo.getSerialNo())) {
+                restDeliverQty = totalStockQty;
             }
 
-            // 发货单完成发货
-            wrapper = QueryWrapper.create();
-            wrapper.and(DOLINE.DOHDID.eq(dohead.getDohdid())).
-                    and(DOLINE.STATUS.eq(Doline.STATUS.No).or(DOLINE.STATUS.eq(Doline.STATUS.Delivering)));
-
-            List<Doline> dolines = this.db().doline().list(wrapper);
-            if (ListUtil.isEmpty(dolines)) {
-                dohead.status(Dohead.STATUS.Finished);
-            }
-            dohead.oprtby(operatorBy).
-                    oprttm(currentTime);
-            this.db().dohead().save(dohead);
-
-            BigDecimal restDeliverQty = pojo.getDeliverQty();
             for (Stckim stckim : stckims) {
                 BigDecimal deliverQty;
                 if (restDeliverQty.compareTo(BigDecimal.ZERO) <= 0) {
@@ -123,12 +103,16 @@ public class DN04 extends UserDataProvider {
                 }
 
                 // 在库数大于剩余需发货数
-                if (stckim.getOnhdqt().compareTo(restDeliverQty) < 0) {
+                if (stckim.getOnhdqt().compareTo(restDeliverQty) > 0) {
                     deliverQty = restDeliverQty;
                 } else {
                     deliverQty = stckim.getOnhdqt();
                 }
                 restDeliverQty = restDeliverQty.subtract(deliverQty);
+
+                // 更新发货单行
+                doline.dlvqty(doline.getDlvqty().add(deliverQty)).
+                        status(Doline.STATUS.Delivering);
 
                 // 保存发货单项
                 Doitem doitem = new Doitem();
@@ -179,6 +163,33 @@ public class DN04 extends UserDataProvider {
                         oprttm(currentTime);
                 this.db().stcktn().save(stcktn);
             }
+
+            // 发货单行完成发货
+            if (doline.getDlvqty().compareTo(doline.getOrdqty()) >= 0) {
+                doline.status(Doline.STATUS.Finished);
+            }
+            doline.oprtby(operatorBy).
+                    oprttm(currentTime);
+            this.db().doline().save(doline);
+
+            // 发货单开始发货
+            if (StringUtil.isBlank(dohead.getDelvby())) {
+                dohead.status(Dohead.STATUS.Delivering).
+                        delvby(operatorBy).
+                        delvdt(new Date(currentTime.getTime()));
+            }
+
+            // 发货单完成发货
+            wrapper = QueryWrapper.create();
+            wrapper.and(DOLINE.DOHDID.eq(dohead.getDohdid())).
+                    and(DOLINE.STATUS.eq(Doline.STATUS.No).or(DOLINE.STATUS.eq(Doline.STATUS.Delivering)));
+            List<Doline> dolines = this.db().doline().list(wrapper);
+            if (ListUtil.isEmpty(dolines)) {
+                dohead.status(Dohead.STATUS.Finished);
+            }
+            dohead.oprtby(operatorBy).
+                    oprttm(currentTime);
+            this.db().dohead().save(dohead);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {

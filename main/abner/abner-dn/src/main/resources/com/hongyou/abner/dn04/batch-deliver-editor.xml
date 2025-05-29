@@ -18,13 +18,16 @@
 
     <editor labelColumn="skuName" spans="3">
         <input type="text" name="id" expr="dolnid" hidden="true"/>
+        <input type="text" name="warehouseId" expr="wrhsid" hidden="true"/>
+        <input type="text" name="skuNo" expr="skuno" hidden="true"/>
         <input type="text" name="skuName" expr="skunam" title="@DOLINE.MTRLID" disabled="true"/>
         <input type="number" name="deliveredQty" expr="dlvqty" title="@DOLINE.DLVQTY" format="%#.###" disabled="true"/>
         <input type="number" name="orderQty" expr="ordqty" title="@DOLINE.ORDQTY" format="%#.###" disabled="true"/>
         <input type="number" name="price" expr="price" title="@DOLINE.PRICE" format="%#.###" disabled="true"/>
         <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" disabled="true"/>
         <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" disabled="true"/>
-        <input type="suggestor" name="binCode" title="@STCKIM.BINMID" module="dn04" suggestor="stockBinSuggestor" required="true"/>
+        <input type="suggestor" name="binCode" title="@STCKIM.BINMID" module="dn04" suggestor="stockBinSuggestor"
+               required="true" input="warehouseId,skuNo"/>
         <input type="number" name="deliverQty" title="@deliver.qty" required="true" default="0" scale="3" min="1"/>
         <input type="text" name="remark" title="@DOLINE.REMARK" length="254"/>
         <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" disabled="true"/>

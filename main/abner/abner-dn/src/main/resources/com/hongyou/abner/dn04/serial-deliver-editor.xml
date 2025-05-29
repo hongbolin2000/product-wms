@@ -18,14 +18,17 @@
 
     <editor labelColumn="skuName" spans="3">
         <input type="text" name="id" expr="dolnid" hidden="true"/>
+        <input type="text" name="warehouseId" expr="wrhsid" hidden="true"/>
+        <input type="text" name="skuNo" expr="skuno" hidden="true"/>
         <input type="number" name="deliverQty" default="1" hidden="true"/>
         <input type="text" name="skuName" expr="skunam" title="@DOLINE.MTRLID" disabled="true"/>
         <input type="number" name="deliveredQty" expr="dlvqty" title="@DOLINE.DLVQTY" format="%#.###" disabled="true"/>
         <input type="number" name="orderQty" expr="ordqty" title="@ROLINE.ORDQTY" format="%#.###" disabled="true"/>
-        <input type="number" name="price" expr="price" title="@DOLINE.PRICE" format="%#.###" disabled="true"/>
         <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" disabled="true"/>
         <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" disabled="true"/>
-        <input type="suggestor" name="serialNo" title="@serial.no" module="dn04" suggestor="stockSerialSuggestor" required="true"/>
+        <input type="suggestor" name="serialNo" title="@serial.no" module="dn04" suggestor="stockSerialSuggestor"
+               input="warehouseId,skuNo"/>
+        <input type="text" mode="textarea" name="serialNo" title="@serial.no" length="1024" spans="2"/>
         <input type="text" mode="textarea" name="remark" title="@DOLINE.REMARK" length="254"/>
         <input type="upload" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" disabled="true"/>
     </editor>

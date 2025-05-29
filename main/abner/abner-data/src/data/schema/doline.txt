@@ -8,7 +8,7 @@ Y	Deliver Line
 N	DOLNID,		ID,			NOT NULL,       ,               		id,				ID,                     主键
 *****************************************************************************************************************************************************
 N	DOHDID,		BIGINT,		NOT NULL,       ,               		doHeadId,		DO Head,				发货单
-K   DOHEAD      - STATUS as DHSTUS alias doHeadStatus
+K   DOHEAD      - WRHSID, STATUS as DHSTUS alias doHeadStatus
 N	DOLNNO,		INT,		NOT NULL,		1,						doLineNo,		RO Line NO,				发货单行号
 N   RDOCID,     BIGINT,                     ,       ,               refDocId,       Ref Doc ID,             参考主键
 *****************************************************************************************************************************************************

@@ -21,7 +21,7 @@ N	RDOCTY,		C(8),		        NOT NULL,		'RPO',					refDocType,		Ref Doc Type,		    
     B   RBR     BorrowReceive       借用收货
     B   RBK     BackReceive         归还入库
     B   RRP     RepairReceive       送修收货
-    B   OTH     Other               其他收货
+    B   ROT     OtherReceive        其他收货
 *****************************************************************************************************************************************************
 N 	SUPLID,		BIGINT,		        ,		        ,					    supplierId,		Supplier,			    供应商
 K 	SUPLMS		- SUPLNM

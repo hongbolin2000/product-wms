@@ -13,6 +13,7 @@
     <statement>
         <table name="binmas"/>
         <param column="binmid" type="=" expr="fieldValue"/>
+        <param column="wrhsid" type="=" expr="warehouseId"/>
         <param column="bincde" expr="searchValue"/>
         <order by="bincde"/>
     </statement>

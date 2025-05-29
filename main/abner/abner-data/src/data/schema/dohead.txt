@@ -21,7 +21,7 @@ N	RDOCTY,		C(4),           NOT NULL,		'DSO',					refDocType,			Ref Doc Type,			�
 	B   DBR     BorrowDeliver   借用出库
 	B   DBK     BackDeliver     归还出库
     B   DRP     RepairDeliver   送修发货
-    B   OTH     Other           其他出库
+    B   DOT     OtherDeliver    其他出库
 *****************************************************************************************************************************************************
 N 	PROJID,		BIGINT,		    ,				,						projectId,			Project,			    项目
 K 	PROJMS		- PROJNM

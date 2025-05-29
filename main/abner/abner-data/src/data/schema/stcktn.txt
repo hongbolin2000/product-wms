@@ -20,7 +20,7 @@ N	RDOCTY,		C(3),               NOT NULL,		'RPO',					refDocType,			Ref Doc Type,
     B   RBR     BorrowReceive       借用收货
     B   RBK     BackReceive         归还入库
     B   RRP     RepairReceive       送修收货
-    B   OTH     Other               其他收货
+    B   ROT     OtherReceive        其他收货
 *****************************************************************************************************************************************************
 	B 	DSO 	SalesDeliver 	    销售发货
 	B   DRT     ReturnDeliver       退货发货
@@ -28,7 +28,7 @@ N	RDOCTY,		C(3),               NOT NULL,		'RPO',					refDocType,			Ref Doc Type,
 	B   DBR     BorrowDeliver       借用出库
 	B   DBK     BackDeliver         归还出库
     B   DRP     RepairDeliver       送修发货
-    B   OTH     Other               其他出库
+    B   DOT     OtherDeliver        其他出库
 N   RDOCNO,     VC(32),             NOT NULL,       '',                     refDocNo,           Ref Doc No,             参考单据
 *****************************************************************************************************************************************************
 N	STIMNO,		VC(64),		        NOT NULL,		,						stockItemNo,	    Stock Item No,		    库存唯一码

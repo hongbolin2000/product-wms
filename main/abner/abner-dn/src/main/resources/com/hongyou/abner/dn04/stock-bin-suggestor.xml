@@ -8,10 +8,14 @@
         库存货位查询建议器
     </description>
 
+    <maxRows>20</maxRows>
+
     <statement>
         <table name="vstckim"/>
         <param column="stkmde" type="=" expr="'BT'"/>
         <param column="onhdqt" type=">" expr="'0'"/>
+        <param column="wrhsid" type="=" expr="warehouseId"/>
+        <param column="skuno" type="=" expr="skuNo"/>
         <param column="bincde" expr="searchValue"/>
         <group by="bincde"/>
         <order by="onHandQty"/>

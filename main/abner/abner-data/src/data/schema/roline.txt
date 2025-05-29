@@ -8,7 +8,7 @@ Y	Receive Line
 N	ROLNID,		ID,			NOT NULL,       ,               		id,					ID,                     主键
 *****************************************************************************************************************************************************
 N	ROHDID,		BIGINT,		NOT NULL,       ,               		roHeadId,			RO Head,				收货单
-K   ROHEAD      - STATUS as RHSTUS alias roHeadStatus
+K   ROHEAD      - WRHSID, STATUS as RHSTUS alias roHeadStatus
 N	ROLNNO,		INT,		NOT NULL,		1,						roLineNo,			RO Line NO,				收货单行号
 N   RDOCID,     BIGINT,                     ,       ,               refDocId,           Ref Doc ID,             参考主键
 *****************************************************************************************************************************************************

@@ -14,6 +14,8 @@
         <table name="vstckim"/>
         <param column="stkmde" type="=" expr="'SR'"/>
         <param column="onhdqt" type=">" expr="'0'"/>
+        <param column="wrhsid" type="=" expr="warehouseId"/>
+        <param column="skuno" type="=" expr="skuNo"/>
         <param column="stimno" expr="searchValue"/>
         <order by="stimno"/>
     </statement>

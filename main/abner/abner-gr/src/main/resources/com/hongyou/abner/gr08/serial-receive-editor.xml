@@ -18,6 +18,7 @@
 
     <editor labelColumn="skuName" spans="3">
         <input type="text" name="id" expr="rolnid" hidden="true"/>
+        <input type="text" name="warehouseId" expr="wrhsid" hidden="true"/>
         <input type="number" name="receiveQty" default="1" hidden="true"/>
         <input type="text" name="skuName" expr="skunam" title="@ROLINE.MTRLID" disabled="true"/>
         <input type="number" name="receivedQty" expr="rcvqty" title="@ROLINE.RCVQTY" format="%#.###" disabled="true"/>
@@ -25,7 +26,8 @@
         <input type="number" name="price" expr="price" title="@POLINE.PRICE" format="%#.###" disabled="true"/>
         <input type="text" name="model" expr="model" title="@MTRLMS.MODEL" disabled="true"/>
         <input type="text" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" disabled="true"/>
-        <input type="suggestor" name="binId" title="@STCKIM.BINMID" module="wb00" suggestor="binSuggestor" required="true"/>
+        <input type="suggestor" name="binId" title="@STCKIM.BINMID" module="wb00" suggestor="binSuggestor"
+               required="true" input="warehouseId"/>
         <input type="text" name="cartonNo" title="@STCKIM.CARTNO" length="32"/>
         <input type="text" name="remark" title="@ROLINE.REMARK" length="254"/>
         <input type="text" mode="textarea" name="serialNo" title="@serial.no" length="1024" required="true" spans="2"/>

@@ -36,7 +36,8 @@
                     filter="@refDocType"/>
             <column type="label" name="projectName" expr="projnm" title="@DOHEAD.PROJID" width="150" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@DOHEAD.CSTMID" width="150" filter="text"/>
-            <column type="tag" name="status" expr="status" title="@DOHEAD.STATUS" width="80" format="@@DOHEAD.STATUS" filter="@status"/>
+            <column type="tag" name="status" expr="status" title="@DOHEAD.STATUS" width="90" format="@@DOHEAD.STATUS" filter="@status"
+                    success="statusValue == '10' or statusValue == '30'"/>
             <column type="label" name="orderDate" expr="ordrdt" title="@DOHEAD.ORDRDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="deliverDate" expr="delvdt" title="@DOHEAD.DELVDT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="deliverBy" expr="delvby" title="@DOHEAD.DELVBY" width="100" filter="text"/>
