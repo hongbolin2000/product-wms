@@ -212,6 +212,7 @@
   import type AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
   import useAppStore from "@/ploutos/layouts/store/app-store.ts";
   import useLayoutStore from "@/ploutos/layouts/store/layout-store.ts";
+  import useGracesStore from '@/ploutos/layouts/store/graces-store.ts';
   import {LayoutMode} from "@/ploutos/layouts/types.ts";
   import FormEditorRow from "@/ploutos/graces/ag01/faces/FormEditorRow.ts";
   import type FormEditor from "@/ploutos/graces/ag01/faces/FormEditor.ts";
@@ -232,6 +233,7 @@
    */
   const appStore = useAppStore();
   const layoutStore = useLayoutStore();
+  const gracesStore = useGracesStore();
 
   /**
    * 是否加载中（提供给drawer和dialog使用）
@@ -311,6 +313,11 @@
      * 修改标题(drawer/dialog)
      */
     (e: 'onChangeTitle', title: string): void;
+
+    /**
+     * 界面定义加载完成
+     */
+    (e: 'onLoaded'): void;
   }>();
 
   /**
@@ -360,6 +367,7 @@
       }
       const response = await http.post("/ag01/editor/loadDefine", data);
       editor.value = response.data;
+      gracesStore.registryEditor(props.module, props.name, editor.value);
 
       // 表单显示行
       const allEditors: FormEditor[] = [];
@@ -422,6 +430,9 @@
       } else {
         emit('onChangeTitle', title);
       }
+
+      // 界面定义加载完成
+      emit('onLoaded');
     } finally {
       spin(false);
     }

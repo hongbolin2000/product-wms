@@ -37,6 +37,7 @@ const ThemeLayout = import('@/ploutos/layouts/ThemeLayout.vue')
  */
 import Graces from '@/ploutos/graces/ag01/index';
 import useLayoutStore from "@/ploutos/layouts/store/layout-store";
+import useGracesStore from "@/ploutos/layouts/store/graces-store.ts";
 
 /**
  * 加载控件
@@ -58,4 +59,5 @@ export {
   ThemeLayout,
   Graces,
   loading,
+  useGracesStore
 };

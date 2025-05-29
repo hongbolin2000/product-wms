@@ -7,6 +7,7 @@
  * @author Berlin
  *******************************************************************************/
 import AbstractWidget from "@/ploutos/graces/ag01/faces/AbstractWidget.ts";
+import type TextWidgetRefProps from "@/ploutos/graces/ag01/faces/widgets/TextWidgetRefProps.ts";
 
 export default class TextWidgetProps extends AbstractWidget {
 
@@ -42,4 +43,14 @@ export default class TextWidgetProps extends AbstractWidget {
 	 * 后缀图标
 	 */
 	suffixIcon: string;
+
+	/**
+	 * 输入框的ref(提供给外部页面操作元素)
+	 */
+	inputRefs: TextWidgetRefProps[];
+
+	/**
+	 * 输入框回车事件(提供给外部页面调用)
+	 */
+	onEnter: (name: string) => void;
 }

@@ -39,4 +39,9 @@ export default class SuggestorWidgetProps extends AbstractWidget {
 	 * 输入参数
 	 */
 	input: string;
+
+	/**
+	 * 数据更新回调函数
+	 */
+	onValueUpdate: (value: string) => void;
 }

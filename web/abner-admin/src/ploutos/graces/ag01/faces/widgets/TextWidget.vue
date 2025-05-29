@@ -9,6 +9,8 @@
       :show-count="widget.maxLength > 0"
       show-password-on="mousedown"
       :input-props="{autocomplete: false}"
+      @keyup.enter="handleEnter"
+      :ref="renderRef"
   >
     <template #prefix v-if="widget.prefix">
       <SvgIcon :name="props.widget.prefixIcon" v-if="props.widget.prefixIcon"/>
@@ -47,10 +49,10 @@
    * 组件加载前
    */
   onBeforeMount(() => {
-    if (props.widget.prefix.startsWith('icon-')) {
+    if (props.widget.prefix && props.widget.prefix.startsWith('icon-')) {
       props.widget.prefixIcon = props.widget.prefix.split('icon-')[1];
     }
-    if (props.widget.suffix.startsWith('icon-')) {
+    if (props.widget.suffix && props.widget.suffix.startsWith('icon-')) {
       props.widget.suffixIcon = props.widget.suffix.split('icon-')[1];
     }
     WidgetUtil.disabled(props.widget);
@@ -62,6 +64,26 @@
   onBeforeUpdate(() => {
     WidgetUtil.disabled(props.widget);
   });
+
+  /**
+   * 生成输入框Ref
+   */
+  function renderRef(el: HTMLInputElement) {
+    if (props.widget.inputRefs) {
+      props.widget.inputRefs.push({
+        name: props.widget.name, el: el
+      });
+    }
+  }
+
+  /**
+   * 回车事件
+   */
+  function handleEnter() {
+    if (props.widget.onEnter) {
+      props.widget.onEnter(props.widget.name);
+    }
+  }
 </script>
 
 <style scoped lang="scss">

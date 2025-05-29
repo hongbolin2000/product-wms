@@ -158,6 +158,9 @@
       const func = new Function( 'row', 'option', 'script', 'return eval(script)');
       func(props.widget.rowData, option, props.widget.script);
     }
+    if (props.widget.onValueUpdate) {
+      props.widget.onValueUpdate(props.widget.rowData[props.widget.name]);
+    }
   }
 
   /**
