@@ -10,6 +10,7 @@ import {ThemeLayout} from '@/ploutos';
  *******************************************************************************/
 import SY01 from '@/views/sy/sy01/routes.ts';
 import SY02 from '@/views/sy/sy02/routes.ts';
+import GR09 from '@/views/gr/gr09/routes.ts';
 
 /**
  * 路由配置
@@ -20,7 +21,8 @@ const index: RouteRecordRaw[] = [
     component: () => ThemeLayout,
     children: [
       ...SY01,
-      ...SY02
+      ...SY02,
+      ...GR09
     ]
   }
 ]

@@ -124,6 +124,8 @@ insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 5,
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 6, 'gr07', '收货单管理', 'batch.receive', '批次收货');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 7, 'gr07', '收货单管理', 'serial.receive', '序列号收货');
 
+insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'gr09', '生产记录管理', 'add', '生产录入');
+
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 1, 'dn01', '销售单管理', 'browse', '查看');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 2, 'dn01', '销售单管理', 'add', '创建销售单');
 insert into pmsnms(cmpnid, sortng, pmsncd, remark, actcde, actnam) values (1, 3, 'dn01', '销售单管理', 'update', '修改');

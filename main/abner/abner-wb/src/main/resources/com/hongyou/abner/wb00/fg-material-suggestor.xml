@@ -5,7 +5,7 @@
     </developer>
 
     <description>
-        原料查询建议器
+        成品物料查询建议器
     </description>
 
     <maxRows>20</maxRows>
@@ -14,7 +14,7 @@
         <table name="vmtrlms"/>
         <param column="cmpnid" type="=" expr="_companyId"/>
         <param column="mtrlid" type="=" expr="fieldValue"/>
-        <param column="mtrctg" type="=" expr="'RAW'"/>
+        <param column="mtrctg" type="=" expr="'FG'"/>
         <param column="skuno" expr="searchValue"/>
         <param condition="or" column="skunam" expr="searchValue"/>
         <order by="skuno"/>
@@ -24,7 +24,6 @@
         <field name="value" expr="mtrlid"/>
         <field name="label" expr="skunam"/>
         <field name="model" expr="model"/>
-        <field name="purchasePrice" expr="pcsprc"/>
         <field name="materialType" expr="mttycd"/>
         <field name="materialImage" expr="mtrimg"/>
     </fields>

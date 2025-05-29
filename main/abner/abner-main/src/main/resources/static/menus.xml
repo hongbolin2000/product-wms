@@ -49,6 +49,9 @@
             <menu id="wr02" permission="wr02" url="/graces/grider/wr02/stockItemList" label="库存明细报表"/>
             <menu id="wr03" permission="wr03" url="/graces/grider/wr03/stockTransactionList" label="库存日志报表"/>
         </menu>
+        <menu id="mo" url="/mo" label="生产管理" icon="report">
+            <menu id="gr09" permission="gr09" url="/gr09/add" label="生产录入"/>
+        </menu>
         <menu id="ba05Report" permission="ba05Report"  url="/graces/editor/ba05/workingLogEdit" label="填报工作日志" icon="log"/>
     </family>
 </menus>

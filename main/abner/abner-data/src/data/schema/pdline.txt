@@ -10,8 +10,8 @@ N	PDLNID,		ID,			NOT NULL,       ,               		id,					ID,                  
 N	PDHDID,		BIGINT,			NOT NULL,       ,               	pdHeadId,			PD Head,                生产记录
 K   PDHEAD      - FGSRNO
 *****************************************************************************************************************************************************
-N   RWSRNO,     VC(64),     NOT NULL,       ,                       rawSerialNo,        RAW Serial No,          原材料序列号
-N 	MTRLID,		BIGINT,		NOT NULL,		,						materialId,	        Material,		        原材料
+N   RWSRNO,     VC(64),     NOT NULL,       ,                       rawSerialNo,        RAW Serial No,          原料序列号
+N 	MTRLID,		BIGINT,		NOT NULL,		,						materialId,	        Material,		        原料
 K 	MTRLMS				    - SKUNO, SKUNAM, MODEL, PCSPRC, MTRIMG
 K 	MTRLMS:MTRTYP 		    - MTTYP1, MTTYCD
 *****************************************************************************************************************************************************

@@ -10,8 +10,8 @@ N	PDHDID,		ID,			NOT NULL,       ,               		id,					ID,                  
 N	CMPNID,		BIGINT,		NOT NULL,		,						companyId,		    Company,				公司
 N   RDOCNO,     VC(32),     NOT NULL,       '',                     refDocNo,           Ref Doc No,             参考单据
 *****************************************************************************************************************************************************
-N   FGSRNO,     VC(64),     NOT NULL,       ,                       fgSerialNo,         FG Serial No,           成品序列号
-N	PDMTID,		BIGINT,		NOT NULL,       ,               		productMaterial,    Product Material,       成品物料
+N   FGSRNO,     VC(64),     NOT NULL,       ,                       fgSerialNo,         FG Serial No,           生产序列号
+N	PDMTID,		BIGINT,		NOT NULL,       ,               		productMaterialId,  Product Material,       生产物料
 K 	MTRLMS				    - SKUNO, SKUNAM, MODEL, PCSPRC, MTRIMG
 K 	MTRLMS:MTRTYP 		    - MTTYP1, MTTYCD
 *****************************************************************************************************************************************************

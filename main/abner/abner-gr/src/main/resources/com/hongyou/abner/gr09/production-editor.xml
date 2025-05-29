@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        生产录入
+    </description>
+
+    <atitle>@atitle</atitle>
+    <etitle>@etitle</etitle>
+
+    <statement>
+        <table name="pdhead"/>
+        <param column="pdhdid" type="=" expr="id"/>
+    </statement>
+
+    <editor name="production.info" title="@editor.title" labelColumn="fgSerialNo">
+        <input type="text" name="id" expr="pdhdid" hidden="true"/>
+        <input type="suggestor" name="productMaterialId" expr="pdmtid" title="@PDHEAD.PDMTID" module="wb00"
+               suggestor="fgMaterialSuggestor" required="true">
+            <script>
+                row.skuName = option.label;
+                row.model = option.model;
+                row.materialType = option.materialType;
+                row.materialImage = option.materialImage;
+            </script>
+        </input>
+        <input type="text" name="fgSerialNo" expr="fgsrno" title="@PDHEAD.FGSRNO" required="true" length="64"/>
+        <input type="text" name="refDocNo" expr="rdocno" title="@PDHEAD.RDOCNO" length="32"/>
+        <input type="suggestor" name="supplierId" expr="suplid" title="@PDHEAD.SUPLID" module="ba00" suggestor="supplierSuggestor"/>
+        <input type="suggestor" name="projectId" expr="projid" title="@PDHEAD.PROJID" module="ba00" suggestor="projectSuggestor"/>
+        <input type="date" name="produceDate" expr="prddat" title="@PDHEAD.PRDDAT" format="!yyyy-MM-dd" required="true"
+               default="current"/>
+        <input type="text" name="inspector" expr="isptor" title="@PDHEAD.ISPTOR" required="true" length="32"/>
+        <input type="text" name="remark" expr="remark" title="@PDHEAD.REMARK" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="atitle">生产录入</item>
+            <item key="etitle">修改生产记录</item>
+            <item key="editor.title">生产信息</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="atitle">Production Input</item>
+            <item key="etitle">Modify Production Record</item>
+            <item key="editor.title">Production Record</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

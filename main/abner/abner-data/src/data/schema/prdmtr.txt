@@ -7,9 +7,9 @@ Y	Production Raw Materials
 ====1===========2===========3===============4=======================5===================6=======================7================================
 N	PRDMID,		ID,			NOT NULL,       ,               		id,				    ID,                    	主键
 *************************************************************************************************************************************************
-N	PDMTID,		BIGINT,		NOT NULL,       ,               		productMaterial,    Product Material,       成品物料
+N	PDMTID,		BIGINT,		NOT NULL,       ,               		productMaterialId,  Product Material,       生产物料
 *************************************************************************************************************************************************
-N 	MTRLID,		BIGINT,		NOT NULL,		,						materialId,	        Material,		        原材料
+N 	MTRLID,		BIGINT,		NOT NULL,		,						materialId,	        Material,		        原料
 K 	PRDMTR02				- SKUNO, SKUNAM, MODEL, PCSPRC, MTRIMG
 K 	PRDMTR02:MTRTYP 		- MTTYP1, MTTYCD
 N   QUANTY,     N(24.3),    NOT NULL,       0,                      quantity,           Quantity,               需求数量
