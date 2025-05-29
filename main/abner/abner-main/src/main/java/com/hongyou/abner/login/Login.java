@@ -79,9 +79,9 @@ public class Login extends UserDataProvider {
                     platformSubtitle(cmpnms.getPfstil()).
                     platformSimpleTitle(cmpnms.getPfsptl()).
                     captchaVerify(Cmpnms.CAPVRF.Open.equals(cmpnms.getCapvrf())).
-                    autoLogin(Cmpnms.AUTLGN.Open.equals(cmpnms.getCapvrf())).
-                    rememberAccount(Cmpnms.RMBUSN.Open.equals(cmpnms.getCapvrf())).
-                    rememberPassword(Cmpnms.RMBPSW.Open.equals(cmpnms.getCapvrf())).
+                    autoLogin(Cmpnms.AUTLGN.Open.equals(cmpnms.getAutlgn())).
+                    rememberAccount(Cmpnms.RMBUSN.Open.equals(cmpnms.getRmbusn())).
+                    rememberPassword(Cmpnms.RMBPSW.Open.equals(cmpnms.getRmbpsw())).
                     nikeName(nikeName).
                     avatar(avatar).
                     build();
