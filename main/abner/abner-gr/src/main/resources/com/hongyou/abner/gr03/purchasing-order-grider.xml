@@ -74,9 +74,9 @@
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
-            <column type="label" name="orderQty" expr="ordqty" title="@POLINE.ORDQTY" width="100" format="%#.###"/>
-            <column type="label" name="receivedQty" expr="rcvqty" title="@POLINE.RCVQTY" width="120" format="%#.###"/>
-            <column type="label" name="receivedCount" expr="rcvcnt" title="@POLINE.RCVCNT" width="120"/>
+            <column type="label" name="orderQty" expr="ordqty" title="@POLINE.ORDQTY" width="100" format="%#.###" summary="true"/>
+            <column type="label" name="receivedQty" expr="rcvqty" title="@POLINE.RCVQTY" width="120" format="%#.###" summary="true"/>
+            <column type="label" name="receivedCount" expr="rcvcnt" title="@POLINE.RCVCNT" width="120" summary="true"/>
             <column type="label" name="price" expr="price" title="@POLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@POLINE.STATUS" width="90" format="@@POLINE.STATUS"
                     success="statusValue == '20'"/>

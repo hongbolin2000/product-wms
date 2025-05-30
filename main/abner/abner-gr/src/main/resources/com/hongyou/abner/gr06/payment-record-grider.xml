@@ -22,7 +22,7 @@
             <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="100" filter="text"/>
             <column type="label" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" width="120" filter="text"/>
             <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="200" filter="text"/>
-            <column type="label" name="paymentAmount" expr="payamt" title="@PYHEAD.PAYAMT" width="100" format="%#.###"/>
+            <column type="label" name="paymentAmount" expr="payamt" title="@PYHEAD.PAYAMT" width="100" format="%#.###" summary="true"/>
             <column type="label" name="invoiceNo" expr="invcno" title="@PYHEAD.INVCNO" width="120" filter="text"/>
             <column type="label" name="entryBy" expr="entrby" title="@PYHEAD.ENTRBY" width="100" filter="text"/>
             <column type="label" name="entryTime" expr="entrtm" title="@PYHEAD.ENTRTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
@@ -40,7 +40,7 @@
         <columns>
             <column type="file" name="invoiceImage" expr="invcim" title="@PYLINE.INVCIM" width="110"/>
             <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
-            <column type="label" name="paymentAmount" expr="payamt" title="@PYLINE.PAYAMT" width="100" format="%#.###"/>
+            <column type="label" name="paymentAmount" expr="payamt" title="@PYLINE.PAYAMT" width="100" format="%#.###" summary="true"/>
             <column type="label" name="invoiceNo" expr="invcno" title="@PYLINE.INVCNO" width="100" filter="text"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>

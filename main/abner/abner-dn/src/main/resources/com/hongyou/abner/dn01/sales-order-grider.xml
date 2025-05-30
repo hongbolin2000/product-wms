@@ -77,7 +77,7 @@
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
-            <column type="label" name="orderQty" expr="ordqty" title="@DOLINE.ORDQTY" width="100" format="%#.###"/>
+            <column type="label" name="orderQty" expr="ordqty" title="@DOLINE.ORDQTY" width="100" format="%#.###" summary="true"/>
             <column type="label" name="price" expr="price" title="@SOLINE.PRICE" width="80" format="%#.###"/>
             <column type="tag" name="status" expr="status" title="@SOLINE.STATUS" width="90" format="@@SOLINE.STATUS"
                     success="statusValue == '20'"/>

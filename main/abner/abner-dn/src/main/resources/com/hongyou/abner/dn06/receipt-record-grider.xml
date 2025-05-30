@@ -22,7 +22,7 @@
             <column type="label" name="soHeadNo" expr="sohdno" title="@SOHEAD.SOHDNO" width="100" filter="text"/>
             <column type="label" name="contractNo" expr="soctno" title="@SOHEAD.SOCTNO" width="120" filter="text"/>
             <column type="label" name="customerName" expr="cstmnm" title="@SOHEAD.CSTMID" width="200" filter="text"/>
-            <column type="label" name="receiptAmount" expr="rcpamt" title="@RPHEAD.RCPAMT" width="100" format="%#.###"/>
+            <column type="label" name="receiptAmount" expr="rcpamt" title="@RPHEAD.RCPAMT" width="100" format="%#.###" summary="true"/>
             <column type="label" name="invoiceNo" expr="invcno" title="@RPHEAD.INVCNO" width="120" filter="text"/>
             <column type="label" name="entryBy" expr="entrby" title="@RPHEAD.ENTRBY" width="100" filter="text"/>
             <column type="label" name="entryTime" expr="entrtm" title="@RPHEAD.ENTRTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
@@ -40,7 +40,7 @@
         <columns>
             <column type="file" name="invoiceImage" expr="invcim" title="@RPLINE.INVCIM" width="110"/>
             <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
-            <column type="label" name="receiptAmount" expr="rcpamt" title="@RPLINE.RCPAMT" width="100" format="%#.###"/>
+            <column type="label" name="receiptAmount" expr="rcpamt" title="@RPLINE.RCPAMT" width="100" format="%#.###" summary="true"/>
             <column type="label" name="invoiceNo" expr="invcno" title="@RPLINE.INVCNO" width="100" filter="text"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>

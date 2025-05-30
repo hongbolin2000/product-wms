@@ -108,7 +108,6 @@ import {
   import ColumnFactories from "@/ploutos/graces/ag01/faces/ColumnFactories.ts";
   import type AbstractColumn from "@/ploutos/graces/ag01/faces/AbstractColumn.ts";
   import HeaderColumn from "@/ploutos/graces/ag01/components/HeaderColumn.vue";
-  import LabelColumnFactory from "@/ploutos/graces/ag01/faces/columns/LabelColumnFactory.ts";
   import type LinkColumnProps from "@/ploutos/graces/ag01/faces/columns/LinkColumnProps.ts";
   import SelectionColumnFactory from "@/ploutos/graces/ag01/faces/columns/SelectionColumnFactory.ts";
   import type SelectionColumnProps from "@/ploutos/graces/ag01/faces/columns/SelectionColumnProps.ts";
@@ -340,8 +339,10 @@ import {
   function rowProps(rowData: object, rowIndex: number): HTMLAttributes {
     return {
       onDblclick: () => {
-        doubleRowIndex.value = rowIndex;
-        emit('onDoubleClick', rowData);
+        if (rowIndex != -1) {
+          doubleRowIndex.value = rowIndex;
+          emit('onDoubleClick', rowData);
+        }
       },
       onContextmenu: (e: MouseEvent) => {
         if (contextMenuOptions.value.length <= 0) {
