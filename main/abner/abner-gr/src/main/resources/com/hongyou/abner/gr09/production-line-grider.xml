@@ -19,6 +19,7 @@
         </statement>
 
         <columns>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG"/>
             <column type="label" name="fgSerialNo" expr="fgsrno" title="@PDHEAD.FGSRNO" width="120" filter="text"/>
             <column type="label" name="rawSerialNo" expr="rwsrno" title="@PDLINE.RWSRNO" width="100" filter="text"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>

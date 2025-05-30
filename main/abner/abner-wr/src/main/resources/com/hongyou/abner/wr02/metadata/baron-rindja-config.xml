@@ -3,4 +3,7 @@
 
     <!-- 库存明细报表 -->
     <generic-grider-descriptor name="stockItemList">stock-item-grider.xml</generic-grider-descriptor>
+
+    <!-- 库存调整 -->
+    <generic-editor-descriptor name="stockItemEdit">stock-item-editor.xml</generic-editor-descriptor>
 </baron-rindja-config>

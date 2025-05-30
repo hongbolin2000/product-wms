@@ -157,7 +157,6 @@ public class GR08 extends UserDataProvider {
                 stcktn.wrhsid(rohead.getWrhsid()).
                         trntyp(Stcktn.TRNTYP.Receive).
                         rdocty(rohead.getRdocty()).
-                        rdocno(rohead.getRdocno()).
                         stimno(stckim.getStimno()).
                         mtrlid(roline.getMtrlid()).
                         price(roline.getPrice()).

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rindja-generic-editor version="1.0">
+    <developer>
+        <name>Berlin</name>
+    </developer>
+
+    <description>
+        库存调整
+    </description>
+
+    <etitle>@etitle</etitle>
+    <url>/wr02/save</url>
+
+    <statement>
+        <table name="stckim"/>
+        <param column="stimid" type="=" expr="id"/>
+    </statement>
+
+    <editor labelColumn="stockItemNo" spans="3">
+        <input type="text" name="id" expr="stimid" hidden="true"/>
+        <input type="text" name="warehouseId" expr="wrhsid" hidden="true"/>
+        <input type="text" name="stockItemNo" expr="stimno" title="@STCKIM.STIMNO" required="true" length="64" disabled="true"/>
+        <input type="suggestor" name="binId" expr="binmid" title="@STCKIM.BINMID" module="wb00" suggestor="binSuggestor"
+               required="true" input="warehouseId"/>
+        <input type="text" name="cartonNo" expr="cartno" title="@STCKIM.CARTNO" length="32"/>
+        <input type="number" name="onHandQty" expr="onhdqt" title="@STCKIM.ONHDQT" format="%#.###" min="0"
+               default="0" scale="3" required="true"/>
+        <input type="text" mode="textarea" name="remark" title="@reason" required="true" length="254"/>
+    </editor>
+
+    <intl>
+        <lang code="zh-CN">
+            <item key="etitle">库存调整</item>
+            <item key="editor.title">库存信息</item>
+            <item key="reason">调整原因</item>
+        </lang>
+
+        <lang code="en-US">
+            <item key="etitle">Modify Stock</item>
+            <item key="editor.title">Stock Info</item>
+            <item key="reason">Modify Reason</item>
+        </lang>
+    </intl>
+</rindja-generic-editor>

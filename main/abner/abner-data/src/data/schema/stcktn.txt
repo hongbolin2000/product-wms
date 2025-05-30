@@ -13,7 +13,9 @@ K 	WRHSMS 		- WRHSNM
 N	TRNTYP,		C(2),		        NOT NULL,		'RC',					transactType,		Transact Type,			事务类型
     B   RC      Receive 	        收货
     B   DL      Deliver             发货
+    B   ST      Stock               库存调整
 N	RDOCTY,		C(3),               NOT NULL,		'RPO',					refDocType,			Ref Doc Type,			单据类型
+    B   NML     Other               其他
     B   RPO     PurchaseReceive 	采购收货
     B   RMO     ProduceReceive      生产入库
     B   RRT     ReturnReceive       退货收货
@@ -29,7 +31,6 @@ N	RDOCTY,		C(3),               NOT NULL,		'RPO',					refDocType,			Ref Doc Type,
 	B   DBK     BackDeliver         归还出库
     B   DRP     RepairDeliver       送修发货
     B   DOT     OtherDeliver        其他出库
-N   RDOCNO,     VC(32),             NOT NULL,       '',                     refDocNo,           Ref Doc No,             参考单据
 *****************************************************************************************************************************************************
 N	STIMNO,		VC(64),		        NOT NULL,		,						stockItemNo,	    Stock Item No,		    库存唯一码
 N	MTRLID,		BIGINT,		        NOT NULL,       ,               		materialId,			Material,               物料

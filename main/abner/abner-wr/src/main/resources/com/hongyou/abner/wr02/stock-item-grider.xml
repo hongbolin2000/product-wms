@@ -45,16 +45,20 @@
             <column type="label" name="binCode" expr="bincde" title="@STCKIM.BINMID" width="100" filter="text"/>
             <column type="label" name="cartonNo" expr="cartno" title="@STCKIM.CARTNO" width="100" filter="text"/>
             <column type="label" name="remark" expr="remark" title="@STCKIM.REMARK" width="100" filter="text"/>
+            <column type="link" mode="dialog" name="edit" icon="edit" expr="stimid" title="@edit" width="120"
+                    link="/graces/editor/wr02/stockItemEdit" action="update"/>
         </columns>
     </datatable>
 
     <intl>
         <lang code="zh-CN">
             <item key="table.title">库存明细</item>
+            <item key="edit">库存调整</item>
         </lang>
 
         <lang code="en-US">
             <item key="table.title">Stock Item</item>
+            <item key="edit">Stock Modify</item>
         </lang>
     </intl>
 </rindja-generic-grider>

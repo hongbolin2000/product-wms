@@ -165,7 +165,6 @@ public class DN04 extends UserDataProvider {
                 stcktn.wrhsid(dohead.getWrhsid()).
                         trntyp(Stcktn.TRNTYP.Deliver).
                         rdocty(dohead.getRdocty()).
-                        rdocno(dohead.getRdocno()).
                         stimno(stckim.getStimno()).
                         mtrlid(doline.getMtrlid()).
                         price(doline.getPrice()).
