@@ -25,7 +25,7 @@
         </statement>
 
         <columns>
-            <column type="file" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG" width="110" align="center"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRTYP.MTRIMG"/>
             <column type="tag" name="category" expr="mtrctg" title="@MTRTYP.MTRCTG" width="100" format="@@MTRTYP.MTRCTG"
                     filter="@category"/>
             <column type="label" name="materialType1" expr="mttyp1" title="@MTRTYP.MTTYP1" width="100" filter="text"/>

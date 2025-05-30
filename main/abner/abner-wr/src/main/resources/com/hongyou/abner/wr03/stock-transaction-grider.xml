@@ -21,7 +21,7 @@
         </statement>
 
         <columns>
-            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG"/>
             <column type="label" name="operateTime" expr="oprttm" title="@STCKTN.OPRTTM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>
             <column type="label" name="operateBy" expr="oprtby" title="@STCKTN.OPRTBY" width="80" filter="text"/>
             <column type="label" name="warehouseName" expr="wrhsnm" title="@STCKTN.WRHSID" width="100" filter="text"/>

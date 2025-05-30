@@ -18,7 +18,7 @@
 
         <columns>
             <column type="label" name="pyHeadId" expr="pyhdid" hidden="true"/>
-            <column type="file" name="invoiceImage" expr="invcim" title="@PYHEAD.INVCIM" width="110"/>
+            <column type="file" name="invoiceImage" expr="invcim" title="@PYHEAD.INVCIM"/>
             <column type="label" name="poHeadNo" expr="pohdno" title="@POHEAD.POHDNO" width="100" filter="text"/>
             <column type="label" name="contractNo" expr="poctno" title="@POHEAD.POCTNO" width="120" filter="text"/>
             <column type="label" name="supplierName" expr="suplnm" title="@POHEAD.SUPLID" width="200" filter="text"/>
@@ -38,8 +38,8 @@
         </statement>
 
         <columns>
-            <column type="file" name="invoiceImage" expr="invcim" title="@PYLINE.INVCIM" width="110"/>
-            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG" width="110"/>
+            <column type="file" name="invoiceImage" expr="invcim" title="@PYLINE.INVCIM"/>
+            <column type="file" name="materialImage" expr="mtrimg" title="@MTRLMS.MTRIMG"/>
             <column type="label" name="paymentAmount" expr="payamt" title="@PYLINE.PAYAMT" width="100" format="%#.###" summary="true"/>
             <column type="label" name="invoiceNo" expr="invcno" title="@PYLINE.INVCNO" width="100" filter="text"/>
             <column type="label" name="skuNo" expr="skuno" title="@MTRLMS.SKUNO" width="100" filter="text"/>

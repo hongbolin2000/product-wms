@@ -36,7 +36,7 @@
         </statement>
 
         <columns>
-            <column type="file" name="workingImage" expr="wrkimg" title="@WKLGLN.WRKIMG" width="110"/>
+            <column type="file" name="workingImage" expr="wrkimg" title="@WKLGLN.WRKIMG"/>
             <column type="label" name="startTime" expr="strtim" title="@WKLGLN.STRTIM" width="100" format="!HH:mm:ss"/>
             <column type="label" name="endTime" expr="endtim" title="@WKLGLN.ENDTIM" width="100" format="!HH:mm:ss"/>
             <column type="label" name="workingContent" expr="wkcont" title="@WKLGLN.WKCONT" filter="text"/>
