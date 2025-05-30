@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-  import {computed, type PropType} from 'vue'
+  import {computed, onUpdated, onMounted, type PropType} from 'vue'
   /********************************************************************************
    * tag标签列
    *
@@ -33,19 +33,50 @@
   });
 
   /**
-   * 组件加载
+   * 文件列表
    */
   const fileList = computed(() => {
     const value: string = props.column.rowData[props.column.name];
-    const fileNames = value.split("/");
 
     return [{
       id: value,
-      name: fileNames[fileNames.length - 1],
+      name: value,
       url: http.basePath + '/doc/image?file=' + value,
       status: 'finished'
     }]
   });
+
+  /**
+   * 组件加载完成
+   */
+  onMounted(() => {
+    changeImageSize();
+  });
+
+  /**
+   * 组件更新
+   */
+  onUpdated(() => {
+    changeImageSize();
+  });
+
+  /**
+   * 更改图片填充方式
+   */
+  function changeImageSize() {
+    const value: string = props.column.rowData[props.column.name];
+    if (!value) {
+      return;
+    }
+
+    // 暂时先手动更改style，后续看能不能找到其他方法设置元素的style
+    const elements = document.getElementsByTagName('img');
+    setTimeout(() => {
+      for (let i = 0; i < elements.length; i++) {
+        elements.item(i).style.objectFit = 'contain';
+      }
+    }, 50);
+  }
 
   /**
    * 下载文件
