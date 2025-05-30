@@ -28,11 +28,11 @@
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
-            <column type="label" name="onHandQty" expr="onhdqt" title="@STCKIM.ONHDQT" width="100" format="%#.###"/>
-            <column type="label" name="price" expr="price" title="@STCKIM.PRICE" width="100" format="%#.###"/>
+            <column type="label" name="onHandQty" expr="onhdqt" title="@STCKIM.ONHDQT" width="100" format="%#.###" summary="true"/>
+            <column type="label" name="price" expr="price" title="@STCKIM.PRICE" width="100" format="%#.###" summary="true"/>
             <column type="tag" name="refDocType" expr="rdocty" title="@STCKIM.RDOCTY" width="100" format="@@STCKIM.RDOCTY"
                     filter="@refDocType"/>
-            <column type="label" name="receiveQty" expr="rcvqty" title="@STCKIM.RCVQTY" width="100" format="%#.###"/>
+            <column type="label" name="receiveQty" expr="rcvqty" title="@STCKIM.RCVQTY" width="100" format="%#.###" summary="true"/>
             <column type="label" name="roHeadNo" expr="rvodno" title="@STCKIM.RVODNO" width="100" filter="text"/>
             <column type="label" name="receivedDate" expr="rcvdat" title="@STCKIM.RCVDAT" width="100" format="!yyyy-MM-dd" filter="date"/>
             <column type="label" name="receivedTime" expr="rcvtim" title="@STCKIM.RCVTIM" width="150" format="!yyyy-MM-dd HH:mm:ss"/>

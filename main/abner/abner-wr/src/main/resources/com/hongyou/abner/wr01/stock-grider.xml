@@ -22,7 +22,7 @@
             <column type="label" name="skuName" expr="skunam" title="@MTRLMS.SKUNAM" width="120" filter="text"/>
             <column type="label" name="model" expr="model" title="@MTRLMS.MODEL" width="110" filter="text"/>
             <column type="label" name="materialType" expr="mttycd" title="@MTRTYP.MTTYCD" width="130" filter="text"/>
-            <column type="label" name="onhandQty" expr="onhdqt" title="@STCKMS.ONHDQT" width="100" format="%#.###"/>
+            <column type="label" name="onhandQty" expr="onhdqt" title="@STCKMS.ONHDQT" width="100" format="%#.###" summary="true"/>
             <column type="link" name="item" expr="stckid" title="库存明细" width="80" link="/graces/grider/wr02/stockItemList"
                     format="'?stockId=' + stckid"/>
         </columns>

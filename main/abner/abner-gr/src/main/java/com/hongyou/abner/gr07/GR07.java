@@ -181,7 +181,7 @@ public class GR07 extends UserDataProvider {
                         enumsDisplay(rolineDisplays).
                         build();
                 this.eventLogManager.critical(event);
-                this.db().rqline().delete(rolnid);
+                this.db().roline().delete(rolnid);
             }
 
             return ResponseEntry.SUCCESS;

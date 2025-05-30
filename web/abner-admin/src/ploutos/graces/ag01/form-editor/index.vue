@@ -542,7 +542,7 @@
         // 刷新上层界面数据
         if (props.isDialog || props.isDrawer) {
           emit('onRefresh');
-        } else {
+        } else if (route.query.from) {
           const func = new Function( 'name', 'return eval(name).call()');
           func(route.query.from + 'Refresh');
         }

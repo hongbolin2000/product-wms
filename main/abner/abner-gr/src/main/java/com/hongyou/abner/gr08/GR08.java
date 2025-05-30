@@ -107,6 +107,12 @@ public class GR08 extends UserDataProvider {
                         oprttm(currentTime);
                 this.db().roline().save(roline);
 
+                // 更新库存主信息
+                stckms.onhdqt(stckms.getOnhdqt().add(pojo.getReceiveQty())).
+                        oprtby(operatorBy).
+                        oprttm(currentTime);
+                this.db().stckms().save(stckms);
+
                 // 保存收货单项
                 Roitem roitem = new Roitem();
                 roitem.rolnid(roline.getRolnid()).
@@ -160,6 +166,7 @@ public class GR08 extends UserDataProvider {
                         bincde(binmas.getBincde()).
                         cartno(pojo.getCartonNo()).
                         nohdqt(pojo.getReceiveQty()).
+                        remark(pojo.getRemark()).
                         oprtby(operatorBy).
                         oprttm(currentTime);
                 this.db().stcktn().save(stcktn);
@@ -183,12 +190,6 @@ public class GR08 extends UserDataProvider {
             rohead.oprtby(operatorBy).
                     oprttm(currentTime);
             this.db().rohead().save(rohead);
-
-            // 更新库存主信息
-            stckms.onhdqt(stckms.getOnhdqt().add(pojo.getReceiveQty())).
-                    oprtby(operatorBy).
-                    oprttm(currentTime);
-            this.db().stckms().save(stckms);
 
             return ResponseEntry.SUCCESS;
         } catch (Exception e) {
